@@ -1,0 +1,267 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<title>Solicitud de cotización</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,700&amp;family=Manrope:wght@500;600;700;800&amp;family=Playfair+Display:ital,wght@0,600;0,700;0,900;1,400&amp;display=swap">
+<style>
+body{margin:0}
+*{box-sizing:border-box}
+a{color:#163F32}a:hover{color:#215645}
+@keyframes fadeUp{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}
+@keyframes pop{0%{transform:scale(.6);opacity:0}60%{transform:scale(1.08);opacity:1}100%{transform:scale(1)}}
+@keyframes draw{from{stroke-dashoffset:30}to{stroke-dashoffset:0}}
+.in{animation:fadeUp .55s cubic-bezier(.16,1,.3,1) both}
+.pop{animation:pop .6s cubic-bezier(.16,1,.3,1) both}
+.draw{stroke-dasharray:30;animation:draw .6s .25s cubic-bezier(.16,1,.3,1) both}
+.btn{transition:transform .2s cubic-bezier(.16,1,.3,1),background .2s,box-shadow .2s;cursor:pointer;text-decoration:none}
+.btn:hover{transform:translateY(-1px)}
+.btn-gold:hover{background:#B38E57 !important}
+.btn-olive:hover{background:#215645 !important}
+.fld{transition:border-color .2s,box-shadow .2s}
+.fld:focus{border-color:#C6A16C !important;box-shadow:0 0 0 3px rgba(198,161,108,.22);outline:none}
+.row-item{transition:background .2s}
+.row-item:hover{background:#FAF8F3}
+.step{cursor:pointer;transition:background .2s}
+.step:hover{background:#EBF2EE !important}
+@media (max-width:640px){.pad{padding-left:16px !important;padding-right:16px !important}.g2{grid-template-columns:minmax(0,1fr) !important}.ttl{font-size:30px !important}}
+@media (prefers-reduced-motion: reduce){*{animation:none !important;transition:none !important}}
+</style>
+</helmet>
+<div style="min-height: 100vh; background: #FAF8F3; color: #1A2822; font-family: 'DM Sans', system-ui, sans-serif; font-size: 16px; line-height: 1.6">
+
+  <header class="pad" style="background: #FFFFFF; border-bottom: 1px solid #E5ECE8; padding: 0 32px">
+    <div style="max-width: 1180px; margin: 0 auto; min-height: 76px; display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 12px 24px; padding: 12px 0">
+      <a href="Main.dc.html" aria-label="Distribuidora Olivo, inicio" style="display: flex; align-items: center; gap: 14px; text-decoration: none">
+        <span style="width: 44px; height: 44px; border-radius: 12px; background: #163F32; border: 1px solid rgba(198,161,108,0.4); display: flex; align-items: center; justify-content: center; color: #C6A16C">
+          <svg aria-hidden="true" width="24" height="24" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 17.93c-3.95-.49-7-3.850-7-7.93 0-.62.08-1.21.21-1.79L9 15v1c0 1.1.9 2 2 2v1.93zm6.9-2.54c-.26-.81-1-1.39-1.9-1.39h-1v-3c0-.55-.45-1-1-1H8v-2h2c.55 0 1-.45 1-1V7h2c1.1 0 2-.9 2-2v-.41c2.93 1.19 5 4.06 5 7.41 0 2.08-.8 3.97-2.1 5.39z"></path></svg>
+        </span>
+        <span style="display: flex; flex-direction: column; gap: 4px">
+          <span style="display: flex; align-items: center; gap: 6px; line-height: 1">
+            <span style="font-family: 'Playfair Display', Georgia, serif; font-weight: 900; font-size: 24px; letter-spacing: 0.06em; color: #163F32">OLIVO</span>
+            <span style="font-family: Manrope, sans-serif; font-size: 10px; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; padding: 2px 8px; border-radius: 999px; background: #F7F1E6; color: #8A6A3A; border: 1px solid rgba(198,161,108,0.4)">Signature</span>
+          </span>
+          <span style="font-family: Manrope, sans-serif; font-size: 9.5px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: #566760">Distribuidora de Alimentos y Productos</span>
+        </span>
+      </a>
+      <a href="Categoria.dc.html" style="display: inline-flex; gap: 6px; align-items: center; font-family: Manrope, sans-serif; font-weight: 700; font-size: 14px; color: #163F32; text-decoration: none; min-height: 44px"><svg aria-hidden="true" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M19 12H5M12 19l-7-7 7-7"></path></svg>Seguir agregando productos</a>
+    </div>
+  </header>
+
+  <main class="pad" style="padding: 40px 32px 96px">
+    <div style="max-width: 1180px; margin: 0 auto; display: flex; flex-direction: column; gap: 28px">
+
+      <ol aria-label="Progreso de la solicitud" style="margin: 0; padding: 0; list-style: none; display: flex; flex-wrap: wrap; gap: 10px; align-items: center">
+        <sc-for list="{{steps}}" as="s" hint-placeholder-count="3">
+          <li style="display: flex; align-items: center; gap: 10px">
+            <span aria-current="{{s.current}}" style="{{s.dotStyle}}">{{s.mark}}</span>
+            <span style="{{s.labelStyle}}">{{s.label}}</span>
+            <span aria-hidden="true" style="{{s.lineStyle}}"></span>
+          </li>
+        </sc-for>
+      </ol>
+
+      <sc-if value="{{isList}}" hint-placeholder-val="{{ true }}">
+        <div class="in" style="display: flex; flex-wrap: wrap; gap: 28px; align-items: flex-start">
+          <section aria-labelledby="t1" style="flex: 999 1 560px; min-width: 0; background: #FFFFFF; border: 1px solid #E5ECE8; border-radius: 16px; overflow: hidden">
+            <div style="padding: 24px 24px 16px; display: flex; flex-wrap: wrap; justify-content: space-between; gap: 8px; align-items: flex-end">
+              <div>
+                <span style="font-family: Manrope, sans-serif; font-size: 11px; font-weight: 800; letter-spacing: 0.14em; text-transform: uppercase; color: #8A6A3A">Paso 1 de 2</span>
+                <h1 id="t1" class="ttl" style="margin: 2px 0 0; font-family: 'Playfair Display', Georgia, serif; font-size: 34px; line-height: 1.15; color: #163F32">Revisa tu lista</h1>
+              </div>
+              <span style="font-size: 14px; color: #566760">{{countLabel}}</span>
+            </div>
+            <ul style="margin: 0; padding: 0; list-style: none">
+              <sc-for list="{{items}}" as="it" hint-placeholder-count="4">
+                <li class="row-item" style="display: flex; flex-wrap: wrap; gap: 14px; align-items: center; padding: 16px 24px; border-top: 1px solid #EEF2EF">
+                  <sc-if value="{{it.hasImg}}" hint-placeholder-val="{{ false }}">
+                    <img src="{{it.img}}" alt="" style="width: 64px; height: 64px; border-radius: 10px; object-fit: contain; flex: none; border: 1px solid #E5ECE8; background: #FFFFFF">
+                  </sc-if>
+                  <sc-if value="{{it.noImg}}" hint-placeholder-val="{{ true }}">
+                    <span style="width: 64px; height: 64px; border-radius: 10px; flex: none; border: 1px solid #E5ECE8; background: #F6F2E9; display: flex; align-items: center; justify-content: center; color: #66756E"><svg aria-hidden="true" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2"><path d="M21 8 12 3 3 8v8l9 5 9-5z"></path><path d="m3 8 9 5 9-5M12 13v8"></path></svg></span>
+                  </sc-if>
+                  <span style="flex: 1 1 260px; display: flex; flex-direction: column; gap: 2px; min-width: 0">
+                    <strong style="font-family: Manrope, sans-serif; font-size: 15px; color: #163F32; line-height: 1.35">{{it.name}}</strong>
+                    <span style="font-size: 13px; color: #566760">{{it.format}} · <span style="font-family: Consolas, monospace; color: #66756E">{{it.sku}}</span></span>
+                  </span>
+                  <span role="group" aria-label="Cantidad" style="display: flex; align-items: center; border: 1px solid #E5ECE8; border-radius: 10px; overflow: hidden">
+                    <button class="step" onClick="{{it.dec}}" aria-label="Restar una unidad" style="width: 40px; height: 44px; border: 0; background: #FFFFFF; color: #163F32; font-size: 18px; font-weight: 700">−</button>
+                    <span style="min-width: 34px; text-align: center; font-family: Manrope, sans-serif; font-weight: 800; font-variant-numeric: tabular-nums">{{it.qty}}</span>
+                    <button class="step" onClick="{{it.inc}}" aria-label="Sumar una unidad" style="width: 40px; height: 44px; border: 0; background: #FFFFFF; color: #163F32; font-size: 18px; font-weight: 700">+</button>
+                  </span>
+                  <button onClick="{{it.remove}}" aria-label="Quitar de la lista" style="width: 44px; height: 44px; border-radius: 10px; border: 1px solid transparent; background: transparent; color: #A33A2E; display: flex; align-items: center; justify-content: center; cursor: pointer"><svg aria-hidden="true" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 6h18M8 6V4h8v2M6 6l1 14h10l1-14"></path></svg></button>
+                </li>
+              </sc-for>
+            </ul>
+            <sc-if value="{{empty}}" hint-placeholder-val="{{ false }}">
+              <div style="padding: 40px 24px; text-align: center; border-top: 1px solid #EEF2EF; display: flex; flex-direction: column; gap: 10px; align-items: center">
+                <strong style="font-family: Manrope, sans-serif; color: #163F32">Tu lista está vacía</strong>
+                <a href="Categoria.dc.html" class="btn btn-olive" style="display: inline-flex; align-items: center; height: 44px; padding: 0 18px; border-radius: 10px; background: #163F32; color: #FFFFFF; font-family: Manrope, sans-serif; font-weight: 700; font-size: 14px">Explorar catálogo</a>
+              </div>
+            </sc-if>
+          </section>
+
+          <aside style="flex: 1 1 320px; display: flex; flex-direction: column; gap: 16px">
+            <div style="background: #FFFFFF; border: 1px solid #E5ECE8; border-radius: 16px; padding: 24px; display: flex; flex-direction: column; gap: 14px; box-shadow: 0 4px 20px -2px rgba(18,42,33,0.08)">
+              <strong style="font-family: Manrope, sans-serif; font-size: 17px; color: #163F32">Resumen</strong>
+              <div style="display: flex; justify-content: space-between; font-size: 15px"><span style="color: #566760">Productos distintos</span><strong style="font-variant-numeric: tabular-nums">{{distinct}}</strong></div>
+              <div style="display: flex; justify-content: space-between; font-size: 15px"><span style="color: #566760">Unidades totales</span><strong style="font-variant-numeric: tabular-nums">{{units}}</strong></div>
+              <div style="display: flex; justify-content: space-between; align-items: center; font-size: 15px; padding-top: 12px; border-top: 1px solid #EEF2EF"><span style="color: #566760">Precio</span><span style="font-family: Manrope, sans-serif; font-size: 11px; font-weight: 800; letter-spacing: 0.06em; text-transform: uppercase; padding: 4px 10px; border-radius: 999px; background: #F7F1E6; color: #7A5C30">Bajo cotización</span></div>
+              <button class="btn btn-gold" onClick="{{toForm}}" disabled="{{empty}}" style="height: 52px; border: 0; border-radius: 10px; background: #C6A16C; color: #0D261E; font-family: Manrope, sans-serif; font-weight: 800; font-size: 15px; box-shadow: 0 8px 24px -6px rgba(198,161,108,0.6)">Continuar con mis datos</button>
+              <span style="font-size: 13px; color: #66756E; text-align: center">Sin registro. Toma menos de 2 minutos.</span>
+            </div>
+          </aside>
+        </div>
+      </sc-if>
+
+      <sc-if value="{{isForm}}" hint-placeholder-val="{{ false }}">
+        <div class="in" style="display: flex; flex-wrap: wrap; gap: 28px; align-items: flex-start">
+          <form onSubmit="{{submit}}" aria-labelledby="t2" style="flex: 999 1 560px; min-width: 0; background: #FFFFFF; border: 1px solid #E5ECE8; border-radius: 16px; padding: 28px; display: flex; flex-direction: column; gap: 20px">
+            <div>
+              <span style="font-family: Manrope, sans-serif; font-size: 11px; font-weight: 800; letter-spacing: 0.14em; text-transform: uppercase; color: #8A6A3A">Paso 2 de 2</span>
+              <h1 id="t2" class="ttl" style="margin: 2px 0 4px; font-family: 'Playfair Display', Georgia, serif; font-size: 34px; line-height: 1.15; color: #163F32">Datos de tu local</h1>
+              <p style="margin: 0; color: #566760; font-size: 15px">Los usamos solo para enviarte la cotización y coordinar el despacho.</p>
+            </div>
+            <fieldset style="border: 0; padding: 0; margin: 0; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px 18px" class="g2">
+              <legend style="font-family: Manrope, sans-serif; font-weight: 800; font-size: 15px; color: #163F32; margin-bottom: 12px">Contacto</legend>
+              <label style="display: flex; flex-direction: column; gap: 6px"><span style="font-family: Manrope, sans-serif; font-size: 12px; font-weight: 800; letter-spacing: 0.08em; text-transform: uppercase; color: #566760">Nombre de contacto</span><input class="fld" name="nombre" autocomplete="name" value="{{f.nombre}}" onChange="{{set.nombre}}" style="{{fs.nombre}}"><sc-if value="{{e.nombre}}" hint-placeholder-val="{{ false }}"><span style="font-size: 13px; color: #A33A2E">Escribe tu nombre.</span></sc-if></label>
+              <label style="display: flex; flex-direction: column; gap: 6px"><span style="font-family: Manrope, sans-serif; font-size: 12px; font-weight: 800; letter-spacing: 0.08em; text-transform: uppercase; color: #566760">Teléfono móvil</span><input class="fld" name="telefono" type="tel" autocomplete="tel" placeholder="+56 9 …" value="{{f.telefono}}" onChange="{{set.telefono}}" style="{{fs.telefono}}"><sc-if value="{{e.telefono}}" hint-placeholder-val="{{ false }}"><span style="font-size: 13px; color: #A33A2E">Necesitamos un teléfono para coordinar.</span></sc-if></label>
+              <label style="display: flex; flex-direction: column; gap: 6px; grid-column: 1 / -1"><span style="font-family: Manrope, sans-serif; font-size: 12px; font-weight: 800; letter-spacing: 0.08em; text-transform: uppercase; color: #566760">Correo electrónico</span><input class="fld" name="correo" type="email" autocomplete="email" value="{{f.correo}}" onChange="{{set.correo}}" style="{{fs.correo}}"><sc-if value="{{e.correo}}" hint-placeholder-val="{{ false }}"><span style="font-size: 13px; color: #A33A2E">Revisa el correo: ahí llega tu cotización.</span></sc-if></label>
+            </fieldset>
+            <fieldset style="border: 0; padding: 0; margin: 0; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px 18px" class="g2">
+              <legend style="font-family: Manrope, sans-serif; font-weight: 800; font-size: 15px; color: #163F32; margin-bottom: 12px">Tu negocio</legend>
+              <label style="display: flex; flex-direction: column; gap: 6px"><span style="font-family: Manrope, sans-serif; font-size: 12px; font-weight: 800; letter-spacing: 0.08em; text-transform: uppercase; color: #566760">Razón social o nombre del local</span><input class="fld" name="local" autocomplete="organization" value="{{f.local}}" onChange="{{set.local}}" style="{{fs.local}}"><sc-if value="{{e.local}}" hint-placeholder-val="{{ false }}"><span style="font-size: 13px; color: #A33A2E">Indica el nombre de tu local.</span></sc-if></label>
+              <label style="display: flex; flex-direction: column; gap: 6px"><span style="font-family: Manrope, sans-serif; font-size: 12px; font-weight: 800; letter-spacing: 0.08em; text-transform: uppercase; color: #566760">RUT de empresa</span><input class="fld" name="rut" placeholder="76.123.456-7" value="{{f.rut}}" onChange="{{set.rut}}" style="{{fs.rut}}"><sc-if value="{{e.rut}}" hint-placeholder-val="{{ false }}"><span style="font-size: 13px; color: #A33A2E">Ingresa el RUT de la empresa para emitir la cotización.</span></sc-if></label>
+              <label style="display: flex; flex-direction: column; gap: 6px"><span style="font-family: Manrope, sans-serif; font-size: 12px; font-weight: 800; letter-spacing: 0.08em; text-transform: uppercase; color: #566760">Comuna de entrega</span>
+                <select class="fld" name="comuna" value="{{f.comuna}}" onChange="{{set.comuna}}" style="{{fs.comuna}}">
+                  <option value="">Elige tu comuna</option>
+                  <option>Viña del Mar</option><option>Valparaíso</option><option>Concón</option><option>Quilpué</option><option>Villa Alemana</option><option>Limache</option><option>Quillota</option>
+                </select>
+                <sc-if value="{{e.comuna}}" hint-placeholder-val="{{ false }}"><span style="font-size: 13px; color: #A33A2E">Elige una comuna de la V Región.</span></sc-if>
+              </label>
+              <label style="display: flex; flex-direction: column; gap: 6px"><span style="font-family: Manrope, sans-serif; font-size: 12px; font-weight: 800; letter-spacing: 0.08em; text-transform: uppercase; color: #566760">Tipo de establecimiento</span>
+                <select class="fld" name="tipo" value="{{f.tipo}}" onChange="{{set.tipo}}" style="{{fs.tipo}}">
+                  <option>Restaurante</option><option>Local de sushi</option><option>Pizzería</option><option>Cafetería</option><option>Minimarket</option><option>Otro</option>
+                </select>
+              </label>
+              <label style="display: flex; flex-direction: column; gap: 6px; grid-column: 1 / -1"><span style="font-family: Manrope, sans-serif; font-size: 12px; font-weight: 800; letter-spacing: 0.08em; text-transform: uppercase; color: #566760">Comentarios de despacho <span style="text-transform: none; letter-spacing: 0; font-weight: 600; color: #66756E">(opcional)</span></span><textarea class="fld" name="comentarios" rows="3" placeholder="Horario de recepción, acceso para camión, productos que no encontraste…" value="{{f.comentarios}}" onChange="{{set.comentarios}}" style="{{fs.comentarios}}"></textarea></label>
+            </fieldset>
+            <div style="display: flex; flex-wrap: wrap; gap: 12px; justify-content: space-between; align-items: center; padding-top: 4px">
+              <button type="button" onClick="{{toList}}" style="min-height: 44px; border: 0; background: none; font-family: Manrope, sans-serif; font-weight: 700; font-size: 14px; color: #163F32; cursor: pointer">← Volver a mi lista</button>
+              <button type="submit" class="btn btn-gold" style="display: inline-flex; gap: 10px; align-items: center; height: 52px; padding: 0 24px; border: 0; border-radius: 10px; background: #C6A16C; color: #0D261E; font-family: Manrope, sans-serif; font-weight: 800; font-size: 15px; box-shadow: 0 8px 24px -6px rgba(198,161,108,0.6)"><svg aria-hidden="true" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="m22 2-7 20-4-9-9-4z"></path><path d="M22 2 11 13"></path></svg>Enviar solicitud de cotización formal</button>
+            </div>
+          </form>
+          <aside style="flex: 1 1 320px; background: #163F32; color: #FFFFFF; border-radius: 16px; padding: 24px; display: flex; flex-direction: column; gap: 12px">
+            <strong style="font-family: Manrope, sans-serif; font-size: 17px">Tu lista · {{countLabel}}</strong>
+            <ul style="margin: 0; padding: 0; list-style: none; display: flex; flex-direction: column; gap: 8px; font-size: 14px; color: #D7E8DD">
+              <sc-for list="{{items}}" as="it" hint-placeholder-count="4">
+                <li style="display: flex; justify-content: space-between; gap: 12px"><span>{{it.name}}</span><strong style="color: #C6A16C; font-variant-numeric: tabular-nums">×{{it.qty}}</strong></li>
+              </sc-for>
+            </ul>
+            <span style="font-size: 13px; color: #A9BDB2; padding-top: 8px; border-top: 1px solid rgba(215,232,221,0.15)">Un ejecutivo revisa tu lista y te responde con precios netos y condiciones de despacho.</span>
+            <span style="display: flex; gap: 8px; align-items: center; font-size: 13px; color: #D7E8DD"><svg aria-hidden="true" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#C6A16C" stroke-width="2"><path d="M3 6h11v10H3zM14 9h4l3 3v4h-7"></path><circle cx="7" cy="18" r="2"></circle><circle cx="17" cy="18" r="2"></circle></svg>Despachos de lunes a sábado, de 9:00 a 15:00 hrs.</span>
+          </aside>
+        </div>
+      </sc-if>
+
+      <sc-if value="{{isDone}}" hint-placeholder-val="{{ false }}">
+        <section class="in" aria-live="polite" style="max-width: 760px; margin: 0 auto; background: #FFFFFF; border: 1px solid #E5ECE8; border-radius: 24px; padding: 48px 40px; text-align: center; display: flex; flex-direction: column; gap: 16px; align-items: center; box-shadow: 0 12px 36px -4px rgba(18,42,33,0.12)">
+          <span class="pop" style="width: 72px; height: 72px; border-radius: 50%; background: #163F32; color: #C6A16C; display: flex; align-items: center; justify-content: center"><svg aria-hidden="true" width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path class="draw" d="M20 6 9 17l-5-5"></path></svg></span>
+          <span style="font-family: Consolas, monospace; font-size: 14px; padding: 4px 12px; border-radius: 999px; background: #F7F1E6; color: #7A5C30">COT-2026-8491</span>
+          <h1 class="ttl" style="margin: 0; font-family: 'Playfair Display', Georgia, serif; font-size: 34px; line-height: 1.2; color: #163F32">¡Tu solicitud fue recibida!</h1>
+          <p style="margin: 0; color: #566760; font-size: 17px; max-width: 560px">Un ejecutivo de Distribuidora Olivo revisará los productos seleccionados y enviará una cotización personalizada a tu correo electrónico.</p>
+          <ol style="margin: 8px 0 0; padding: 0; list-style: none; display: flex; flex-direction: column; gap: 10px; text-align: left; width: 100%; max-width: 460px">
+            <li style="display: flex; gap: 12px; align-items: center"><span style="width: 28px; height: 28px; border-radius: 8px; background: #EBF2EE; color: #163F32; font-weight: 800; display: flex; align-items: center; justify-content: center; font-size: 13px">1</span>Te llega una copia de tu lista a {{correo}}</li>
+            <li style="display: flex; gap: 12px; align-items: center"><span style="width: 28px; height: 28px; border-radius: 8px; background: #EBF2EE; color: #163F32; font-weight: 800; display: flex; align-items: center; justify-content: center; font-size: 13px">2</span>Tu ejecutivo te contacta en [PLAZO DE RESPUESTA]</li>
+            <li style="display: flex; gap: 12px; align-items: center"><span style="width: 28px; height: 28px; border-radius: 8px; background: #EBF2EE; color: #163F32; font-weight: 800; display: flex; align-items: center; justify-content: center; font-size: 13px">3</span>Confirmas y despachamos en {{comuna}}</li>
+          </ol>
+          <div style="display: flex; flex-wrap: wrap; gap: 12px; justify-content: center; padding-top: 8px">
+            <a href="Main.dc.html" class="btn btn-olive" style="display: inline-flex; align-items: center; height: 48px; padding: 0 20px; border-radius: 10px; background: #163F32; color: #FFFFFF; font-family: Manrope, sans-serif; font-weight: 700; font-size: 14px">Volver al inicio</a>
+            <button onClick="{{restart}}" style="height: 48px; padding: 0 20px; border-radius: 10px; border: 1px solid #163F32; background: #FFFFFF; color: #163F32; font-family: Manrope, sans-serif; font-weight: 700; font-size: 14px; cursor: pointer">Ver el flujo de nuevo</button>
+          </div>
+        </section>
+      </sc-if>
+    </div>
+  </main>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":1440,"height":1500}}'>
+class Component extends DCLogic {
+  constructor(props) {
+    super(props);
+    this.state = this.fresh();
+  }
+  fresh() {
+    return {
+      step: 0,
+      items: [
+        { sku: 'OLV-SSH-001', name: 'Arroz Grano Corto Shirakiku 9 KG (Especial Sushi)', format: 'Saco industrial 9 Kg', qty: 4, img: '' },
+        { sku: 'OLV-SSH-003', name: 'Queso Crema Milkaut Gastronómico Balde 3.6 KG', format: 'Balde sellado 3.6 Kg', qty: 3, img: '' },
+        { sku: 'OLV-CON-001', name: 'Camarón Ecuatoriano P&D 36/40 (Pelado y Desvenado) 1 KG', format: 'Bolsa IQF 1 Kg (Caja 10 Kg)', qty: 5, img: '' },
+        { sku: 'OLV-ALM-001', name: 'Aceite para Freír Don Maravilla 5 LT', format: 'Bidón 5 Litros (Caja 4 unidades)', qty: 2, img: '' }
+      ],
+      f: { nombre: '', telefono: '', correo: '', local: '', rut: '', comuna: '', tipo: 'Local de sushi', comentarios: '' },
+      e: {}
+    };
+  }
+  renderVals() {
+    const st = this.state;
+    const LABELS = ['Tu lista', 'Datos del local', 'Confirmación'];
+    const steps = LABELS.map((l, i) => {
+      const done = i < st.step, cur = i === st.step;
+      return {
+        label: l, mark: done ? '✓' : String(i + 1), current: cur ? 'step' : 'false',
+        dotStyle: 'width: 32px; height: 32px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-family: Manrope, sans-serif; font-weight: 800; font-size: 14px; transition: background .3s, color .3s; ' + (cur ? 'background: #163F32; color: #C6A16C' : done ? 'background: #C6A16C; color: #0D261E' : 'background: #FFFFFF; color: #66756E; border: 1px solid #D3DED8'),
+        labelStyle: 'font-family: Manrope, sans-serif; font-size: 14px; font-weight: ' + (cur ? 800 : 600) + '; color: ' + (cur || done ? '#163F32' : '#66756E'),
+        lineStyle: i < 2 ? 'width: 48px; height: 2px; border-radius: 2px; margin: 0 6px; transition: background .3s; background: ' + (done ? '#C6A16C' : '#D3DED8') : 'display: none'
+      };
+    });
+    const upd = (i, d) => this.setState((s) => ({ items: s.items.map((it, j) => j === i ? Object.assign({}, it, { qty: Math.max(1, it.qty + d) }) : it) }));
+    const items = st.items.map((it, i) => Object.assign({}, it, {
+      hasImg: !!it.img, noImg: !it.img,
+      inc: () => upd(i, 1), dec: () => upd(i, -1),
+      remove: () => this.setState((s) => ({ items: s.items.filter((_, j) => j !== i) }))
+    }));
+    const fieldStyle = (bad) => 'height: 48px; padding: 0 14px; border-radius: 10px; border: 1px solid ' + (bad ? '#A33A2E' : '#E5ECE8') + '; background: #FAF8F3; font: inherit; font-size: 15px; color: #1A2822; width: 100%';
+    const keys = ['nombre', 'telefono', 'correo', 'local', 'rut', 'comuna', 'tipo', 'comentarios'];
+    const set = {}, fs = {};
+    keys.forEach((k) => {
+      set[k] = (ev) => { const v = ev.target.value; this.setState((s) => ({ f: Object.assign({}, s.f, { [k]: v }), e: Object.assign({}, s.e, { [k]: false }) })); };
+      fs[k] = fieldStyle(st.e[k]) + (k === 'comentarios' ? '; height: auto; padding: 12px 14px; resize: vertical' : '');
+    });
+    const units = st.items.reduce((a, b) => a + b.qty, 0);
+    return {
+      steps, items,
+      isList: st.step === 0, isForm: st.step === 1, isDone: st.step === 2,
+      empty: st.items.length === 0,
+      countLabel: st.items.length + (st.items.length === 1 ? ' producto' : ' productos'),
+      distinct: st.items.length, units,
+      f: st.f, e: st.e, set, fs,
+      toForm: () => this.setState({ step: 1 }),
+      toList: () => this.setState({ step: 0 }),
+      submit: (ev) => {
+        ev.preventDefault();
+        const f = this.state.f, e = {};
+        if (!f.nombre.trim()) e.nombre = true;
+        if (!f.telefono.trim()) e.telefono = true;
+        if (!/^\S+@\S+\.\S+$/.test(f.correo)) e.correo = true;
+        if (!f.local.trim()) e.local = true;
+        if (!/^\d{1,2}\.?\d{3}\.?\d{3}-?[\dkK]$/.test(f.rut.trim())) e.rut = true;
+        if (!f.comuna) e.comuna = true;
+        if (Object.keys(e).length) this.setState({ e });
+        else this.setState({ step: 2 });
+      },
+      correo: st.f.correo || 'tu correo',
+      comuna: st.f.comuna || 'tu comuna',
+      restart: () => this.setState(this.fresh())
+    };
+  }
+}
+</script>
+</body>
+</html>

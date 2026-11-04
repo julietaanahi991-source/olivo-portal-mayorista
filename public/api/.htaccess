@@ -1,0 +1,7 @@
+# OLIVO · protección de la carpeta /api
+Options -Indexes
+
+# Los archivos internos (empiezan con "_") no se pueden abrir desde el navegador.
+<FilesMatch "^_">
+  Require all denied
+</FilesMatch>

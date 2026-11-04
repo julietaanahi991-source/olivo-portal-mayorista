@@ -1,0 +1,169 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<title>Mapa de URLs SEO</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,700&amp;family=Manrope:wght@500;600;700;800&amp;family=Playfair+Display:ital,wght@0,600;0,700;0,900;1,400&amp;display=swap">
+<style>body{margin:0}*{box-sizing:border-box}</style>
+</helmet>
+<div style="width: 1440px; height: 2100px; box-sizing: border-box; padding: 64px; background: #FAF8F3; color: #1A2822; font-family: 'DM Sans', system-ui, sans-serif; font-size: 15px; line-height: 1.5; display: flex; flex-direction: column; gap: 32px">
+
+  <div style="display: flex; justify-content: space-between; align-items: flex-end; gap: 32px">
+    <div style="display: flex; flex-direction: column; gap: 8px; max-width: 820px">
+      <span style="font-family: Manrope, sans-serif; font-size: 11px; font-weight: 800; letter-spacing: 0.14em; text-transform: uppercase; color: #8A6A3A">Arquitectura de información · distribuidoraolivo.cl</span>
+      <h1 style="margin: 0; font-family: 'Playfair Display', Georgia, serif; font-size: 44px; line-height: 1.1; color: #163F32">Mapa de URLs para pillar y cluster pages</h1>
+      <p style="margin: 0; color: #566760; font-size: 17px">Todas las rutas quedan creadas y vacías, listas para cargar contenido. Slugs en minúscula, sin tildes, con guiones y barra final.</p>
+    </div>
+    <div style="display: flex; gap: 10px; flex-wrap: wrap; justify-content: flex-end">
+      <span style="display: inline-flex; gap: 8px; align-items: center; font-family: Manrope, sans-serif; font-size: 13px; font-weight: 700; padding: 6px 12px; border-radius: 999px; background: #163F32; color: #FFFFFF">Pillar</span>
+      <span style="display: inline-flex; gap: 8px; align-items: center; font-family: Manrope, sans-serif; font-size: 13px; font-weight: 700; padding: 6px 12px; border-radius: 999px; background: #FFFFFF; color: #163F32; border: 1px solid #C9DCD1">Cluster</span>
+      <span style="display: inline-flex; gap: 8px; align-items: center; font-family: Manrope, sans-serif; font-size: 13px; font-weight: 700; padding: 6px 12px; border-radius: 999px; background: #F7F1E6; color: #7A5C30">Transaccional</span>
+    </div>
+  </div>
+
+  <div style="display: flex; align-items: stretch; gap: 0; background: #FFFFFF; border: 1px solid #E5ECE8; border-radius: 16px; padding: 20px 24px">
+    <span style="flex: none; align-self: center; font-family: Manrope, sans-serif; font-size: 12px; font-weight: 800; letter-spacing: 0.12em; text-transform: uppercase; color: #566760; width: 150px">Enlazado interno</span>
+    <div style="flex: 1; display: flex; align-items: center; gap: 12px">
+      <div style="flex: 1; padding: 12px 16px; border-radius: 10px; border: 1px solid #C9DCD1; background: #FFFFFF"><strong style="font-family: Manrope, sans-serif; color: #163F32; font-size: 14px">Cluster</strong><div style="font-size: 13px; color: #566760">Responde una duda puntual</div></div>
+      <svg aria-hidden="true" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#C6A16C" stroke-width="2.2"><path d="M5 12h14M12 5l7 7-7 7"></path></svg>
+      <div style="flex: 1; padding: 12px 16px; border-radius: 10px; background: #163F32; color: #FFFFFF"><strong style="font-family: Manrope, sans-serif; font-size: 14px">Pillar</strong><div style="font-size: 13px; color: #D7E8DD">Guía completa del tema</div></div>
+      <svg aria-hidden="true" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#C6A16C" stroke-width="2.2"><path d="M5 12h14M12 5l7 7-7 7"></path></svg>
+      <div style="flex: 1; padding: 12px 16px; border-radius: 10px; background: #F7F1E6"><strong style="font-family: Manrope, sans-serif; color: #163F32; font-size: 14px">Categoría / producto</strong><div style="font-size: 13px; color: #566760">Módulo «Productos relacionados»</div></div>
+      <svg aria-hidden="true" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#C6A16C" stroke-width="2.2"><path d="M5 12h14M12 5l7 7-7 7"></path></svg>
+      <div style="flex: 1; padding: 12px 16px; border-radius: 10px; background: #C6A16C; color: #0D261E"><strong style="font-family: Manrope, sans-serif; font-size: 14px">Solicitar cotización</strong><div style="font-size: 13px">Conversión</div></div>
+    </div>
+  </div>
+
+  <div style="display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 24px; align-items: start; flex-grow: 1">
+    <sc-for list="{{cols}}" as="col" hint-placeholder-count="3">
+      <div style="display: flex; flex-direction: column; gap: 24px">
+        <sc-for list="{{col.groups}}" as="g" hint-placeholder-count="2">
+          <section style="background: #FFFFFF; border: 1px solid #E5ECE8; border-radius: 16px; overflow: hidden; box-shadow: 0 1px 3px rgba(18,42,33,0.05)">
+            <div style="padding: 18px 20px 12px; display: flex; flex-direction: column; gap: 2px">
+              <span style="font-family: Manrope, sans-serif; font-size: 11px; font-weight: 800; letter-spacing: 0.12em; text-transform: uppercase; color: #8A6A3A">{{g.eyebrow}}</span>
+              <h2 style="margin: 0; font-family: 'Playfair Display', Georgia, serif; font-size: 22px; color: #163F32">{{g.title}}</h2>
+              <span style="font-size: 13px; color: #566760">{{g.note}}</span>
+            </div>
+            <ul style="margin: 0; padding: 0 0 8px; list-style: none">
+              <sc-for list="{{g.rows}}" as="r" hint-placeholder-count="5">
+                <li style="{{r.style}}">
+                  <span style="display: flex; flex-direction: column; gap: 1px; min-width: 0">
+                    <code style="{{r.slugStyle}}">{{r.slug}}</code>
+                    <span style="{{r.labelStyle}}">{{r.label}}</span>
+                  </span>
+                  <span style="{{r.pillStyle}}">{{r.kind}}</span>
+                </li>
+              </sc-for>
+            </ul>
+          </section>
+        </sc-for>
+      </div>
+    </sc-for>
+  </div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":1440,"height":2100}}'>
+class Component extends DCLogic {
+  renderVals() {
+    const P = 'Pillar', C = 'Cluster', T = 'Transaccional';
+    const g = (eyebrow, title, note, rows) => ({ eyebrow, title, note, rows });
+    const groups = {
+      catalogo: g('Transaccional', 'Catálogo', 'Breadcrumb y schema Product / ItemList', [
+        ['/catalogo/', 'Catálogo mayorista HORECA', P],
+        ['/catalogo/alimentos-abarrotes/', 'Alimentos y abarrotes', T],
+        ['/catalogo/sushi-oriental/', 'Sushi y gastronomía oriental', T],
+        ['/catalogo/congelados/', 'Congelados', T],
+        ['/catalogo/lacteos-refrigerados/', 'Lácteos y refrigerados', T],
+        ['/catalogo/proteinas/', 'Proteínas', T],
+        ['/catalogo/limpieza-aseo/', 'Limpieza y aseo', T],
+        ['/catalogo/insumos-restaurantes/', 'Insumos para restaurantes', T],
+        ['/catalogo/{categoria}/{subcategoria}/', 'Patrón de subcategoría', T],
+        ['/producto/{nombre}-{sku}/', 'Patrón de ficha de producto', T]
+      ]),
+      empresa: g('Confianza y conversión', 'Empresa', 'Schema Organization, LocalBusiness y FAQPage', [
+        ['/como-cotizar/', 'Cómo cotizar sin registro', C],
+        ['/condiciones-comerciales/', 'Condiciones y despacho', C],
+        ['/preguntas-frecuentes/', 'Preguntas frecuentes', C],
+        ['/nosotros/', 'Distribuidora Olivo en Viña del Mar', C],
+        ['/contacto/', 'Contacto y ejecutivo comercial', T]
+      ]),
+      soluciones: g('Landing por segmento', 'Soluciones por negocio', 'Una por tipo de local, enlaza a sus categorías clave', [
+        ['/soluciones/', 'Proveedor para el canal HORECA', P],
+        ['/soluciones/restaurantes/', 'Proveedor para restaurantes', C],
+        ['/soluciones/locales-de-sushi/', 'Proveedor de insumos para sushi', C],
+        ['/soluciones/pizzerias/', 'Insumos para pizzerías', C],
+        ['/soluciones/cafeterias/', 'Insumos para cafeterías', C],
+        ['/soluciones/minimarkets/', 'Mayorista para minimarkets', C],
+        ['/soluciones/dark-kitchens/', 'Abastecimiento para dark kitchens', C]
+      ]),
+      despacho: g('SEO local', 'Despacho por comuna', 'Una página por comuna con datos de ruta reales', [
+        ['/despacho/', 'Distribuidora de alimentos en la V Región', P],
+        ['/despacho/vina-del-mar/', 'Distribuidora de alimentos en Viña del Mar', C],
+        ['/despacho/valparaiso/', 'Distribuidora de alimentos en Valparaíso', C],
+        ['/despacho/concon/', 'Despacho a Concón', C],
+        ['/despacho/quilpue/', 'Despacho a Quilpué', C],
+        ['/despacho/villa-alemana/', 'Despacho a Villa Alemana', C],
+        ['/despacho/limache/', 'Despacho a Limache', C],
+        ['/despacho/quillota/', 'Despacho a Quillota', C]
+      ]),
+      g1: g('Contenido · tema 1', 'Insumos para sushi', 'Pillar → clusters → categoría Sushi', [
+        ['/guias/insumos-para-sushi/', 'Guía de insumos para sushi', P],
+        ['/guias/insumos-para-sushi/arroz-para-sushi/', 'Arroz para sushi: cómo elegirlo', C],
+        ['/guias/insumos-para-sushi/tipos-de-alga-nori/', 'Tipos de alga nori', C],
+        ['/guias/insumos-para-sushi/queso-crema-para-sushi/', 'Queso crema para sushi', C],
+        ['/guias/insumos-para-sushi/salsas-orientales/', 'Soya, teriyaki y unagi', C]
+      ]),
+      g2: g('Contenido · tema 2', 'Abastecimiento para restaurantes', 'Pillar → clusters → Alimentos y Congelados', [
+        ['/guias/abastecimiento-restaurantes/', 'Guía de abastecimiento', P],
+        ['/guias/abastecimiento-restaurantes/aceite-para-freir/', 'Aceite para freír: rendimiento', C],
+        ['/guias/abastecimiento-restaurantes/cortes-papas-prefritas/', 'Cortes de papas prefritas', C],
+        ['/guias/abastecimiento-restaurantes/planificar-compras/', 'Planificar compras semanales', C]
+      ]),
+      g3: g('Contenido · tema 3', 'Higiene y limpieza en cocinas', 'Pillar → clusters → Limpieza y aseo', [
+        ['/guias/higiene-limpieza-cocinas/', 'Guía de higiene en cocinas', P],
+        ['/guias/higiene-limpieza-cocinas/fiscalizacion-seremi/', 'Preparar la fiscalización SEREMI', C],
+        ['/guias/higiene-limpieza-cocinas/desengrasantes/', 'Desengrasantes industriales', C],
+        ['/guias/higiene-limpieza-cocinas/guantes-nitrilo-vs-latex/', 'Guantes de nitrilo o látex', C]
+      ]),
+      g4: g('Contenido · tema 4', 'Packaging y delivery', 'Pillar → clusters → Insumos', [
+        ['/guias/packaging-delivery/', 'Guía de packaging para delivery', P],
+        ['/guias/packaging-delivery/envases-para-sushi/', 'Envases para sushi delivery', C],
+        ['/guias/packaging-delivery/envases-kraft/', 'Envases kraft y compostables', C]
+      ]),
+      g5: g('Contenido · tema 5', 'Cadena de frío', 'Pillar → clusters → Congelados y Proteínas', [
+        ['/guias/cadena-de-frio/', 'Guía de cadena de frío', P],
+        ['/guias/cadena-de-frio/calibres-de-camaron/', 'Calibres de camarón', C],
+        ['/guias/cadena-de-frio/pulpas-de-fruta/', 'Pulpas de fruta congeladas', C]
+      ])
+    };
+    const pill = {
+      Pillar: 'background: #163F32; color: #FFFFFF',
+      Cluster: 'background: #FFFFFF; color: #163F32; border: 1px solid #C9DCD1',
+      Transaccional: 'background: #F7F1E6; color: #7A5C30'
+    };
+    const shape = (grp) => Object.assign({}, grp, {
+      rows: grp.rows.map((r) => ({
+        slug: r[0], label: r[1], kind: r[2],
+        style: 'display: flex; justify-content: space-between; align-items: center; gap: 12px; padding: 9px 20px; border-top: 1px solid #F0F3F1; ' + (r[2] === 'Pillar' ? 'background: #F3F8F5' : ''),
+        slugStyle: 'font-family: Consolas, \'SFMono-Regular\', monospace; font-size: 12.5px; color: ' + (r[2] === 'Pillar' ? '#163F32; font-weight: 700' : '#1A2822') + '; word-break: break-all',
+        labelStyle: 'font-size: 12.5px; color: #66756E',
+        pillStyle: 'flex: none; font-family: Manrope, sans-serif; font-size: 10.5px; font-weight: 800; letter-spacing: 0.04em; padding: 3px 9px; border-radius: 999px; ' + pill[r[2]]
+      }))
+    });
+    return {
+      cols: [
+        { groups: [shape(groups.catalogo), shape(groups.empresa)] },
+        { groups: [shape(groups.soluciones), shape(groups.despacho)] },
+        { groups: [shape(groups.g1), shape(groups.g2), shape(groups.g3), shape(groups.g4), shape(groups.g5)] }
+      ]
+    };
+  }
+}
+</script>
+</body>
+</html>

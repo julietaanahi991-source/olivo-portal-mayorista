@@ -1,0 +1,22 @@
+{
+  "name": "olivo-signature",
+  "version": "1.0.0",
+  "description": "Portal B2B Premium para Distribuidora Olivo Chile — OLIVO Signature",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "node server.js",
+    "sync-images": "node scripts/sync-product-images.js"
+  },
+  "keywords": [
+    "olivo",
+    "signature",
+    "b2b",
+    "distribuidora",
+    "chile",
+    "horeca",
+    "sushi"
+  ],
+  "author": "Distribuidora Olivo SpA",
+  "license": "UNLICENSED"
+}

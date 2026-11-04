@@ -1,0 +1,504 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<title>Portal Olivo Signature</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,600;9..40,700&amp;family=Manrope:wght@500;600;700;800&amp;family=Playfair+Display:ital,wght@0,600;0,700;0,900;1,400;1,500&amp;display=swap">
+<style>
+body{margin:0;background:#FAF8F3}
+a{color:#163F32}a:hover{color:#8A6A3A}
+button{font:inherit;cursor:pointer}
+input,select,textarea{font:inherit}
+button:focus-visible,input:focus-visible,select:focus-visible,textarea:focus-visible,a:focus-visible{outline:2px solid #C6A16C;outline-offset:2px}
+.sub-btn:hover{background:#F3F8F5}
+.card:hover{box-shadow:0 12px 36px -4px rgba(18,42,33,0.12);transform:translateY(-4px);border-color:#D3E0D8}
+.cat-card:hover{transform:translateY(-6px);box-shadow:0 24px 56px -8px rgba(18,42,33,0.16);border-color:#C6A16C}
+.cat-card:hover .cat-photo{transform:scale(1.08)}
+.olive-btn:hover{background:#0D261E}
+.gold-btn:hover{background:#B38E57}
+.glass-btn:hover{background:rgba(255,255,255,0.2)}
+</style>
+</helmet>
+<div style="min-height: 100vh; display: flex; flex-direction: column; background: #FAF8F3; color: #1A2822; font-family: 'DM Sans', system-ui, sans-serif; font-size: 14px; line-height: 1.6; position: relative">
+
+  <div style="background: #0D261E; color: #D7E8DD; font-size: 12px; padding: 8px 32px; border-bottom: 1px solid rgba(198,161,108,0.3)">
+    <div style="max-width: 1280px; margin: 0 auto; display: flex; flex-wrap: wrap; justify-content: space-between; gap: 8px; align-items: center">
+      <div style="display: flex; gap: 8px; align-items: center">
+        <span style="width: 8px; height: 8px; border-radius: 50%; background: #C6A16C; flex: none"></span>
+        <span><strong style="color: #FFFFFF">Distribuidora Olivo:</strong> Despachos exclusivos en la <strong style="color: #FFFFFF">Región de Valparaíso (V Región)</strong>, Viña del Mar, Valparaíso, Concón, Quilpué, Villa Alemana, Limache y Quillota.</span>
+      </div>
+      <div style="display: flex; gap: 16px">
+        <span>Ventas B2B: +56 9 6304 1374</span>
+        <span style="color: #C6A16C">Atención personalizada 1 a 1</span>
+      </div>
+    </div>
+  </div>
+
+  <header style="background: rgba(255,255,255,0.96); border-bottom: 1px solid #E5ECE8; padding: 0 32px">
+    <div style="max-width: 1280px; margin: 0 auto; min-height: 80px; display: flex; flex-wrap: wrap; align-items: center; gap: 16px 28px; padding: 12px 0">
+      <button onClick="{{goHome}}" aria-label="Distribuidora Olivo, inicio" style="display: flex; align-items: center; gap: 14px; background: none; border: 0; padding: 0; text-align: left">
+        <span style="width: 44px; height: 44px; border-radius: 12px; background: #163F32; border: 1px solid rgba(198,161,108,0.4); display: flex; align-items: center; justify-content: center; color: #C6A16C; box-shadow: 0 4px 20px -2px rgba(18,42,33,0.08)">
+          <svg aria-hidden="true" width="24" height="24" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 17.93c-3.95-.49-7-3.85-7-7.93 0-.62.08-1.21.21-1.79L9 15v1c0 1.1.9 2 2 2v1.93zm6.9-2.54c-.26-.81-1-1.39-1.9-1.39h-1v-3c0-.55-.45-1-1-1H8v-2h2c.55 0 1-.45 1-1V7h2c1.1 0 2-.9 2-2v-.41c2.93 1.19 5 4.06 5 7.41 0 2.08-.8 3.97-2.1 5.39z"></path></svg>
+        </span>
+        <span style="display: flex; flex-direction: column; gap: 4px">
+          <span style="display: flex; align-items: center; gap: 6px; line-height: 1">
+            <span style="font-family: 'Playfair Display', Georgia, serif; font-weight: 900; font-size: 24px; letter-spacing: 0.06em; color: #163F32">OLIVO</span>
+            <span style="font-family: Manrope, sans-serif; font-size: 10px; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; padding: 2px 8px; border-radius: 999px; background: #F7F1E6; color: #8A6A3A; border: 1px solid rgba(198,161,108,0.4)">Signature</span>
+          </span>
+          <span style="font-family: Manrope, sans-serif; font-size: 9.5px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: #566760">Distribuidora de Alimentos y Productos</span>
+        </span>
+      </button>
+
+      <nav aria-label="Principal" style="display: flex; gap: 28px; font-family: Manrope, sans-serif; font-weight: 600; font-size: 15px; margin-left: auto; margin-right: auto">
+        <button onClick="{{goHome}}" style="{{navHomeStyle}}">Inicio</button>
+        <button onClick="{{goContact}}" style="background: none; border: 0; padding: 4px 0; color: #566760; font-weight: 600">Contacto</button>
+      </nav>
+
+      <div style="display: flex; align-items: center; gap: 12px; flex-wrap: wrap">
+        <label style="position: relative; display: flex; align-items: center">
+          <span style="position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0)">Buscar insumos</span>
+          <svg aria-hidden="true" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#66756E" stroke-width="2.2" style="position: absolute; left: 12px"><circle cx="11" cy="11" r="7"></circle><path d="m20 20-3.5-3.5"></path></svg>
+          <input type="search" placeholder="Buscar insumos..." style="width: 240px; padding: 8px 12px 8px 32px; border-radius: 999px; border: 1px solid #E5ECE8; background: #FAF8F3; font-size: 12px; color: #1A2822; outline: none">
+        </label>
+        <button class="olive-btn" style="position: relative; display: inline-flex; align-items: center; gap: 8px; background: #163F32; color: #FFFFFF; border: 0; border-radius: 10px; padding: 11px 18px; font-family: Manrope, sans-serif; font-weight: 700; font-size: 13px; box-shadow: 0 4px 14px rgba(22,63,50,0.25)">
+          <svg aria-hidden="true" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#C6A16C" stroke-width="2.2"><path d="M14 3H6a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V9z"></path><path d="M14 3v6h6M8 13h8M8 17h5"></path></svg>
+          <span>Solicitar cotización</span>
+          <sc-if value="{{hasItems}}" hint-placeholder-val="{{ false }}">
+            <span style="position: absolute; top: -7px; right: -9px; min-width: 20px; height: 20px; padding: 0 5px; border-radius: 999px; background: #C6A16C; color: #FFFFFF; border: 2px solid #FFFFFF; font-size: 11px; font-weight: 800; display: flex; align-items: center; justify-content: center">{{total}}</span>
+          </sc-if>
+        </button>
+        <button aria-label="Ver carrito de cotización" style="width: 42px; height: 42px; border-radius: 8px; background: #FAF8F3; border: 1px solid #E5ECE8; color: #163F32; display: flex; align-items: center; justify-content: center">
+          <svg aria-hidden="true" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"></path><path d="M3 6h18M16 10a4 4 0 0 1-8 0"></path></svg>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- ================= INICIO ================= -->
+  <sc-if value="{{isHome}}" hint-placeholder-val="{{ true }}">
+    <div>
+      <section aria-label="Destacados" style="position: relative; min-height: 620px; overflow: hidden; background: #0D261E; color: #FFFFFF; display: flex; align-items: center">
+
+        <sc-if value="{{slide0}}" hint-placeholder-val="{{ true }}">
+          <img src="/_blob/42866422c11e7f6b275369b105cac020" alt="Chef emplatando en una cocina profesional" style="position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: 65% center">
+          <div style="position: absolute; inset: 0; background: linear-gradient(90deg, rgba(0,0,0,0.68) 0%, rgba(0,0,0,0.42) 38%, rgba(0,0,0,0.08) 65%, rgba(0,0,0,0) 85%)"></div>
+          <div style="position: relative; z-index: 2; width: 100%; max-width: 1280px; margin: 0 auto; padding: 96px 32px">
+            <div style="max-width: 720px; display: flex; flex-direction: column; gap: 24px; align-items: flex-start">
+              <span style="display: inline-flex; align-items: center; gap: 8px; padding: 6px 14px; border-radius: 999px; background: rgba(0,0,0,0.4); border: 1px solid rgba(198,161,108,0.4); color: #C6A16C; font-size: 12px; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase">
+                <svg aria-hidden="true" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0z"></path><circle cx="12" cy="10" r="3"></circle></svg>
+                Despacho exclusivo en Región de Valparaíso (V Región)
+              </span>
+              <h1 style="margin: 0; font-family: 'Playfair Display', Georgia, serif; font-weight: 700; font-size: 64px; line-height: 1.08; letter-spacing: -0.01em; color: #FFFFFF">Todo lo que tu negocio necesita, <span style="color: #C6A16C; font-style: italic; font-weight: 400">en un solo lugar.</span></h1>
+              <p style="margin: 0; max-width: 600px; font-size: 19px; line-height: 1.6; color: rgba(255,255,255,0.95)">Abastecimiento integral para restaurantes, cocinas, locales de sushi y minimarkets. Insumos certificados con entrega directa en tu local.</p>
+              <div style="display: flex; flex-wrap: wrap; gap: 16px; padding-top: 8px">
+                <button class="gold-btn" onClick="{{goExplora}}" style="display: inline-flex; align-items: center; gap: 10px; background: #C6A16C; color: #FFFFFF; border: 0; border-radius: 10px; padding: 16px 34px; font-family: Manrope, sans-serif; font-weight: 700; font-size: 16px; box-shadow: 0 10px 30px rgba(0,0,0,0.25)">Explorar catálogo
+                  <svg aria-hidden="true" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M12 5v14M19 12l-7 7-7-7"></path></svg></button>
+                <button class="glass-btn" style="display: inline-flex; align-items: center; gap: 10px; background: rgba(255,255,255,0.1); color: #FFFFFF; border: 1px solid rgba(255,255,255,0.25); border-radius: 10px; padding: 16px 30px; font-family: Manrope, sans-serif; font-weight: 700; font-size: 16px">
+                  <svg aria-hidden="true" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#C6A16C" stroke-width="2.2"><path d="M14 3H6a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V9z"></path><path d="M14 3v6h6M8 13h8M8 17h5"></path></svg>Solicitar cotización</button>
+              </div>
+            </div>
+          </div>
+        </sc-if>
+
+        <sc-if value="{{slide1}}" hint-placeholder-val="{{ false }}">
+          <img src="/_blob/179d16bed088d9c2224738ae3f6ba956" alt="Rolls de salmón y nigiris sobre bandeja oscura" style="position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: 65% center">
+          <div style="position: absolute; inset: 0; background: linear-gradient(90deg, rgba(0,0,0,0.68) 0%, rgba(0,0,0,0.42) 38%, rgba(0,0,0,0.08) 65%, rgba(0,0,0,0) 85%)"></div>
+          <div style="position: relative; z-index: 2; width: 100%; max-width: 1280px; margin: 0 auto; padding: 96px 32px">
+            <div style="max-width: 760px; display: flex; flex-direction: column; gap: 24px; align-items: flex-start">
+              <span style="display: inline-flex; align-items: center; gap: 8px; padding: 6px 14px; border-radius: 999px; background: rgba(0,0,0,0.4); border: 1px solid rgba(198,161,108,0.4); color: #C6A16C; font-size: 12px; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase">
+                <svg aria-hidden="true" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m12 3 1.9 5.8L20 10l-6.1 1.2L12 17l-1.9-5.8L4 10l6.1-1.2z"></path></svg>
+                Especialistas HORECA · Gastronomía oriental
+              </span>
+              <h2 style="margin: 0; font-family: 'Playfair Display', Georgia, serif; font-weight: 700; font-size: 64px; line-height: 1.08; letter-spacing: -0.01em; color: #FFFFFF">Insumos de Alta Gama para <span style="color: #C6A16C; font-style: italic; font-weight: 400">Sushi &amp; Asian Food</span>.</h2>
+              <p style="margin: 0; max-width: 620px; font-size: 19px; line-height: 1.6; color: rgba(255,255,255,0.95)">Arroz Shirakiku grano corto, algas nori Platinum, panko crocante, queso crema gastronómico Milkaut y salsas premium para tu carta.</p>
+              <div style="display: flex; flex-wrap: wrap; gap: 16px; padding-top: 8px">
+                <button class="gold-btn" onClick="{{goSushi}}" style="display: inline-flex; align-items: center; gap: 10px; background: #C6A16C; color: #FFFFFF; border: 0; border-radius: 10px; padding: 16px 34px; font-family: Manrope, sans-serif; font-weight: 700; font-size: 16px; box-shadow: 0 10px 30px rgba(0,0,0,0.25)">Ver insumos de sushi
+                  <svg aria-hidden="true" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M5 12h14M12 5l7 7-7 7"></path></svg></button>
+                <button class="glass-btn" style="display: inline-flex; align-items: center; gap: 10px; background: rgba(255,255,255,0.1); color: #FFFFFF; border: 1px solid rgba(255,255,255,0.25); border-radius: 10px; padding: 16px 30px; font-family: Manrope, sans-serif; font-weight: 700; font-size: 16px">
+                  <svg aria-hidden="true" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#C6A16C" stroke-width="2.2"><path d="M14 3H6a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V9z"></path><path d="M14 3v6h6M8 13h8M8 17h5"></path></svg>Solicitar cotización</button>
+              </div>
+            </div>
+          </div>
+        </sc-if>
+
+        <div style="position: absolute; bottom: 24px; left: 0; right: 0; z-index: 3; display: flex; justify-content: center; gap: 12px">
+          <button onClick="{{toSlide0}}" aria-label="Ver banner 1, restaurante" style="{{dot0}}"></button>
+          <button onClick="{{toSlide1}}" aria-label="Ver banner 2, sushi" style="{{dot1}}"></button>
+        </div>
+      </section>
+
+      <div style="background: #163F32; color: #F6F2E9; padding: 14px 32px; font-size: 12px; border-top: 1px solid rgba(198,161,108,0.3); border-bottom: 1px solid rgba(198,161,108,0.3)">
+        <div style="max-width: 1280px; margin: 0 auto; display: flex; flex-wrap: wrap; justify-content: space-between; gap: 10px; align-items: center">
+          <div style="display: flex; gap: 10px; align-items: center"><span style="width: 10px; height: 10px; border-radius: 50%; background: #C6A16C; flex: none"></span><span><strong>Zona de Distribución Exclusiva:</strong> Región de Valparaíso (V Región), Viña del Mar, Valparaíso, Concón, Quilpué, Villa Alemana, Limache y Quillota.</span></div>
+          <div style="display: flex; gap: 8px; align-items: center; color: #CFE6D7"><svg aria-hidden="true" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#C6A16C" stroke-width="2"><circle cx="12" cy="12" r="9"></circle><path d="M12 7v5l3 2"></path></svg>Despacho programado con flota refrigerada</div>
+        </div>
+      </div>
+
+      <section id="explora" style="background: #F6F2E9; padding: 80px 32px">
+        <div style="max-width: 1280px; margin: 0 auto; display: flex; flex-direction: column; gap: 56px">
+          <div style="max-width: 720px; margin: 0 auto; text-align: center; display: flex; flex-direction: column; gap: 10px; align-items: center">
+            <span style="font-family: Manrope, sans-serif; font-size: 12px; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase; color: #8A6A3A; background: #FBF8F2; border: 1px solid rgba(198,161,108,0.35); padding: 5px 14px; border-radius: 999px">Catálogo especializado</span>
+            <h2 style="margin: 0; font-family: 'Playfair Display', Georgia, serif; font-weight: 700; font-size: 44px; line-height: 1.15; color: #163F32">Explora todo para tu negocio</h2>
+            <p style="margin: 0; font-size: 16px; color: #566760">Selecciona una categoría para explorar sus productos, revisar formatos y agregarlos a tu solicitud de cotización formal.</p>
+          </div>
+          <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 32px">
+            <sc-for list="{{catCards}}" as="c" hint-placeholder-count="6">
+              <button class="cat-card" onClick="{{c.open}}" style="position: relative; height: 400px; border-radius: 16px; overflow: hidden; background: #0D261E; border: 1px solid rgba(22,63,50,0.1); padding: 28px; display: flex; flex-direction: column; justify-content: flex-end; align-items: flex-start; text-align: left; box-shadow: 0 1px 3px rgba(18,42,33,0.05); transition: all 0.35s cubic-bezier(0.16,1,0.3,1)">
+                <sc-if value="{{c.img}}" hint-placeholder-val="{{ false }}">
+                  <img class="cat-photo" src="{{c.img}}" alt="" style="position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: center 20%; transition: transform 0.6s cubic-bezier(0.16,1,0.3,1)">
+                </sc-if>
+                <sc-if value="{{c.noImg}}" hint-placeholder-val="{{ true }}">
+                  <div style="{{c.phStyle}}"><span style="position: absolute; top: 16px; right: 16px; font-size: 11px; color: rgba(255,255,255,0.8); background: rgba(0,0,0,0.35); padding: 3px 10px; border-radius: 999px">Foto pendiente · {{c.photo}}</span></div>
+                </sc-if>
+                <div style="position: absolute; inset: 0; background: linear-gradient(0deg, #0D261E 0%, rgba(13,38,30,0.5) 50%, rgba(13,38,30,0) 100%)"></div>
+                <div style="position: relative; z-index: 2; display: flex; flex-direction: column; gap: 10px; align-items: flex-start">
+                  <span style="font-family: Manrope, sans-serif; font-size: 11px; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase; color: #8A6A3A; background: #FBF8F2; border: 1px solid rgba(198,161,108,0.35); padding: 4px 12px; border-radius: 999px">{{c.badge}}</span>
+                  <h3 style="margin: 0; font-family: 'Playfair Display', Georgia, serif; font-weight: 700; font-size: 30px; line-height: 1.15; color: #FFFFFF">{{c.name}}</h3>
+                  <p style="margin: 0; font-size: 14px; line-height: 1.5; color: rgba(209,250,229,0.85)">{{c.text}}</p>
+                  <span style="display: inline-flex; gap: 6px; align-items: center; padding-top: 4px; font-size: 14px; font-weight: 700; color: #C6A16C">Ver subcategorías y productos <svg aria-hidden="true" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M5 12h14M12 5l7 7-7 7"></path></svg></span>
+                </div>
+              </button>
+            </sc-for>
+          </div>
+        </div>
+      </section>
+
+      <section style="background: #FFFFFF; border-top: 1px solid #E5ECE8; padding: 80px 32px">
+        <div style="max-width: 1280px; margin: 0 auto; display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 32px">
+          <div style="padding: 26px; border-radius: 16px; background: #FAF8F3; border: 1px solid #E5ECE8; display: flex; flex-direction: column; gap: 12px">
+            <span style="width: 40px; height: 40px; border-radius: 12px; background: #163F32; color: #C6A16C; display: flex; align-items: center; justify-content: center"><svg aria-hidden="true" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 6h11v10H3zM14 9h4l3 3v4h-7"></path><circle cx="7" cy="18" r="2"></circle><circle cx="17" cy="18" r="2"></circle></svg></span>
+            <h3 style="margin: 0; font-family: 'Playfair Display', Georgia, serif; font-weight: 700; font-size: 20px; color: #163F32">Logística Dedicada en V Región</h3>
+            <p style="margin: 0; font-size: 14px; color: #566760">Rutas de reparto programadas desde nuestro centro logístico en Viña del Mar directamente hacia tu local o cocina.</p>
+          </div>
+          <div style="padding: 26px; border-radius: 16px; background: #FAF8F3; border: 1px solid #E5ECE8; display: flex; flex-direction: column; gap: 12px">
+            <span style="width: 40px; height: 40px; border-radius: 12px; background: #163F32; color: #C6A16C; display: flex; align-items: center; justify-content: center"><svg aria-hidden="true" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 3v18M5 21h14M3 7h18M6 7l-3 7a3 3 0 0 0 6 0zM18 7l-3 7a3 3 0 0 0 6 0z"></path></svg></span>
+            <h3 style="margin: 0; font-family: 'Playfair Display', Georgia, serif; font-weight: 700; font-size: 20px; color: #163F32">Precios por Escala Mayorista</h3>
+            <p style="margin: 0; font-size: 14px; color: #566760">Sin precios fijos genéricos. Tu ejecutivo comercial valoriza la cotización adaptando tramos de descuento según tu consumo.</p>
+          </div>
+          <div style="padding: 26px; border-radius: 16px; background: #FAF8F3; border: 1px solid #E5ECE8; display: flex; flex-direction: column; gap: 12px">
+            <span style="width: 40px; height: 40px; border-radius: 12px; background: #163F32; color: #C6A16C; display: flex; align-items: center; justify-content: center"><svg aria-hidden="true" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="9" cy="8" r="4"></circle><path d="M2 21c0-4 3-6 7-6s7 2 7 6M16 11l2 2 4-4"></path></svg></span>
+            <h3 style="margin: 0; font-family: 'Playfair Display', Georgia, serif; font-weight: 700; font-size: 20px; color: #163F32">Atención Comercial 1 a 1</h3>
+            <p style="margin: 0; font-size: 14px; color: #566760">Un ejecutivo asignado resolverá tus requerimientos de abastecimiento urgente, reposición programada y facturación.</p>
+          </div>
+        </div>
+      </section>
+
+      <section id="contacto" style="background: #FAF8F3; border-top: 1px solid #E5ECE8; padding: 80px 32px">
+        <div style="max-width: 1120px; margin: 0 auto; display: flex; flex-direction: column; gap: 40px">
+          <div style="text-align: center; display: flex; flex-direction: column; gap: 10px; align-items: center">
+            <span style="font-family: Manrope, sans-serif; font-size: 12px; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase; color: #8A6A3A; background: #FBF8F2; border: 1px solid rgba(198,161,108,0.35); padding: 5px 14px; border-radius: 999px">Contacto comercial</span>
+            <h2 style="margin: 0; font-family: 'Playfair Display', Georgia, serif; font-weight: 700; font-size: 36px; line-height: 1.2; color: #163F32">Atención para Negocios de la V Región</h2>
+            <p style="margin: 0; font-size: 15px; color: #566760">Escríbenos para coordinar cotizaciones especiales, muestras o visitas de nuestro ejecutivo comercial.</p>
+          </div>
+          <sc-if value="{{contactSent}}" hint-placeholder-val="{{ false }}">
+            <div style="background: #FFFFFF; border: 1px solid #E5ECE8; border-radius: 16px; padding: 40px; text-align: center; display: flex; flex-direction: column; gap: 8px; align-items: center">
+              <h3 style="margin: 0; font-family: 'Playfair Display', Georgia, serif; font-size: 24px; color: #163F32">Mensaje recibido</h3>
+              <p style="margin: 0; color: #566760">Un ejecutivo de Distribuidora Olivo te contactará en horario hábil.</p>
+            </div>
+          </sc-if>
+          <sc-if value="{{contactOpen}}" hint-placeholder-val="{{ true }}">
+            <form onSubmit="{{sendContact}}" style="background: #FFFFFF; border: 1px solid #E5ECE8; border-radius: 16px; padding: 40px; box-shadow: 0 1px 3px rgba(18,42,33,0.05); display: flex; flex-direction: column; gap: 22px">
+              <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 22px">
+                <label style="display: flex; flex-direction: column; gap: 8px; font-size: 13px; font-weight: 700; text-transform: uppercase; color: #163F32">Nombre y apellido *
+                  <input id="c-nombre" required type="text" placeholder="Ej. Rodrigo Morales" style="padding: 13px 16px; border-radius: 8px; border: 1px solid #E5ECE8; background: #FAF8F3; font-size: 15px; font-weight: 400; text-transform: none; color: #1A2822; outline: none"></label>
+                <label style="display: flex; flex-direction: column; gap: 8px; font-size: 13px; font-weight: 700; text-transform: uppercase; color: #163F32">Nombre del local o negocio *
+                  <input id="c-local" required type="text" placeholder="Ej. Sakura Sushi Viña" style="padding: 13px 16px; border-radius: 8px; border: 1px solid #E5ECE8; background: #FAF8F3; font-size: 15px; font-weight: 400; text-transform: none; color: #1A2822; outline: none"></label>
+              </div>
+              <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 22px">
+                <label style="display: flex; flex-direction: column; gap: 8px; font-size: 13px; font-weight: 700; text-transform: uppercase; color: #163F32">RUT empresa (opcional)
+                  <input id="c-rut" type="text" placeholder="77.419.820-K" style="padding: 13px 16px; border-radius: 8px; border: 1px solid #E5ECE8; background: #FAF8F3; font-size: 15px; font-weight: 400; color: #1A2822; outline: none"></label>
+                <label style="display: flex; flex-direction: column; gap: 8px; font-size: 13px; font-weight: 700; text-transform: uppercase; color: #163F32">Correo electrónico *
+                  <input id="c-correo" required type="email" placeholder="contacto@tulocal.cl" style="padding: 13px 16px; border-radius: 8px; border: 1px solid #E5ECE8; background: #FAF8F3; font-size: 15px; font-weight: 400; text-transform: none; color: #1A2822; outline: none"></label>
+                <label style="display: flex; flex-direction: column; gap: 8px; font-size: 13px; font-weight: 700; text-transform: uppercase; color: #163F32">Comuna (V Región) *
+                  <select id="c-comuna" style="padding: 13px 12px; border-radius: 8px; border: 1px solid #E5ECE8; background: #FAF8F3; font-size: 15px; font-weight: 400; text-transform: none; color: #1A2822">
+                    <option>Viña del Mar</option><option>Valparaíso</option><option>Concón</option><option>Reñaca</option><option>Quilpué</option><option>Villa Alemana</option><option>Limache</option><option>Quillota</option><option>La Calera</option><option>Casablanca</option><option>San Antonio</option><option>Los Andes / San Felipe</option>
+                  </select></label>
+              </div>
+              <label style="display: flex; flex-direction: column; gap: 8px; font-size: 13px; font-weight: 700; text-transform: uppercase; color: #163F32">Insumos que requieres cotizar o consulta
+                <textarea id="c-msg" rows="3" placeholder="Detalla los productos que necesitas cotizar para tu negocio..." style="padding: 13px 16px; border-radius: 8px; border: 1px solid #E5ECE8; background: #FAF8F3; font-size: 15px; font-weight: 400; text-transform: none; color: #1A2822; outline: none; resize: vertical"></textarea></label>
+              <div style="display: flex; flex-wrap: wrap; gap: 16px; justify-content: space-between; align-items: center; padding-top: 6px">
+                <span style="font-size: 13px; color: #66756E">Atención directa de lunes a viernes de 08:30 a 18:00 hrs.</span>
+                <button class="gold-btn" type="submit" style="display: inline-flex; align-items: center; gap: 10px; background: #C6A16C; color: #FFFFFF; border: 0; border-radius: 10px; padding: 15px 34px; font-family: Manrope, sans-serif; font-weight: 700; font-size: 15px; box-shadow: 0 4px 14px rgba(198,161,108,0.3)">Enviar mensaje comercial
+                  <svg aria-hidden="true" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="m22 2-7 20-4-9-9-4z"></path><path d="M22 2 11 13"></path></svg></button>
+              </div>
+            </form>
+          </sc-if>
+        </div>
+      </section>
+    </div>
+  </sc-if>
+
+  <!-- ================= CATEGORÍA ================= -->
+  <sc-if value="{{isCatalog}}" hint-placeholder-val="{{ false }}">
+    <div style="flex: 1; display: flex; flex-direction: column">
+      <div style="background: #FAF8F3; border-bottom: 1px solid #E5ECE8; padding: 32px 32px 28px">
+        <div style="max-width: 1280px; margin: 0 auto; display: flex; flex-direction: column; gap: 8px">
+          <nav aria-label="Ruta" style="display: flex; flex-wrap: wrap; gap: 8px; align-items: center; font-size: 12px; color: #66756E">
+            <button onClick="{{goHome}}" style="background: none; border: 0; padding: 0; color: #66756E; font-weight: 500; font-size: 12px">Inicio</button>
+            <span aria-hidden="true">/</span>
+            <span style="color: #163F32; font-weight: 600">{{cat.name}}</span>
+            <sc-if value="{{activeSubName}}" hint-placeholder-val="{{ false }}">
+              <span aria-hidden="true">/</span>
+              <span style="color: #8A6A3A; font-weight: 600">{{activeSubName}}</span>
+            </sc-if>
+          </nav>
+          <h1 style="margin: 0; font-family: 'Playfair Display', Georgia, serif; font-weight: 700; font-size: 38px; line-height: 1.15; color: #163F32; letter-spacing: -0.01em">{{cat.name}}</h1>
+          <p style="margin: 0; max-width: 720px; font-size: 14px; color: #566760">{{cat.desc}}</p>
+        </div>
+      </div>
+
+      <main style="flex: 1; padding: 36px 32px 56px">
+        <div style="max-width: 1280px; margin: 0 auto; display: flex; flex-wrap: wrap; gap: 28px; align-items: flex-start">
+          <aside aria-label="Subcategorías" style="flex: 1 1 240px; max-width: 100%; display: flex; flex-direction: column; gap: 16px">
+            <div style="background: #FFFFFF; border: 1px solid #E5ECE8; border-radius: 16px; padding: 18px 12px 12px; box-shadow: 0 1px 3px rgba(18,42,33,0.05)">
+              <h2 style="margin: 0 0 10px; padding: 0 10px; font-family: Manrope, sans-serif; font-size: 12px; font-weight: 800; letter-spacing: 0.14em; text-transform: uppercase; color: #566760">Subcategorías</h2>
+              <div style="display: flex; flex-direction: column; gap: 2px">
+                <sc-for list="{{subs}}" as="s" hint-placeholder-count="5">
+                  <button class="sub-btn" onClick="{{s.pick}}" aria-pressed="{{s.pressed}}" style="{{s.style}}">
+                    <span style="min-width: 0">{{s.name}}</span>
+                    <span style="font-size: 12px; font-variant-numeric: tabular-nums; color: {{s.countColor}}; font-weight: {{s.countWeight}}">{{s.count}}</span>
+                  </button>
+                </sc-for>
+              </div>
+            </div>
+            <div style="background: #163F32; color: #E4EFE8; border-radius: 16px; padding: 18px; display: flex; flex-direction: column; gap: 6px">
+              <span style="font-family: Manrope, sans-serif; font-weight: 700; font-size: 14px; color: #FFFFFF">¿No encuentras un insumo?</span>
+              <span style="font-size: 13px">Pídelo a tu ejecutivo y lo sumamos a tu cotización.</span>
+              <span style="font-weight: 700; color: #C6A16C">+56 9 6304 1374</span>
+            </div>
+          </aside>
+
+          <section aria-label="Productos" style="flex: 999 1 560px; min-width: 0; display: flex; flex-direction: column; gap: 24px">
+            <div style="background: #FFFFFF; border: 1px solid #E5ECE8; border-radius: 12px; padding: 14px 16px; display: flex; flex-wrap: wrap; gap: 12px 20px; align-items: center; justify-content: space-between">
+              <label style="position: relative; flex: 1 1 260px; max-width: 420px; display: flex; align-items: center">
+                <span style="position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0)">Buscar en esta categoría</span>
+                <svg aria-hidden="true" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#66756E" stroke-width="2.2" style="position: absolute; left: 12px"><circle cx="11" cy="11" r="7"></circle><path d="m20 20-3.5-3.5"></path></svg>
+                <input type="search" value="{{q}}" onInput="{{onSearch}}" placeholder="Buscar por producto, marca o SKU..." style="width: 100%; padding: 9px 12px 9px 36px; border-radius: 8px; border: 1px solid #E5ECE8; background: #FAF8F3; font-size: 13px; color: #1A2822; outline: none">
+              </label>
+              <div style="display: flex; flex-wrap: wrap; gap: 16px; align-items: center; font-size: 13px">
+                <span style="color: #566760">Mostrando <strong style="color: #163F32">{{count}}</strong> insumos</span>
+                <label style="display: flex; gap: 8px; align-items: center; color: #66756E">Ordenar:
+                  <select onChange="{{onSort}}" style="padding: 6px 10px; border-radius: 8px; border: 1px solid #E5ECE8; background: #FAF8F3; color: #163F32; font-weight: 600; font-size: 13px">
+                    <option value="featured">Destacados</option>
+                    <option value="name">Nombre (A-Z)</option>
+                    <option value="brand">Marca</option>
+                  </select>
+                </label>
+              </div>
+            </div>
+
+            <sc-if value="{{isEmpty}}" hint-placeholder-val="{{ false }}">
+              <div style="background: #FFFFFF; border: 1px solid #E5ECE8; border-radius: 16px; padding: 56px 24px; display: flex; flex-direction: column; gap: 10px; align-items: center; text-align: center">
+                <h3 style="margin: 0; font-family: Manrope, sans-serif; font-size: 18px; color: #163F32">No encontramos productos con ese filtro</h3>
+                <p style="margin: 0; max-width: 420px; color: #566760; font-size: 13px">Prueba con otra subcategoría o escribe a ventas para pedir el insumo.</p>
+                <button onClick="{{showAll}}" style="margin-top: 8px; background: #C6A16C; color: #FFFFFF; border: 0; border-radius: 10px; padding: 10px 22px; font-family: Manrope, sans-serif; font-weight: 700; font-size: 13px">Ver todas las subcategorías</button>
+              </div>
+            </sc-if>
+
+            <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(230px, 1fr)); gap: 22px">
+              <sc-for list="{{items}}" as="p" hint-placeholder-count="6">
+                <article class="card" style="background: #FFFFFF; border: 1px solid #E5ECE8; border-radius: 16px; overflow: hidden; display: flex; flex-direction: column; box-shadow: 0 1px 3px rgba(18,42,33,0.05); transition: all 0.3s cubic-bezier(0.16,1,0.3,1)">
+                  <div style="position: relative; height: 192px; background: #F6F2E9; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 6px; color: #8A9A92">
+                    <svg aria-hidden="true" width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M21 8 12 3 3 8v8l9 5 9-5z"></path><path d="m3 8 9 5 9-5M12 13v8"></path></svg>
+                    <span style="font-size: 11px; font-weight: 600; color: #66756E">Foto pendiente</span>
+                    <span style="position: absolute; top: 12px; left: 12px; font-family: Manrope, sans-serif; font-size: 10px; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase; background: rgba(255,255,255,0.92); color: #163F32; padding: 2px 8px; border-radius: 4px; border: 1px solid #E5ECE8">{{p.brand}}</span>
+                    <span style="position: absolute; top: 12px; right: 12px; font-family: ui-monospace, Menlo, monospace; font-size: 10px; font-weight: 600; background: rgba(22,63,50,0.85); color: #F6F2E9; padding: 2px 8px; border-radius: 4px">{{p.sku}}</span>
+                  </div>
+                  <div style="padding: 18px 18px 0; display: flex; flex-direction: column; gap: 10px; flex: 1">
+                    <span style="font-size: 11px; font-weight: 600; color: #8A6A3A">{{p.subName}}</span>
+                    <h3 style="margin: 0; font-family: Manrope, sans-serif; font-size: 14px; font-weight: 700; line-height: 1.4; color: #163F32; min-height: 40px">{{p.name}}</h3>
+                    <div style="background: #FAF8F3; border: 1px solid #E5ECE8; border-radius: 8px; padding: 9px 10px; font-size: 12px; display: flex; flex-direction: column; gap: 4px">
+                      <div style="display: flex; justify-content: space-between; gap: 10px"><span style="color: #66756E; flex: none">Presentación:</span><span style="font-weight: 600; color: #163F32; text-align: right; min-width: 0">{{p.format}}</span></div>
+                      <div style="display: flex; justify-content: space-between; gap: 10px"><span style="color: #66756E; flex: none">Unidad comercial:</span><span style="font-weight: 600; color: #163F32; text-align: right">{{p.unit}}</span></div>
+                    </div>
+                    <div style="display: flex; justify-content: space-between; align-items: center; font-size: 11px">
+                      <span style="color: #66756E">Precio por volumen:</span>
+                      <span style="font-family: Manrope, sans-serif; font-weight: 800; font-size: 10px; letter-spacing: 0.08em; text-transform: uppercase; color: #8A6A3A; background: #F7F1E6; padding: 2px 8px; border-radius: 4px">Bajo cotización</span>
+                    </div>
+                  </div>
+                  <div style="padding: 14px 18px 16px; margin-top: 12px; border-top: 1px solid #E5ECE8; display: flex; flex-direction: column; gap: 8px">
+                    <div style="display: flex; gap: 8px; align-items: center">
+                      <div style="display: flex; align-items: center; border: 1px solid #E5ECE8; border-radius: 8px; background: #FAF8F3; padding: 2px">
+                        <button onClick="{{p.dec}}" aria-label="Restar una unidad" style="width: 28px; height: 32px; border: 0; background: none; color: #566760; font-weight: 700; font-size: 15px">−</button>
+                        <span style="width: 26px; text-align: center; font-weight: 700; font-size: 13px; color: #163F32; font-variant-numeric: tabular-nums">{{p.qty}}</span>
+                        <button onClick="{{p.inc}}" aria-label="Sumar una unidad" style="width: 28px; height: 32px; border: 0; background: none; color: #566760; font-weight: 700; font-size: 15px">+</button>
+                      </div>
+                      <button class="olive-btn" onClick="{{p.add}}" style="flex: 1; min-height: 38px; display: inline-flex; align-items: center; justify-content: center; gap: 6px; background: #163F32; color: #FFFFFF; border: 0; border-radius: 10px; padding: 8px 10px; font-family: Manrope, sans-serif; font-weight: 700; font-size: 12px">
+                        <svg aria-hidden="true" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#C6A16C" stroke-width="2.2"><path d="M14 3H6a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V9z"></path><path d="M14 3v6h6M12 12v6M9 15h6"></path></svg>
+                        <span>{{p.addLabel}}</span>
+                      </button>
+                    </div>
+                    <a href="#" style="align-self: center; font-size: 11px; color: #66756E; text-decoration: none">Ver especificaciones técnicas</a>
+                  </div>
+                </article>
+              </sc-for>
+            </div>
+          </section>
+        </div>
+      </main>
+    </div>
+  </sc-if>
+
+  <footer style="background: #0D261E; color: #CFE0D5; padding: 64px 32px 80px; border-top: 1px solid rgba(198,161,108,0.2)">
+    <div style="max-width: 1280px; margin: 0 auto; display: flex; flex-direction: column; gap: 40px">
+      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 40px">
+        <div style="display: flex; flex-direction: column; gap: 16px">
+          <div style="display: flex; gap: 12px; align-items: center">
+            <span style="width: 40px; height: 40px; border-radius: 8px; background: #163F32; border: 1px solid rgba(198,161,108,0.4); color: #C6A16C; display: flex; align-items: center; justify-content: center; font-family: 'Playfair Display', Georgia, serif; font-weight: 700; font-size: 20px">O</span>
+            <span style="display: flex; flex-direction: column; gap: 2px">
+              <span style="font-family: 'Playfair Display', Georgia, serif; font-weight: 700; font-size: 20px; letter-spacing: 0.06em; color: #FFFFFF">DISTRIBUIDORA OLIVO</span>
+              <span style="font-size: 11px; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: #C6A16C">Portal B2B Olivo Signature</span>
+            </span>
+          </div>
+          <p style="margin: 0; font-size: 14px; line-height: 1.7; color: #B9D3C3">Proveedora y distribuidora de productos alimenticios y de limpieza a establecimientos gastronómicos, restaurantes, locales de sushi y minimarkets en la Región de Valparaíso.</p>
+        </div>
+        <div style="display: flex; flex-direction: column; gap: 10px; font-size: 14px">
+          <h4 style="margin: 0 0 4px; font-family: Manrope, sans-serif; font-size: 14px; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase; color: #C6A16C">Navegación</h4>
+          <button onClick="{{goHome}}" style="background: none; border: 0; padding: 0; text-align: left; color: #CFE0D5; font-size: 14px">Inicio</button>
+          <button onClick="{{goExplora}}" style="background: none; border: 0; padding: 0; text-align: left; color: #CFE0D5; font-size: 14px">Explora todo para tu negocio</button>
+          <span>Catálogo Completo</span>
+          <span>Solicitar Cotización</span>
+          <button onClick="{{goContact}}" style="background: none; border: 0; padding: 0; text-align: left; color: #CFE0D5; font-size: 14px">Contacto Comercial</button>
+        </div>
+        <div style="display: flex; flex-direction: column; gap: 6px; font-size: 14px">
+          <h4 style="margin: 0 0 8px; font-family: Manrope, sans-serif; font-size: 14px; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase; color: #C6A16C">Cobertura exclusiva</h4>
+          <span>• Viña del Mar y Reñaca</span>
+          <span>• Valparaíso y Playa Ancha</span>
+          <span>• Concón y Costa de Montemar</span>
+          <span>• Quilpué y Villa Alemana</span>
+          <span>• Limache y Quillota</span>
+          <span style="padding-top: 6px; font-size: 13px; color: #C6A16C">Despacho programado con flota refrigerada.</span>
+        </div>
+        <div style="display: flex; flex-direction: column; gap: 10px; font-size: 14px">
+          <h4 style="margin: 0 0 4px; font-family: Manrope, sans-serif; font-size: 14px; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase; color: #C6A16C">Atención comercial</h4>
+          <span style="display: flex; flex-direction: column"><span style="font-size: 11px; text-transform: uppercase; color: #9DB5A7">Centro logístico &amp; bodega:</span><span style="color: #FFFFFF">Camino Internacional, Ruta F Lote R.N 1.201, Bodega G 12, Viña del Mar, Región de Valparaíso.</span></span>
+          <span style="display: flex; flex-direction: column"><span style="font-size: 11px; text-transform: uppercase; color: #9DB5A7">Mesa de ventas:</span><span style="color: #C6A16C; font-weight: 700">+56 9 6304 1374</span></span>
+          <span style="display: flex; flex-direction: column"><span style="font-size: 11px; text-transform: uppercase; color: #9DB5A7">Correo:</span><span style="color: #FFFFFF">ventas@olivocorp.cl</span></span>
+        </div>
+      </div>
+      <div style="border-top: 1px solid rgba(255,255,255,0.1); padding-top: 28px; display: flex; flex-wrap: wrap; justify-content: space-between; gap: 12px; font-size: 13px; color: #9DB5A7">
+        <span>© 2026 Distribuidora e Importadora Olivo Spa • RUT: 77.320.398-9 • Región de Valparaíso, Chile.</span>
+        <span>Portal B2B Signature • Exclusivo para Empresas y Gastronomía</span>
+      </div>
+    </div>
+  </footer>
+
+  <div role="group" aria-label="Modo de demostración" style="position: fixed; right: 20px; bottom: 16px; z-index: 50; display: flex; align-items: center; gap: 4px; padding: 5px 7px; border-radius: 999px; background: rgba(13,38,30,0.94); border: 1px solid rgba(198,161,108,0.35); box-shadow: 0 10px 30px rgba(0,0,0,0.35)">
+    <span style="padding: 0 8px; font-size: 11px; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase; color: #C6A16C">Modo:</span>
+    <button onClick="{{roleVisitor}}" aria-pressed="{{visitorPressed}}" style="{{visitorStyle}}">
+      <svg aria-hidden="true" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="8" r="4"></circle><path d="M4 21c0-4 4-6 8-6s8 2 8 6"></path></svg>Visitante B2B</button>
+    <button onClick="{{roleExec}}" aria-pressed="{{execPressed}}" style="{{execStyle}}">
+      <svg aria-hidden="true" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="7" width="18" height="13" rx="2"></rect><path d="M8 7V5a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path></svg>Ejecutivo Comercial</button>
+  </div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"vista":{"editor":"enum","options":["inicio","categoria"],"default":"inicio"},"categoria":{"editor":"enum","options":["alimentos","sushi","congelados","lacteos","limpieza","insumos"],"default":"alimentos"},"$preview":{"width":1440,"height":4300}}'>
+const CATS=[{"id":"alimentos","name":"Alimentos y abarrotes","desc":"Aceites de alto rendimiento, arroces seleccionados, harinas, pastas y abarrotes a escala industrial para gastronomía.","subs":[["aceites","Aceites y fritura profunda"],["arroces","Arroces y granos especiales"],["pastas-harinas","Pastas, harinas y masas"],["salsas-conservas","Salsas, conservas y condimentos"],["azucar-sal","Azúcar, sal y especias"]]},{"id":"sushi","name":"Sushi y gastronomía oriental","desc":"Insumos indispensables para locales de sushi y dark kitchens: arroz grano corto Shirakiku, algas nori, panko, quesos crema y salsas orientales.","subs":[["arroz-sushi","Arroz grano corto"],["algas-nori","Algas nori y coberturas"],["salsas-orientales","Salsas de soya, teriyaki y unagi"],["insumos-crujientes","Panko, tempura y rebozados"],["condimentos-orientales","Wasabi, jengibre y sésamo"],["herramientas-sushi","Esterillas makisu y herramientas"]]},{"id":"congelados","name":"Congelados","desc":"Mariscos seleccionados, camarón ecuatoriano, papas prefritas corte bastón, carnes seleccionadas y pulpas de fruta 100% natural Río Alto.","subs":[["mariscos-camarones","Camarones y mariscos"],["papas-prefritas","Papas prefritas bastón"],["carnes-cortes","Carnes y cortes al vacío"],["pulpas-fruta","Pulpas de fruta natural Río Alto"]]},{"id":"lacteos","name":"Lácteos y refrigerados","desc":"Quesos crema en formato gastronómico de alto corte, quesos mozzarella, parmesano en horma, mantequillas y cremas de leche.","subs":[["quesos-maduros","Mozzarella, parmesano y maduros"],["cremas-leche","Cremas de leche UHT y leches"],["mantequillas","Mantequillas profesionales"]]},{"id":"limpieza","name":"Limpieza y aseo","desc":"Detergentes concentrados, desengrasantes de cocina pesada, sanitizantes, cloro industrial, guantes certificados y bolsas de alto micronaje.","subs":[["quimicos-limpieza","Lavalozas, desengrasantes y cloro"],["bolsas-aseo","Bolsas de aseo alta densidad"],["guantes-seguridad","Guantes de nitrilo, látex y vinilo"],["papeleria-servilletas","Papel jumbo, toalla nova y servilletas"],["accesorios-aseo","Paños microfibra y esponjas industriales"]]},{"id":"insumos","name":"Insumos para restaurantes","desc":"Films de embalaje PVC profesional, rollos térmicos de boleta/comanda, envases para sushi, bowls kraft y bolsas de reparto.","subs":[["films-alusa","Alusa film PVC y embalaje"],["rollos-termicos","Rollos térmicos POS y comandas"],["envases-delivery","Envases sushi, bowls y vasos"]]}];
+const CARDS={
+  alimentos:{badge:"Línea Despensa",text:"Aceites para freír 5L y 10L, harinas Mont Blanc, arroces seleccionados, pastas y salsas base.",photo:"Góndola de verduras frescas",tone:"#2F4A2A, #5C7A3A",img:"/_blob/c04ad79d4ffb821e928050d4491f413d"},
+  sushi:{badge:"Alta Demanda",text:"Arroz Shirakiku 9kg, algas nori Platinum, panko japonés, quesos crema y salsas orientales.",photo:"Nigiris y palillos sobre fondo oscuro",tone:"#1A1A1A, #3A2E2A",img:"/_blob/5c5824525a8d064833c304a5bff9ad18"},
+  congelados:{badge:"Cadena de Frío -18°C",text:"Camarón ecuatoriano P&D, papas prefritas bastón Cresswell, cortes al vacío y pulpas Río Alto.",photo:"Camarones en bowl",tone:"#5A3A2A, #A8643E",img:"/_blob/80a0717f604083378b0b850d1a362bf1"},
+  lacteos:{badge:"Formato Gastronómico",text:"Quesos crema Milkaut y Reny Picot, mozzarella en barra Molfino, parmesano y cremas UHT.",photo:"Hormas de queso madurado",tone:"#3E4448, #8A7E62",img:"/_blob/31a105adbf974d1948d7b9366677b10a"},
+  limpieza:{badge:"Higiene SEREMI",text:"Lavalozas industriales Ecol, desengrasante D-2000, cloro OK, guantes de nitrilo y bolsas de basura.",photo:"Mano con guante de nitrilo",tone:"#4A5A5C, #8C9A9A",img:"/_blob/207b6d111a0d3d728cf55f6fa69dae1b"},
+  insumos:{badge:"Packaging & Cocina",text:"Alusa film Japofood 300m, rollos térmicos 80x80 para comandas, envases sushi box y bowls kraft.",photo:"Packaging gastronómico",tone:"#5A4630, #9A7A52",img:"/_blob/7ceb00776afa5b989ea1fcab654486a3"}
+};
+const PRODS=[["OLV-ALM-001","Aceite para Freír Don Maravilla 5 LT","Don Maravilla","alimentos","aceites","Bidón 5 Litros (Caja 4 unidades)","Bidón / Caja"],["OLV-ALM-002","Aceite para Freír MaxiFrits Maravilla 10 LT","MaxiFrits","alimentos","aceites","Bidón industrial 10 Litros","Bidón"],["OLV-ALM-003","Aceite Vegetal Coliseo 900 ML (Caja 15 unidades)","Coliseo","alimentos","aceites","Caja máster de 15 botellas x 900 ml","Caja 15 Botellas"],["OLV-ALM-004","Aceite Oliva Extra Virgen Sabattini 5 LT","Sabattini","alimentos","aceites","Bidón 5 Litros (Caja 4 unidades)","Bidón / Caja"],["OLV-ALM-005","Arroz Grano Corto Arborio Roma 1 KG","Roma","alimentos","arroces","Caja / Paquete 1 Kg al vacío","Paquete 1 Kg"],["OLV-ALM-006","Arroz Grano Largo Coliseo G2 1 KG (Display 10 KG)","Coliseo","alimentos","arroces","Bolsa 1 Kg (Fardo display de 10 paquetes)","Display 10 Kg"],["OLV-ALM-007","Harina de Trigo Mont Blanc Con Polvos 1 KG (Fardo 10 KG)","Mont Blanc","alimentos","pastas-harinas","Fardo 10 paquetes x 1 Kg","Fardo 10 Kg"],["OLV-ALM-008","Harina de Trigo Mont Blanc Sin Polvos 1 KG (Fardo 10 KG)","Mont Blanc","alimentos","pastas-harinas","Fardo 10 paquetes x 1 Kg","Fardo 10 Kg"],["OLV-ALM-009","Spaghetti Tradicional Don Giuseppe 400 GR (Caja 20 unidades)","Don Giuseppe","alimentos","pastas-harinas","Caja máster de 20 paquetes x 400g","Caja 20 Unidades"],["OLV-ALM-010","Fideos Espiral Don Giuseppe 400 GR (Caja 20 unidades)","Don Giuseppe","alimentos","pastas-harinas","Caja máster de 20 paquetes x 400g","Caja 20 Unidades"],["OLV-ALM-011","Salsa de Tomate Italiana San Remo 1 KG (Caja 10 unidades)","San Remo","alimentos","salsas-conservas","Caja máster de 10 bolsas pouch x 1 Kg","Caja 10 Bolsas (10 Kg)"],["OLV-ALM-012","Salsa Pizza Lista para Usar RTU 1 KG (Caja 10 unidades)","San Remo Pro","alimentos","salsas-conservas","Caja máster de 10 bolsas pouch x 1 Kg","Caja 10 Bolsas (10 Kg)"],["OLV-ALM-013","Azúcar Blanca Refinada Coliseo 1 KG (Fardo 10 KG)","Coliseo","alimentos","azucar-sal","Fardo 10 paquetes x 1 Kg","Fardo 10 Kg"],["OLV-ALM-014","Sal Fina Yodada Smart Price 1 KG (Fardo 20 KG)","Smart Price","alimentos","azucar-sal","Fardo 20 paquetes x 1 Kg","Fardo 20 Kg"],["OLV-SSH-001","Arroz Grano Corto Shirakiku 9 KG (Especial Sushi)","Shirakiku","sushi","arroz-sushi","Saco industrial 9 Kilogramos","Saco 9 Kg"],["OLV-SSH-002","Alga Nori Tostada Platinum Gold (Pack 50 Hojas)","Japofood Pro","sushi","algas-nori","Pack sellado hermético con 50 hojas enteras (21x19 cm)","Pack 50 Hojas"],["OLV-SSH-003","Queso Crema Milkaut Gastronómico Balde 3.6 KG","Milkaut","sushi","insumos-crujientes","Balde sellado 3.6 Kilogramos","Balde 3.6 Kg"],["OLV-SSH-004","Queso Crema Reny Picot Barra 1.36 KG (Caja 10 barras)","Reny Picot","sushi","insumos-crujientes","Barra sellada 1.36 Kg (Caja máster de 10 barras = 13.6 Kg)","Barra 1.36 Kg / Caja"],["OLV-SSH-005","Queso Crema Zanafoods Barra 1.36 KG","Zanafoods","sushi","insumos-crujientes","Barra sellada al vacío 1.36 Kilogramos","Barra 1.36 Kg"],["OLV-SSH-006","Panko Japonés Extra Crujiente 1 KG (Caja 10 KG)","Tokyo Panko Pro","sushi","insumos-crujientes","Bolsa 1 Kg (Caja 10 unidades)","Bolsa 1 Kg / Caja 10 Kg"],["OLV-SSH-007","Salsa de Soya Tradicional Japofood Bidón 5 LT","Japofood","sushi","salsas-orientales","Bidón 5 Litros industrial","Bidón 5L"],["OLV-SSH-008","Salsa Teriyaki Glaze Espesa Japofood 1.8 LT","Japofood","sushi","salsas-orientales","Botella plástica profesional 1.8 Litros (Caja 6 unidades)","Botella 1.8L"],["OLV-SSH-009","Salsa Anguila Unagi Tare Premium 1.8 LT","Japofood","sushi","salsas-orientales","Botella 1.8 Litros","Botella 1.8L"],["OLV-SSH-010","Wasabi en Polvo Grado A Lata 1 KG","Wasabi Fuji","sushi","condimentos-orientales","Lata metálica hermética 1 Kg","Lata 1 Kg"],["OLV-SSH-011","Jengibre Encurtido Gari Blanco Balde 1.5 KG","Gari Master","sushi","condimentos-orientales","Balde plástico con salmuera 1.5 Kg","Balde 1.5 Kg"],["OLV-SSH-012","Sésamo Tostado Bicolor Blanco y Negro 1 KG","Japofood","sushi","condimentos-orientales","Bolsa sellada 1 Kg","Bolsa 1 Kg"],["OLV-SSH-013","Esterilla Makisu de Bambú Reforzada (Pack 5 unidades)","Chef Tools Pro","sushi","herramientas-sushi","Pack de 5 esterillas de bambú natural","Pack 5 Unidades"],["OLV-CON-001","Camarón Ecuatoriano P&D 36/40 (Pelado y Desvenado) 1 KG","Pacífico Sur","congelados","mariscos-camarones","Bolsa IQF 1 Kg (Caja máster de 10 Kg)","Bolsa 1 Kg / Caja 10 Kg"],["OLV-CON-002","Camarón Ecuatoriano Con Cáscara 36/40 1 KG (Caja 10 KG)","Pacífico Sur","congelados","mariscos-camarones","Bolsa 1 Kg (Caja máster de 10 Kg)","Bolsa 1 Kg / Caja 10 Kg"],["OLV-CON-003","Camarón Chino Calibre 36/40 Bolsa 1 KG","Importado Oriental","congelados","mariscos-camarones","Bolsa 1 Kg congelado rápido","Bolsa 1 Kg"],["OLV-CON-004","Papas Prefritas Corte Bastón 10 MM Cresswell (Caja 12 KG)","Cresswell","congelados","papas-prefritas","Caja máster de 6 bolsas x 2 Kg (12 Kg totales)","Caja 12 Kg (6x2kg)"],["OLV-CON-005","Papas Prefritas Corte Fino 7 MM Cresswell (Caja 12 KG)","Cresswell","congelados","papas-prefritas","Caja máster de 6 bolsas x 2 Kg (12 Kg totales)","Caja 12 Kg (6x2kg)"],["OLV-CON-006","Papas Prefritas Corte Grueso 12 MM Cresswell (Caja 12 KG)","Cresswell","congelados","papas-prefritas","Caja máster de 6 bolsas x 2 Kg (12 Kg totales)","Caja 12 Kg (6x2kg)"],["OLV-CON-007","Corte de Vacuno Asado Carnicero / Vacío Importado","Frigorífico Pampa","congelados","carnes-cortes","Piezas al vacío de 2.5 a 4 Kg aprox (Venta por Kilo)","Kilo (Pieza al vacío)"],["OLV-CON-008","Pulpa de Maracuyá Natural Con Pepa Río Alto 1 KG","Río Alto","congelados","pulpas-fruta","Bolsa congelada 1 Kilogramo (Caja 10 unidades)","Bolsa 1 Kg / Caja 10 Kg"],["OLV-CON-009","Pulpa de Maracuyá Natural Sin Pepa Río Alto 1 KG","Río Alto","congelados","pulpas-fruta","Bolsa congelada 1 Kilogramo (Caja 10 unidades)","Bolsa 1 Kg / Caja 10 Kg"],["OLV-CON-010","Pulpa de Mango Natural Río Alto 1 KG","Río Alto","congelados","pulpas-fruta","Bolsa 1 Kilogramo congelada","Bolsa 1 Kg"],["OLV-CON-011","Pulpa de Frambuesa Natural Río Alto 1 KG","Río Alto","congelados","pulpas-fruta","Bolsa 1 Kilogramo congelada","Bolsa 1 Kg"],["OLV-CON-012","Pulpa de Frutilla Natural Río Alto 1 KG","Río Alto","congelados","pulpas-fruta","Bolsa 1 Kilogramo congelada","Bolsa 1 Kg"],["OLV-LAC-001","Crema de Leche Gastronómica Colún 1 L (Caja 12 unidades)","Colún","lacteos","cremas-leche","Caja máster de 12 botellas Tetra Pak x 1 Litro","Caja 12 Litros"],["OLV-LAC-002","Crema de Leche UHT Surlat 1 L (Caja 12 unidades)","Surlat","lacteos","cremas-leche","Caja máster de 12 litros","Caja 12 Litros"],["OLV-LAC-003","Leche Entera UHT Tottus 1 L (Caja 12 unidades)","Tottus","lacteos","cremas-leche","Caja máster de 12 envases x 1 Litro","Caja 12 Litros"],["OLV-LAC-004","Mantequilla Con Sal Colún Barra 250 GR (Caja 40 unidades)","Colún","lacteos","mantequillas","Caja máster de 40 barras x 250 gramos (10 Kg totales)","Caja 40 Barras (10 Kg)"],["OLV-LAC-005","Queso Mozzarella Barra Gastronómica Molfino 3.5 KG","Molfino","lacteos","quesos-maduros","Pieza al vacío de 3.5 Kilogramos (Caja de 4 barras = 14 Kg)","Pieza 3.5 Kg / Caja"],["OLV-LAC-006","Queso Parmesano Maduro Horma Entera 7-8 KG","Valle Verde","lacteos","quesos-maduros","Horma entera cilíndrica de 7.5 Kg aprox","Horma Entera (~7.5 Kg)"],["OLV-ASE-001","Lavaloza Concentrado Industrial Ecol L-2000 Bidón 5 LT","Ecol Químicos","limpieza","quimicos-limpieza","Bidón industrial 5 Litros (Caja 4 bidones)","Bidón 5L / Caja 20L"],["OLV-ASE-002","Desengrasante Pesado Industrial Ecol D-2000 Bidón 5 LT","Ecol Químicos","limpieza","quimicos-limpieza","Bidón industrial 5 Litros","Bidón 5L"],["OLV-ASE-003","Cloro Líquido Industrial 5% Bidón OK 5 LT","OK Químicos","limpieza","quimicos-limpieza","Bidón opaco 5 Litros","Bidón 5L"],["OLV-ASE-004","Limpiador Desinfectante de Pisos Don Tito Lavanda 5 LT","Don Tito","limpieza","quimicos-limpieza","Bidón 5 Litros","Bidón 5L"],["OLV-ASE-005","Bolsas de Aseo Alta Densidad 80x110 Rollo 10 Unidades","Aseo Plus","limpieza","bolsas-aseo","Rollo de 10 bolsas (Caja máster de 20 rollos)","Rollo 10 Unidades / Caja"],["OLV-ASE-006","Bolsas de Aseo Extra Grandes 110x130 Pack 10 Unidades","Aseo Plus","limpieza","bolsas-aseo","Pack de 10 bolsas gigantes","Pack 10 Unidades"],["OLV-ASE-007","Guante Nitrilo Negro Sin Polvo Caja 100 Unidades","Safeguard Pro","limpieza","guantes-seguridad","Caja dispensadora de 100 guantes (Tallas S, M, L)","Caja 100 Guantes"],["OLV-ASE-008","Guante Látex Descartable Ambidextro Caja 100 Unidades","Safeguard Pro","limpieza","guantes-seguridad","Caja dispensadora de 100 unidades (Tallas S, M, L)","Caja 100 Guantes"],["OLV-ASE-009","Papel Toalla Nova Económica Industrial Pack 2x250 Metros","Nova Pro","limpieza","papeleria-servilletas","Pack de 2 bobinas continuas de 250 metros c/u (500m totales)","Pack 2 Bobinas (500 Metros)"],["OLV-ASE-010","Papel Higiénico Institucional Jumbo 1x6 Rollos x 300 Metros","OK Eco Pro","limpieza","papeleria-servilletas","Fardo termoencogible de 6 rollos x 300 metros (1800m totales)","Fardo 6 Rollos (1800m)"],["OLV-ASE-011","Servilleta Blanca Doblada Joker 40x40 (Caja 1200 unidades)","Joker","limpieza","papeleria-servilletas","Caja máster de 1200 unidades dobladas en 1/4","Caja 1200 Unidades"],["OLV-ASE-012","Servilleta Negra Doblada Gourmet Joker 40x40 (Caja 1200 unidades)","Joker","limpieza","papeleria-servilletas","Caja máster de 1200 unidades","Caja 1200 Unidades"],["OLV-ASE-013","Paños Microfibra Absorbente Teddy 38x38 CM (Pack 10 unidades)","Teddy Pro","limpieza","accesorios-aseo","Pack de 10 paños amarillos 38x38 cm","Pack 10 Unidades"],["OLV-INS-001","Rollo Alusa Film PVC Adherente 300 Metros Japofood (Caja 6 unidades)","Japofood","insumos","films-alusa","Caja de 6 cajas individuales con sierra cortadora x 300 metros","Caja 6 Rollos (1800m)"],["OLV-INS-002","Rollo Alusa Film PVC Profesional 45 CM x 1400 Metros","PlastiPack","insumos","films-alusa","Bobina industrial gigante de 1400 metros continuos","Bobina 1400 Metros"],["OLV-INS-003","Rollo Térmico 80x80 para Impresoras POS y Boletas (Caja 50 unidades)","PaperTech B2B","insumos","rollos-termicos","Caja máster de 50 rollos térmicos libres de BPA","Caja 50 Rollos"],["OLV-INS-004","Envase Sushi Box Premium Negro Tapa Antivaho (Pack 50 unidades)","EcoPack Sushi","insumos","envases-delivery","Pack de 50 bandejas base negra + 50 tapas cristalinas con clip","Pack 50 Sets"],["OLV-INS-005","Bowl Kraft Ecológico 1000 CC Con Tapa PET (Pack 50 unidades)","EcoKraft","insumos","envases-delivery","Pack de 50 bowls kraft marrón + 50 tapas transparentes","Pack 50 Sets"]];
+
+const BTN_BASE = 'display: flex; justify-content: space-between; align-items: center; gap: 10px; width: 100%; text-align: left; border: 0; border-radius: 10px; padding: 10px 12px; font-size: 14px; line-height: 1.35; transition: background 0.15s; ';
+const BTN_ON = BTN_BASE + 'background: #FFFFFF; color: #163F32; font-weight: 700; box-shadow: inset 3px 0 0 #C6A16C, 0 1px 3px rgba(18,42,33,0.08); ';
+const BTN_OFF = BTN_BASE + 'background: transparent; color: #1A2822; font-weight: 500; ';
+const DOT_ON = 'width: 50px; height: 4px; border-radius: 2px; border: 0; padding: 0; background: #C6A16C; transition: all 0.3s ease';
+const DOT_OFF = 'width: 32px; height: 4px; border-radius: 2px; border: 0; padding: 0; background: rgba(255,255,255,0.35); transition: all 0.3s ease';
+const ROLE_ON = 'display: inline-flex; align-items: center; gap: 6px; border: 0; border-radius: 999px; padding: 7px 14px; font-size: 13px; font-weight: 700; background: #C6A16C; color: #FFFFFF; box-shadow: 0 2px 8px rgba(198,161,108,0.4)';
+const ROLE_OFF = 'display: inline-flex; align-items: center; gap: 6px; border: 0; border-radius: 999px; padding: 7px 14px; font-size: 13px; font-weight: 700; background: transparent; color: #D3E0D8';
+const NAV_ON = 'background: none; border: 0; padding: 4px 0; color: #163F32; font-weight: 700; box-shadow: inset 0 -2px 0 #C6A16C';
+const NAV_OFF = 'background: none; border: 0; padding: 4px 0; color: #566760; font-weight: 600';
+
+class Component extends DCLogic {
+  constructor(props) {
+    super(props);
+    this.state = { view: null, cat: null, sub: 'all', q: '', sort: 'featured', qty: {}, quote: {}, slide: 0, role: 'visitor', contactSent: false };
+  }
+  componentDidMount() {
+    this.timer = setInterval(() => { if (this.viewNow() === 'home') this.setState({ slide: this.state.slide === 0 ? 1 : 0 }); }, 6500);
+  }
+  componentWillUnmount() { clearInterval(this.timer); }
+  viewNow() {
+    if (this.state.view) return this.state.view;
+    return (this.props.vista ?? 'inicio') === 'categoria' ? 'catalog' : 'home';
+  }
+  scrollTo(id) {
+    setTimeout(() => { const el = document.getElementById(id); if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' }); }, 60);
+  }
+  renderVals() {
+    const view = this.viewNow();
+    const catId = this.state.cat || (this.props.categoria ?? 'alimentos');
+    const cat = CATS.find(c => c.id === catId) || CATS[0];
+    const sub = this.state.sub;
+    const openCat = (id) => () => { this.setState({ view: 'catalog', cat: id, sub: 'all', q: '' }); this.scrollTo('top-anchor'); window.scrollTo && window.scrollTo(0, 0); };
+    const goHome = () => { this.setState({ view: 'home' }); window.scrollTo && window.scrollTo(0, 0); };
+    const pick = (id) => () => this.setState({ sub: id });
+    const inCat = PRODS.filter(p => p[3] === cat.id);
+    const subName = {};
+    cat.subs.forEach(s => { subName[s[0]] = s[1]; });
+    const mk = (id, name, n) => {
+      const on = sub === id;
+      return { name, count: n, pick: pick(id), pressed: on ? 'true' : 'false', style: on ? BTN_ON : BTN_OFF, countColor: on ? '#8A6A3A' : '#66756E', countWeight: on ? 800 : 500 };
+    };
+    const subs = [mk('all', 'Todas', inCat.length)].concat(cat.subs.map(s => mk(s[0], s[1], inCat.filter(p => p[4] === s[0]).length)));
+    const q = this.state.q.trim().toLowerCase();
+    let list = inCat.filter(p => (sub === 'all' || p[4] === sub) && (!q || (p[1] + ' ' + p[2] + ' ' + p[0]).toLowerCase().includes(q)));
+    if (this.state.sort === 'name') list = list.slice().sort((a, b) => a[1].localeCompare(b[1]));
+    if (this.state.sort === 'brand') list = list.slice().sort((a, b) => a[2].localeCompare(b[2]));
+    const qtyOf = (sku) => this.state.qty[sku] || 1;
+    const setQty = (sku, d) => () => this.setState({ qty: Object.assign({}, this.state.qty, { [sku]: Math.max(1, qtyOf(sku) + d) }) });
+    const items = list.map(p => {
+      const inQuote = this.state.quote[p[0]] || 0;
+      return {
+        sku: p[0], name: p[1], brand: p[2], subName: subName[p[4]] || '', format: p[5], unit: p[6],
+        qty: qtyOf(p[0]), inc: setQty(p[0], 1), dec: setQty(p[0], -1),
+        addLabel: inQuote ? 'En cotización (' + inQuote + ')' : 'Agregar a cotización',
+        add: () => this.setState({ quote: Object.assign({}, this.state.quote, { [p[0]]: inQuote + qtyOf(p[0]) }), qty: Object.assign({}, this.state.qty, { [p[0]]: 1 }) })
+      };
+    });
+    const catCards = CATS.map(c => {
+      const k = CARDS[c.id];
+      return { name: c.name, badge: k.badge, text: k.text, photo: k.photo, img: k.img || '', noImg: !k.img,
+        phStyle: 'position: absolute; inset: 0; background: linear-gradient(135deg, ' + k.tone + ')', open: openCat(c.id) };
+    });
+    const total = Object.values(this.state.quote).reduce((a, b) => a + b, 0);
+    const active = cat.subs.find(s => s[0] === sub);
+    const slide = this.state.slide;
+    return {
+      isHome: view === 'home', isCatalog: view === 'catalog',
+      navHomeStyle: view === 'home' ? NAV_ON : NAV_OFF,
+      goHome,
+      goContact: () => { this.setState({ view: 'home' }); this.scrollTo('contacto'); },
+      goExplora: () => { this.setState({ view: 'home' }); this.scrollTo('explora'); },
+      goSushi: openCat('sushi'),
+      slide0: slide === 0, slide1: slide === 1,
+      dot0: slide === 0 ? DOT_ON : DOT_OFF, dot1: slide === 1 ? DOT_ON : DOT_OFF,
+      toSlide0: () => this.setState({ slide: 0 }), toSlide1: () => this.setState({ slide: 1 }),
+      catCards,
+      contactSent: this.state.contactSent, contactOpen: !this.state.contactSent,
+      sendContact: (e) => { e.preventDefault(); this.setState({ contactSent: true }); },
+      cat, subs, items, count: items.length, isEmpty: items.length === 0,
+      activeSubName: active ? active[1] : '',
+      q: this.state.q, total, hasItems: total > 0,
+      onSearch: (e) => this.setState({ q: e.target.value }),
+      onSort: (e) => this.setState({ sort: e.target.value }),
+      showAll: pick('all'),
+      roleVisitor: () => this.setState({ role: 'visitor' }), roleExec: () => this.setState({ role: 'exec' }),
+      visitorStyle: this.state.role === 'visitor' ? ROLE_ON : ROLE_OFF, execStyle: this.state.role === 'exec' ? ROLE_ON : ROLE_OFF,
+      visitorPressed: this.state.role === 'visitor' ? 'true' : 'false', execPressed: this.state.role === 'exec' ? 'true' : 'false'
+    };
+  }
+}
+</script>
+</body>
+</html>

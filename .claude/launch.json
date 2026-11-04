@@ -1,0 +1,17 @@
+{
+  "version": "0.0.1",
+  "configurations": [
+    {
+      "name": "romeo-linkbio",
+      "runtimeExecutable": "powershell",
+      "runtimeArgs": ["-NoProfile", "-ExecutionPolicy", "Bypass", "-File", "C:\\Users\\JULIET~1\\AppData\\Local\\Temp\\claude\\C--Users-Julieta-Vasquez--gemini-antigravity-scratch-olivo-2026\\c0f630b0-77f0-48f2-b8ca-fb91d406cf8f\\scratchpad\\serve.ps1", "-Root", "C:\\Users\\Julieta Vasquez\\.gemini\\antigravity\\scratch\\olivo-2026\\romeo-sports-linkbio"],
+      "port": 5178
+    },
+    {
+      "name": "olivo-portal",
+      "runtimeExecutable": "powershell",
+      "runtimeArgs": ["-NoProfile", "-ExecutionPolicy", "Bypass", "-File", "C:\\Users\\JULIET~1\\AppData\\Local\\Temp\\claude\\C--Users-Julieta-Vasquez--gemini-antigravity-scratch-olivo-2026\\491be3c8-ca94-432f-8c12-6a1028919860\\scratchpad\\serve.ps1", "-Root", "C:\\Users\\Julieta Vasquez\\.gemini\\antigravity\\scratch\\olivo-2026\\public"],
+      "port": 5180
+    }
+  ]
+}

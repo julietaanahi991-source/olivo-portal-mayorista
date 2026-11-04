@@ -1,0 +1,21 @@
+# OLIVO · archivos que no se guardan en el historial
+
+# Configuración con claves (nunca versionar)
+cpanel/olivo-privado/config.php
+**/olivo-privado/config.php
+
+# Paquetes generados (se rehacen con el script de zip)
+entregables/*.zip
+
+# Otro proyecto con su propio repositorio Git
+romeo-sports-linkbio/
+
+# Sistema y editores
+Thumbs.db
+desktop.ini
+.DS_Store
+node_modules/
+*.log
+
+# Ajustes locales de Claude Code
+.claude/settings.local.json

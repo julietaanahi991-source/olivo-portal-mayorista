@@ -1,0 +1,16 @@
+{
+  "clientName": "Prueba Portal",
+  "phone": "+56 9 1111 2222",
+  "email": "CAMBIAR-por-tu-correo@ejemplo.cl",
+  "companyName": "Local de prueba SpA",
+  "rut": "76.123.456-0",
+  "comuna": "Viña del Mar",
+  "businessType": "Local de sushi",
+  "notes": "Solicitud de prueba del microservicio. Ignorar.",
+  "website": "",
+  "tracking": { "utm_source": "prueba", "utm_campaign": "test-cpanel" },
+  "items": [
+    { "sku": "OLV-SSH-001", "name": "Arroz Grano Corto Shirakiku 9 KG (Especial Sushi)", "brand": "Shirakiku", "format": "Saco industrial 9 Kg", "quantity": 4 },
+    { "sku": "OLV-LAC-005", "name": "Queso Mozzarella Barra Gastronómica Molfino 3.5 KG", "brand": "Molfino", "format": "Pieza al vacío 3.5 Kg", "quantity": 2 }
+  ]
+}

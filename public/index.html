@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="es" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>OLIVO Signature | Distribuidora de Alimentos — Región de Valparaíso</title>
+  
+  <!-- SEO & OpenGraph Metadatos -->
+  <meta name="description" content="Portal digital B2B de Distribuidora Olivo. Abastecimiento mayorista para restaurantes, sushi bars, locales y minimarkets en la Región de Valparaíso (V Región). Cotizaciones personalizadas sin precios públicos.">
+  <meta name="keywords" content="distribuidora olivo, olivo signature, insumos sushi viña del mar, valparaiso, concon, horeca v region, arroz shirakiku, queso crema milkaut, cotizacion b2b">
+  <meta name="author" content="Distribuidora e Importadora Olivo Spa">
+  <meta name="robots" content="index, follow">
+  <link rel="canonical" href="https://mayorista.distribuidoraolivo.cl/">
+
+  <meta property="og:title" content="OLIVO Signature | Portal B2B Distribuidora Olivo — V Región">
+  <meta property="og:description" content="Todo lo que tu negocio necesita, en un solo lugar. Insumos para sushi, abarrotes, lácteos, congelados y aseo en la Región de Valparaíso.">
+  <meta property="og:type" content="website">
+  <meta property="og:image" content="https://mayorista.distribuidoraolivo.cl/images/hero-cocina.jpg">
+  <meta property="og:url" content="https://mayorista.distribuidoraolivo.cl/">
+  <meta property="og:locale" content="es_CL">
+
+  <!-- Schema.org B2B Wholesale Organization -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WholesaleStore",
+    "name": "Distribuidora e Importadora Olivo Spa",
+    "alternateName": "OLIVO Signature",
+    "url": "https://mayorista.distribuidoraolivo.cl",
+    "logo": "https://distribuidoraolivo.cl/wp-content/uploads/2024/08/Logo-Olivo-.svg",
+    "description": "Proveedora y distribuidora de productos alimenticios y de limpieza a locales gastronómicos y mercados en la Región de Valparaíso.",
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Viña del Mar",
+      "addressRegion": "Valparaíso",
+      "addressCountry": "CL"
+    },
+    "telephone": "+56 9 6304 1374",
+    "priceRange": "$$$$"
+  }
+  </script>
+
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            olive: {
+              DEFAULT: '#163F32',
+              deep: '#163F32',
+              dark: '#0D261E',
+              light: '#215645',
+              surface: '#EBF2EE'
+            },
+            gold: {
+              DEFAULT: '#C6A16C',
+              hover: '#B38E57',
+              light: '#F7F1E6'
+            },
+            ivory: {
+              DEFAULT: '#F6F2E9',
+              light: '#FAF8F3',
+              dark: '#E8E2D3'
+            }
+          },
+          fontFamily: {
+            serif: ['Playfair Display', 'Georgia', 'serif'],
+            heading: ['Manrope', 'sans-serif'],
+            body: ['DM Sans', 'sans-serif']
+          }
+        }
+      }
+    }
+  </script>
+
+  <!-- Lucide Icons CDN -->
+  <script src="https://unpkg.com/lucide@latest"></script>
+
+  <!-- Estilos Personalizados Olivo Signature -->
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body class="bg-[#FAF8F3] text-[#1A2822] min-h-screen flex flex-col font-body antialiased">
+
+  <!-- FRANJA INFORMATIVA DISCRETA: DESPACHOS EXCLUSIVOS EN V REGIÓN -->
+  <div class="announcement-bar bg-[#0D261E] text-white text-[11px] sm:text-xs py-2 px-4 border-b border-[#C6A16C]/30 no-print">
+    <div class="max-w-7xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-2 text-center sm:text-left">
+      <div class="flex items-center gap-2">
+        <span class="w-2 h-2 rounded-full bg-[#C6A16C] animate-pulse"></span>
+        <span class="text-emerald-100 font-medium">
+          <strong>Distribuidora Olivo:</strong> Despachos exclusivos en la <strong>Región de Valparaíso (V Región)</strong> — Viña del Mar, Valparaíso, Concón, Quilpué, Villa Alemana, Limache y Quillota.
+        </span>
+      </div>
+      <div class="hidden md:flex items-center gap-4 text-emerald-200/80">
+        <span>Ventas B2B: +56 9 6304 1374</span>
+        <span class="text-[#C6A16C]">Atención personalizada 1 a 1</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- ENCABEZADO SIMPLIFICADO: INICIO, CONTACTO, BÚSQUEDA Y SOLICITAR COTIZACIÓN -->
+  <header class="header-glass sticky top-0 z-40 no-print">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex items-center justify-between h-20">
+        
+        <!-- LOGOTIPO OFICIAL DISTRIBUIDORA OLIVO -->
+        <div onclick="window.OlivoApp.setView('landing')" class="flex items-center gap-3.5 cursor-pointer select-none" title="Distribuidora Olivo - Inicio">
+          <!-- Isotipo / Emblema Olivo -->
+          <div class="w-11 h-11 rounded-xl bg-[#163F32] border border-[#C6A16C]/40 flex items-center justify-center text-[#C6A16C] shadow-md flex-shrink-0">
+            <svg class="w-6 h-6 fill-current" viewBox="0 0 24 24">
+              <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 17.93c-3.95-.49-7-3.85-7-7.93 0-.62.08-1.21.21-1.79L9 15v1c0 1.1.9 2 2 2v1.93zm6.9-2.54c-.26-.81-1-1.39-1.9-1.39h-1v-3c0-.55-.45-1-1-1H8v-2h2c.55 0 1-.45 1-1V7h2c1.1 0 2-.9 2-2v-.41c2.93 1.19 5 4.06 5 7.41 0 2.08-.8 3.97-2.1 5.39z"/>
+            </svg>
+          </div>
+
+          <div>
+            <div class="flex items-center gap-1.5 leading-none">
+              <span class="text-2xl font-serif font-black tracking-wider text-[#163F32]">OLIVO</span>
+              <span class="text-[10px] font-bold px-2 py-0.5 rounded-full bg-[#F7F1E6] text-[#9B7843] border border-[#C6A16C]/40 tracking-widest uppercase">Signature</span>
+            </div>
+            <div class="text-[9.5px] text-[#566760] tracking-wider uppercase font-bold mt-1">
+              Distribuidora de Alimentos y Productos
+            </div>
+          </div>
+        </div>
+
+        <!-- MENÚ SUPERIOR SIMPLIFICADO: ÚNICAMENTE INICIO Y CONTACTO -->
+        <nav class="hidden md:flex items-center gap-8 text-sm font-semibold">
+          <button onclick="window.OlivoApp.setView('landing')" data-view="landing" class="nav-link text-[#163F32] hover:text-[#C6A16C] transition py-1">
+            Inicio
+          </button>
+          <button onclick="window.OlivoApp.scrollToContact()" class="text-[#566760] hover:text-[#163F32] transition py-1">
+            Contacto
+          </button>
+        </nav>
+
+        <!-- ACCIONES HEADER: BÚSQUEDA Y SOLICITAR COTIZACIÓN -->
+        <div class="flex items-center gap-4">
+          
+          <!-- Búsqueda en vivo -->
+          <div class="relative flex items-center">
+            <input id="globalSearchInput" type="text" placeholder="Buscar insumos..." class="w-36 sm:w-56 pl-8 pr-3 py-1.5 rounded-full border border-[#E5ECE8] bg-[#FAF8F3] text-xs focus:w-64 focus:border-[#C6A16C] transition-all outline-none" />
+            <i data-lucide="search" class="w-3.5 h-3.5 text-[#82928B] absolute left-3 pointer-events-none"></i>
+          </div>
+
+          <!-- Botón Solicitar Cotización con Contador -->
+          <button onclick="window.OlivoApp.setView('checkout')" class="relative btn-olive text-xs py-2 px-3.5 sm:px-4 shadow-sm flex items-center gap-2">
+            <i data-lucide="file-text" class="w-3.5 h-3.5 text-[#C6A16C]"></i>
+            <span class="font-bold">Solicitar cotización</span>
+            <span class="cart-count-badge cart-badge" style="display: none;">0</span>
+          </button>
+
+          <!-- Drawer Cart Trigger (Icono) -->
+          <button onclick="window.OlivoApp.toggleCartDrawer()" class="p-2 rounded-lg bg-[#FAF8F3] hover:bg-[#EBF2EE] border border-[#E5ECE8] text-[#163F32] transition" title="Ver carrito de cotización">
+            <i data-lucide="shopping-bag" class="w-4 h-4"></i>
+          </button>
+
+        </div>
+
+      </div>
+    </div>
+  </header>
+
+  <!-- CONTENEDOR PRINCIPAL REACTIVO -->
+  <main id="appContent" class="flex-grow">
+    <!-- Renderizado dinámico de vistas por app.js -->
+  </main>
+
+  <!-- FOOTER CORPORATIVO OFICIAL -->
+  <footer class="bg-[#0D261E] text-[#D7E8DD] pt-16 pb-7 px-4 sm:px-6 lg:px-8 no-print mt-auto text-sm">
+    <div class="max-w-7xl mx-auto flex flex-col gap-10">
+      <div class="flex flex-wrap gap-10">
+
+        <div class="flex-[2_1_260px] flex flex-col gap-3.5">
+          <span class="flex items-center gap-3">
+            <span class="w-9 h-9 rounded-[10px] bg-[#163F32] border border-[#C6A16C]/40 text-[#C6A16C] flex items-center justify-center font-serif font-bold text-xl">O</span>
+            <span class="font-serif font-black text-xl tracking-[0.06em] text-white">OLIVO</span>
+          </span>
+          <p class="m-0 max-w-[300px]">Distribuidora e Importadora Olivo SpA. Abastecimiento mayorista para el canal HORECA en la V Región.</p>
+          <span>Viña del Mar, Región de Valparaíso</span>
+          <span>+56 9 6304 1374 · ventas@olivocorp.cl</span>
+        </div>
+
+        <nav aria-label="Catálogo" class="flex-[1_1_160px] flex flex-col gap-2">
+          <strong class="text-xs tracking-[0.12em] uppercase text-[#C6A16C]" style="font-family: var(--font-heading)">Catálogo</strong>
+          <a class="footer-link" onclick="window.OlivoApp.setView('catalog', { category: 'alimentos' })">Alimentos y abarrotes</a>
+          <a class="footer-link" onclick="window.OlivoApp.setView('catalog', { category: 'sushi' })">Sushi y oriental</a>
+          <a class="footer-link" onclick="window.OlivoApp.setView('catalog', { category: 'congelados' })">Congelados</a>
+          <a class="footer-link" onclick="window.OlivoApp.setView('catalog', { category: 'lacteos' })">Lácteos y refrigerados</a>
+          <a class="footer-link" onclick="window.OlivoApp.setView('catalog', { category: 'limpieza' })">Limpieza y aseo</a>
+          <a class="footer-link" onclick="window.OlivoApp.setView('catalog', { category: 'insumos' })">Insumos para restaurantes</a>
+        </nav>
+
+        <div class="flex-[1_1_160px] flex flex-col gap-2">
+          <strong class="text-xs tracking-[0.12em] uppercase text-[#C6A16C]" style="font-family: var(--font-heading)">Despacho</strong>
+          <span>Viña del Mar</span><span>Valparaíso</span><span>Concón</span><span>Quilpué</span><span>Villa Alemana</span><span>Limache</span><span>Quillota</span>
+          <span class="text-[#C6A16C] text-xs pt-1">Lunes a sábado, 9:00 a 15:00 hrs.</span>
+        </div>
+
+        <nav aria-label="Empresa" class="flex-[1_1_160px] flex flex-col gap-2">
+          <strong class="text-xs tracking-[0.12em] uppercase text-[#C6A16C]" style="font-family: var(--font-heading)">Empresa</strong>
+          <a class="footer-link" onclick="window.OlivoApp.scrollToSteps()">Cómo cotizar</a>
+          <a class="footer-link" onclick="window.OlivoApp.setView('checkout')">Solicitar cotización</a>
+          <a class="footer-link" onclick="window.OlivoApp.scrollToContact()">Contacto</a>
+        </nav>
+      </div>
+
+      <div class="border-t border-[#D7E8DD]/15 pt-5 flex flex-wrap justify-between gap-2 text-[13px] text-[#A9BDB2]">
+        <span>© 2026 Distribuidora e Importadora Olivo SpA · Viña del Mar, Región de Valparaíso</span>
+        <span>Todos los productos bajo cotización formal</span>
+      </div>
+    </div>
+  </footer>
+
+  <!-- CONTENEDOR SLIDE-OVER DEL CARRITO -->
+  <div id="cartDrawer" class="no-print"></div>
+
+  <!-- MODALES DINÁMICOS -->
+  <div id="productDetailModal" class="hidden no-print"></div>
+  <div id="emailViewerModal" class="hidden no-print"></div>
+
+  <!-- TOAST CONTAINER -->
+  <div id="toastContainer" class="fixed top-6 right-6 z-50 flex flex-col gap-2 max-w-sm pointer-events-none no-print"></div>
+
+  <!-- SCRIPTS DE DATOS Y LÓGICA -->
+  <script src="js/data.js"></script>
+  <script src="js/app.js"></script>
+
+</body>
+</html>

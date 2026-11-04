@@ -1,0 +1,28 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<title>Portal en móvil</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,600;9..40,700&amp;family=Manrope:wght@500;600;700;800&amp;family=Playfair+Display:ital,wght@0,600;0,700;0,900;1,400;1,500&amp;display=swap">
+<style>
+body{margin:0;background:#FAF8F3}
+</style>
+</helmet>
+<div style="width: 390px; background: #FAF8F3; font-family: 'DM Sans', system-ui, sans-serif; color: #1A2822; overflow: hidden">
+  <dc-import name="Main" vista="{{vista}}" categoria="{{categoria}}" hint-size="390px,7600px"></dc-import>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"vista":{"editor":"enum","options":["inicio","categoria"],"default":"inicio"},"categoria":{"editor":"enum","options":["alimentos","sushi","congelados","lacteos","limpieza","insumos"],"default":"lacteos"},"$preview":{"width":390,"height":7600}}'>
+class Component extends DCLogic {
+  renderVals() {
+    return { vista: this.props.vista ?? 'inicio', categoria: this.props.categoria ?? 'lacteos' };
+  }
+}
+</script>
+</body>
+</html>

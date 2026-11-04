@@ -1,0 +1,209 @@
+{
+  "v": 3,
+  "createdOnFiles": {
+    "v": 1,
+    "at": "2026-11-02T15:00:00Z"
+  },
+  "title": "Olivo B2B · Propuesta UX",
+  "launch": {
+    "view": "canvas"
+  },
+  "pages": [],
+  "boards": {
+    "Main.dc.html": {
+      "x": 0,
+      "y": 0,
+      "w": 1440,
+      "h": 4300,
+      "title": "01 · Portada",
+      "expand": "fill",
+      "is_interactive": true
+    },
+    "Categoria.dc.html": {
+      "x": 1520,
+      "y": 0,
+      "w": 1440,
+      "h": 3700,
+      "title": "02 · Categorías con fotos y menú lateral",
+      "expand": "fill",
+      "is_interactive": true
+    },
+    "Cotizacion.dc.html": {
+      "x": 3040,
+      "y": 0,
+      "w": 1440,
+      "h": 1500,
+      "title": "03 · Solicitud de cotización",
+      "expand": "fill",
+      "is_interactive": true
+    },
+    "Movil.dc.html": {
+      "x": 4560,
+      "y": 0,
+      "w": 390,
+      "h": 8400,
+      "title": "04 · Portada en celular",
+      "is_interactive": true
+    },
+    "MapaSEO.dc.html": {
+      "x": 0,
+      "y": 4720,
+      "w": 1440,
+      "h": 2100,
+      "title": "05 · Mapa de URLs SEO"
+    },
+    "PlantillaPillar.dc.html": {
+      "x": 1520,
+      "y": 4720,
+      "w": 1440,
+      "h": 2700,
+      "title": "06 · Plantilla de pillar page (vacía)",
+      "expand": "fill"
+    },
+    "Linea-Proteinas.dc.html": {
+      "x": 0,
+      "y": 7920,
+      "w": 1440,
+      "h": 3700,
+      "title": "07 · Línea Proteínas",
+      "expand": "fill",
+      "is_interactive": true
+    },
+    "Linea-Sushi.dc.html": {
+      "x": 1520,
+      "y": 7920,
+      "w": 1440,
+      "h": 3700,
+      "title": "08 · Línea Sushi y gastronomía oriental",
+      "expand": "fill",
+      "is_interactive": true
+    },
+    "Linea-Alimentos.dc.html": {
+      "x": 3040,
+      "y": 7920,
+      "w": 1440,
+      "h": 3700,
+      "title": "09 · Línea Alimentos y abarrotes",
+      "expand": "fill",
+      "is_interactive": true
+    },
+    "Linea-Congelados.dc.html": {
+      "x": 4560,
+      "y": 7920,
+      "w": 1440,
+      "h": 3700,
+      "title": "10 · Línea Congelados",
+      "expand": "fill",
+      "is_interactive": true
+    },
+    "Linea-Lacteos.dc.html": {
+      "x": 6080,
+      "y": 7920,
+      "w": 1440,
+      "h": 3700,
+      "title": "11 · Línea Lácteos y refrigerados",
+      "expand": "fill",
+      "is_interactive": true
+    },
+    "Linea-Limpieza.dc.html": {
+      "x": 7600,
+      "y": 7920,
+      "w": 1440,
+      "h": 3700,
+      "title": "12 · Línea Limpieza y aseo",
+      "expand": "fill",
+      "is_interactive": true
+    },
+    "Linea-Insumos.dc.html": {
+      "x": 9120,
+      "y": 7920,
+      "w": 1440,
+      "h": 3700,
+      "title": "13 · Línea Insumos para restaurantes",
+      "expand": "fill",
+      "is_interactive": true
+    }
+  },
+  "order": [
+    "Main.dc.html",
+    "Categoria.dc.html",
+    "Cotizacion.dc.html",
+    "Movil.dc.html",
+    "MapaSEO.dc.html",
+    "PlantillaPillar.dc.html",
+    "Linea-Proteinas.dc.html",
+    "Linea-Sushi.dc.html",
+    "Linea-Alimentos.dc.html",
+    "Linea-Congelados.dc.html",
+    "Linea-Lacteos.dc.html",
+    "Linea-Limpieza.dc.html",
+    "Linea-Insumos.dc.html"
+  ],
+  "notes": {
+    "t1": {
+      "x": 0,
+      "y": -320,
+      "text": "Recorrido del cliente: portada → categoría → cotización",
+      "kind": "title1",
+      "maxW": 4950
+    },
+    "t2": {
+      "x": 0,
+      "y": 4420,
+      "text": "Arquitectura SEO: pillar y cluster pages",
+      "kind": "title1",
+      "maxW": 2960
+    },
+    "p1": {
+      "x": -480,
+      "y": 0,
+      "w": 400,
+      "fill": "green",
+      "text": "CONTRASTE\nUna sola acción dominante: «Solicitar cotización» en dorado con texto verde noche (7:1) en vez de blanco (2,4:1). Titulares serif olivo sobre marfil; textos chicos en #66756E y dorado #8A6A3A."
+    },
+    "p2": {
+      "x": -480,
+      "y": 600,
+      "w": 400,
+      "fill": "teal",
+      "text": "PROXIMIDAD\nLos 3 pasos de «Cómo cotizar» quedan pegados al hero. En cada tarjeta, nombre, presentación y acción forman un solo bloque; las subcategorías viven junto a los productos que filtran."
+    },
+    "p3": {
+      "x": -480,
+      "y": 1200,
+      "w": 400,
+      "fill": "blue",
+      "text": "ALINEACIÓN\nTodo cuelga de un contenedor de 1280 px: hero, categorías y footer comparten el mismo borde izquierdo. La grilla de 4 columnas acomoda las 7 categorías sin huecos (Proteínas a doble ancho)."
+    },
+    "p4": {
+      "x": -480,
+      "y": 1800,
+      "w": 400,
+      "fill": "purple",
+      "text": "REPETICIÓN\nCada sección repite eyebrow dorado + título serif + bajada. Mismas tarjetas, radio 16 px, pastilla «Bajo cotización» y botón de cotizar en todo el portal: el cliente aprende el patrón una vez."
+    },
+    "p5": {
+      "x": -480,
+      "y": 2400,
+      "w": 400,
+      "fill": "orange",
+      "text": "MOVIMIENTO SUAVE\nCurva de la casa cubic-bezier(.16,1,.3,1): 0,2 s botones, 0,3 s tarjetas, 0,6 s zoom de foto, cruce de 1 s en el carrusel y aparición al hacer scroll. Se apaga con «reducir movimiento» del sistema."
+    },
+    "t3": {
+      "x": 0,
+      "y": 7620,
+      "text": "Entradas a cada línea del catálogo",
+      "kind": "title1",
+      "maxW": 10600
+    }
+  },
+  "designSystems": [
+    {
+      "title": "OLIVO Signature",
+      "namespace": "olivo",
+      "artifact": "https://claude.ai/code/artifact/29226645-58c8-4d9e-b2ea-70d78e807cdd",
+      "version": "1793648896-59fe",
+      "copiedAt": "2026-11-02T15:00:00Z"
+    }
+  ]
+}
