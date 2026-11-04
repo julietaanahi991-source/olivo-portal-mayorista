@@ -30,7 +30,8 @@ Recorta el fondo, centra en 1000×1000 blanco, guarda `public/images/products/<c
 | Fotos de producto (destino final) | `public/images/products/<categoria>/<SKU>.jpg` |
 | Fotos que entrega el equipo de Olivo (sin procesar) | `fotos-productos/<categoria>/` |
 | Copia local del lienzo mejorado (Claude Design, 13 pantallas) | `diseno/claude-design-v2/project/` · original en https://claude.ai/artifact/5VgZD9NMShqcs7F2VBwgh5 |
-| Respaldos completos del proyecto | `OneDrive\Respaldos Olivo\olivo-2026-respaldo-AAAA-MM-DD-HHMM.zip` (el proyecto no tiene Git) |
+| Respaldos completos del proyecto | `OneDrive\Respaldos Olivo\olivo-2026-respaldo-AAAA-MM-DD-HHMM.zip` |
+| Historial de versiones | Git local, rama `main` (desde el 4 nov 2026, sin repositorio remoto). `.gitignore` excluye `olivo-privado/config.php`, `entregables/*.zip` y `romeo-sports-linkbio/` (otro proyecto) |
 | Diseño aprobado en Claude Design | `diseno/claude-design/` (ver sección 4) |
 | Guía para el equipo sobre cómo entregar fotos | `docs/guia-fotos-productos.md` |
 | Catálogos de Canva originales (con precios, solo referencia) | `referencias/catalogos-canva/` |
