@@ -307,7 +307,7 @@
   const ICON_PIN = '<svg aria-hidden="true" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#7BD192" stroke-width="2"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0z"></path><circle cx="12" cy="10" r="3"></circle></svg>';
   const ICON_DOC = '<svg aria-hidden="true" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M14 3H6a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V9z"></path><path d="M14 3v6h6M8 13h8M8 17h5"></path></svg>';
   const COMUNAS = ['Viña del Mar', 'Valparaíso', 'Concón', 'Quilpué', 'Villa Alemana', 'Limache', 'Quillota'];
-  const WHATSAPP = 'https://wa.me/56963041374';
+  const WHATSAPP = 'https://wa.me/56977236128';
 
   const BIZ = [
     { id: 'restaurante', label: 'Restaurante', recs: [
@@ -541,7 +541,7 @@
             <button type="button" onclick="window.OlivoApp.setView('checkout')" class="btn-gold h-[52px] px-6 text-[15px] font-extrabold" style="font-family: var(--font-heading)">Solicitar cotización</button>
             <a href="${WHATSAPP}" target="_blank" rel="noopener" data-evento="whatsapp" class="inline-flex items-center gap-2.5 h-[52px] px-[22px] rounded-[10px] bg-white border border-[#17472C] text-[#17472C] font-bold text-[15px] no-underline transition hover:-translate-y-px" style="font-family: var(--font-heading)">
               <svg aria-hidden="true" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 11.5a8.4 8.4 0 0 1-12.3 7.4L3 21l2.1-5.6A8.4 8.4 0 1 1 21 11.5z"></path></svg>
-              WhatsApp +56 9 6304 1374
+              WhatsApp +56 9 7723 6128
             </a>
           </div>
         </div>
@@ -660,7 +660,7 @@
               <div class="bg-[#17472C] rounded-2xl p-[22px] text-white flex flex-col gap-1.5">
                 <strong class="text-base" style="font-family: var(--font-heading)">¿No encuentras un insumo?</strong>
                 <span class="text-sm text-[#D6E6DB]">Pídelo a tu ejecutivo y lo sumamos a tu cotización.</span>
-                <a href="tel:+56963041374" class="mt-1.5 font-extrabold text-base text-[#7BD192] no-underline" style="font-family: var(--font-heading)">+56 9 6304 1374</a>
+                <a href="tel:+56977236128" class="mt-1.5 font-extrabold text-base text-[#7BD192] no-underline" style="font-family: var(--font-heading)">+56 9 7723 6128</a>
               </div>
             </aside>
 
@@ -1117,7 +1117,7 @@
             <div class="p-4 rounded-xl bg-[#F8FAF9] border border-[#E4E9E7] text-xs space-y-1">
               <span class="text-[#626D76] block">Atención Comercial V Región:</span>
               <strong class="text-[#17472C] block text-sm">Equipo comercial Distribuidora Olivo</strong>
-              <span class="text-[#56616A] block">WhatsApp Comercial: +56 9 6304 1374 | ventas@olivocorp.cl</span>
+              <span class="text-[#56616A] block">WhatsApp Comercial: +56 9 7723 6128 | ventas@olivocorp.cl</span>
             </div>
 
             <div class="text-[11px] text-[#626D76] border-t border-[#E4E9E7] pt-4 text-center">
@@ -1325,7 +1325,7 @@
     } catch (e) {
       if (!ES_LOCAL) {
         restaurar();
-        showToast('No pudimos enviar tu solicitud. Inténtalo de nuevo o llámanos al +56 9 6304 1374.', 'error');
+        showToast('No pudimos enviar tu solicitud. Inténtalo de nuevo o llámanos al +56 9 7723 6128.', 'error');
         return;
       }
     }

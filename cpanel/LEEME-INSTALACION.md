@@ -145,7 +145,7 @@ Portal (navegador) ──POST JSON──► api/cotizar.php
 
 ## Pendientes conocidos (no bloquean la prueba)
 
-- Teléfono oficial en el portal (`+56 9 6304 1374` vs `+56 9 7723 6128`) por confirmar con Olivo.
+- Teléfono oficial confirmado (6 nov): `+56 9 7723 6128` (llamadas y WhatsApp). Ya está en el portal.
 - ID de Google Tag Manager para medir conversiones.
 - Integración con YAL CRM (Tecnich): basta poner la URL y las cabeceras en `config.php` → `crm`.
 - El botón «Ver correo de confirmación» de la pantalla final muestra una vista previa simulada; el correo real lo envía el servidor.

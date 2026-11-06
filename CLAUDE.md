@@ -65,7 +65,7 @@ Recorta el fondo, centra en 1000×1000 blanco, guarda `public/images/products/<c
 | Nueva categoría | **Proteínas** (carnes, pollo, etc.). Pendiente de datos de Olivo (sección 5). |
 | Publicación | El portal se publicará como **subdominio** del sitio principal de Olivo (3 nov). **Pendiente:** nombre del subdominio, plataforma del sitio principal, hosting y dónde viven las guías SEO (subdominio o dominio principal). |
 | Subdominio | Propuesto: `mayorista.distribuidoraolivo.cl` (por confirmar con Olivo). El sitio principal es WordPress, lo administra una agencia y no aparece en Google; el portal (archivos estáticos) puede ir en el mismo hosting. Las guías SEO van en el subdominio. |
-| Perfil de Empresa en Google | Existe: «Distribuidora Olivo», categoría «Distribuidor de comestibles», Bodega G12, Camino Internacional Ruta F, Lote 1.201, Viña del Mar. Teléfono en la ficha: `+56 9 7723 6128` (distinto del `+56 9 6304 1374` del portal). Sin reseñas. **Confirmado por el especialista de Google (3 nov):** la ficha es de Olivo (correo de gerencia), está verificada y vinculada a Google Ads; `+56 9 7723 6128` es el teléfono de la ficha y de las campañas. Conversiones medidas con **Google Tag Manager** (falta el ID GTM-…) y conversiones mejoradas para clientes potenciales activas. El titular del hero es el eslogan que Olivo ya usa en su camión. |
+| Perfil de Empresa en Google | Existe: «Distribuidora Olivo», categoría «Distribuidor de comestibles», Bodega G12, Camino Internacional Ruta F, Lote 1.201, Viña del Mar. Teléfono en la ficha: `+56 9 7723 6128`. **Confirmado como teléfono oficial del portal el 6 nov** (llamadas, `tel:` y WhatsApp); reemplazó al número anterior (`+56 9 6304 1374`) en el portal y el lienzo. Sin reseñas. **Confirmado por el especialista de Google (3 nov):** la ficha es de Olivo (correo de gerencia), está verificada y vinculada a Google Ads; `+56 9 7723 6128` es el teléfono de la ficha y de las campañas. Conversiones medidas con **Google Tag Manager** (falta el ID GTM-…) y conversiones mejoradas para clientes potenciales activas. El titular del hero es el eslogan que Olivo ya usa en su camión. |
 | Datos confirmados por Olivo (3 nov) | **CRM:** YAL CRM, de la empresa Tecnich (tecnich.cl, Las Condes). Maneja clientes, oportunidades → cotizaciones → pedidos, stock y bodega. No tiene API pública documentada: hay que pedirle a Tecnich, con autorización de Olivo, cómo crear oportunidades o cotizaciones desde la web, y si los códigos de producto del CRM coinciden con los SKU `OLV-…` del portal. **Despachos:** lunes a sábado, de 9:00 a 15:00 hrs. **Dirección física:** no publicarla todavía (quitada del footer y del schema). **RUT:** obligatorio en los formularios. |
 | Backoffice | **Eliminado** (3 nov). Olivo usa su CRM interno; el portal se enfoca solo en la experiencia del cliente (ver 8.10). |
 | Contraste | En textos chicos se oscurecen el dorado (`#C6A16C` → `#8A6A3A`) y el gris sutil (`#82928B` → `#66756E`) para cumplir contraste 4.5:1 sobre blanco. Fondos, bordes y botones dorados no cambian. |
@@ -89,7 +89,7 @@ Reemplazar la fila de pastillas (`<!-- Subcategorías correspondientes -->`, ~l�
 - **Aside** (`flex: 1 1 240px`): tarjeta blanca, borde `#E5ECE8`, radio 16px, título `SUBCATEGORÍAS` (Manrope 12px, 800, tracking 0.14em, `#566760`).
   - Ítems = botones de ancho completo: nombre a la izquierda y cantidad de productos a la derecha (tabular-nums). Primero "Todas".
   - Activo: fondo `#FFFFFF`, texto `#163F32` en 700, `box-shadow: inset 3px 0 0 #C6A16C, 0 1px 3px rgba(18,42,33,.08)`, cantidad en `#8A6A3A`. Inactivo: transparente, `#1A2822` en 500, hover `#F3F8F5`. `aria-pressed` según estado.
-  - Debajo: recuadro `#163F32` con "¿No encuentras un insumo?", "Pídelo a tu ejecutivo y lo sumamos a tu cotización." y `+56 9 6304 1374` en dorado.
+  - Debajo: recuadro `#163F32` con "¿No encuentras un insumo?", "Pídelo a tu ejecutivo y lo sumamos a tu cotización." y `+56 9 7723 6128` en dorado.
 - **Contenido** (`flex: 999 1 560px; min-width:0`): barra de búsqueda/orden y grilla de productos actuales sin cambios.
 - En celular el aside queda arriba de los productos (lo resuelve el flex-wrap). Sin `position: sticky`.
 - Se mantiene el breadcrumb `Inicio / Categoría / Subcategoría`, el título serif y la descripción.
@@ -221,7 +221,7 @@ Fuentes cargadas desde Google Fonts en `public/css/styles.css`:
 ### 1. Franja Superior de Despachos (`announcement-bar`)
 - Fondo: `#0D261E` con pulso dorado animado.
 - Mensaje: **Distribuidora Olivo: Despachos exclusivos en la Región de Valparaíso (V Región) — Viña del Mar, Valparaíso, Concón, Quilpué, Villa Alemana, Limache y Quillota.**
-- Canales de contacto: Ventas B2B `+56 9 6304 1374` y atención 1 a 1.
+- Canales de contacto: Ventas B2B `+56 9 7723 6128` y atención 1 a 1.
 
 ### 2. Encabezado Simplificado (`header-glass`)
 - Sticky con efecto *glassmorphism* (`backdrop-blur-md`, fondo blanco translúcido `rgba(255,255,255,0.96)`).
