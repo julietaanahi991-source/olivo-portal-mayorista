@@ -150,7 +150,7 @@ a{color:#17472C}a:hover{color:#1F6A3E}
               <label style="display: flex; gap: 8px; align-items: center; font-size: 13px; color: #626D76">
                 Ordenar
                 <select value="{{sort}}" onChange="{{onSort}}" style="height: 44px; padding: 0 12px; border-radius: 10px; border: 1px solid #E4E9E7; background: #FFFFFF; font: inherit; font-size: 14px; color: #1A1F1C">
-                  <option value="dest">Destacados</option>
+                  <option value="dest">Por tipo de producto</option>
                   <option value="name">Nombre (A-Z)</option>
                   <option value="brand">Marca</option>
                 </select>
@@ -748,6 +748,12 @@ class Component extends DCLogic {
       }
     } else {
       list = inCat.filter((p) => (st.sub === 'all' || p.sub === st.sub) && (!q || hay(p).includes(q)));
+    }
+    // Orden por defecto: agrupado por subcategoría, en el mismo orden del menú lateral
+    // (aceites con aceites, arroces con arroces…). En la búsqueda manda la relevancia.
+    if (st.sort === 'dest' && !searching) {
+      const pos = {}; C.subs.forEach((s, i) => { pos[s[0]] = i; });
+      list = list.slice().sort((a, b) => (pos[a.sub] ?? 99) - (pos[b.sub] ?? 99));
     }
     if (st.sort === 'name') list = list.slice().sort((a, b) => a.name.localeCompare(b.name));
     if (st.sort === 'brand') list = list.slice().sort((a, b) => a.brand.localeCompare(b.brand));

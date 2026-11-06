@@ -593,6 +593,12 @@
         return palabras.every(w => textoProducto(p).includes(w));
       });
     }
+    // Orden por defecto: agrupado por subcategoría, en el mismo orden del menú lateral
+    // (aceites con aceites, arroces con arroces…). En la búsqueda global manda la relevancia.
+    if (state.filter.sortBy === 'featured' && !global) {
+      const pos = {}; cat.subcategories.forEach((s, i) => { pos[s.id] = i; });
+      filtered.sort((a, b) => (pos[a.subcategoryId] ?? 99) - (pos[b.subcategoryId] ?? 99));
+    }
     if (state.filter.sortBy === 'name') filtered.sort((a, b) => a.name.localeCompare(b.name));
     else if (state.filter.sortBy === 'brand') filtered.sort((a, b) => (a.brand || 'zzz').localeCompare(b.brand || 'zzz'));
     const titulo = global ? 'Resultados de búsqueda' : cat.name;
@@ -670,7 +676,7 @@
                   <label class="flex gap-2 items-center text-[13px] text-[#626D76]">
                     Ordenar
                     <select onchange="window.OlivoApp.setSortBy(this.value)" class="h-11 px-3 rounded-[10px] border border-[#E4E9E7] bg-white text-sm text-[#1A1F1C]">
-                      <option value="featured" ${state.filter.sortBy === 'featured' ? 'selected' : ''}>Destacados</option>
+                      <option value="featured" ${state.filter.sortBy === 'featured' ? 'selected' : ''}>Por tipo de producto</option>
                       <option value="name" ${state.filter.sortBy === 'name' ? 'selected' : ''}>Nombre (A-Z)</option>
                       <option value="brand" ${state.filter.sortBy === 'brand' ? 'selected' : ''}>Marca</option>
                     </select>

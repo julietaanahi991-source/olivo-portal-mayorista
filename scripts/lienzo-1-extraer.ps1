@@ -28,6 +28,16 @@ foreach ($m in [regex]::Matches($t.Substring($ini, $fin - $ini), "\[$str, $str, 
   $prods += [ordered]@{ sku = $sku; name = (Des $m.Groups[2].Value); brand = (Des $m.Groups[3].Value); cat = $m.Groups[4].Value; sub = $m.Groups[5].Value; format = (Des $m.Groups[6].Value); img = $img[$sku] }
 }
 
+# Productos que el lienzo mueve a Proteínas (bloque PROT: SKU -> subcategoría)
+$ini = $t.IndexOf('const PROT = {')
+if ($ini -ge 0) {
+  $fin = $t.IndexOf('};', $ini)
+  $prot = @{}
+  foreach ($m in [regex]::Matches($t.Substring($ini, $fin - $ini), "'(OLV-[A-Z]{3}-\d{3})':\s*'([a-z-]+)'")) { $prot[$m.Groups[1].Value] = $m.Groups[2].Value }
+  foreach ($p in $prods) { if ($prot.ContainsKey($p.sku)) { $p.cat = 'proteinas'; $p.sub = $prot[$p.sku] } }
+  Write-Host "Movidos a Proteínas: $($prot.Count)"
+}
+
 $res = [ordered]@{ categorias = $cats; productos = $prods }
 [IO.File]::WriteAllText($Salida, ($res | ConvertTo-Json -Depth 6), (New-Object System.Text.UTF8Encoding($false)))
 Write-Host ("Categorías: {0} · Productos: {1} · Con foto: {2} · Fotos únicas: {3}" -f $cats.Count, $prods.Count, ($prods | Where-Object { $_.img }).Count, (($prods | Where-Object { $_.img } | ForEach-Object { $_.img }) | Sort-Object -Unique).Count)
