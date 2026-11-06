@@ -8,28 +8,28 @@
 <body>
 <x-dc>
 <helmet>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,700&amp;family=Manrope:wght@500;600;700;800&amp;family=Playfair+Display:ital,wght@0,600;0,700;0,900;1,400&amp;display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500;600;700;800;900&amp;family=Nunito:wght@400;500;600;700;800&amp;display=swap">
 <style>
 body{margin:0}
 *{box-sizing:border-box}
-a{color:#163F32}a:hover{color:#215645}
+a{color:#17472C}a:hover{color:#1F6A3E}
 @keyframes fadeUp{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}
 @keyframes toastIn{from{opacity:0;transform:translateY(16px) scale(.98)}to{opacity:1;transform:none}}
 @keyframes bump{0%{transform:scale(1)}40%{transform:scale(1.3)}100%{transform:scale(1)}}
 .in{animation:fadeUp .6s cubic-bezier(.16,1,.3,1) both}
 .pcard{animation:fadeUp .5s cubic-bezier(.16,1,.3,1) both;transition:transform .3s cubic-bezier(.16,1,.3,1),box-shadow .3s,border-color .3s}
-.pcard:hover{transform:translateY(-4px);box-shadow:0 12px 36px -4px rgba(18,42,33,.12);border-color:#D3DED8 !important}
+.pcard:hover{transform:translateY(-4px);box-shadow:0 12px 36px -4px rgba(16,28,22,.12);border-color:#D4DCD9 !important}
 .pimg,.pph svg{transition:transform .6s cubic-bezier(.16,1,.3,1)}
 .pcard:hover .pimg{transform:scale(1.05)}
 .pcard:hover .pph svg{transform:scale(1.08)}
 .sub{transition:background .2s,color .2s,box-shadow .2s;cursor:pointer}
-.sub:hover{background:#F3F8F5 !important}
+.sub:hover{background:#F2F8F3 !important}
 .sub[aria-pressed="true"]:hover{background:#FFFFFF !important}
 .btn{transition:transform .2s cubic-bezier(.16,1,.3,1),background .2s,box-shadow .2s,color .2s;cursor:pointer;text-decoration:none}
 .btn:hover{transform:translateY(-1px)}
-.btn-olive:hover{background:#215645 !important}
+.btn-olive:hover{background:#1F6A3E !important}
 .step{transition:background .2s;cursor:pointer}
-.step:hover{background:#EBF2EE !important}
+.step:hover{background:#E9F5EC !important}
 .toast{animation:toastIn .45s cubic-bezier(.16,1,.3,1) both}
 .badge-bump{animation:bump .45s cubic-bezier(.16,1,.3,1)}
 @media (max-width:1100px){.pgrid{grid-template-columns:repeat(2,minmax(0,1fr)) !important}}
@@ -37,50 +37,50 @@ a{color:#163F32}a:hover{color:#215645}
 @media (prefers-reduced-motion: reduce){*{animation:none !important;transition:none !important}}
 </style>
 </helmet>
-<div style="min-height: 100vh; background: #FAF8F3; color: #1A2822; font-family: 'DM Sans', system-ui, sans-serif; font-size: 16px; line-height: 1.6">
+<div style="min-height: 100vh; background: #F8FAF9; color: #1A1F1C; font-family: Nunito, system-ui, sans-serif; font-size: 16px; line-height: 1.6">
 
-  <div class="pad" style="background: #0D261E; color: #D7E8DD; font-size: 12.5px; padding: 9px 32px; border-bottom: 1px solid rgba(198,161,108,0.3)">
+  <div class="pad" style="background: #0F1F16; color: #D6E6DB; font-size: 12.5px; padding: 9px 32px; border-bottom: 3px solid #CF1427">
     <div style="max-width: 1280px; margin: 0 auto; display: flex; flex-wrap: wrap; justify-content: space-between; gap: 6px 16px; align-items: center">
       <div style="display: flex; gap: 10px; align-items: center">
-        <span style="width: 8px; height: 8px; border-radius: 50%; background: #C6A16C; flex: none"></span>
+        <span style="width: 8px; height: 8px; border-radius: 50%; background: #CF1427; flex: none"></span>
         <span><strong style="color: #FFFFFF">Despachos exclusivos en la V Región:</strong> Viña del Mar, Valparaíso, Concón, Quilpué, Villa Alemana, Limache y Quillota.</span>
       </div>
       <div class="hide-sm" style="display: flex; gap: 18px">
         <span>Ventas B2B: <strong style="color: #FFFFFF">+56 9 6304 1374</strong></span>
-        <span style="color: #C6A16C">Atención personalizada 1 a 1</span>
+        <span style="color: #7BD192">Atención personalizada 1 a 1</span>
       </div>
     </div>
   </div>
 
-  <header class="pad" style="position: sticky; top: 0; z-index: 20; background: rgba(255,255,255,0.96); backdrop-filter: blur(12px); border-bottom: 1px solid #E5ECE8; padding: 0 32px">
+  <header class="pad" style="position: sticky; top: 0; z-index: 20; background: rgba(255,255,255,0.96); backdrop-filter: blur(12px); border-bottom: 1px solid #E4E9E7; padding: 0 32px">
     <div style="max-width: 1280px; margin: 0 auto; min-height: 80px; display: flex; flex-wrap: wrap; align-items: center; gap: 12px 28px; padding: 12px 0">
       <a href="Main.dc.html" aria-label="Distribuidora Olivo, inicio" style="display: flex; align-items: center; gap: 14px; text-decoration: none">
-        <span style="width: 44px; height: 44px; border-radius: 12px; background: #163F32; border: 1px solid rgba(198,161,108,0.4); display: flex; align-items: center; justify-content: center; color: #C6A16C; box-shadow: 0 4px 20px -2px rgba(18,42,33,0.08)">
+        <span style="width: 44px; height: 44px; border-radius: 12px; background: #CF1427; border: 1px solid #CF1427; display: flex; align-items: center; justify-content: center; color: #FFFFFF; box-shadow: 0 4px 20px -2px rgba(16,28,22,0.08)">
           <svg aria-hidden="true" width="24" height="24" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 17.93c-3.95-.49-7-3.85-7-7.93 0-.62.08-1.21.21-1.79L9 15v1c0 1.1.9 2 2 2v1.93zm6.9-2.54c-.26-.81-1-1.39-1.9-1.39h-1v-3c0-.55-.45-1-1-1H8v-2h2c.55 0 1-.45 1-1V7h2c1.1 0 2-.9 2-2v-.41c2.93 1.19 5 4.06 5 7.41 0 2.08-.8 3.97-2.1 5.39z"></path></svg>
         </span>
         <span style="display: flex; flex-direction: column; gap: 4px">
           <span style="display: flex; align-items: center; gap: 6px; line-height: 1">
-            <span style="font-family: 'Playfair Display', Georgia, serif; font-weight: 900; font-size: 24px; letter-spacing: 0.06em; color: #163F32">OLIVO</span>
-            <span style="font-family: Manrope, sans-serif; font-size: 10px; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; padding: 2px 8px; border-radius: 999px; background: #F7F1E6; color: #8A6A3A; border: 1px solid rgba(198,161,108,0.4)">Signature</span>
+            <span style="font-family: Montserrat, sans-serif; font-weight: 900; font-size: 24px; letter-spacing: -0.01em; color: #CF1427">OLIVO</span>
+            <span style="font-family: Montserrat, sans-serif; font-size: 10px; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; padding: 2px 8px; border-radius: 999px; background: #FBEEF0; color: #B0121F; border: 1px solid rgba(207,20,39,0.4)">Signature</span>
           </span>
-          <span style="font-family: Manrope, sans-serif; font-size: 9.5px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: #566760">Distribuidora de Alimentos y Productos</span>
+          <span style="font-family: Montserrat, sans-serif; font-size: 9.5px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: #56616A">Distribuidora de Alimentos y Productos</span>
         </span>
       </a>
-      <nav aria-label="Principal" style="display: flex; gap: 28px; font-family: Manrope, sans-serif; font-weight: 600; font-size: 15px; margin-left: auto; margin-right: auto">
-        <a href="Main.dc.html" style="color: #566760; text-decoration: none; padding: 4px 0">Inicio</a>
-        <a href="Main.dc.html#contacto" style="color: #566760; text-decoration: none; padding: 4px 0">Contacto</a>
+      <nav aria-label="Principal" style="display: flex; gap: 28px; font-family: Montserrat, sans-serif; font-weight: 600; font-size: 15px; margin-left: auto; margin-right: auto">
+        <a href="Main.dc.html" style="color: #56616A; text-decoration: none; padding: 4px 0">Inicio</a>
+        <a href="Main.dc.html#contacto" style="color: #56616A; text-decoration: none; padding: 4px 0">Contacto</a>
       </nav>
       <div style="display: flex; align-items: center; gap: 12px; flex-wrap: wrap">
         <label class="search-w" style="position: relative; display: flex; align-items: center; width: 280px">
           <span style="position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0)">Buscar en todo el catálogo</span>
-          <svg aria-hidden="true" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#82928B" stroke-width="2.2" style="position: absolute; left: 14px"><circle cx="11" cy="11" r="7"></circle><path d="m20 20-3.5-3.5"></path></svg>
-          <input type="search" placeholder="Buscar en todo el catálogo…" style="width: 100%; height: 44px; padding: 0 14px 0 40px; border-radius: 999px; border: 1px solid #E5ECE8; background: #FAF8F3; font: inherit; font-size: 14px; color: #1A2822; outline: none">
+          <svg aria-hidden="true" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#87929A" stroke-width="2.2" style="position: absolute; left: 14px"><circle cx="11" cy="11" r="7"></circle><path d="m20 20-3.5-3.5"></path></svg>
+          <input type="search" value="{{gq}}" onChange="{{onGq}}" placeholder="Buscar en todo el catálogo…" style="width: 100%; height: 44px; padding: 0 14px 0 40px; border-radius: 999px; border: 1px solid #E4E9E7; background: #F8FAF9; font: inherit; font-size: 14px; color: #1A1F1C; outline: none">
         </label>
-        <a href="Cotizacion.dc.html" class="btn btn-olive" style="position: relative; display: inline-flex; align-items: center; gap: 8px; height: 44px; background: #163F32; color: #FFFFFF; border-radius: 10px; padding: 0 18px; font-family: Manrope, sans-serif; font-weight: 700; font-size: 14px; box-shadow: 0 4px 14px rgba(22,63,50,0.25)">
-          <svg aria-hidden="true" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#C6A16C" stroke-width="2.2"><path d="M14 3H6a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V9z"></path><path d="M14 3v6h6M8 13h8M8 17h5"></path></svg>
+        <a href="Cotizacion.dc.html" class="btn btn-olive" style="position: relative; display: inline-flex; align-items: center; gap: 8px; height: 44px; background: #17472C; color: #FFFFFF; border-radius: 10px; padding: 0 18px; font-family: Montserrat, sans-serif; font-weight: 700; font-size: 14px; box-shadow: 0 4px 14px rgba(23,71,44,0.25)">
+          <svg aria-hidden="true" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#CF1427" stroke-width="2.2"><path d="M14 3H6a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V9z"></path><path d="M14 3v6h6M8 13h8M8 17h5"></path></svg>
           Solicitar cotización
           <sc-if value="{{hasItems}}" hint-placeholder-val="{{ false }}">
-            <span class="{{badgeClass}}" aria-label="productos en tu lista" style="position: absolute; top: -8px; right: -9px; min-width: 22px; height: 22px; padding: 0 6px; border-radius: 999px; background: #C6A16C; color: #0D261E; border: 2px solid #FFFFFF; font-size: 11px; font-weight: 800; display: flex; align-items: center; justify-content: center">{{totalItems}}</span>
+            <span class="{{badgeClass}}" aria-label="productos en tu lista" style="position: absolute; top: -8px; right: -9px; min-width: 22px; height: 22px; padding: 0 6px; border-radius: 999px; background: #CF1427; color: #FFFFFF; border: 2px solid #FFFFFF; font-size: 11px; font-weight: 800; display: flex; align-items: center; justify-content: center">{{totalItems}}</span>
           </sc-if>
         </a>
       </div>
@@ -91,20 +91,20 @@ a{color:#163F32}a:hover{color:#215645}
     <div style="max-width: 1280px; margin: 0 auto; display: flex; flex-direction: column; gap: 28px">
 
       <div class="in" style="display: flex; flex-direction: column; gap: 12px">
-        <nav aria-label="Ruta de navegación" style="font-size: 13px; color: #66756E; display: flex; gap: 8px; flex-wrap: wrap">
-          <a href="Main.dc.html" style="color: #66756E; text-decoration: none">Inicio</a><span aria-hidden="true">/</span>
-          <span style="color: #1A2822; font-weight: 500">{{catName}}</span>
-          <sc-if value="{{hasSub}}" hint-placeholder-val="{{ false }}"><span aria-hidden="true">/</span><span style="color: #1A2822; font-weight: 500">{{subName}}</span></sc-if>
+        <nav aria-label="Ruta de navegación" style="font-size: 13px; color: #626D76; display: flex; gap: 8px; flex-wrap: wrap">
+          <a href="Main.dc.html" style="color: #626D76; text-decoration: none">Inicio</a><span aria-hidden="true">/</span>
+          <span style="color: #1A1F1C; font-weight: 500">{{catName}}</span>
+          <sc-if value="{{hasSub}}" hint-placeholder-val="{{ false }}"><span aria-hidden="true">/</span><span style="color: #1A1F1C; font-weight: 500">{{subName}}</span></sc-if>
         </nav>
         <div style="display: flex; flex-wrap: wrap; justify-content: space-between; align-items: flex-end; gap: 16px">
           <div style="display: flex; flex-direction: column; gap: 8px; max-width: 760px">
-            <span style="align-self: flex-start; font-family: Manrope, sans-serif; font-size: 10px; font-weight: 800; letter-spacing: 0.12em; text-transform: uppercase; padding: 3px 10px; border-radius: 999px; background: #F7F1E6; color: #8A6A3A">{{catBadge}}</span>
-            <h1 class="ttl" style="margin: 0; font-family: 'Playfair Display', Georgia, serif; font-weight: 700; font-size: 44px; line-height: 1.1; color: #163F32">{{catName}}</h1>
-            <p style="margin: 0; color: #566760; font-size: 17px">{{catDesc}}</p>
+            <span style="align-self: flex-start; font-family: Montserrat, sans-serif; font-size: 10px; font-weight: 800; letter-spacing: 0.12em; text-transform: uppercase; padding: 3px 10px; border-radius: 999px; background: #FBEEF0; color: #B0121F">{{catBadge}}</span>
+            <h1 class="ttl" style="margin: 0; font-family: Montserrat, sans-serif; font-weight: 700; font-size: 40px; line-height: 1.1; color: #131A16; letter-spacing: -0.02em">{{catName}}</h1>
+            <p style="margin: 0; color: #56616A; font-size: 17px">{{catDesc}}</p>
           </div>
-          <label style="display: flex; flex-direction: column; gap: 6px; font-family: Manrope, sans-serif; font-size: 11px; font-weight: 800; letter-spacing: 0.12em; text-transform: uppercase; color: #566760">
+          <label style="display: flex; flex-direction: column; gap: 6px; font-family: Montserrat, sans-serif; font-size: 11px; font-weight: 800; letter-spacing: 0.12em; text-transform: uppercase; color: #56616A">
             Ver otra línea
-            <select value="{{cat}}" onChange="{{onCat}}" style="height: 44px; min-width: 260px; padding: 0 12px; border-radius: 10px; border: 1px solid #D3DED8; background: #FFFFFF; font-family: 'DM Sans', sans-serif; font-size: 15px; font-weight: 500; letter-spacing: 0; text-transform: none; color: #163F32">
+            <select value="{{cat}}" onChange="{{onCat}}" style="height: 44px; min-width: 260px; padding: 0 12px; border-radius: 10px; border: 1px solid #D4DCD9; background: #FFFFFF; font-family: Nunito, sans-serif; font-size: 15px; font-weight: 500; letter-spacing: 0; text-transform: none; color: #17472C">
               <option value="alimentos">Alimentos y abarrotes</option>
               <option value="proteinas">Proteínas</option>
               <option value="sushi">Sushi y gastronomía oriental</option>
@@ -120,8 +120,8 @@ a{color:#163F32}a:hover{color:#215645}
       <div style="display: flex; flex-wrap: wrap; gap: 28px; align-items: flex-start">
 
         <aside aria-label="Subcategorías" class="in" style="flex: 1 1 240px; display: flex; flex-direction: column; gap: 16px">
-          <div style="background: #FFFFFF; border: 1px solid #E5ECE8; border-radius: 16px; padding: 18px 12px 12px; box-shadow: 0 1px 3px rgba(18,42,33,0.05)">
-            <h2 style="margin: 0 10px 10px; font-family: Manrope, sans-serif; font-size: 12px; font-weight: 800; letter-spacing: 0.14em; text-transform: uppercase; color: #566760">Subcategorías</h2>
+          <div style="background: #FFFFFF; border: 1px solid #E4E9E7; border-radius: 16px; padding: 18px 12px 12px; box-shadow: 0 1px 3px rgba(16,28,22,0.05)">
+            <h2 style="margin: 0 10px 10px; font-family: Montserrat, sans-serif; font-size: 12px; font-weight: 800; letter-spacing: 0.14em; text-transform: uppercase; color: #56616A">Subcategorías</h2>
             <div style="display: flex; flex-direction: column; gap: 2px">
               <sc-for list="{{subs}}" as="s" hint-placeholder-count="6">
                 <button class="sub" onClick="{{s.pick}}" aria-pressed="{{s.on}}" style="{{s.style}}">
@@ -131,25 +131,25 @@ a{color:#163F32}a:hover{color:#215645}
               </sc-for>
             </div>
           </div>
-          <div style="background: #163F32; border-radius: 16px; padding: 22px; color: #FFFFFF; display: flex; flex-direction: column; gap: 6px">
-            <strong style="font-family: Manrope, sans-serif; font-size: 16px">¿No encuentras un insumo?</strong>
-            <span style="font-size: 14px; color: #D7E8DD">Pídelo a tu ejecutivo y lo sumamos a tu cotización.</span>
-            <a href="Main.dc.html#contacto" style="margin-top: 6px; font-family: Manrope, sans-serif; font-weight: 800; font-size: 16px; color: #C6A16C; text-decoration: none">+56 9 6304 1374</a>
+          <div style="background: #17472C; border-radius: 16px; padding: 22px; color: #FFFFFF; display: flex; flex-direction: column; gap: 6px">
+            <strong style="font-family: Montserrat, sans-serif; font-size: 16px">¿No encuentras un insumo?</strong>
+            <span style="font-size: 14px; color: #D6E6DB">Pídelo a tu ejecutivo y lo sumamos a tu cotización.</span>
+            <a href="Main.dc.html#contacto" style="margin-top: 6px; font-family: Montserrat, sans-serif; font-weight: 800; font-size: 16px; color: #CF1427; text-decoration: none">+56 9 6304 1374</a>
           </div>
         </aside>
 
         <section aria-label="Productos" style="flex: 999 1 560px; min-width: 0; display: flex; flex-direction: column; gap: 18px">
-          <div style="display: flex; flex-wrap: wrap; gap: 12px; align-items: center; justify-content: space-between; background: #FFFFFF; border: 1px solid #E5ECE8; border-radius: 16px; padding: 12px 14px">
+          <div style="display: flex; flex-wrap: wrap; gap: 12px; align-items: center; justify-content: space-between; background: #FFFFFF; border: 1px solid #E4E9E7; border-radius: 16px; padding: 12px 14px">
             <label style="position: relative; display: flex; align-items: center; flex: 1 1 260px">
               <span style="position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0)">Filtrar en esta categoría por nombre, marca o SKU</span>
-              <svg aria-hidden="true" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#82928B" stroke-width="2.2" style="position: absolute; left: 14px"><circle cx="11" cy="11" r="7"></circle><path d="m20 20-3.5-3.5"></path></svg>
-              <input type="search" value="{{query}}" onChange="{{onQuery}}" placeholder="Filtrar por nombre, marca o SKU" style="width: 100%; height: 44px; padding: 0 14px 0 40px; border-radius: 10px; border: 1px solid #E5ECE8; background: #FAF8F3; font: inherit; font-size: 14px; color: #1A2822; outline: none">
+              <svg aria-hidden="true" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#87929A" stroke-width="2.2" style="position: absolute; left: 14px"><circle cx="11" cy="11" r="7"></circle><path d="m20 20-3.5-3.5"></path></svg>
+              <input type="search" value="{{query}}" onChange="{{onQuery}}" placeholder="Filtrar por nombre, marca o SKU" style="width: 100%; height: 44px; padding: 0 14px 0 40px; border-radius: 10px; border: 1px solid #E4E9E7; background: #F8FAF9; font: inherit; font-size: 14px; color: #1A1F1C; outline: none">
             </label>
             <div style="display: flex; gap: 12px; align-items: center; flex-wrap: wrap">
-              <span aria-live="polite" style="font-size: 14px; color: #566760">{{countLabel}}</span>
-              <label style="display: flex; gap: 8px; align-items: center; font-size: 13px; color: #66756E">
+              <span aria-live="polite" style="font-size: 14px; color: #56616A">{{countLabel}}</span>
+              <label style="display: flex; gap: 8px; align-items: center; font-size: 13px; color: #626D76">
                 Ordenar
-                <select value="{{sort}}" onChange="{{onSort}}" style="height: 44px; padding: 0 12px; border-radius: 10px; border: 1px solid #E5ECE8; background: #FFFFFF; font: inherit; font-size: 14px; color: #1A2822">
+                <select value="{{sort}}" onChange="{{onSort}}" style="height: 44px; padding: 0 12px; border-radius: 10px; border: 1px solid #E4E9E7; background: #FFFFFF; font: inherit; font-size: 14px; color: #1A1F1C">
                   <option value="dest">Destacados</option>
                   <option value="name">Nombre (A-Z)</option>
                   <option value="brand">Marca</option>
@@ -160,31 +160,41 @@ a{color:#163F32}a:hover{color:#215645}
 
           <div class="pgrid" style="display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 20px">
             <sc-for list="{{products}}" as="p" hint-placeholder-count="6">
-              <article class="pcard" style="background: #FFFFFF; border: 1px solid #E5ECE8; border-radius: 16px; overflow: hidden; display: flex; flex-direction: column; box-shadow: 0 1px 3px rgba(18,42,33,0.05)">
-                <div class="pph" style="position: relative; aspect-ratio: 1 / 1; background: linear-gradient(160deg, #F6F2E9 0%, #EBF2EE 100%); display: flex; align-items: center; justify-content: center; color: #A9B8B0; overflow: hidden">
+              <article class="pcard" style="background: #FFFFFF; border: 1px solid #E4E9E7; border-radius: 16px; overflow: hidden; display: flex; flex-direction: column; box-shadow: 0 1px 3px rgba(16,28,22,0.05)">
+                <div class="pph" style="position: relative; aspect-ratio: 1 / 1; background: linear-gradient(160deg, #F2F5F3 0%, #E9F5EC 100%); display: flex; align-items: center; justify-content: center; color: #A9B8B0; overflow: hidden">
                   <sc-if value="{{p.hasImg}}" hint-placeholder-val="{{ false }}">
                     <img class="pimg" src="{{p.img}}" alt="{{p.name}}" loading="lazy" style="position: absolute; inset: 0; width: 100%; height: 100%; object-fit: contain; background: #FFFFFF">
                   </sc-if>
                   <sc-if value="{{p.noImg}}" hint-placeholder-val="{{ true }}">
                     <svg aria-hidden="true" width="56" height="56" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2"><path d="M21 8 12 3 3 8v8l9 5 9-5z"></path><path d="m3 8 9 5 9-5M12 13v8"></path></svg>
-                    <span style="position: absolute; bottom: 10px; right: 12px; font-size: 11px; color: #66756E">Foto pendiente</span>
+                    <span style="position: absolute; bottom: 10px; right: 12px; font-size: 11px; color: #626D76">Foto pendiente</span>
                   </sc-if>
-                  <span style="position: absolute; top: 12px; left: 12px; font-family: Manrope, sans-serif; font-size: 11px; font-weight: 700; padding: 4px 9px; border-radius: 6px; background: rgba(255,255,255,0.95); color: #163F32; box-shadow: 0 1px 3px rgba(18,42,33,0.12)">{{p.brand}}</span>
-                  <span style="position: absolute; top: 12px; right: 12px; font-family: Consolas, 'SFMono-Regular', monospace; font-size: 11px; padding: 4px 8px; border-radius: 6px; background: rgba(255,255,255,0.95); color: #566760; box-shadow: 0 1px 3px rgba(18,42,33,0.12)">{{p.sku}}</span>
+                  <span style="position: absolute; top: 12px; left: 12px; font-family: Montserrat, sans-serif; font-size: 11px; font-weight: 700; padding: 4px 9px; border-radius: 6px; background: rgba(255,255,255,0.95); color: #17472C; box-shadow: 0 1px 3px rgba(16,28,22,0.12)">{{p.brand}}</span>
+                  <span style="position: absolute; top: 12px; right: 12px; font-family: Consolas, 'SFMono-Regular', monospace; font-size: 11px; padding: 4px 8px; border-radius: 6px; background: rgba(255,255,255,0.95); color: #56616A; box-shadow: 0 1px 3px rgba(16,28,22,0.12)">{{p.sku}}</span>
                 </div>
                 <div style="padding: 18px; display: flex; flex-direction: column; gap: 10px; flex-grow: 1">
-                  <span style="font-family: Manrope, sans-serif; font-size: 11px; font-weight: 800; letter-spacing: 0.08em; text-transform: uppercase; color: #8A6A3A">{{p.subName}}</span>
-                  <h3 style="margin: 0; font-family: Manrope, sans-serif; font-size: 15px; font-weight: 700; line-height: 1.35; color: #163F32; min-height: 40px">{{p.name}}</h3>
-                  <div style="background: #FAF8F3; border: 1px solid #EEF2EF; border-radius: 10px; padding: 9px 12px; font-size: 13px; line-height: 1.45"><span style="color: #66756E">Presentación: </span><span style="color: #1A2822">{{p.format}}</span></div>
+                  <span style="font-family: Montserrat, sans-serif; font-size: 11px; font-weight: 800; letter-spacing: 0.08em; text-transform: uppercase; color: #B0121F">{{p.subName}}</span>
+                  <h3 style="margin: 0; font-family: Montserrat, sans-serif; font-size: 15px; font-weight: 700; line-height: 1.35; color: #17472C; min-height: 40px">{{p.name}}</h3>
+                  <div style="background: #F8FAF9; border: 1px solid #EEF2EF; border-radius: 10px; padding: 9px 12px; font-size: 13px; line-height: 1.45"><span style="color: #626D76">Presentación: </span><span style="color: #1A1F1C">{{p.format}}</span></div>
                   <div style="display: flex; justify-content: space-between; align-items: center; gap: 8px">
-                    <span style="font-family: Manrope, sans-serif; font-size: 11px; font-weight: 800; letter-spacing: 0.06em; text-transform: uppercase; padding: 4px 10px; border-radius: 999px; background: #F7F1E6; color: #7A5C30">Bajo cotización</span>
-                    <a href="#" style="font-size: 13px; font-weight: 500; color: #163F32">Ver ficha técnica</a>
+                    <span style="font-family: Montserrat, sans-serif; font-size: 11px; font-weight: 800; letter-spacing: 0.06em; text-transform: uppercase; padding: 4px 10px; border-radius: 999px; background: #FBEEF0; color: #9C101C">Bajo cotización</span>
+                    <button type="button" onClick="{{p.toggleFicha}}" aria-expanded="{{p.showFicha}}" style="border: 0; background: none; padding: 4px 0; cursor: pointer; font-family: inherit; font-size: 13px; font-weight: 600; color: #17472C; text-decoration: underline; text-underline-offset: 3px">{{p.fichaLabel}}</button>
                   </div>
+                  <sc-if value="{{p.showFicha}}" hint-placeholder-val="{{ false }}">
+                    <dl style="margin: 0; display: grid; grid-template-columns: auto 1fr; gap: 6px 12px; background: #F2F8F3; border: 1px solid #CBD9D0; border-radius: 10px; padding: 12px; font-size: 13px; line-height: 1.4">
+                      <dt style="color: #626D76">Marca</dt><dd style="margin: 0; color: #1A1F1C; font-weight: 600">{{p.brand}}</dd>
+                      <dt style="color: #626D76">SKU</dt><dd style="margin: 0; color: #1A1F1C; font-family: Consolas, monospace">{{p.sku}}</dd>
+                      <dt style="color: #626D76">Línea</dt><dd style="margin: 0; color: #1A1F1C">{{p.catName}}</dd>
+                      <dt style="color: #626D76">Subcategoría</dt><dd style="margin: 0; color: #1A1F1C">{{p.subName}}</dd>
+                      <dt style="color: #626D76">Presentación</dt><dd style="margin: 0; color: #1A1F1C">{{p.format}}</dd>
+                      <dd style="grid-column: 1 / -1; margin: 4px 0 0; color: #56616A">Ficha completa, vida útil y empaque máster: pídelos a tu ejecutivo junto con la cotización.</dd>
+                    </dl>
+                  </sc-if>
                   <div style="display: flex; gap: 8px; margin-top: auto; padding-top: 4px">
-                    <div role="group" aria-label="Cantidad" style="display: flex; align-items: center; border: 1px solid #E5ECE8; border-radius: 10px; overflow: hidden; flex: none">
-                      <button class="step" onClick="{{p.dec}}" aria-label="Restar una unidad" style="width: 40px; height: 44px; border: 0; background: #FFFFFF; color: #163F32; font-size: 18px; font-weight: 700">−</button>
-                      <span aria-live="polite" style="min-width: 34px; text-align: center; font-family: Manrope, sans-serif; font-weight: 800; font-size: 15px; color: #1A2822; font-variant-numeric: tabular-nums">{{p.qty}}</span>
-                      <button class="step" onClick="{{p.inc}}" aria-label="Sumar una unidad" style="width: 40px; height: 44px; border: 0; background: #FFFFFF; color: #163F32; font-size: 18px; font-weight: 700">+</button>
+                    <div role="group" aria-label="Cantidad" style="display: flex; align-items: center; border: 1px solid #E4E9E7; border-radius: 10px; overflow: hidden; flex: none">
+                      <button class="step" onClick="{{p.dec}}" aria-label="Restar una unidad" style="width: 40px; height: 44px; border: 0; background: #FFFFFF; color: #17472C; font-size: 18px; font-weight: 700">−</button>
+                      <span aria-live="polite" style="min-width: 34px; text-align: center; font-family: Montserrat, sans-serif; font-weight: 800; font-size: 15px; color: #1A1F1C; font-variant-numeric: tabular-nums">{{p.qty}}</span>
+                      <button class="step" onClick="{{p.inc}}" aria-label="Sumar una unidad" style="width: 40px; height: 44px; border: 0; background: #FFFFFF; color: #17472C; font-size: 18px; font-weight: 700">+</button>
                     </div>
                     <button class="btn" onClick="{{p.add}}" style="{{p.addStyle}}">{{p.addLabel}}</button>
                   </div>
@@ -194,16 +204,16 @@ a{color:#163F32}a:hover{color:#215645}
           </div>
 
           <sc-if value="{{empty}}" hint-placeholder-val="{{ false }}">
-            <div style="background: #FFFFFF; border: 1px dashed #D3DED8; border-radius: 16px; padding: 40px; text-align: center; display: flex; flex-direction: column; gap: 8px; align-items: center">
-              <strong style="font-family: Manrope, sans-serif; color: #163F32; font-size: 17px">No encontramos ese insumo en esta categoría</strong>
-              <span style="color: #566760; font-size: 15px">Escríbele a tu ejecutivo: lo buscamos y lo sumamos a tu cotización.</span>
+            <div style="background: #FFFFFF; border: 1px dashed #D4DCD9; border-radius: 16px; padding: 40px; text-align: center; display: flex; flex-direction: column; gap: 8px; align-items: center">
+              <strong style="font-family: Montserrat, sans-serif; color: #17472C; font-size: 17px">{{emptyTitle}}</strong>
+              <span style="color: #56616A; font-size: 15px">Escríbele a tu ejecutivo: lo buscamos y lo sumamos a tu cotización.</span>
             </div>
           </sc-if>
 
           <sc-if value="{{hasItems}}" hint-placeholder-val="{{ false }}">
-            <div class="toast" style="position: sticky; bottom: 16px; z-index: 10; display: flex; flex-wrap: wrap; gap: 12px; align-items: center; justify-content: space-between; background: #0D261E; color: #FFFFFF; border-radius: 16px; padding: 14px 16px 14px 20px; box-shadow: 0 24px 56px -8px rgba(18,42,33,0.35)">
-              <span style="display: flex; gap: 10px; align-items: center; font-size: 15px"><svg aria-hidden="true" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#C6A16C" stroke-width="2"><path d="M14 3H6a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V9z"></path><path d="M14 3v6h6M8 13h8M8 17h5"></path></svg><span><strong>{{listLabel}}</strong> · {{lastAdded}}</span></span>
-              <a href="Cotizacion.dc.html" class="btn" style="display: inline-flex; gap: 8px; align-items: center; height: 44px; padding: 0 18px; border-radius: 10px; background: #C6A16C; color: #0D261E; font-family: Manrope, sans-serif; font-weight: 800; font-size: 14px">Revisar y enviar <svg aria-hidden="true" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M5 12h14M12 5l7 7-7 7"></path></svg></a>
+            <div class="toast" style="position: sticky; bottom: 16px; z-index: 10; display: flex; flex-wrap: wrap; gap: 12px; align-items: center; justify-content: space-between; background: #0F1F16; color: #FFFFFF; border-radius: 16px; padding: 14px 16px 14px 20px; box-shadow: 0 24px 56px -8px rgba(16,28,22,0.35)">
+              <span style="display: flex; gap: 10px; align-items: center; font-size: 15px"><svg aria-hidden="true" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#CF1427" stroke-width="2"><path d="M14 3H6a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V9z"></path><path d="M14 3v6h6M8 13h8M8 17h5"></path></svg><span><strong>{{listLabel}}</strong> · {{lastAdded}}</span></span>
+              <a href="Cotizacion.dc.html" class="btn" style="display: inline-flex; gap: 8px; align-items: center; height: 44px; padding: 0 18px; border-radius: 10px; background: #CF1427; color: #FFFFFF; font-family: Montserrat, sans-serif; font-weight: 800; font-size: 14px">Revisar y enviar <svg aria-hidden="true" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M5 12h14M12 5l7 7-7 7"></path></svg></a>
             </div>
           </sc-if>
         </section>
@@ -216,11 +226,33 @@ a{color:#163F32}a:hover{color:#215645}
 class Component extends DCLogic {
   constructor(props) {
     super(props);
-    this.state = { cat: null, sub: 'all', query: '', sort: 'dest', qty: {}, list: {}, last: '', bump: 0 };
+    this.state = { cat: null, sub: 'all', query: '', gq: '', ficha: '', sort: 'dest', qty: {}, list: {}, last: '', bump: 0 };
+  }
+  // Búsqueda que llega desde la portada. Solo la toma la página general de categorías,
+  // no las páginas de cada línea (cada una vive en su propio marco, titulado «Línea …»).
+  takeQ(raw, fresh) {
+    try { if (/^L[ií]nea/.test(document.title || '')) return; } catch (e) {}
+    let d = null;
+    try { d = JSON.parse(raw || 'null'); } catch (e) {}
+    if (!d || typeof d.q !== 'string') return;
+    if (fresh && Date.now() - (d.t || 0) > 60000) return;
+    this.setState({ gq: d.q.trim(), sub: 'all', query: '' });
+  }
+  componentDidMount() {
+    try { this.takeQ(localStorage.getItem('olivo_q'), true); } catch (e) {}
+    this.onStorage = (e) => { if (e.key === 'olivo_q') this.takeQ(e.newValue, false); };
+    try { window.addEventListener('storage', this.onStorage); } catch (e) {}
+  }
+  componentWillUnmount() {
+    try { window.removeEventListener('storage', this.onStorage); } catch (e) {}
   }
   renderVals() {
     const B = '/_blob/';
     const IMG = {
+      'OLV-ALM-011': '678a495596fad269366c837b79d5d652', 'OLV-ALM-070': '095aaff1c030c883f22954ebd01b5c87', 'OLV-ASE-034': '931e5a8394fd5567382d477b9f207c4e', 'OLV-ASE-045': '97649a0651ce1d77b9e24ada11cf4c9d', 'OLV-ASE-062': 'b4aac5badac829444913d05287891c9e', 'OLV-ASE-063': '1b7c4f9d5cb6fad44f7f7b89b640157a', 'OLV-CON-059': 'c6d899087dbfdfe46416640333f8b992', 'OLV-CON-067': '71f24d0b06c5fc69abc5640630f1ae52', 'OLV-LAC-025': '112fc8c473d1aee805177c0dcfc77f2e', 'OLV-LAC-030': '93be8f1791bbbf409e223b6bd07b950c', 'OLV-SSH-023': '32ca99d79776f3e73f018511e1b2427c', 'OLV-SSH-024': '10f306dd1f69d19bba62363d10174aac',
+      'OLV-ALM-050': '743d4826e62c596b5ddce689f16464bf', 'OLV-ALM-059': 'e09a29fe93ca57b7c65ae4045f2d26bf', 'OLV-ALM-061': '2c708d22e96d452b992298d7285b490d', 'OLV-ALM-062': 'f3dc995e95a34d35c5827aada3c8ec21', 'OLV-ALM-067': 'ec07c405607866dab0728466d20ad1ec', 'OLV-ALM-068': '40a84e7be57f8a43be89dcc1371f6b53', 'OLV-ALM-069': '3e28c643da75adf51f968c91dbefbe52', 'OLV-ALM-071': '08b6e6038cdf486f06cbc2607ff7d40a', 'OLV-ALM-072': '5383fcc0f24b92f58019c01aef095515', 'OLV-ALM-073': 'f91e49a954acf1a3df95dea0b8876871', 'OLV-ALM-074': '70857454033d9e397364b364c2abb40a', 'OLV-ALM-075': 'f5a581970daaa91f67acac51f9ad6d76', 'OLV-ALM-076': '2406077dd1386d570f71ac4c1d64ac62', 'OLV-ALM-077': '64466748bc879ab2328e53aaadcd2ea6', 'OLV-ALM-078': '6c160ea4048ce103c9eb9c17045b801a', 'OLV-ALM-079': '4fc801257023d3803cc78e41fc445211', 'OLV-ALM-080': 'c8e0789e4534e5b49c8f8bdea57c70ce', 'OLV-ALM-081': 'd435e6e3943e9f46edef143093c28d19', 'OLV-ALM-082': '9f6fa25dda4f38a2e228825a40e608ac', 'OLV-ALM-083': '64ab9ab2fc165e08c772255fef93b3a7', 'OLV-ALM-084': '8ccb985adff25a28f6e76729beafb782', 'OLV-ALM-085': '23d042852746ee83691e7224ecec8173', 'OLV-ALM-086': '7030b6272986333fddf7ca90e791bf95', 'OLV-ALM-087': 'b07dd46777075a3ab43c8ede52e818c2', 'OLV-ALM-088': '21bb922ec5126235d2b77af06619aacb', 'OLV-ALM-089': '8341acce396b9aeb44d86ff62baad7c6', 'OLV-ALM-090': '54de450027c29fb15a7e3b1c516263f4', 'OLV-ALM-091': '63f81479a4b34890a2b8c3315df2d252', 'OLV-ALM-092': '22d856f5999c8332b36478cefc1ce466', 'OLV-ALM-093': '42000fb636b3f1232c269ab6600d1ca1', 'OLV-ALM-094': '392399bdb3d90a57fce5f5d5ee306d94', 'OLV-ALM-095': '7745b946820e535d7bcce7045f78bc15', 'OLV-ALM-096': '67be9a6536e6cfdfb8abbbada5e27ce1', 'OLV-ALM-097': '8d382171a499e49e0a4a26bd3a9e6494', 'OLV-ALM-098': '864f9bd911f913798196f5f379fb3558', 'OLV-ALM-099': '76c4b8340280a57435149c20a2916d61', 'OLV-ALM-100': 'db1904383da8610084c7f9d054779d89', 'OLV-ALM-101': 'd369625d6d13decd9fe9b1d368b7ff86', 'OLV-ALM-102': '2c7c8372adb9ffdf2fcc38febffa3ea7', 'OLV-ALM-103': '6c789c61d2f18e76107ab22da3a97758', 'OLV-ALM-104': '1ef28604f4bb8a8d775d4ce7d66215f1', 'OLV-ALM-105': '8673c5a6f325fb04469d36c829631c9c', 'OLV-ALM-106': '29069bdd79eb00ef13af40e40796835e', 'OLV-ALM-107': '7409f1a273be1344cd63154f9cd1c5ad', 'OLV-ALM-108': '17e4ee337b6e5423157a43844db67428', 'OLV-ALM-109': 'c5e46d333b62403eb455c736eabc11f4', 'OLV-ALM-110': 'b4871a7be4dbeacb757663b88286ac7a', 'OLV-ALM-111': '1cc27f914fa755124805a4e7cd1a63fb', 'OLV-ALM-112': '124fd1effb8f33f442ff730dc1071309', 'OLV-ALM-113': '28cc9e2c7e2187b66995e50571869650', 'OLV-ALM-114': '7def4c570ffcd8e69d7d763b8f6876d7', 'OLV-ALM-115': '6a5c82959fd1bf46e80c4b0c9c6543cc', 'OLV-ALM-116': 'ac95e6d60644055f85966010f2a59a0e', 'OLV-ALM-117': '74f22ba980c377e8706c5e7373a4c5dd', 'OLV-ALM-118': 'b075258842774359e220144dc2e9eb38', 'OLV-ALM-119': '9650420d21325253a2b2b0aea644567f', 'OLV-ALM-120': '6c805fb7117daef7bff69fc91d6dcd91', 'OLV-ALM-121': '879ba8160b7b1f64aeeece489f652ae2', 'OLV-ALM-122': 'a56c7c469483f781e748e0d846a0f80d', 'OLV-ALM-123': '90c79c08ff9f734de073955e0f927ba6', 'OLV-ALM-124': '15dd3cc327468b79b90aa7ba462b5b4e', 'OLV-ALM-125': '15107d4b3f7666dbb9ac3ed56e20d68a', 'OLV-ALM-126': '77a1d360cf2061e4fae4272cc7f7ffa3', 'OLV-ALM-127': '1053ca7b9757689dd0e204bebcbb8c73', 'OLV-ALM-128': '8d2adf5b5d141037bbf0035e5e9ca4ec', 'OLV-ALM-129': '304263faed83f49d64cb15b436bf26be', 'OLV-ALM-130': '7b464cc5f36c7cd0cdf5d6b78b307c07', 'OLV-ALM-131': '8c58f563e8cd8710a1bedb59fdc7f24a', 'OLV-ALM-132': '872405f56b188089e87403f8c695a230', 'OLV-ALM-133': 'b3058c63502bfe77c38895abde4a6262', 'OLV-ALM-134': '5eb28a62ba9911f27adeb35a775c46c1', 'OLV-ALM-135': '6d730bb3a7dd2a75b6e3a4795c97e48d', 'OLV-ALM-138': 'b5a57b2858a24ba30fc7137136f33deb', 'OLV-ALM-139': '4f5b9043a6d8bfe51d3e61df2e74dddf', 'OLV-ALM-140': '15d5aa00346cb79e5fb5d3c7ddf601ca', 'OLV-ALM-141': 'f8165b65a9becbb200f96555220ebb13', 'OLV-ALM-142': '85f227c71dbb2d39778ec4189ec02038', 'OLV-ALM-143': '8e6fa469d3054fcabf44462088b65652', 'OLV-ALM-144': '68369a4c26e64b8b68e88a5f6da64588', 'OLV-ALM-145': 'e49366ab6a9e39cf57c679eed952d823', 'OLV-ALM-146': '859ca260dd489d8bb7e80103604dd7f3', 'OLV-ASE-035': 'e3497ff5745022393a6b1820939d9df4', 'OLV-ASE-037': '289a5d426e0002c72291878077cf66be', 'OLV-CON-004': 'd254f66b287465d55d8e1eb1c6700437', 'OLV-CON-006': '98ddf5a010c98afb73465361dac137e6', 'OLV-CON-057': '9a76f39e03372db5f52d5b7d31f18e25', 'OLV-CON-058': '744a5133ad5f71f28a5b05357a8374b1', 'OLV-CON-060': '836bc535537a306853be1c8e74feca9d', 'OLV-CON-061': '2e1241837ccb1605bc54b3b4a8d29909', 'OLV-CON-062': 'dfb225c91410484da70a035b611b1cfe', 'OLV-CON-063': '7e3f52d9867894bd0d8247106e835772', 'OLV-CON-064': '632fcc62c20ad0cd130a0e231a8c5b54', 'OLV-CON-065': 'a73b65899c87fd88ab7ae5aed75cebdd', 'OLV-CON-066': 'a8703972ad19f3818ef34c5b0ee79645', 'OLV-INS-019': 'c7b70f13648a4961258bc8afe4f2d6d1', 'OLV-INS-020': '2715a00f0424ffae56f35411d8afb736', 'OLV-LAC-001': '8fac249f6899c58e1aa6d0710f937294', 'OLV-LAC-016': 'c3ee73d2e418e44bff28cf4517103bf6', 'OLV-LAC-017': '7e2ee1a5a94d56791f2ca40aaf340932', 'OLV-LAC-018': 'dee1cee0d23eae05492378f3404c67fa', 'OLV-LAC-034': 'a63cdaba4c0866a02680090431c093b7', 'OLV-PRO-002': '9ae1d53a070bbb5157181c6d55702091', 'OLV-PRO-003': '106a4a6deeeb5f65951479fbb4b73b5a', 'OLV-PRO-006': 'd3d8e40081123fb3e313b46b6a422b84', 'OLV-PRO-007': '00e7561ba18c5e6e0f2eef07ba72c3b2', 'OLV-PRO-010': '16a2773fb1a0c1b5ed3cfa1038e4cd24', 'OLV-SSH-006': 'f50815b7138fd65f18ae87a3614c7904', 'OLV-SSH-007': '176568c3d787146726e2b9058f525a7d', 'OLV-SSH-012': 'a7ecea7f1bc453216fd8051b9b157fb3', 'OLV-SSH-015': '761d48063487ff590b7c38e5bfbb37ea', 'OLV-SSH-016': '9fe2602738275fbb3f85e7250adbc055', 'OLV-SSH-017': 'dfb5da8e23f78413d58abdf7ad35bd99', 'OLV-SSH-019': '62fc7af821e4c30462eaeb0968fcf1b0', 'OLV-SSH-020': '17434033aa633c8e3e29e76335d5049e', 'OLV-SSH-021': '5c01ee74bd2fb33c46d3ea23172c865f', 'OLV-SSH-022': '4e5cc09b16702af8622f42a786b000f3',
+      'OLV-ASE-001': '97c42207cd86769e21e4a01bfd62b221', 'OLV-ASE-002': '79c4989d8c9b8cf456b0a7447b1f97e7', 'OLV-ASE-003': 'd39ea3c189b8aab5bb3c741007a08085', 'OLV-ASE-004': 'da5380a92963e85acffaa3cb44909254', 'OLV-ASE-008': '2360dc69061da006c46a59a14008f0cc', 'OLV-ASE-010': '496e9a28fa9b706ff8b19db906d1aeb8', 'OLV-ASE-011': 'febf3199b5e09e0b6c20ec23752c700e', 'OLV-ASE-012': 'd174a6b6505adb1b30270ad4579afc23', 'OLV-ASE-031': '08b34ca2a0e4f55fc05c3abf8b087e21', 'OLV-ASE-032': '50b00d76a4cbd3a98d606e842c4586ae', 'OLV-ASE-033': '79a0fb9fc0eef8923c1a81d736833ac9', 'OLV-ASE-036': '8521621e1011fd8795e13308c7544798', 'OLV-ASE-038': '4473a630dfd0f37a0d27eac94ce6ecef', 'OLV-ASE-039': '3930fe2f53eb2b528cd35453268e2555', 'OLV-ASE-040': '3930fe2f53eb2b528cd35453268e2555', 'OLV-ASE-041': '089e96418e908f9cb4b3b382ecf4c33a', 'OLV-ASE-042': '93830550ef529eebeaab15ba6f55a682', 'OLV-ASE-043': '232af6ca7bc13284f27929d69781623c', 'OLV-ASE-044': '2dedf41cb07507574648f11bde55cb7e', 'OLV-ASE-046': '3363a8f1be75a01e8032e78df345f28d', 'OLV-ASE-047': '13f4c176b00404b34c7a7e47c082c2bf', 'OLV-ASE-048': 'e602b731cb188db0e4f7b1837e7ea315', 'OLV-ASE-049': 'e4a7060f9452dda0c57de63533f21443', 'OLV-ASE-050': '1e21ec03988fea6b9bb877699671f8f3', 'OLV-ASE-051': '99b170b0303c583f43c1d9df5640c387', 'OLV-ASE-052': 'c8a13f4b5068b7337dcf6dce683cc53b', 'OLV-ASE-053': '8e07acf24751e4236080fbb7931055fe', 'OLV-ASE-054': '54d174b2c05a5b206525693ff4348c1f', 'OLV-ASE-055': '3c8429ac8c7a36ec041cc5bfd559dd1f', 'OLV-ASE-056': '241ce1f29ce9448921a4fa9a3f3aaf50', 'OLV-ASE-057': '75a9e3914063032fef8f64c85d8c8e10', 'OLV-ASE-058': '05dcafc616d1109143b2b5744b80c245', 'OLV-ASE-059': '97e2d5c5c7cd74b2f22ba3b528eff2ab', 'OLV-ASE-060': 'ccc878770c64c9796a1d364dc5a15d68', 'OLV-ASE-061': 'a77ace2356c79023adf852c856510423', 'OLV-INS-001': '4e6bd65c9f1edb8f39f013db2ae657ff', 'OLV-INS-002': '895319fd2897ae4c07edd54486ea5491', 'OLV-INS-003': '3949a68871997e826ed761f2d2ba6a9f', 'OLV-INS-005': 'f50e82a3cccd69802dfaa269ecf8d2a9', 'OLV-INS-014': 'b085f064c1597e3e089864fd2db91b36', 'OLV-INS-015': 'd905724462aaede720e267295ed7f3c4', 'OLV-INS-016': '430c5d009603856e80cf8328a0537bb3', 'OLV-INS-017': '6fa06cec6f790b3466b1cfe329b425e3', 'OLV-INS-018': '7ea8cc269477f14469d1b71d2828464c', 'OLV-INS-021': '335384bfc829c028e8f0924b60beda3a', 'OLV-INS-022': '661e90c5ed939d97f93ddf9019a3b733', 'OLV-INS-023': 'f50e82a3cccd69802dfaa269ecf8d2a9', 'OLV-INS-026': 'f50e82a3cccd69802dfaa269ecf8d2a9', 'OLV-INS-028': '36779bded8d9067ea2ba3cc51f248ebb', 'OLV-INS-029': '36779bded8d9067ea2ba3cc51f248ebb', 'OLV-INS-030': 'ee28f90ca165df5fc16b5e60c93cdb64', 'OLV-INS-031': 'ee28f90ca165df5fc16b5e60c93cdb64', 'OLV-INS-032': 'ee28f90ca165df5fc16b5e60c93cdb64', 'OLV-INS-033': 'ee28f90ca165df5fc16b5e60c93cdb64', 'OLV-INS-034': 'ee28f90ca165df5fc16b5e60c93cdb64', 'OLV-INS-035': 'ee28f90ca165df5fc16b5e60c93cdb64', 'OLV-INS-036': 'fe8b9262f6946766abf2475dc588d706', 'OLV-INS-037': 'fe8b9262f6946766abf2475dc588d706', 'OLV-INS-038': 'fe8b9262f6946766abf2475dc588d706', 'OLV-INS-039': '8af974c8141e245700f482b5477744d9',
+      'OLV-ALM-001': '49223a2d93490a8d8f76b233f9d01b64', 'OLV-ALM-005': '2edf3ef7e1a08942430ed84b36db9ffc', 'OLV-ALM-006': '3a4ce85d1ca388269fdc848170ad5052', 'OLV-ALM-014': '2db0875a16dffb3a9fc73e79fb1071f7', 'OLV-ALM-051': 'b61f09dd3fe068713a3ff3bd5a4164b6', 'OLV-ALM-052': 'f41073f82309e6eb88816ca1011bafcc', 'OLV-ALM-053': '6af02d9f1ced548ea1969be040612e03', 'OLV-ALM-054': '90f42b095f0ebf3f84133e654010e292', 'OLV-ALM-055': '4597882411a6482af4576cd17d4a9ceb', 'OLV-ALM-056': '89700c6bb88857d609a30a11be89ee7a', 'OLV-ALM-057': '67a9816fb447385cb488d9860a7f0e2c', 'OLV-ALM-058': 'a620707197550472f7c54ad080247f6b', 'OLV-ALM-060': '0f7941376868319bfc556eef955778d6', 'OLV-ALM-063': 'eea964e967ad3fea4879c94662d4df42', 'OLV-ALM-064': '82565aa25efc9516b309f9a4690a3eaf', 'OLV-ALM-065': '3604905d08533854c8052862ef4dd9b9', 'OLV-ALM-066': '50c7a9341014d31da481d8e1229dbe50', 'OLV-ALM-136': '4ce97da0885b9b78d3b61d1bfbcb7174', 'OLV-ALM-137': 'e2ff67022f477afe547002ea06276e37', 'OLV-CON-001': '5ea282bc8f94568d883bb71eb1f6ccbf', 'OLV-CON-005': 'a00ac55c6941e8778d765c6ac58c95ed', 'OLV-CON-048': '2d7027e5e9f55787add60b3c49529e14', 'OLV-CON-050': '282a524eef9ccdcd4155e064e915743c', 'OLV-CON-051': '25921968bf27fe5cdace5e66ab0bed29', 'OLV-CON-052': '501a4a9879e1b84837921685f6242ce5', 'OLV-CON-053': '9ceae08eb035a5006e7038cd0545d2fd', 'OLV-CON-054': '1a7b8cffb08f0a9886acc3d19b5f0781', 'OLV-CON-055': 'b2a9af5da9beb9cc078dfa3efc56ef0b', 'OLV-CON-056': '055c9ef217c3518d060b7deca4cc1922', 'OLV-LAC-002': 'dee79f2e60490779613c9ff57c3562e7', 'OLV-LAC-005': '62cb25331664060326caa92fa7949f28', 'OLV-LAC-006': 'b3f47b74cbc3f1683fcb030ab03f2229', 'OLV-LAC-014': '22239d125fd9274039623df3959f2f39', 'OLV-LAC-015': 'e73bd921b86dc0faf513ee67cd5e61d9', 'OLV-LAC-019': 'd961e33eb12c4f6605302dac9c8bf51f', 'OLV-LAC-020': '28b2d7cf261de8d54514a62546ff93c9', 'OLV-LAC-021': '65bb6e228a1a0a86fc46ce867a4b87b2', 'OLV-LAC-022': 'ea322ad176dd543cf0b6d9221200d799', 'OLV-LAC-023': '23e45299263f4da4a37c30cc8c87071a', 'OLV-LAC-026': 'fcaef08d539bc936dfdee991d929559b', 'OLV-LAC-027': 'a37ead03ce02c7cf8e48468e717cc618', 'OLV-LAC-028': '64490144ea81a10a2e0ef5cd677b5c09', 'OLV-LAC-029': 'd1921e69810e3a6f32d1c1059d42e0ad', 'OLV-LAC-031': 'adae2f1bd152a531ba4b3506dc5f8a24', 'OLV-LAC-032': '9d453a3de6b97e238c5def05a861cc3f', 'OLV-LAC-033': '76e970ad3cb697f56c80ac5b8770fd7e', 'OLV-PRO-001': '486cfe57aacfb4e151e4e855870050e0', 'OLV-PRO-004': '640ee14dd5fdbea91d9a52a94e7ee2fb', 'OLV-PRO-005': '00e4e3d953c9749e82ddc38b97200ec9', 'OLV-PRO-008': '204ccf30238fa9f78f4c736a5f13f003', 'OLV-PRO-009': 'ba4b73180c89e167f4b38eda8b4d1f2a', 'OLV-SSH-001': 'b09f985aac8aa276812fabf1a14494e7', 'OLV-SSH-005': '010b89929989acfe76b2b3285c8272c0', 'OLV-SSH-018': '184e2b7e6b85813e53f5f62f8b6cc8c2',
       'OLV-ALM-002': 'fc8a6939208704d3fdc293559268c169', 'OLV-ALM-007': '26418767af567cf2c663f1d2234221d6', 'OLV-ALM-013': 'ed3e5d1d5c55c9f7112ca543a4271bef',
       'OLV-ALM-018': 'bb34abb9c23119bbb7ef485880539a87', 'OLV-ALM-019': 'bb34abb9c23119bbb7ef485880539a87', 'OLV-ALM-020': 'b08a9c2b96c1a8b7f4f870fbf01849bc',
       'OLV-ALM-021': '0b4e80604508592ad12fb212052b7a28', 'OLV-ALM-022': 'dd2af09318070301a2a100725893c567', 'OLV-ALM-023': 'c9180ad5cd5d102747274a9338c6a3c9',
@@ -238,7 +270,7 @@ class Component extends DCLogic {
       'OLV-LAC-011': '8f1d675f9c45a620fe5e2274f394ab7a', 'OLV-LAC-012': '2780776702da9e82612fa0d1cb2b237c', 'OLV-LAC-013': 'e24776c41bbd803540afffbdc4476bb8',
       'OLV-LAC-003': '7b5873cf2a2d6056b0e4f06082f66315', 'OLV-LAC-008': 'c18021347586a2662f55b39b7d3a617b', 'OLV-LAC-009': '252de6ab14a6615e744e3de280e9c22d',
       'OLV-LAC-010': '3a0942313c213ea21f8e5fdd03f5d164',
-      'OLV-INS-001': 'c239178d42394149fbe6b55ac2fa18b9', 'OLV-INS-013': 'a882c1a88450ab255eb8871d744e305e',
+      'OLV-INS-013': 'a882c1a88450ab255eb8871d744e305e',
       'OLV-ASE-005': '3123eafce02dbbbea565666e8f0d927e', 'OLV-ASE-006': '3123eafce02dbbbea565666e8f0d927e', 'OLV-ASE-007': 'a5ff0494785e8f6190f895938370a108',
       'OLV-ASE-009': '5c240e9c38c78f641cd97df0efc35c84', 'OLV-ASE-013': '79cd6fcd034a6f2a212a511d9ad551ad',
       'OLV-ASE-023': 'fc39acf6946eb6e13429e83464a9a719', 'OLV-ASE-024': '18e265e0fcc8f0517278bb467bc3ba76', 'OLV-ASE-025': 'e76eb9a8aa2d41ae4688f291cf274624',
@@ -273,34 +305,32 @@ class Component extends DCLogic {
     };
     const CATS = {
       alimentos: { name: 'Alimentos y abarrotes', badge: 'Línea despensa', desc: 'Aceites de alto rendimiento, arroces seleccionados, harinas, pastas y abarrotes a escala industrial para gastronomía.',
-        subs: [['aceites', 'Aceites y fritura profunda'], ['arroces', 'Arroces y granos especiales'], ['pastas-harinas', 'Pastas, harinas y masas'], ['salsas-conservas', 'Salsas, conservas y condimentos'], ['azucar-sal', 'Azúcar, sal y especias'], ['bebidas', 'Bebidas']] },
-      sushi: { name: 'Sushi y gastronomía oriental', badge: 'Línea estrella', desc: 'Insumos indispensables para locales de sushi y dark kitchens: arroz grano corto Shirakiku, algas nori, panko, quesos crema y salsas orientales.',
-        subs: [['arroz-sushi', 'Arroz grano corto'], ['algas-nori', 'Algas nori y coberturas'], ['salsas-orientales', 'Salsas de soya, teriyaki y unagi'], ['insumos-crujientes', 'Quesos crema, panko y rebozados'], ['condimentos-orientales', 'Wasabi, jengibre y sésamo'], ['herramientas-sushi', 'Esterillas makisu y herramientas']] },
+        subs: [['aceites', 'Aceites y fritura profunda'], ['arroces', 'Arroces y granos especiales'], ['pastas-harinas', 'Pastas, harinas y masas'], ['salsas-conservas', 'Salsas, conservas y condimentos'], ['azucar-sal', 'Azúcar, sal y especias'], ['menestras', 'Menestras y legumbres'], ['frutos-secos', 'Frutos secos y semillas'], ['peruanos', 'Productos peruanos'], ['bebidas', 'Bebidas']] },
+      sushi: { name: 'Sushi y gastronomía oriental', badge: 'Línea estrella', desc: 'Insumos para locales de sushi y dark kitchens: arroz grano corto Shirakiku, panko, quesos crema, sésamo, masa wantán y salsas orientales.',
+        subs: [['arroz-sushi', 'Arroz grano corto'], ['salsas-orientales', 'Salsas de soya, ostión y hoisin'], ['insumos-crujientes', 'Quesos crema, panko y masas'], ['condimentos-orientales', 'Sésamo, nori y jengibre']] },
       proteinas: { name: 'Proteínas', badge: 'Nueva línea · Cortes seleccionados', desc: 'Vacuno al vacío, cerdo, pollo y aves, y elaborados como longanizas, hamburguesas y tocino, en formatos para cocina profesional.',
-        subs: [['vacuno', 'Vacuno al vacío'], ['cerdo', 'Cerdo'], ['pollo', 'Pollo y aves'], ['elaborados', 'Elaborados y embutidos']] },
+        subs: [['vacuno', 'Vacuno'], ['cerdo', 'Cerdo'], ['pollo', 'Pollo y aves'], ['elaborados', 'Elaborados y embutidos']] },
       congelados: { name: 'Congelados', badge: 'Cadena de frío -18 °C', desc: 'Camarón ecuatoriano y chino, papas prefritas, verduras congeladas y pulpas de fruta 100 % natural.',
-        subs: [['mariscos-camarones', 'Camarones y mariscos'], ['papas-prefritas', 'Papas prefritas'], ['verduras', 'Verduras congeladas'], ['pulpas-fruta', 'Pulpas de fruta natural']] },
+        subs: [['mariscos-camarones', 'Camarones, mariscos y pescados'], ['papas-prefritas', 'Papas prefritas'], ['verduras', 'Verduras congeladas'], ['pulpas-fruta', 'Pulpas de fruta natural']] },
       lacteos: { name: 'Lácteos y refrigerados', badge: 'Formato gastronómico', desc: 'Mozzarella en barra, parmesano en horma, mantequillas y cremas de leche en formato para cocina profesional.',
-        subs: [['quesos-maduros', 'Mozzarella, parmesano y maduros'], ['cremas-leche', 'Cremas de leche UHT y leches'], ['mantequillas', 'Mantequillas profesionales']] },
+        subs: [['quesos-maduros', 'Mozzarella, parmesano y maduros'], ['cremas-leche', 'Cremas de leche UHT y leches'], ['condensadas-manjar', 'Condensadas, evaporadas y manjar'], ['mantequillas', 'Mantequillas y margarinas']] },
       limpieza: { name: 'Limpieza y aseo', badge: 'Higiene SEREMI', desc: 'Detergentes concentrados, desengrasantes de cocina pesada, cloro industrial, guantes certificados, papel y bolsas de alto micronaje.',
-        subs: [['quimicos-limpieza', 'Lavalozas, desengrasantes y cloro'], ['bolsas-aseo', 'Bolsas de aseo alta densidad'], ['guantes-seguridad', 'Guantes de nitrilo, látex y vinilo'], ['papeleria-servilletas', 'Papel jumbo, toalla y servilletas'], ['accesorios-aseo', 'Paños y esponjas']] },
-      insumos: { name: 'Insumos para restaurantes', badge: 'Packaging y cocina', desc: 'Films de embalaje PVC profesional, rollos térmicos de boleta y comanda, envases para sushi y bowls kraft para delivery.',
-        subs: [['films-alusa', 'Alusa film PVC y embalaje'], ['rollos-termicos', 'Rollos térmicos POS y comandas'], ['envases-delivery', 'Envases sushi, bowls y vasos']] }
+        subs: [['quimicos-limpieza', 'Lavalozas, desengrasantes y cloro'], ['bolsas-aseo', 'Bolsas de aseo alta densidad'], ['guantes-seguridad', 'Guantes de nitrilo, látex y vinilo'], ['papeleria-servilletas', 'Papel jumbo, toalla y servilletas'], ['accesorios-aseo', 'Paños, esponjas, escobas y mopas']] },
+      insumos: { name: 'Insumos para restaurantes', badge: 'Packaging y cocina', desc: 'Film alusa, rollos térmicos para boletas y comandas, envases y bowls kraft, bombillas de papel, bolsas, sacos kraft y papel aluminio para delivery.',
+        subs: [['films-alusa', 'Alusa film PVC y embalaje'], ['rollos-termicos', 'Rollos térmicos POS y comandas'], ['envases-delivery', 'Envases, bowls, vasos y bombillas'], ['bolsas-sacos', 'Bolsas, sacos kraft y aluminio']] }
     };
     const PROT = { 'OLV-CON-007': 'vacuno', 'OLV-CON-020': 'vacuno', 'OLV-CON-021': 'vacuno', 'OLV-CON-022': 'vacuno', 'OLV-CON-023': 'vacuno', 'OLV-CON-030': 'vacuno', 'OLV-CON-024': 'cerdo', 'OLV-CON-025': 'cerdo', 'OLV-CON-017': 'pollo', 'OLV-CON-018': 'pollo', 'OLV-CON-028': 'pollo', 'OLV-CON-031': 'pollo', 'OLV-CON-026': 'elaborados', 'OLV-CON-027': 'elaborados', 'OLV-CON-029': 'elaborados', 'OLV-CON-032': 'elaborados' };
     const P = [
       ['OLV-ALM-001', 'Aceite para Freír Don Maravilla 5 LT', 'Don Maravilla', 'alimentos', 'aceites', 'Bidón 5 Litros (Caja 4 unidades)'],
       ['OLV-ALM-002', 'Aceite para Freír MaxiFrits Maravilla 10 LT', 'MaxiFrits', 'alimentos', 'aceites', 'Bidón industrial 10 Litros'],
-      ['OLV-ALM-003', 'Aceite Vegetal Coliseo 900 ML (Caja 15 unidades)', 'Coliseo', 'alimentos', 'aceites', 'Caja de 15 botellas x 900 ml'],
       ['OLV-ALM-004', 'Aceite Oliva Extra Virgen Sabattini 5 LT', 'Sabattini', 'alimentos', 'aceites', 'Bidón 5 Litros (Caja 4 unidades)'],
-      ['OLV-ALM-005', 'Arroz Grano Corto Arborio Roma 1 KG', 'Roma', 'alimentos', 'arroces', 'Paquete 1 Kg al vacío'],
-      ['OLV-ALM-006', 'Arroz Grano Largo Coliseo G2 1 KG (Display 10 KG)', 'Coliseo', 'alimentos', 'arroces', 'Fardo display de 10 paquetes x 1 Kg'],
+      ['OLV-ALM-005', 'Arroz Arborio Scotti 1 KG (Display 10 unidades)', 'Scotti', 'alimentos', 'arroces', 'Paquete 1 Kg (Display 10 unidades)'],
+      ['OLV-ALM-006', 'Arroz Cristalino Coliseo G2 1 KG (Manga 10 KG)', 'Coliseo', 'alimentos', 'arroces', 'Manga 10 paquetes x 1 Kg'],
       ['OLV-ALM-007', 'Harina de Trigo Mont Blanc Con Polvos 1 KG (Fardo 10 KG)', 'Mont Blanc', 'alimentos', 'pastas-harinas', 'Fardo 10 paquetes x 1 Kg'],
       ['OLV-ALM-008', 'Harina de Trigo Mont Blanc Sin Polvos 1 KG (Fardo 10 KG)', 'Mont Blanc', 'alimentos', 'pastas-harinas', 'Fardo 10 paquetes x 1 Kg'],
       ['OLV-ALM-009', 'Spaghetti Tradicional Don Giuseppe 400 GR (Caja 20 unidades)', 'Don Giuseppe', 'alimentos', 'pastas-harinas', 'Caja de 20 paquetes x 400 g'],
       ['OLV-ALM-010', 'Fideos Espiral Don Giuseppe 400 GR (Caja 20 unidades)', 'Don Giuseppe', 'alimentos', 'pastas-harinas', 'Caja de 20 paquetes x 400 g'],
       ['OLV-ALM-011', 'Salsa de Tomate Italiana San Remo 1 KG (Caja 10 unidades)', 'San Remo', 'alimentos', 'salsas-conservas', 'Caja de 10 bolsas pouch x 1 Kg'],
-      ['OLV-ALM-012', 'Salsa Pizza Lista para Usar RTU 1 KG (Caja 10 unidades)', 'San Remo Pro', 'alimentos', 'salsas-conservas', 'Caja de 10 bolsas pouch x 1 Kg'],
       ['OLV-ALM-013', 'Azúcar Blanca Refinada Coliseo 1 KG (Fardo 10 KG)', 'Coliseo', 'alimentos', 'azucar-sal', 'Fardo 10 paquetes x 1 Kg'],
       ['OLV-ALM-014', 'Sal Fina Yodada Smart Price 1 KG (Fardo 20 KG)', 'Smart Price', 'alimentos', 'azucar-sal', 'Fardo 20 paquetes x 1 Kg'],
       ['OLV-ALM-015', 'Coca-Cola Sabor Original Lata 350 CC (Pack 6 unidades)', 'Coca-Cola', 'alimentos', 'bebidas', 'Pack 6 latas x 350 cc'],
@@ -309,7 +339,6 @@ class Component extends DCLogic {
       ['OLV-ALM-018', 'Masa de Empanada 20 CM (Pack 10 unidades)', '[Marca por confirmar]', 'alimentos', 'pastas-harinas', 'Pack 10 discos de 20 cm'],
       ['OLV-ALM-019', 'Masa de Empanada 18 CM (Pack 10 unidades)', '[Marca por confirmar]', 'alimentos', 'pastas-harinas', 'Pack 10 discos de 18 cm'],
       ['OLV-ALM-020', 'Sopaipillas (Pack 10 unidades)', '[Marca por confirmar]', 'alimentos', 'pastas-harinas', 'Pack 10 unidades'],
-      ['OLV-ALM-021', 'Harina Panadera Súper Estampa Saco 25 KG', 'La Estampa', 'alimentos', 'pastas-harinas', 'Saco 25 Kg'],
       ['OLV-ALM-022', 'Sal Fina Andesal 1 KG', 'Andesal', 'alimentos', 'azucar-sal', 'Bolsa 1 Kg'],
       ['OLV-ALM-023', 'Base para Hamburguesa Gourmet 90 GR (Caja 15 unidades)', 'Gourmet', 'alimentos', 'salsas-conservas', 'Sobre 90 g (Caja 15 unidades)'],
       ['OLV-ALM-024', 'Mayonesa Hellmann’s con Tapa Bolsa 1 KG', 'Hellmann’s', 'alimentos', 'salsas-conservas', 'Doypack 1 Kg con tapa'],
@@ -324,7 +353,7 @@ class Component extends DCLogic {
       ['OLV-ALM-033', 'Aceite Vegetal Los Silos 900 ML', 'Los Silos', 'alimentos', 'aceites', 'Botella 900 ml'],
       ['OLV-ALM-034', 'Aceite Vegetal Coliseo Bidón 5 LT', 'Coliseo', 'alimentos', 'aceites', 'Bidón 5 Litros'],
       ['OLV-ALM-035', 'Arroz Grano Largo Ancho Valle de Oro G2 1 KG', 'Valle de Oro', 'alimentos', 'arroces', 'Bolsa 1 Kg'],
-      ['OLV-ALM-036', 'Harina de Fuerza La Estampa Saco 25 KG', 'La Estampa', 'alimentos', 'pastas-harinas', 'Saco 25 Kg'],
+      ['OLV-ALM-036', 'Harina de Fuerza San Cristóbal Estampa Saco 25 KG', 'La Estampa', 'alimentos', 'pastas-harinas', 'Saco 25 Kg'],
       ['OLV-ALM-037', 'Harina Precocida de Maíz Blanco Arepa La Nieve 1 KG', 'La Nieve', 'alimentos', 'pastas-harinas', 'Paquete 1 Kg'],
       ['OLV-ALM-038', 'Harina de Maíz Blanco Precocida P.A.N. 1 KG', 'P.A.N.', 'alimentos', 'pastas-harinas', 'Paquete 1 Kg'],
       ['OLV-ALM-039', 'Fideos Corbatas Don Giuseppe 400 GR', 'Don Giuseppe', 'alimentos', 'pastas-harinas', 'Paquete 400 g'],
@@ -339,21 +368,15 @@ class Component extends DCLogic {
       ['OLV-ALM-048', 'Spaghetti Ristorante Divella 500 GR', 'Divella', 'alimentos', 'pastas-harinas', 'Paquete 500 g'],
       ['OLV-ALM-049', 'Tallarín 87 Don Vittorio 400 GR', 'Don Vittorio', 'alimentos', 'pastas-harinas', 'Paquete 400 g'],
       ['OLV-SSH-001', 'Arroz Grano Corto Shirakiku 9 KG (Especial Sushi)', 'Shirakiku', 'sushi', 'arroz-sushi', 'Saco industrial 9 Kg'],
-      ['OLV-SSH-002', 'Alga Nori Tostada Platinum Gold (Pack 50 Hojas)', 'Japofood Pro', 'sushi', 'algas-nori', 'Pack 50 hojas enteras 21x19 cm'],
       ['OLV-SSH-003', 'Queso Crema Milkaut Gastronómico Balde 3.6 KG', 'Milkaut', 'sushi', 'insumos-crujientes', 'Balde sellado 3.6 Kg'],
       ['OLV-SSH-004', 'Queso Crema Reny Picot Barra 1.36 KG (Caja 10 barras)', 'Reny Picot', 'sushi', 'insumos-crujientes', 'Barra 1.36 Kg (Caja 13.6 Kg)'],
       ['OLV-SSH-005', 'Queso Crema Zanafoods Barra 1.36 KG', 'Zanafoods', 'sushi', 'insumos-crujientes', 'Barra sellada 1.36 Kg'],
-      ['OLV-SSH-006', 'Panko Japonés Extra Crujiente 1 KG (Caja 10 KG)', 'Tokyo Panko Pro', 'sushi', 'insumos-crujientes', 'Bolsa 1 Kg (Caja 10 unidades)'],
-      ['OLV-SSH-007', 'Salsa de Soya Tradicional Japofood Bidón 5 LT', 'Japofood', 'sushi', 'salsas-orientales', 'Bidón 5 Litros'],
-      ['OLV-SSH-008', 'Salsa Teriyaki Glaze Espesa Japofood 1.8 LT', 'Japofood', 'sushi', 'salsas-orientales', 'Botella 1.8 Litros (Caja 6 unidades)'],
-      ['OLV-SSH-009', 'Salsa Anguila Unagi Tare Premium 1.8 LT', 'Japofood', 'sushi', 'salsas-orientales', 'Botella 1.8 Litros'],
-      ['OLV-SSH-010', 'Wasabi en Polvo Grado A Lata 1 KG', 'Wasabi Fuji', 'sushi', 'condimentos-orientales', 'Lata metálica hermética 1 Kg'],
-      ['OLV-SSH-011', 'Jengibre Encurtido Gari Blanco Balde 1.5 KG', 'Gari Master', 'sushi', 'condimentos-orientales', 'Balde plástico con salmuera 1.5 Kg'],
-      ['OLV-SSH-012', 'Sésamo Tostado Bicolor Blanco y Negro 1 KG', 'Japofood', 'sushi', 'condimentos-orientales', 'Bolsa sellada 1 Kg'],
-      ['OLV-SSH-013', 'Esterilla Makisu de Bambú Reforzada (Pack 5 unidades)', 'Chef Tools Pro', 'sushi', 'herramientas-sushi', 'Pack 5 esterillas de bambú'],
-      ['OLV-CON-001', 'Camarón Ecuatoriano P&D 36/40 (Pelado y Desvenado) 1 KG', 'Pacífico Sur', 'congelados', 'mariscos-camarones', 'Bolsa IQF 1 Kg (Caja 10 Kg)'],
-      ['OLV-CON-002', 'Camarón Ecuatoriano Con Cáscara 36/40 1 KG (Caja 10 KG)', 'Pacífico Sur', 'congelados', 'mariscos-camarones', 'Bolsa 1 Kg (Caja 10 Kg)'],
-      ['OLV-CON-003', 'Camarón Chino Calibre 36/40 Bolsa 1 KG', 'Importado Oriental', 'congelados', 'mariscos-camarones', 'Bolsa 1 Kg congelado rápido'],
+      ['OLV-SSH-006', 'Panko Blanco Grueso Bread Crumbs 1 KG', 'Otoro', 'sushi', 'insumos-crujientes', 'Bolsa 1 Kg'],
+      ['OLV-SSH-007', 'Salsa de Soya Kikko Peruana Bidón 5 LT', 'Kikko', 'sushi', 'salsas-orientales', 'Bidón 5 Litros'],
+      ['OLV-SSH-012', 'Sésamo Blanco 1 KG', 'Granel', 'sushi', 'condimentos-orientales', 'Bolsa 1 Kg'],
+      ['OLV-CON-001', 'Camarón Ecuatoriano 36/40 Pelado y Desvenado (20% glaseado)', 'Importado Ecuador', 'congelados', 'mariscos-camarones', 'Bolsa 1 Kg (Caja 10 Kg)'],
+      ['OLV-CON-002', 'Camarón Ecuatoriano 36/40 Con Cáscara', 'Importado Ecuador', 'congelados', 'mariscos-camarones', 'Bolsa 1 Kg (Caja 10 Kg)'],
+      ['OLV-CON-003', 'Camarón Chino 36/40 Pelado y Desvenado (25% glaseado)', 'Importado China', 'congelados', 'mariscos-camarones', 'Bolsa 1 Kg (Caja 10 Kg)'],
       ['OLV-CON-004', 'Papas Prefritas Corte Bastón 10 MM Cresswell (Caja 12 KG)', 'Cresswell', 'congelados', 'papas-prefritas', 'Caja 6 bolsas x 2 Kg (12 Kg)'],
       ['OLV-CON-005', 'Papas Prefritas Corte Fino 7 MM Cresswell (Caja 12 KG)', 'Cresswell', 'congelados', 'papas-prefritas', 'Caja 6 bolsas x 2 Kg (12 Kg)'],
       ['OLV-CON-006', 'Papas Prefritas Corte Grueso 12 MM Cresswell (Caja 12 KG)', 'Cresswell', 'congelados', 'papas-prefritas', 'Caja 6 bolsas x 2 Kg (12 Kg)'],
@@ -361,7 +384,6 @@ class Component extends DCLogic {
       ['OLV-CON-008', 'Pulpa de Maracuyá Natural Con Pepa Río Alto 1 KG', 'Río Alto', 'congelados', 'pulpas-fruta', 'Bolsa 1 Kg (Caja 10 unidades)'],
       ['OLV-CON-009', 'Pulpa de Maracuyá Natural Sin Pepa Río Alto 1 KG', 'Río Alto', 'congelados', 'pulpas-fruta', 'Bolsa 1 Kg (Caja 10 unidades)'],
       ['OLV-CON-010', 'Pulpa de Mango Natural Río Alto 1 KG', 'Río Alto', 'congelados', 'pulpas-fruta', 'Bolsa 1 Kg congelada'],
-      ['OLV-CON-011', 'Pulpa de Frambuesa Natural Río Alto 1 KG', 'Río Alto', 'congelados', 'pulpas-fruta', 'Bolsa 1 Kg congelada'],
       ['OLV-CON-012', 'Pulpa de Frutilla Natural Río Alto 1 KG', 'Río Alto', 'congelados', 'pulpas-fruta', 'Bolsa 1 Kg congelada'],
       ['OLV-CON-013', 'Pulpa de Piña Natural Guallarauco 1 KG', 'Guallarauco', 'congelados', 'pulpas-fruta', 'Bolsa 1 Kg congelada'],
       ['OLV-CON-014', 'Papas Prefritas Corte Casero 12 MM McCain', 'McCain', 'congelados', 'papas-prefritas', 'Bolsa 2,5 Kg'],
@@ -380,7 +402,7 @@ class Component extends DCLogic {
       ['OLV-CON-027', 'Longaniza Tradicional Mendoza 950 GR aprox.', 'Mendoza', 'congelados', 'carnes-cortes', 'Paquete al vacío 950 g aprox.'],
       ['OLV-CON-028', 'Trutro Cuarto de Pollo Marinado (Caja 15 KG)', '[Marca por confirmar]', 'congelados', 'carnes-cortes', 'Caja 15 Kg'],
       ['OLV-CON-029', 'Hamburguesa Don Bife 100% Angus 100 GR', 'Don Bife', 'congelados', 'carnes-cortes', 'Unidad 100 g congelada'],
-      ['OLV-CON-030', 'Churrasco Vacuno 3 x 40 GR', '[Marca por confirmar]', 'congelados', 'carnes-cortes', 'Pack 3 unidades x 40 g'],
+      ['OLV-CON-030', 'Churrasco Posta Rosada (Caja 5 KG)', '[Marca por confirmar]', 'congelados', 'carnes-cortes', 'Caja 5 Kg'],
       ['OLV-CON-031', 'Filetitos de Pollo Sin Marinar Sadia 1 KG (Caja 12 unidades)', 'Sadia', 'congelados', 'carnes-cortes', 'Bolsa 1 Kg (Caja 12 x 1 Kg)'],
       ['OLV-CON-032', 'Tocino Laminado Ahumado 1 KG', '[Marca por confirmar]', 'congelados', 'carnes-cortes', 'Paquete al vacío 1 Kg'],
       ['OLV-SSH-014', 'Masa Wantán 500 GR', '[Marca por confirmar]', 'sushi', 'insumos-crujientes', 'Paquete 500 g'],
@@ -392,7 +414,7 @@ class Component extends DCLogic {
       ['OLV-CON-038', 'Pulpa de Frutilla Natural Guallarauco 1 KG', 'Guallarauco', 'congelados', 'pulpas-fruta', 'Bolsa 1 Kg congelada'],
       ['OLV-CON-039', 'Pulpa de Mango Natural Guallarauco 1 KG', 'Guallarauco', 'congelados', 'pulpas-fruta', 'Bolsa 1 Kg congelada'],
       ['OLV-CON-040', 'Pulpa de Maracuyá Sin Pepa Guallarauco 1 KG', 'Guallarauco', 'congelados', 'pulpas-fruta', 'Bolsa 1 Kg congelada'],
-      ['OLV-CON-041', 'Ají Amarillo en Mitades Congelado 500 GR', '[Marca por confirmar]', 'congelados', 'verduras', 'Bolsa 500 g'],
+      ['OLV-CON-041', 'Ají Amarillo Desvenado Congelado 500 GR', '[Marca por confirmar]', 'congelados', 'verduras', 'Bolsa 500 g'],
       ['OLV-CON-042', 'Ají Limo Peruano Congelado 250 GR', '[Marca por confirmar]', 'congelados', 'verduras', 'Bolsa 250 g'],
       ['OLV-CON-043', 'Choclo en Grano Chileno Delicias del Prado 1 KG', 'Delicias del Prado', 'congelados', 'verduras', 'Bolsa 1 Kg'],
       ['OLV-CON-044', 'Granos de Choclo Peruano Congelado 500 GR', '[Marca por confirmar]', 'congelados', 'verduras', 'Bolsa 500 g'],
@@ -404,24 +426,24 @@ class Component extends DCLogic {
       ['OLV-LAC-003', 'Leche Entera UHT Tottus 1 L (Caja 12 unidades)', 'Tottus', 'lacteos', 'cremas-leche', 'Caja 12 envases x 1 Litro'],
       ['OLV-LAC-004', 'Mantequilla Con Sal Colún Barra 250 GR (Caja 40 unidades)', 'Colún', 'lacteos', 'mantequillas', 'Caja 40 barras x 250 g (10 Kg)'],
       ['OLV-LAC-005', 'Queso Mozzarella Barra Gastronómica Molfino 3.5 KG', 'Molfino', 'lacteos', 'quesos-maduros', 'Pieza al vacío 3.5 Kg (Caja 14 Kg)'],
-      ['OLV-LAC-006', 'Queso Parmesano Maduro Horma Entera 7-8 KG', 'Valle Verde', 'lacteos', 'quesos-maduros', 'Horma cilíndrica de 7.5 Kg aprox.'],
+      ['OLV-LAC-006', 'Queso Parmesano Vaquita Horma 5,5 KG aprox.', 'Vaquita', 'lacteos', 'quesos-maduros', 'Horma 5,5 a 5,6 Kg'],
       ['OLV-LAC-007', 'Queso Gouda Laminado Surlat 1,5 KG', 'Surlat', 'lacteos', 'quesos-maduros', 'Paquete laminado 1,5 Kg'],
-      ['OLV-LAC-008', 'Leche Condensada Nestlé 397 GR', 'Nestlé', 'lacteos', 'cremas-leche', 'Lata 397 g'],
-      ['OLV-LAC-009', 'Sucedáneo de Leche Condensada Novamilk 395 GR', 'Novamilk', 'lacteos', 'cremas-leche', 'Lata 395 g'],
-      ['OLV-LAC-010', 'Leche Evaporada Ideal Nestlé 390 GR', 'Nestlé', 'lacteos', 'cremas-leche', 'Lata 366 ml (390 g)'],
+      ['OLV-LAC-008', 'Leche Condensada Nestlé 397 GR', 'Nestlé', 'lacteos', 'condensadas-manjar', 'Lata 397 g'],
+      ['OLV-LAC-009', 'Sucedáneo de Leche Condensada Novamilk 395 GR', 'Novamilk', 'lacteos', 'condensadas-manjar', 'Lata 395 g'],
+      ['OLV-LAC-010', 'Leche Evaporada Ideal Nestlé 390 GR', 'Nestlé', 'lacteos', 'condensadas-manjar', 'Lata 366 ml (390 g)'],
       ['OLV-LAC-011', 'Mantequilla Con Sal Fundo Los Alerces 250 GR', 'Fundo Los Alerces', 'lacteos', 'mantequillas', 'Barra 250 g'],
       ['OLV-LAC-012', 'Mantequilla Sin Sal Colun 250 GR', 'Colun', 'lacteos', 'mantequillas', 'Barra 250 g'],
-      ['OLV-LAC-013', 'Queso Gouda Quillayes 3 KG', 'Quillayes', 'lacteos', 'quesos-maduros', 'Barra 3 Kg'],
+      ['OLV-LAC-013', 'Queso Gouda Quillayes Barra 3,25 KG', 'Quillayes', 'lacteos', 'quesos-maduros', 'Barra 3,25 Kg'],
       ['OLV-ASE-001', 'Lavaloza Concentrado Industrial Ecol L-2000 Bidón 5 LT', 'Ecol Químicos', 'limpieza', 'quimicos-limpieza', 'Bidón industrial 5 Litros'],
-      ['OLV-ASE-002', 'Desengrasante Pesado Industrial Ecol D-2000 Bidón 5 LT', 'Ecol Químicos', 'limpieza', 'quimicos-limpieza', 'Bidón industrial 5 Litros'],
-      ['OLV-ASE-003', 'Cloro Líquido Industrial 5% Bidón OK 5 LT', 'OK Químicos', 'limpieza', 'quimicos-limpieza', 'Bidón opaco 5 Litros'],
-      ['OLV-ASE-004', 'Limpiador Desinfectante de Pisos Don Tito Lavanda 5 LT', 'Don Tito', 'limpieza', 'quimicos-limpieza', 'Bidón 5 Litros'],
-      ['OLV-ASE-005', 'Bolsas de Aseo Alta Densidad 80x110 Rollo 10 unidades', 'Aseo Plus', 'limpieza', 'bolsas-aseo', 'Rollo 10 bolsas (Caja 20 rollos)'],
-      ['OLV-ASE-006', 'Bolsas de Aseo Extra Grandes 110x130 Pack 10 unidades', 'Aseo Plus', 'limpieza', 'bolsas-aseo', 'Pack 10 bolsas gigantes'],
-      ['OLV-ASE-007', 'Guante Nitrilo Negro Sin Polvo Caja 100 unidades', 'Safeguard Pro', 'limpieza', 'guantes-seguridad', 'Caja 100 guantes (S, M, L)'],
-      ['OLV-ASE-008', 'Guante Látex Descartable Ambidextro Caja 100 unidades', 'Safeguard Pro', 'limpieza', 'guantes-seguridad', 'Caja 100 unidades (S, M, L)'],
-      ['OLV-ASE-009', 'Papel Toalla Nova Industrial Pack 2x250 Metros', 'Nova Pro', 'limpieza', 'papeleria-servilletas', 'Pack 2 bobinas x 250 m (500 m)'],
-      ['OLV-ASE-010', 'Papel Higiénico Jumbo 1x6 Rollos x 300 Metros', 'OK Eco Pro', 'limpieza', 'papeleria-servilletas', 'Fardo 6 rollos x 300 m (1.800 m)'],
+      ['OLV-ASE-002', 'Desengrasante Industrial D-2000 OKey Bidón 5 LT', 'OKey', 'limpieza', 'quimicos-limpieza', 'Bidón 5 Litros'],
+      ['OLV-ASE-003', 'Cloro Concentrado OKey Bidón 5 LT', 'OKey', 'limpieza', 'quimicos-limpieza', 'Bidón 5 Litros'],
+      ['OLV-ASE-004', 'Limpia Pisos Mantenedor OKey Bidón 5 LT', 'OKey', 'limpieza', 'quimicos-limpieza', 'Bidón 5 Litros'],
+      ['OLV-ASE-005', 'Bolsas de Basura 80x110 (10 unidades)', '[Marca por confirmar]', 'limpieza', 'bolsas-aseo', 'Paquete 10 bolsas'],
+      ['OLV-ASE-006', 'Bolsas de Basura 110x130 (10 unidades)', '[Marca por confirmar]', 'limpieza', 'bolsas-aseo', 'Paquete 10 bolsas'],
+      ['OLV-ASE-007', 'Guante Nitrilo Negro Caja 100 unidades', '[Marca por confirmar]', 'limpieza', 'guantes-seguridad', 'Caja 100 unidades (Tallas M y S)'],
+      ['OLV-ASE-008', 'Guante Látex Caja 100 unidades', '[Marca por confirmar]', 'limpieza', 'guantes-seguridad', 'Caja 100 unidades (Tallas L, M y S)'],
+      ['OLV-ASE-009', 'Toalla de Papel Económica 2 x 250 MTS', '[Marca por confirmar]', 'limpieza', 'papeleria-servilletas', 'Pack 2 rollos x 250 m (500 m)'],
+      ['OLV-ASE-010', 'Papel Higiénico Jumbo 6 x 300 MTS', '[Marca por confirmar]', 'limpieza', 'papeleria-servilletas', 'Fardo 6 rollos x 300 m (1.800 m)'],
       ['OLV-ASE-011', 'Servilleta Blanca Doblada Joker 40x40 (Caja 1200 unidades)', 'Joker', 'limpieza', 'papeleria-servilletas', 'Caja 1.200 unidades dobladas en 1/4'],
       ['OLV-ASE-012', 'Servilleta Negra Doblada Gourmet Joker 40x40 (Caja 1200 unidades)', 'Joker', 'limpieza', 'papeleria-servilletas', 'Caja 1.200 unidades'],
       ['OLV-ASE-013', 'Paños Microfibra Absorbente Teddy 38x38 CM (Pack 10 unidades)', 'Teddy Pro', 'limpieza', 'accesorios-aseo', 'Pack 10 paños amarillos'],
@@ -432,7 +454,7 @@ class Component extends DCLogic {
       ['OLV-ASE-018', 'Limpia Piso Tía Elsy Bidón 5 LT', 'Tía Elsy', 'limpieza', 'quimicos-limpieza', 'Bidón 5 Litros'],
       ['OLV-ASE-019', 'Alcohol al 70% Ecosafe Botella 1 LT', 'Ecosafe', 'limpieza', 'quimicos-limpieza', 'Botella 1 Litro'],
       ['OLV-ASE-020', 'Jabón Líquido Mr. Rob Bidón 5 LT', 'Mr. Rob', 'limpieza', 'quimicos-limpieza', 'Bidón 5 Litros'],
-      ['OLV-ASE-021', 'Papel Toalla Interfoliada Doble', '[Marca por confirmar]', 'limpieza', 'papeleria-servilletas', '[Formato por confirmar]'],
+      ['OLV-ASE-021', 'Papel Toalla Interfoliada Doble (Caja 4.000 unidades)', '[Marca por confirmar]', 'limpieza', 'papeleria-servilletas', 'Caja 20 paquetes x 200 unidades'],
       ['OLV-ASE-022', 'Guante Vinilo Talla M Caja 100 unidades', '[Marca por confirmar]', 'limpieza', 'guantes-seguridad', 'Caja 100 unidades (Talla M)'],
       ['OLV-ASE-023', 'Guante Nitrilo Azul Talla M Caja 100 unidades', 'Heyle', 'limpieza', 'guantes-seguridad', 'Caja 100 unidades (Talla M)'],
       ['OLV-ASE-024', 'Guante Multiuso Amarillo Impeke Talla S', 'Impeke', 'limpieza', 'guantes-seguridad', '1 par (Talla S)'],
@@ -442,19 +464,235 @@ class Component extends DCLogic {
       ['OLV-ASE-028', 'Trapero de Algodón Teddy 50 x 70 CM', 'Teddy', 'limpieza', 'accesorios-aseo', 'Unidad 50 x 70 cm'],
       ['OLV-ASE-029', 'Virutilla Gruesa de Acero', '[Marca por confirmar]', 'limpieza', 'accesorios-aseo', '[Formato por confirmar]'],
       ['OLV-ASE-030', 'Papel Toalla Eco Reciclable (Pack 2 x 250 Metros)', '[Marca por confirmar]', 'limpieza', 'papeleria-servilletas', 'Pack 2 rollos x 250 m'],
-      ['OLV-INS-001', 'Rollo Alusa Film PVC Adherente 300 m Japofood (Caja 6 unidades)', 'Japofood', 'insumos', 'films-alusa', 'Caja 6 rollos x 300 metros'],
-      ['OLV-INS-002', 'Rollo Alusa Film PVC Profesional 45 cm x 1400 Metros', 'PlastiPack', 'insumos', 'films-alusa', 'Bobina industrial 1.400 metros'],
-      ['OLV-INS-003', 'Rollo Térmico 80x80 para Impresoras POS y Boletas (Caja 50 unidades)', 'PaperTech B2B', 'insumos', 'rollos-termicos', 'Caja 50 rollos libres de BPA'],
-      ['OLV-INS-004', 'Envase Sushi Box Premium Negro Tapa Antivaho (Pack 50 unidades)', 'EcoPack Sushi', 'insumos', 'envases-delivery', 'Pack 50 bandejas + 50 tapas antivaho'],
-      ['OLV-INS-005', 'Bowl Kraft Ecológico 1000 CC Con Tapa PET (Pack 50 unidades)', 'EcoKraft', 'insumos', 'envases-delivery', 'Pack 50 bowls kraft + 50 tapas'],
+      ['OLV-INS-001', 'Rollo Alusa Film PVC DPS 28 CM x 300 M', 'DPS', 'insumos', 'films-alusa', 'Rollo 300 metros'],
+      ['OLV-INS-002', 'Rollo Alusa Film PVC 45 CM x 1.400 M', '[Marca por confirmar]', 'insumos', 'films-alusa', 'Bobina 1.400 metros'],
+      ['OLV-INS-003', 'Rollo Térmico 80x80 (Caja 50 unidades)', '[Marca por confirmar]', 'insumos', 'rollos-termicos', 'Caja 50 rollos'],
+      ['OLV-INS-005', 'Bowl Kraft 1000 CC (Caja 12 x 25 unidades)', '[Marca por confirmar]', 'insumos', 'envases-delivery', 'Caja 300 bowls'],
       ['OLV-INS-006', 'Vasos Transparentes Económicos 500 CC', '[Marca por confirmar]', 'insumos', 'envases-delivery', 'Vaso 500 cc [cantidad por confirmar]'],
       ['OLV-INS-007', 'Vasos PET Transparentes 12 OZ con Tapa', '[Marca por confirmar]', 'insumos', 'envases-delivery', 'Vaso 12 oz + tapa domo [cantidad por confirmar]'],
-      ['OLV-INS-008', 'Bowl Kraft 750 CC', '[Marca por confirmar]', 'insumos', 'envases-delivery', 'Bowl 750 cc [cantidad por confirmar]'],
-      ['OLV-INS-009', 'Tapa para Bowl Kraft 750 CC', '[Marca por confirmar]', 'insumos', 'envases-delivery', 'Tapa transparente [cantidad por confirmar]'],
+      ['OLV-INS-008', 'Bowl Kraft 750 CC (Caja 300 unidades)', '[Marca por confirmar]', 'insumos', 'envases-delivery', 'Caja 300 bowls'],
+      ['OLV-INS-009', 'Tapa para Bowl Kraft 750 CC (Caja 300 unidades)', '[Marca por confirmar]', 'insumos', 'envases-delivery', 'Caja 300 tapas'],
       ['OLV-INS-010', 'Tenedor Plástico Blanco', '[Marca por confirmar]', 'insumos', 'envases-delivery', '[Formato por confirmar]'],
       ['OLV-INS-011', 'Papel Antigrasa Cuadrado 30 x 30 CM', '[Marca por confirmar]', 'insumos', 'envases-delivery', 'Hoja 30 x 30 cm [cantidad por confirmar]'],
-      ['OLV-INS-012', 'Bolsas Camiseta 42 x 50', '[Marca por confirmar]', 'insumos', 'envases-delivery', 'Bolsa 42 x 50 cm [cantidad por confirmar]'],
-      ['OLV-INS-013', 'Bolsas Camiseta 50 x 60 (Pack 100 unidades)', '[Marca por confirmar]', 'insumos', 'envases-delivery', 'Pack 100 bolsas 50 x 60 cm']
+      ['OLV-INS-012', 'Bolsa Camiseta Blanca 42 x 50 (Paquete 100 unidades)', '[Marca por confirmar]', 'insumos', 'bolsas-sacos', 'Paquete 100 bolsas'],
+      ['OLV-INS-013', 'Bolsa Camiseta 50 x 60 (Paquete 100 unidades)', '[Marca por confirmar]', 'insumos', 'bolsas-sacos', 'Paquete 100 bolsas'],
+      ['OLV-ALM-050', 'Aceite 100% Maravilla Parral 900 CC (Caja 12 unidades)', 'Parral', 'alimentos', 'aceites', 'Caja 12 botellas x 900 cc'],
+      ['OLV-ALM-051', 'Aceite Maravilla Aceitenso Bidón 10 LT', 'Aceitenso', 'alimentos', 'aceites', 'Bidón 10 Litros'],
+      ['OLV-ALM-052', 'Aceite de Oliva Extra Virgen VDR 5 LT', 'VDR', 'alimentos', 'aceites', 'Bidón 5 Litros'],
+      ['OLV-ALM-053', 'Arroz Miraflores G1 1 KG (Manga 10 KG)', 'Miraflores', 'alimentos', 'arroces', 'Manga 10 paquetes x 1 Kg'],
+      ['OLV-ALM-054', 'Arroz Flor de Ñiquén G2 1 KG (Manga 10 KG)', 'Flor de Ñiquén', 'alimentos', 'arroces', 'Manga 10 paquetes x 1 Kg'],
+      ['OLV-ALM-055', 'Arroz Pregraneado Coliseo G1 1 KG (Manga 10 KG)', 'Coliseo', 'alimentos', 'arroces', 'Manga 10 paquetes x 1 Kg'],
+      ['OLV-ALM-056', 'Arroz Peruano Pacasmayo Saco 25 KG', 'Pacasmayo', 'alimentos', 'arroces', 'Saco 25 Kg'],
+      ['OLV-ALM-057', 'Azúcar Blanca Granulada IANSA 1 KG', 'IANSA', 'alimentos', 'azucar-sal', 'Bolsa 1 Kg'],
+      ['OLV-ALM-058', 'Azúcar Risaralda Saco 25 KG', 'Risaralda', 'alimentos', 'azucar-sal', 'Saco 25 Kg'],
+      ['OLV-ALM-059', 'Harina Tostada Bolsa 1 KG', '[Marca por confirmar]', 'alimentos', 'pastas-harinas', 'Bolsa 1 Kg'],
+      ['OLV-ALM-060', 'Levadura Instantánea Seca Gloripan 500 GR (Caja 20 unidades)', 'Gloripan', 'alimentos', 'pastas-harinas', 'Caja 20 x 500 g'],
+      ['OLV-ALM-061', 'Maicena Almidón de Maíz Innova 1 KG', 'Innova', 'alimentos', 'pastas-harinas', 'Bolsa 1 Kg'],
+      ['OLV-ALM-062', 'Pan Rallado Granel 1 KG', 'Granel', 'alimentos', 'pastas-harinas', 'Bolsa 1 Kg'],
+      ['OLV-ALM-063', 'Lasaña Precocida Carozzi 330 GR (Caja 24 unidades)', 'Carozzi', 'alimentos', 'pastas-harinas', 'Caja 24 x 330 g'],
+      ['OLV-ALM-064', 'Cabello de Ángel Carozzi 400 GR', 'Carozzi', 'alimentos', 'pastas-harinas', 'Paquete 400 g'],
+      ['OLV-ALM-065', 'Tagliatelle Nido 91 Divella 500 GR (Caja 12 unidades)', 'Divella', 'alimentos', 'pastas-harinas', 'Caja 12 x 500 g'],
+      ['OLV-ALM-066', 'Rigatoni Don Vittorio 400 GR (Pack 30 unidades)', 'Don Vittorio', 'alimentos', 'pastas-harinas', 'Pack 30 x 400 g'],
+      ['OLV-ALM-067', 'Mayonesa Kraft 3,78 LT', 'Kraft', 'alimentos', 'salsas-conservas', 'Envase 3,78 Litros'],
+      ['OLV-ALM-068', 'Mayonesa Alacena 475 GR', 'Alacena', 'alimentos', 'salsas-conservas', 'Doypack 475 g'],
+      ['OLV-ALM-069', 'Salsa de Tomate Pomarola Triple Concentrado 3 KG', 'Pomarola Carozzi', 'alimentos', 'salsas-conservas', 'Envase 3 Kg'],
+      ['OLV-ALM-070', 'Salsa BBQ Traverso 1 LT', 'Traverso', 'alimentos', 'salsas-conservas', 'Botella 1 Litro'],
+      ['OLV-ALM-071', 'Salsa Inglesa 1 LT', 'Gourmet', 'alimentos', 'salsas-conservas', 'Botella 1 Litro'],
+      ['OLV-ALM-072', 'Salsa Española 1 LT', 'Gourmet', 'alimentos', 'salsas-conservas', 'Botella 1 Litro'],
+      ['OLV-ALM-073', 'Salsa de Chocolate 1 LT', 'Gourmet', 'alimentos', 'salsas-conservas', 'Botella 1 Litro'],
+      ['OLV-ALM-074', 'Salsa Caramelo 1 LT', 'Gourmet', 'alimentos', 'salsas-conservas', 'Botella 1 Litro'],
+      ['OLV-ALM-075', 'Salsa de Frambuesa 1 LT', 'Gourmet', 'alimentos', 'salsas-conservas', 'Botella 1 Litro'],
+      ['OLV-ALM-076', 'Salsa Manjar 1 LT', 'Gourmet', 'alimentos', 'salsas-conservas', 'Botella 1 Litro'],
+      ['OLV-ALM-077', 'Vinagre Blanco Rico Bidón 5 LT', 'Rico', 'alimentos', 'salsas-conservas', 'Bidón 5 Litros'],
+      ['OLV-ALM-078', 'Vinagre Tinto Rico Bidón 5 LT', 'Rico', 'alimentos', 'salsas-conservas', 'Bidón 5 Litros'],
+      ['OLV-ALM-079', 'Vinagre de Manzana Rico Bidón 5 LT', 'Rico', 'alimentos', 'salsas-conservas', 'Bidón 5 Litros'],
+      ['OLV-ALM-080', 'Jugo de Limón Rico Bidón 5 LT', 'Rico', 'alimentos', 'salsas-conservas', 'Bidón 5 Litros'],
+      ['OLV-ALM-081', 'Salsa Tabasco 60 ML', 'Tabasco', 'alimentos', 'salsas-conservas', 'Botella 60 ml'],
+      ['OLV-ALM-082', 'Tinta de Calamar 90 GR', '[Marca por confirmar]', 'alimentos', 'salsas-conservas', 'Frasco 90 g'],
+      ['OLV-ALM-083', 'Alcaparras 965 GR', '[Marca por confirmar]', 'alimentos', 'salsas-conservas', 'Frasco 965 g'],
+      ['OLV-ALM-084', 'Crema de Mariscos Maggi (Caja 20 unidades)', 'Maggi', 'alimentos', 'salsas-conservas', 'Caja 20 sobres'],
+      ['OLV-ALM-085', 'Ajinomoto Glutamato Monosódico 1 KG', 'Ajinomoto', 'alimentos', 'salsas-conservas', 'Bolsa 1 Kg'],
+      ['OLV-ALM-086', 'Gelatina Caricia 1 KG (Frutilla, Frambuesa, Naranja, Piña)', 'Caricia', 'alimentos', 'salsas-conservas', 'Bolsa 1 Kg'],
+      ['OLV-ALM-087', 'Palmito Entero Don Giuseppe 400 GR (Caja 24 unidades)', 'Don Giuseppe', 'alimentos', 'salsas-conservas', 'Tarro 400 g (Caja 24)'],
+      ['OLV-ALM-088', 'Palmito en Rodajas Don Giuseppe 400 GR (Caja 24 unidades)', 'Don Giuseppe', 'alimentos', 'salsas-conservas', 'Tarro 400 g (Caja 24)'],
+      ['OLV-ALM-089', 'Corazones de Alcachofa Don Giuseppe 400 GR (Caja 24 unidades)', 'Don Giuseppe', 'alimentos', 'salsas-conservas', 'Tarro 400 g (Caja 24)'],
+      ['OLV-ALM-090', 'Pimiento Piquillo Don Giuseppe 400 GR (Caja 24 unidades)', 'Don Giuseppe', 'alimentos', 'salsas-conservas', 'Tarro 400 g (Caja 24)'],
+      ['OLV-ALM-091', 'Espárrago Verde Entero Don Giuseppe 425 GR', 'Don Giuseppe', 'alimentos', 'salsas-conservas', 'Tarro 425 g'],
+      ['OLV-ALM-092', 'Champiñón Laminado Alicia 400 GR (Caja 24 unidades)', 'Alicia', 'alimentos', 'salsas-conservas', 'Lata 400 g (Caja 24)'],
+      ['OLV-ALM-093', 'Cóctel de Frutas Novafruta 820 GR (Caja 24 unidades)', 'Novafruta', 'alimentos', 'salsas-conservas', 'Lata 820 g (Caja 24)'],
+      ['OLV-ALM-094', 'Piña en Rodajas Novafruta 850 GR', 'Novafruta', 'alimentos', 'salsas-conservas', 'Lata 850 g'],
+      ['OLV-ALM-095', 'Pepinillo Dill Laminado (Caja 10 KG)', '[Marca por confirmar]', 'alimentos', 'salsas-conservas', 'Caja 10 Kg'],
+      ['OLV-ALM-096', 'Fondos de Alcachofa Ghosh 1,05 KG', 'Ghosh', 'alimentos', 'salsas-conservas', 'Frasco 1,05 Kg'],
+      ['OLV-ALM-097', 'Atún Lomito Dorasol 142 GR', 'Dorasol', 'alimentos', 'salsas-conservas', 'Lata 142 g'],
+      ['OLV-ALM-098', 'Jurel Natural Coliseo 425 GR', 'Coliseo', 'alimentos', 'salsas-conservas', 'Lata 425 g'],
+      ['OLV-ALM-099', 'Puré de Papas Maggi 1,5 KG', 'Maggi', 'alimentos', 'salsas-conservas', 'Bolsa 1,5 Kg'],
+      ['OLV-ALM-100', 'Papas al Hilo Elys 1 KG', 'Elys', 'alimentos', 'salsas-conservas', 'Bolsa 1 Kg'],
+      ['OLV-ALM-101', 'Sal en Sachet Osku (Caja 2.000 unidades)', 'Osku', 'alimentos', 'azucar-sal', 'Caja 2.000 sachets'],
+      ['OLV-ALM-102', 'Comino Molido 1 KG', 'Granel', 'alimentos', 'azucar-sal', 'Bolsa 1 Kg'],
+      ['OLV-ALM-103', 'Ají de Color 1 KG', 'Granel', 'alimentos', 'azucar-sal', 'Bolsa 1 Kg'],
+      ['OLV-ALM-104', 'Aliño Completo 1 KG', 'Granel', 'alimentos', 'azucar-sal', 'Bolsa 1 Kg'],
+      ['OLV-ALM-105', 'Cúrcuma 1 KG', 'Granel', 'alimentos', 'azucar-sal', 'Bolsa 1 Kg'],
+      ['OLV-ALM-106', 'Merkén 1 KG', 'Granel', 'alimentos', 'azucar-sal', 'Bolsa 1 Kg'],
+      ['OLV-ALM-107', 'Pimienta Negra Entera 1 KG', 'Granel', 'alimentos', 'azucar-sal', 'Bolsa 1 Kg'],
+      ['OLV-ALM-108', 'Pimienta Negra Molida 1 KG', 'Granel', 'alimentos', 'azucar-sal', 'Bolsa 1 Kg'],
+      ['OLV-ALM-109', 'Nuez Moscada 1 KG', 'Granel', 'alimentos', 'azucar-sal', 'Bolsa 1 Kg'],
+      ['OLV-ALM-110', 'Romero 1 KG', 'Granel', 'alimentos', 'azucar-sal', 'Bolsa 1 Kg'],
+      ['OLV-ALM-111', 'Curry 1 KG', 'Granel', 'alimentos', 'azucar-sal', 'Bolsa 1 Kg'],
+      ['OLV-ALM-112', 'Laurel 100 GR', 'Granel', 'alimentos', 'azucar-sal', 'Bolsa 100 g'],
+      ['OLV-ALM-113', 'Canela Entera en Rama 500 GR', 'Granel', 'alimentos', 'azucar-sal', 'Bolsa 500 g'],
+      ['OLV-ALM-114', 'Canela Molida 1 KG', 'Granel', 'alimentos', 'azucar-sal', 'Bolsa 1 Kg'],
+      ['OLV-ALM-115', 'Poroto Canario Orogón 1 KG', 'Orogón', 'alimentos', 'menestras', 'Bolsa 1 Kg'],
+      ['OLV-ALM-116', 'Poroto Tórtola Orogón 1 KG', 'Orogón', 'alimentos', 'menestras', 'Bolsa 1 Kg'],
+      ['OLV-ALM-117', 'Poroto Negro Orogón 1 KG', 'Orogón', 'alimentos', 'menestras', 'Bolsa 1 Kg'],
+      ['OLV-ALM-118', 'Lenteja Coliseo 1 KG', 'Coliseo', 'alimentos', 'menestras', 'Bolsa 1 Kg'],
+      ['OLV-ALM-119', 'Lenteja Roja 1 KG', 'Granel', 'alimentos', 'menestras', 'Bolsa 1 Kg'],
+      ['OLV-ALM-120', 'Garbanzo sin Piel El Monarca 1 KG', 'El Monarca', 'alimentos', 'menestras', 'Bolsa 1 Kg'],
+      ['OLV-ALM-121', 'Quinoa Blanca 1 KG', 'Granel', 'alimentos', 'frutos-secos', 'Bolsa 1 Kg'],
+      ['OLV-ALM-122', 'Quinoa Negra 1 KG', 'Granel', 'alimentos', 'frutos-secos', 'Bolsa 1 Kg'],
+      ['OLV-ALM-123', 'Quinoa Roja 1 KG', 'Granel', 'alimentos', 'frutos-secos', 'Bolsa 1 Kg'],
+      ['OLV-ALM-124', 'Chía 1 KG', 'Granel', 'alimentos', 'frutos-secos', 'Bolsa 1 Kg'],
+      ['OLV-ALM-125', 'Semilla de Zapallo 1 KG', 'Granel', 'alimentos', 'frutos-secos', 'Bolsa 1 Kg'],
+      ['OLV-ALM-126', 'Almendra Non Pareil 1 KG', 'Granel', 'alimentos', 'frutos-secos', 'Bolsa 1 Kg'],
+      ['OLV-ALM-127', 'Almendra Laminada 1 KG', 'Granel', 'alimentos', 'frutos-secos', 'Bolsa 1 Kg'],
+      ['OLV-ALM-128', 'Nuez Mariposa 1 KG', 'Granel', 'alimentos', 'frutos-secos', 'Bolsa 1 Kg'],
+      ['OLV-ALM-129', 'Nuez Mitades 1 KG', 'Granel', 'alimentos', 'frutos-secos', 'Bolsa 1 Kg'],
+      ['OLV-ALM-130', 'Pistacho Natural con Cáscara 1 KG', 'Granel', 'alimentos', 'frutos-secos', 'Bolsa 1 Kg'],
+      ['OLV-ALM-131', 'Pasa Morena Flame 1 KG', 'Granel', 'alimentos', 'frutos-secos', 'Bolsa 1 Kg'],
+      ['OLV-ALM-132', 'Pasa Rubia Ámbar 1 KG', 'Granel', 'alimentos', 'frutos-secos', 'Bolsa 1 Kg'],
+      ['OLV-ALM-133', 'Maní Sin Sal 1 KG', 'Granel', 'alimentos', 'frutos-secos', 'Bolsa 1 Kg'],
+      ['OLV-ALM-134', 'Inca Kola 600 ML (Pack 12 unidades)', 'Inca Kola', 'alimentos', 'bebidas', 'Pack 12 x 600 ml'],
+      ['OLV-ALM-135', 'Chicha Morada 2 LT', '[Marca por confirmar]', 'alimentos', 'bebidas', 'Botella 2 Litros'],
+      ['OLV-ALM-136', 'Bebida Vegetal de Soya Berief 1 LT (Caja 8 unidades)', 'Berief', 'alimentos', 'bebidas', 'Caja 8 x 1 Litro'],
+      ['OLV-ALM-137', 'Bebida de Avena ViviCosi 1 LT (Caja 12 unidades)', 'ViviCosi', 'alimentos', 'bebidas', 'Caja 12 x 1 Litro'],
+      ['OLV-ALM-138', 'Ají Panka Perú 1 KG', 'Importado Perú', 'alimentos', 'peruanos', 'Bolsa 1 Kg'],
+      ['OLV-ALM-139', 'Canchita Carway', 'Importado Perú', 'alimentos', 'peruanos', '[Formato por confirmar]'],
+      ['OLV-ALM-140', 'Aceituna Morada 1 KG', 'Importado Perú', 'alimentos', 'peruanos', 'Bolsa 1 Kg'],
+      ['OLV-ALM-141', 'Aceituna Negra Deshuesada 1 KG', 'Importado Perú', 'alimentos', 'peruanos', 'Bolsa 1 Kg'],
+      ['OLV-ALM-142', 'Limón Sutil Peruano (Caja 23 KG aprox.)', 'Importado Perú', 'alimentos', 'peruanos', 'Caja 23 Kg aprox.'],
+      ['OLV-ALM-143', 'Cebolla Morada Peruana (Malla 22 a 23 KG)', 'Importado Perú', 'alimentos', 'peruanos', 'Malla 22 a 23 Kg'],
+      ['OLV-ALM-144', 'Crema de Coco Deyco', 'Deyco', 'alimentos', 'peruanos', 'Lata [gramaje por confirmar]'],
+      ['OLV-ALM-145', 'Marrasquino Perello 1,1 KG', 'Perello', 'alimentos', 'peruanos', 'Frasco 1,1 Kg'],
+      ['OLV-ALM-146', 'Jengibre Entero 1 KG', 'Importado Perú', 'alimentos', 'peruanos', 'Bolsa 1 Kg'],
+      ['OLV-SSH-015', 'Panko Amarillo 1 KG', 'Japo Food', 'sushi', 'insumos-crujientes', 'Bolsa 1 Kg'],
+      ['OLV-SSH-016', 'Sésamo Negro 1 KG', 'Granel', 'sushi', 'condimentos-orientales', 'Bolsa 1 Kg'],
+      ['OLV-SSH-017', 'Sésamo Tostado 1 KG', 'Granel', 'sushi', 'condimentos-orientales', 'Bolsa 1 Kg'],
+      ['OLV-SSH-018', 'Aceite de Sésamo 250 ML (Caja 24 unidades)', '[Marca por confirmar]', 'sushi', 'condimentos-orientales', 'Botella 250 ml (Caja 24)'],
+      ['OLV-SSH-019', 'Salsa de Soya Kikko Peruana 500 ML', 'Kikko', 'sushi', 'salsas-orientales', 'Botella 500 ml'],
+      ['OLV-SSH-020', 'Salsa de Ostión Lee Kum Kee 510 ML', 'Lee Kum Kee', 'sushi', 'salsas-orientales', 'Botella 510 ml'],
+      ['OLV-SSH-021', 'Salsa Hoisin Lee Kum Kee Lata 2,27 KG', 'Lee Kum Kee', 'sushi', 'salsas-orientales', 'Lata 2,27 Kg'],
+      ['OLV-SSH-022', 'Salsa de Soya Dark China Gruesa 1,87 LT', '[Marca por confirmar]', 'sushi', 'salsas-orientales', 'Bidón 1,87 Litros'],
+      ['OLV-SSH-023', 'Jengibre Encurtido Gari Blanco Balde 1.5 KG', 'Gari', 'sushi', 'condimentos-orientales', 'Balde 1.5 Kg'],
+      ['OLV-SSH-024', 'Alga Nori Platinium Yingxuan (50 hojas)', 'Yingxuan', 'sushi', 'condimentos-orientales', 'Paquete 50 hojas'],
+      ['OLV-CON-048', 'Calamar en Anillos Ulala 1 KG (Caja 10 KG)', 'Ulala', 'congelados', 'mariscos-camarones', 'Bolsa 1 Kg (Caja 10 Kg)'],
+      ['OLV-CON-049', 'Atún Filete Importado (Caja 15 KG)', 'Importado', 'congelados', 'mariscos-camarones', 'Caja 15 Kg'],
+      ['OLV-CON-050', 'Atún en Rodaja 200 GR (Caja 10 KG)', 'Importado', 'congelados', 'mariscos-camarones', 'Porción 200 g (Caja 10 Kg)'],
+      ['OLV-CON-051', 'Papas Prefritas One Fry 12 MM', 'One Fry', 'congelados', 'papas-prefritas', 'Bolsa 2,5 Kg (Caja 7 bolsas)'],
+      ['OLV-CON-052', 'Papas Prefritas Star Frites 12 MM', 'Star Frites', 'congelados', 'papas-prefritas', 'Bolsa 2 Kg (Caja 5 bolsas)'],
+      ['OLV-CON-053', 'Papas Prefritas Cool Mind 12 MM', 'Cool Mind', 'congelados', 'papas-prefritas', 'Bolsa 2,5 Kg (Caja 6 bolsas)'],
+      ['OLV-CON-054', 'Papas Prefritas Cool Mind 10 MM', 'Cool Mind', 'congelados', 'papas-prefritas', 'Bolsa 2 Kg (Caja 7 bolsas)'],
+      ['OLV-CON-055', 'Papas Rústicas Gajo Simplot', 'Simplot', 'congelados', 'papas-prefritas', 'Bolsa 2 Kg (Caja 7 bolsas)'],
+      ['OLV-CON-056', 'Papa Duquesa McCain', 'McCain', 'congelados', 'papas-prefritas', 'Bolsa 2,5 Kg (Caja 4 bolsas)'],
+      ['OLV-CON-057', 'Arveja Congelada Interagro 1 KG', 'Interagro', 'congelados', 'verduras', 'Bolsa 1 Kg'],
+      ['OLV-CON-058', 'Coliflor Congelada Interagro 2 KG', 'Interagro', 'congelados', 'verduras', 'Bolsa 2 Kg (Caja 8 Kg)'],
+      ['OLV-CON-059', 'Espinaca Food Service Minuto Verde 1 KG', 'Minuto Verde', 'congelados', 'verduras', 'Bolsa 1 Kg (Caja 4 Kg)'],
+      ['OLV-CON-060', 'Jardinera de Verduras Delicias del Prado 1 KG', 'Delicias del Prado', 'congelados', 'verduras', 'Bolsa 1 Kg (Caja 16 Kg)'],
+      ['OLV-CON-061', 'Poroto Verde Corte Francés Interagro 1 KG', 'Interagro', 'congelados', 'verduras', 'Bolsa 1 Kg (Caja 10 Kg)'],
+      ['OLV-CON-062', 'Habas Congeladas 1 KG', 'Delicias del Prado', 'congelados', 'verduras', 'Bolsa 1 Kg (Caja 16 unidades)'],
+      ['OLV-CON-063', 'Pasta de Choclo Interagro 1 KG', 'Interagro', 'congelados', 'verduras', 'Bolsa 1 Kg (Caja 16 bolsas)'],
+      ['OLV-CON-064', 'Pasta de Choclo Minuto Verde 1 KG', 'Minuto Verde', 'congelados', 'verduras', 'Bolsa 1 Kg (Caja 7 bolsas)'],
+      ['OLV-CON-065', 'Rocoto Congelado 1 KG', 'Importado Perú', 'congelados', 'verduras', 'Bolsa 1 Kg'],
+      ['OLV-CON-066', 'Ají Amarillo Congelado Bolsa 2,5 KG', 'Importado Perú', 'congelados', 'verduras', 'Bolsa 2,5 Kg'],
+      ['OLV-CON-067', 'Pulpa de Frambuesa Natural Río Alto 1 KG', 'Río Alto', 'congelados', 'pulpas-fruta', 'Bolsa 1 Kg congelada'],
+      ['OLV-PRO-001', 'Pechuga de Pollo Sin Marinar Sadia 1 KG (Caja 12 KG)', 'Sadia', 'proteinas', 'pollo', 'Bolsa 1 Kg (Caja 12 Kg)'],
+      ['OLV-PRO-002', 'Alitas de Pollo Rebozadas Sadia 2 KG', 'Sadia', 'proteinas', 'pollo', 'Bolsa 2 Kg (Caja 6 Kg)'],
+      ['OLV-PRO-003', 'Tiras de Pollo Rebozadas Sadia 2 KG', 'Sadia', 'proteinas', 'pollo', 'Bolsa 2 Kg (Caja 6 unidades)'],
+      ['OLV-PRO-004', 'Suprema de Pollo Rebozada Sadia 3 KG', 'Sadia', 'proteinas', 'pollo', 'Bolsa 3 Kg (Caja 2 bolsas)'],
+      ['OLV-PRO-005', 'Supremita Chicken Fingers Sadia 3 KG', 'Sadia', 'proteinas', 'pollo', 'Bolsa 3 Kg (Caja 2 bolsas)'],
+      ['OLV-PRO-006', 'Golden Chicken Pechuga Rebozada Sadia 300 GR', 'Sadia', 'proteinas', 'pollo', 'Bolsa 300 g (Caja 16 unidades)'],
+      ['OLV-PRO-007', 'Golden Strips Tiras de Pollo Sadia 300 GR', 'Sadia', 'proteinas', 'pollo', 'Bolsa 300 g (Caja 12 unidades)'],
+      ['OLV-PRO-008', 'Carne Molida Rupanco 250 GR (Caja 12 unidades)', 'Rupanco', 'proteinas', 'vacuno', 'Bandeja 250 g (Caja 12)'],
+      ['OLV-PRO-009', 'Churrasco Corte Económico Rupanco 2 KG', 'Rupanco', 'proteinas', 'vacuno', 'Caja 2 Kg'],
+      ['OLV-PRO-010', 'Jamón Pierna Ahumado 3,6 KG aprox.', '[Marca por confirmar]', 'proteinas', 'elaborados', 'Pieza 3,6 Kg aprox.'],
+      ['OLV-LAC-014', 'Leche Entera Surlat Auténtica 1 L (Caja 12 unidades)', 'Surlat', 'lacteos', 'cremas-leche', 'Caja 12 x 1 Litro'],
+      ['OLV-LAC-015', 'Leche Descremada Sin Lactosa Surlat 1 L (Caja 12 unidades)', 'Surlat', 'lacteos', 'cremas-leche', 'Caja 12 x 1 Litro'],
+      ['OLV-LAC-016', 'Leche Entera Colún 1 L (Caja 12 unidades)', 'Colún', 'lacteos', 'cremas-leche', 'Caja 12 x 1 Litro'],
+      ['OLV-LAC-017', 'Leche Descremada Sin Lactosa Colún 1 L (Caja 12 unidades)', 'Colún', 'lacteos', 'cremas-leche', 'Caja 12 x 1 Litro'],
+      ['OLV-LAC-018', 'Leche Descremada Colún 1 L (Caja 12 unidades)', 'Colún', 'lacteos', 'cremas-leche', 'Caja 12 x 1 Litro'],
+      ['OLV-LAC-019', 'Leche Evaporada Gloria', 'Gloria', 'lacteos', 'condensadas-manjar', 'Lata [gramaje por confirmar]'],
+      ['OLV-LAC-020', 'Leche Condensada Nestlé Bolsa 6 KG', 'Nestlé', 'lacteos', 'condensadas-manjar', 'Bolsa 6 Kg'],
+      ['OLV-LAC-021', 'Manjar Nestlé 1 KG', 'Nestlé', 'lacteos', 'condensadas-manjar', 'Envase 1 Kg'],
+      ['OLV-LAC-022', 'Manjar Colún 1 KG', 'Colún', 'lacteos', 'condensadas-manjar', 'Envase 1 Kg'],
+      ['OLV-LAC-023', 'Manjar Los Alerces 1 KG', 'Fundo Los Alerces', 'lacteos', 'condensadas-manjar', 'Envase 1 Kg'],
+      ['OLV-LAC-024', 'Mantequilla Sin Sal Surlat (Caja 25 KG)', 'Surlat', 'lacteos', 'mantequillas', 'Caja 25 Kg'],
+      ['OLV-LAC-025', 'Mantequilla Colún Porción Sachet (Caja 200 unidades)', 'Colún', 'lacteos', 'mantequillas', 'Caja 200 sachets'],
+      ['OLV-LAC-026', 'Mantequilla Tonadita Sachet 10 GR (Caja 300 unidades)', 'Tonadita', 'lacteos', 'mantequillas', 'Caja 300 x 10 g'],
+      ['OLV-LAC-027', 'Mantequilla Sin Sal Tonadita 5 KG', 'Tonadita', 'lacteos', 'mantequillas', 'Bloque 5 Kg'],
+      ['OLV-LAC-028', 'Margarina 100% Vegetal Quillayes 1 KG', 'Quillayes', 'lacteos', 'mantequillas', 'Envase 1 Kg'],
+      ['OLV-LAC-029', 'Queso Mozzarella Granulado 2 KG', '[Marca por confirmar]', 'lacteos', 'quesos-maduros', 'Bolsa 2 Kg'],
+      ['OLV-LAC-030', 'Queso Rayado Surlat 1 KG', 'Surlat', 'lacteos', 'quesos-maduros', 'Bolsa 1 Kg'],
+      ['OLV-LAC-031', 'Queso Rayado Colún 2 KG', 'Colún', 'lacteos', 'quesos-maduros', 'Bolsa 2 Kg'],
+      ['OLV-LAC-032', 'Queso Parmesano Reggianito Colún Pieza 8,3 KG aprox.', 'Colún', 'lacteos', 'quesos-maduros', 'Pieza 8,3 Kg aprox.'],
+      ['OLV-LAC-033', 'Queso Cheddar Laminado Schreiber 2,27 KG', 'Schreiber', 'lacteos', 'quesos-maduros', 'Paquete 2,27 Kg'],
+      ['OLV-LAC-034', 'Queso Gouda Llifén Colún Barra 9,55 KG', 'Colún', 'lacteos', 'quesos-maduros', 'Barra 9,55 Kg'],
+      ['OLV-ASE-031', 'Servilleta de Mesa Económica Okey 31 x 30 (Pack 10 x 200)', 'Okey', 'limpieza', 'papeleria-servilletas', 'Caja 2.000 unidades'],
+      ['OLV-ASE-032', 'Servilleta Cocktail Slogo 24 x 23 (Pack 12 x 200)', 'Slogo', 'limpieza', 'papeleria-servilletas', 'Caja 2.400 unidades'],
+      ['OLV-ASE-033', 'Servilleta Lunch (Caja 10.000 unidades)', '[Marca por confirmar]', 'limpieza', 'papeleria-servilletas', 'Caja 10.000 unidades'],
+      ['OLV-ASE-034', 'Servilleta Duni 40 x 40 (Sin doblar y doblada)', 'Duni', 'limpieza', 'papeleria-servilletas', '[Formato por confirmar]'],
+      ['OLV-ASE-035', 'Toalla Absorbente OK Resistente 2 x 250 MTS', 'OK', 'limpieza', 'papeleria-servilletas', 'Pack 2 rollos x 250 m (2,27 Kg aprox.)'],
+      ['OLV-ASE-036', 'Papel Higiénico Jumbo 5 x 400 MTS', '[Marca por confirmar]', 'limpieza', 'papeleria-servilletas', 'Fardo 5 rollos x 400 m'],
+      ['OLV-ASE-037', 'Papel Higiénico Confort 30 MTS (Manga 48 unidades)', 'Confort', 'limpieza', 'papeleria-servilletas', 'Manga 48 rollos'],
+      ['OLV-ASE-038', 'Papel Toalla Interfoliada Simple (Caja 18 x 250)', '[Marca por confirmar]', 'limpieza', 'papeleria-servilletas', 'Caja 18 paquetes x 250 unidades'],
+      ['OLV-ASE-039', 'Bolsas de Basura 50x70 (10 unidades)', '[Marca por confirmar]', 'limpieza', 'bolsas-aseo', 'Paquete 10 bolsas'],
+      ['OLV-ASE-040', 'Bolsas de Basura 70x90 (10 unidades)', '[Marca por confirmar]', 'limpieza', 'bolsas-aseo', 'Paquete 10 bolsas'],
+      ['OLV-ASE-041', 'Pala Plástica con Mango', '[Marca por confirmar]', 'limpieza', 'accesorios-aseo', 'Unidad'],
+      ['OLV-ASE-042', 'Mopa de Algodón', '[Marca por confirmar]', 'limpieza', 'accesorios-aseo', 'Unidad'],
+      ['OLV-ASE-043', 'Escobillón', '[Marca por confirmar]', 'limpieza', 'accesorios-aseo', 'Unidad'],
+      ['OLV-ASE-044', 'Escoba con Mango', '[Marca por confirmar]', 'limpieza', 'accesorios-aseo', 'Unidad'],
+      ['OLV-ASE-045', 'Trapero Húmedo Multiuso Ultra Clean 40 x 60 (Paquete 13 unidades)', 'Ultra Clean', 'limpieza', 'accesorios-aseo', 'Paquete 13 (Naranja, Lavanda, Manzana, Limón)'],
+      ['OLV-ASE-046', 'Lavaloza Concentrado OKey Bidón 5 LT', 'OKey', 'limpieza', 'quimicos-limpieza', 'Bidón 5 Litros'],
+      ['OLV-ASE-047', 'Limpiavidrios OKey Bidón 5 LT', 'OKey', 'limpieza', 'quimicos-limpieza', 'Bidón 5 Litros'],
+      ['OLV-ASE-048', 'Limpiavidrios Mr. Rob Bidón 5 LT', 'Mr. Rob', 'limpieza', 'quimicos-limpieza', 'Bidón 5 Litros'],
+      ['OLV-ASE-049', 'Lavaloza Relux Bidón 5 LT', 'Relux', 'limpieza', 'quimicos-limpieza', 'Bidón 5 Litros'],
+      ['OLV-ASE-050', 'Jabón Líquido Relux Bidón 5 LT', 'Relux', 'limpieza', 'quimicos-limpieza', 'Bidón 5 Litros'],
+      ['OLV-ASE-051', 'Limpia Pisos Home Clean Bidón 5 LT', 'Home Clean', 'limpieza', 'quimicos-limpieza', 'Bidón 5 Litros'],
+      ['OLV-ASE-052', 'Desengrasante de Cocina Delimp Bidón 5 LT', 'Delimp', 'limpieza', 'quimicos-limpieza', 'Bidón 5 Litros'],
+      ['OLV-ASE-053', 'Jabón Líquido Elite Almendra Bidón 5 LT', 'Elite', 'limpieza', 'quimicos-limpieza', 'Bidón 5 Litros'],
+      ['OLV-ASE-054', 'Pastillas Desinfectantes para Estanque Teddy (Pack 3)', 'Teddy', 'limpieza', 'quimicos-limpieza', 'Pack 3 pastillas'],
+      ['OLV-ASE-055', 'Desodorante para Inodoro Teddy', 'Teddy', 'limpieza', 'quimicos-limpieza', 'Unidad 45 g (varios aromas)'],
+      ['OLV-ASE-056', 'Limpiador en Crema Cif 750 CC', 'Cif', 'limpieza', 'quimicos-limpieza', 'Botella 750 cc'],
+      ['OLV-ASE-057', 'Limpiador en Crema Teddy 750 CC', 'Teddy', 'limpieza', 'quimicos-limpieza', 'Botella 750 cc'],
+      ['OLV-ASE-058', 'Cera Incolora Brillina 340 CC', 'Brillina', 'limpieza', 'quimicos-limpieza', 'Doypack 340 cc'],
+      ['OLV-ASE-059', 'Lustra Muebles en Crema Excell', 'Excell', 'limpieza', 'quimicos-limpieza', 'Botella [ml por confirmar]'],
+      ['OLV-ASE-060', 'Desodorante Ambiental Arom', 'Arom', 'limpieza', 'quimicos-limpieza', 'Aerosol [ml por confirmar]'],
+      ['OLV-ASE-061', 'Insecticida Killer Mata Todo 560 CC', 'Killer', 'limpieza', 'quimicos-limpieza', 'Aerosol 560 cc'],
+      ['OLV-ASE-062', 'Desengrasante Pesado Industrial Ecol D-2000 Bidón 5 LT', 'Ecol Químicos', 'limpieza', 'quimicos-limpieza', 'Bidón industrial 5 Litros'],
+      ['OLV-ASE-063', 'Limpiador Desinfectante de Pisos Don Tito Lavanda 5 LT', 'Don Tito', 'limpieza', 'quimicos-limpieza', 'Bidón 5 Litros'],
+      ['OLV-INS-014', 'Rollo Térmico 40x50 (Caja 24 unidades)', '[Marca por confirmar]', 'insumos', 'rollos-termicos', 'Caja 24 rollos'],
+      ['OLV-INS-015', 'Rollo Térmico (Pack 10 unidades)', '[Marca por confirmar]', 'insumos', 'rollos-termicos', 'Pack 10 rollos'],
+      ['OLV-INS-016', 'Bombillas de Papel Bicolor 8 x 8 (10 x 100 unidades)', '[Marca por confirmar]', 'insumos', 'envases-delivery', 'Pack 10 x 100 bombillas'],
+      ['OLV-INS-017', 'Bombillas de Papel Negras (Caja 5.000 unidades)', '[Marca por confirmar]', 'insumos', 'envases-delivery', 'Caja 5.000 bombillas'],
+      ['OLV-INS-018', 'Pote Salsero 4 OZ (1.000 unidades)', '[Marca por confirmar]', 'insumos', 'envases-delivery', 'Caja 1.000 unidades'],
+      ['OLV-INS-019', 'Pote Salsero 0,2 OZ (2.500 unidades)', '[Marca por confirmar]', 'insumos', 'envases-delivery', 'Caja 2.500 unidades'],
+      ['OLV-INS-020', 'Pote Salsero 1,5 OZ (2.500 unidades)', '[Marca por confirmar]', 'insumos', 'envases-delivery', 'Caja 2.500 unidades'],
+      ['OLV-INS-021', 'Envase Plumavit Chorrillana CT1 (Pack 100 unidades)', '[Marca por confirmar]', 'insumos', 'envases-delivery', 'Pack 100 envases'],
+      ['OLV-INS-022', 'Envase Plumavit Menú (Pack 200 unidades)', '[Marca por confirmar]', 'insumos', 'envases-delivery', 'Pack 200 envases'],
+      ['OLV-INS-023', 'Bowl Kraft 1300 CC (Caja 300 unidades)', '[Marca por confirmar]', 'insumos', 'envases-delivery', 'Caja 300 bowls'],
+      ['OLV-INS-024', 'Tapa para Bowl Kraft 1300 CC (Caja 300 unidades)', '[Marca por confirmar]', 'insumos', 'envases-delivery', 'Caja 300 tapas'],
+      ['OLV-INS-025', 'Tapa para Bowl Kraft 1000 CC (Caja 300 unidades)', '[Marca por confirmar]', 'insumos', 'envases-delivery', 'Caja 300 tapas'],
+      ['OLV-INS-026', 'Bowl Kraft 600 CC (Caja 400 unidades)', '[Marca por confirmar]', 'insumos', 'envases-delivery', 'Caja 400 bowls'],
+      ['OLV-INS-027', 'Tapa para Bowl Kraft 600 CC (Caja 400 unidades)', '[Marca por confirmar]', 'insumos', 'envases-delivery', 'Caja 400 tapas'],
+      ['OLV-INS-028', 'Saco Kraft con Asa 28 x 28 x 15 (Caja 500 unidades)', '[Marca por confirmar]', 'insumos', 'bolsas-sacos', 'Caja 500 sacos'],
+      ['OLV-INS-029', 'Saco Kraft con Asa 35 x 32 x 18 (Caja 200 unidades)', '[Marca por confirmar]', 'insumos', 'bolsas-sacos', 'Caja 200 sacos'],
+      ['OLV-INS-030', 'Saco Kraft Café T-100 (Caja 1.000 unidades)', '[Marca por confirmar]', 'insumos', 'bolsas-sacos', 'Caja 1.000 · 12 x 22,3 cm'],
+      ['OLV-INS-031', 'Saco Kraft Café T-200 (Caja 1.000 unidades)', '[Marca por confirmar]', 'insumos', 'bolsas-sacos', 'Caja 1.000 · 14,4 x 27,5 cm'],
+      ['OLV-INS-032', 'Saco Kraft Café T-300 (Caja 1.000 unidades)', '[Marca por confirmar]', 'insumos', 'bolsas-sacos', 'Caja 1.000 · 16 x 35 cm'],
+      ['OLV-INS-033', 'Saco Kraft Café T-400 (Caja 500 unidades)', '[Marca por confirmar]', 'insumos', 'bolsas-sacos', 'Caja 500 · 18,1 x 36,2 cm'],
+      ['OLV-INS-034', 'Saco Kraft Café T-500 (Caja 500 unidades)', '[Marca por confirmar]', 'insumos', 'bolsas-sacos', 'Caja 500 · 19 x 41 cm'],
+      ['OLV-INS-035', 'Saco Kraft Café T-700 (Caja 500 unidades)', '[Marca por confirmar]', 'insumos', 'bolsas-sacos', 'Caja 500 · 27 x 47,3 cm'],
+      ['OLV-INS-036', 'Bolsa Prepicada 40 x 80 (Rollo)', '[Marca por confirmar]', 'insumos', 'bolsas-sacos', 'Rollo'],
+      ['OLV-INS-037', 'Bolsa Prepicada 30 x 40 (Rollo)', '[Marca por confirmar]', 'insumos', 'bolsas-sacos', 'Rollo'],
+      ['OLV-INS-038', 'Bolsa Porcionadora Prepicada 20 x 30 (Rollo 8 KG)', '[Marca por confirmar]', 'insumos', 'bolsas-sacos', 'Rollo 8 Kg'],
+      ['OLV-INS-039', 'Papel Aluminio 100 MTS', '[Marca por confirmar]', 'insumos', 'bolsas-sacos', 'Rollo 100 m en caja']
     ].map((r) => ({ sku: r[0], name: r[1], brand: r[2], cat: r[3], sub: r[4], format: r[5] }))
       .map((p) => (PROT[p.sku] ? Object.assign(p, { cat: 'proteinas', sub: PROT[p.sku] }) : p));
 
@@ -462,26 +700,47 @@ class Component extends DCLogic {
     const catId = st.cat || this.props.categoriaInicial || 'alimentos';
     const C = CATS[catId] || CATS.alimentos;
     const subName = (id) => { const s = C.subs.find((x) => x[0] === id); return s ? s[1] : ''; };
-    const subStyle = (on) => 'width: 100%; display: flex; justify-content: space-between; align-items: center; gap: 10px; min-height: 44px; padding: 8px 12px; border: 0; border-radius: 10px; text-align: left; font-family: Manrope, sans-serif; font-size: 14px; line-height: 1.35; ' + (on ? 'background: #FFFFFF; color: #163F32; font-weight: 700; box-shadow: inset 3px 0 0 #C6A16C, 0 1px 3px rgba(18,42,33,.08)' : 'background: transparent; color: #1A2822; font-weight: 500');
-    const cStyle = (on) => 'font-variant-numeric: tabular-nums; font-size: 13px; font-weight: 700; color: ' + (on ? '#8A6A3A' : '#66756E');
+    const subStyle = (on) => 'width: 100%; display: flex; justify-content: space-between; align-items: center; gap: 10px; min-height: 44px; padding: 8px 12px; border: 0; border-radius: 10px; text-align: left; font-family: Montserrat, sans-serif; font-size: 14px; line-height: 1.35; ' + (on ? 'background: #FFFFFF; color: #17472C; font-weight: 700; box-shadow: inset 3px 0 0 #CF1427, 0 1px 3px rgba(16,28,22,.08)' : 'background: transparent; color: #1A1F1C; font-weight: 500');
+    const cStyle = (on) => 'font-variant-numeric: tabular-nums; font-size: 13px; font-weight: 700; color: ' + (on ? '#B0121F' : '#626D76');
     const inCat = P.filter((p) => p.cat === catId);
     const all = [{ id: 'all', name: 'Todas', count: inCat.length }].concat(C.subs.map((s) => ({ id: s[0], name: s[1], count: inCat.filter((p) => p.sub === s[0]).length })));
-    const q = st.query.trim().toLowerCase();
-    let list = inCat.filter((p) => (st.sub === 'all' || p.sub === st.sub) && (!q || (p.name + ' ' + p.brand + ' ' + p.sku).toLowerCase().includes(q)));
+    // Búsqueda global (encabezado): todas las palabras, sin tildes, en las 7 líneas
+    const norm = (s) => String(s || '').toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g, '');
+    const gq = st.gq.trim();
+    const gWords = norm(gq).split(/\s+/).filter(Boolean);
+    const searching = gWords.length > 0;
+    const subOf = (p) => { const cc = CATS[p.cat]; const s = cc ? cc.subs.find((x) => x[0] === p.sub) : null; return s ? s[1] : ''; };
+    const hay = (p) => norm(p.name + ' ' + p.brand + ' ' + p.sku + ' ' + p.format);
+    const hayAmplio = (p) => hay(p) + ' ' + norm(subOf(p) + ' ' + (CATS[p.cat] ? CATS[p.cat].name : ''));
+    const q = norm(st.query.trim());
+    let list;
+    if (searching) {
+      // Coincide en producto, subcategoría o línea; primero los que coinciden en el producto
+      const directo = (p) => { const h = hay(p); return gWords.every((w) => h.includes(w)); };
+      list = P.filter((p) => { const h = hayAmplio(p); return gWords.every((w) => h.includes(w)); });
+      list = list.filter(directo).concat(list.filter((p) => !directo(p)));
+    } else {
+      list = inCat.filter((p) => (st.sub === 'all' || p.sub === st.sub) && (!q || hay(p).includes(q)));
+    }
     if (st.sort === 'name') list = list.slice().sort((a, b) => a.name.localeCompare(b.name));
     if (st.sort === 'brand') list = list.slice().sort((a, b) => a.brand.localeCompare(b.brand));
     const total = Object.keys(st.list).length;
     const setQty = (sku, n) => this.setState((s) => ({ qty: Object.assign({}, s.qty, { [sku]: Math.max(1, n) }) }));
     return {
-      cat: catId, catName: C.name, catBadge: C.badge, catDesc: C.desc,
-      onCat: (e) => this.setState({ cat: e.target.value, sub: 'all', query: '' }),
+      cat: catId,
+      catName: searching ? 'Resultados de búsqueda' : C.name,
+      catBadge: searching ? 'Todo el catálogo' : C.badge,
+      catDesc: searching ? (list.length + (list.length === 1 ? ' producto' : ' productos') + ' para «' + gq + '» en las 7 líneas. Borra la búsqueda para volver a ' + C.name + '.') : C.desc,
+      onCat: (e) => this.setState({ cat: e.target.value, sub: 'all', query: '', gq: '' }),
+      gq: st.gq, onGq: (e) => this.setState({ gq: e.target.value }),
       subs: all.map((s) => ({
-        name: s.name, count: s.count, on: st.sub === s.id,
-        style: subStyle(st.sub === s.id), countStyle: cStyle(st.sub === s.id),
-        pick: () => this.setState({ sub: s.id })
+        name: s.name, count: s.count, on: !searching && st.sub === s.id,
+        style: subStyle(!searching && st.sub === s.id), countStyle: cStyle(!searching && st.sub === s.id),
+        pick: () => this.setState({ sub: s.id, gq: '' })
       })),
-      hasSub: st.sub !== 'all', subName: subName(st.sub),
-      query: st.query, onQuery: (e) => this.setState({ query: e.target.value }),
+      hasSub: !searching && st.sub !== 'all', subName: subName(st.sub),
+      emptyTitle: searching ? 'No encontramos «' + gq + '» en el catálogo' : 'No encontramos ese insumo en esta categoría',
+      query: st.query, onQuery: (e) => this.setState({ query: e.target.value, gq: '' }),
       sort: st.sort, onSort: (e) => this.setState({ sort: e.target.value }),
       countLabel: list.length + (list.length === 1 ? ' producto' : ' productos'),
       empty: list.length === 0,
@@ -490,12 +749,15 @@ class Component extends DCLogic {
         const inList = !!st.list[p.sku];
         const img = IMG[p.sku] ? B + IMG[p.sku] : '';
         return Object.assign({}, p, {
-          subName: subName(p.sub), qty: qty, img: img, hasImg: !!img, noImg: !img,
+          subName: subOf(p), catName: CATS[p.cat] ? CATS[p.cat].name : '', qty: qty, img: img, hasImg: !!img, noImg: !img,
+          showFicha: st.ficha === p.sku,
+          fichaLabel: st.ficha === p.sku ? 'Ocultar ficha' : 'Ver ficha técnica',
+          toggleFicha: () => this.setState((s) => ({ ficha: s.ficha === p.sku ? '' : p.sku })),
           dec: () => setQty(p.sku, qty - 1),
           inc: () => setQty(p.sku, qty + 1),
           add: () => this.setState((s) => ({ list: Object.assign({}, s.list, { [p.sku]: qty }), last: p.name, bump: s.bump + 1 })),
           addLabel: inList ? 'En tu lista · ' + st.list[p.sku] : 'Agregar a cotización',
-          addStyle: 'flex: 1 1 auto; height: 44px; border-radius: 10px; font-family: Manrope, sans-serif; font-weight: 700; font-size: 13.5px; padding: 0 12px; ' + (inList ? 'background: #EBF2EE; color: #163F32; border: 1px solid #C9DCD1' : 'background: #163F32; color: #FFFFFF; border: 1px solid #163F32; box-shadow: 0 4px 14px rgba(22,63,50,0.2)')
+          addStyle: 'flex: 1 1 auto; height: 44px; border-radius: 10px; font-family: Montserrat, sans-serif; font-weight: 700; font-size: 13.5px; padding: 0 12px; ' + (inList ? 'background: #E9F5EC; color: #17472C; border: 1px solid #CBD9D0' : 'background: #17472C; color: #FFFFFF; border: 1px solid #17472C; box-shadow: 0 4px 14px rgba(23,71,44,0.2)')
         });
       }),
       hasItems: total > 0, totalItems: total,

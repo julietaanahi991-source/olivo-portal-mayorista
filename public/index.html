@@ -4,7 +4,8 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>OLIVO Signature | Distribuidora de Alimentos — Región de Valparaíso</title>
-  
+  <meta name="theme-color" content="#CF1427">
+
   <!-- SEO & OpenGraph Metadatos -->
   <meta name="description" content="Portal digital B2B de Distribuidora Olivo. Abastecimiento mayorista para restaurantes, sushi bars, locales y minimarkets en la Región de Valparaíso (V Región). Cotizaciones personalizadas sin precios públicos.">
   <meta name="keywords" content="distribuidora olivo, olivo signature, insumos sushi viña del mar, valparaiso, concon, horeca v region, arroz shirakiku, queso crema milkaut, cotizacion b2b">
@@ -13,7 +14,7 @@
   <link rel="canonical" href="https://mayorista.distribuidoraolivo.cl/">
 
   <meta property="og:title" content="OLIVO Signature | Portal B2B Distribuidora Olivo — V Región">
-  <meta property="og:description" content="Todo lo que tu negocio necesita, en un solo lugar. Insumos para sushi, abarrotes, lácteos, congelados y aseo en la Región de Valparaíso.">
+  <meta property="og:description" content="Todo lo que tu negocio necesita, en un solo lugar. Insumos para sushi, abarrotes, proteínas, lácteos, congelados y aseo en la Región de Valparaíso.">
   <meta property="og:type" content="website">
   <meta property="og:image" content="https://mayorista.distribuidoraolivo.cl/images/hero-cocina.jpg">
   <meta property="og:url" content="https://mayorista.distribuidoraolivo.cl/">
@@ -47,182 +48,160 @@
       theme: {
         extend: {
           colors: {
-            olive: {
-              DEFAULT: '#163F32',
-              deep: '#163F32',
-              dark: '#0D261E',
-              light: '#215645',
-              surface: '#EBF2EE'
-            },
-            gold: {
-              DEFAULT: '#C6A16C',
-              hover: '#B38E57',
-              light: '#F7F1E6'
-            },
-            ivory: {
-              DEFAULT: '#F6F2E9',
-              light: '#FAF8F3',
-              dark: '#E8E2D3'
-            }
+            olive: { DEFAULT: '#17472C', deep: '#17472C', dark: '#0F1F16', light: '#1F6A3E', surface: '#F2F8F3' },
+            gold: { DEFAULT: '#CF1427', hover: '#AD1020', light: '#FBEEF0' },
+            ivory: { DEFAULT: '#F2F5F3', light: '#F8FAF9', dark: '#E2E8E5' }
           },
           fontFamily: {
-            serif: ['Playfair Display', 'Georgia', 'serif'],
-            heading: ['Manrope', 'sans-serif'],
-            body: ['DM Sans', 'sans-serif']
+            serif: ['Montserrat', 'system-ui', 'sans-serif'],
+            heading: ['Montserrat', 'system-ui', 'sans-serif'],
+            body: ['Nunito', 'system-ui', 'sans-serif']
           }
         }
       }
     }
   </script>
 
-  <!-- Lucide Icons CDN -->
-  <script src="https://unpkg.com/lucide@latest"></script>
+  <!-- Iconos Lucide (versión fija) -->
+  <script src="https://unpkg.com/lucide@0.460.0/dist/umd/lucide.min.js"></script>
 
-  <!-- Estilos Personalizados Olivo Signature -->
+  <!-- Estilos de la marca OLIVO -->
   <link rel="stylesheet" href="css/styles.css">
 </head>
-<body class="bg-[#FAF8F3] text-[#1A2822] min-h-screen flex flex-col font-body antialiased">
+<body class="bg-[#F8FAF9] text-[#1A1F1C] min-h-screen flex flex-col font-body antialiased">
 
-  <!-- FRANJA INFORMATIVA DISCRETA: DESPACHOS EXCLUSIVOS EN V REGIÓN -->
-  <div class="announcement-bar bg-[#0D261E] text-white text-[11px] sm:text-xs py-2 px-4 border-b border-[#C6A16C]/30 no-print">
-    <div class="max-w-7xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-2 text-center sm:text-left">
-      <div class="flex items-center gap-2">
-        <span class="w-2 h-2 rounded-full bg-[#C6A16C] animate-pulse"></span>
-        <span class="text-emerald-100 font-medium">
-          <strong>Distribuidora Olivo:</strong> Despachos exclusivos en la <strong>Región de Valparaíso (V Región)</strong> — Viña del Mar, Valparaíso, Concón, Quilpué, Villa Alemana, Limache y Quillota.
-        </span>
+  <a href="#appContent" class="sr-only focus:not-sr-only focus:fixed focus:top-3 focus:left-3 focus:z-50 focus:bg-white focus:px-4 focus:py-2 focus:rounded-lg focus:shadow-lg">Saltar al contenido</a>
+
+  <!-- FRANJA: DESPACHOS EXCLUSIVOS EN LA V REGIÓN -->
+  <div class="announcement-bar bg-[#0F1F16] text-[#D6E6DB] text-[12.5px] py-2.5 px-4 sm:px-8 border-b-[3px] border-[#CF1427] no-print">
+    <div class="max-w-7xl mx-auto flex flex-wrap items-center justify-between gap-x-4 gap-y-1.5">
+      <div class="flex items-center gap-2.5">
+        <span class="dot-pulse w-2 h-2 rounded-full bg-[#CF1427] flex-none"></span>
+        <span><strong class="text-white">Despachos exclusivos en la V Región:</strong> Viña del Mar, Valparaíso, Concón, Quilpué, Villa Alemana, Limache y Quillota.</span>
       </div>
-      <div class="hidden md:flex items-center gap-4 text-emerald-200/80">
-        <span>Ventas B2B: +56 9 6304 1374</span>
-        <span class="text-[#C6A16C]">Atención personalizada 1 a 1</span>
+      <div class="hidden md:flex items-center gap-[18px]">
+        <span>Ventas B2B: <a href="tel:+56963041374" class="text-white font-bold no-underline hover:text-[#7BD192]">+56 9 6304 1374</a></span>
+        <span class="text-[#7BD192]">Atención personalizada 1 a 1</span>
       </div>
     </div>
   </div>
 
-  <!-- ENCABEZADO SIMPLIFICADO: INICIO, CONTACTO, BÚSQUEDA Y SOLICITAR COTIZACIÓN -->
-  <header class="header-glass sticky top-0 z-40 no-print">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-      <div class="flex items-center justify-between h-20">
-        
-        <!-- LOGOTIPO OFICIAL DISTRIBUIDORA OLIVO -->
-        <div onclick="window.OlivoApp.setView('landing')" class="flex items-center gap-3.5 cursor-pointer select-none" title="Distribuidora Olivo - Inicio">
-          <!-- Isotipo / Emblema Olivo -->
-          <div class="w-11 h-11 rounded-xl bg-[#163F32] border border-[#C6A16C]/40 flex items-center justify-center text-[#C6A16C] shadow-md flex-shrink-0">
-            <svg class="w-6 h-6 fill-current" viewBox="0 0 24 24">
-              <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 17.93c-3.95-.49-7-3.85-7-7.93 0-.62.08-1.21.21-1.79L9 15v1c0 1.1.9 2 2 2v1.93zm6.9-2.54c-.26-.81-1-1.39-1.9-1.39h-1v-3c0-.55-.45-1-1-1H8v-2h2c.55 0 1-.45 1-1V7h2c1.1 0 2-.9 2-2v-.41c2.93 1.19 5 4.06 5 7.41 0 2.08-.8 3.97-2.1 5.39z"/>
-            </svg>
-          </div>
+  <!-- ENCABEZADO: INICIO, CONTACTO, BÚSQUEDA Y SOLICITAR COTIZACIÓN -->
+  <header class="header-glass relative sm:sticky top-0 z-40 no-print">
+    <div class="max-w-7xl mx-auto px-4 sm:px-8">
+      <div class="flex flex-wrap items-center gap-x-7 gap-y-3 min-h-[80px] py-3">
 
-          <div>
-            <div class="flex items-center gap-1.5 leading-none">
-              <span class="text-2xl font-serif font-black tracking-wider text-[#163F32]">OLIVO</span>
-              <span class="text-[10px] font-bold px-2 py-0.5 rounded-full bg-[#F7F1E6] text-[#9B7843] border border-[#C6A16C]/40 tracking-widest uppercase">Signature</span>
-            </div>
-            <div class="text-[9.5px] text-[#566760] tracking-wider uppercase font-bold mt-1">
-              Distribuidora de Alimentos y Productos
-            </div>
-          </div>
-        </div>
+        <!-- LOGOTIPO OLIVO -->
+        <button type="button" onclick="window.OlivoApp.setView('landing')" class="flex items-center gap-3.5 select-none bg-transparent border-0 p-0 cursor-pointer text-left" aria-label="Distribuidora Olivo, inicio">
+          <span class="w-11 h-11 rounded-xl bg-[#CF1427] flex items-center justify-center text-white flex-none" style="box-shadow: 0 4px 20px -2px rgba(16,28,22,0.08)">
+            <svg aria-hidden="true" class="w-6 h-6 fill-current" viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 17.93c-3.95-.49-7-3.85-7-7.93 0-.62.08-1.21.21-1.79L9 15v1c0 1.1.9 2 2 2v1.93zm6.9-2.54c-.26-.81-1-1.39-1.9-1.39h-1v-3c0-.55-.45-1-1-1H8v-2h2c.55 0 1-.45 1-1V7h2c1.1 0 2-.9 2-2v-.41c2.93 1.19 5 4.06 5 7.41 0 2.08-.8 3.97-2.1 5.39z"/></svg>
+          </span>
+          <span class="flex flex-col gap-1">
+            <span class="flex items-center gap-1.5 leading-none">
+              <span class="text-2xl font-black text-[#CF1427]" style="font-family: var(--font-heading); letter-spacing: -0.01em">OLIVO</span>
+              <span class="text-[10px] font-bold px-2 py-0.5 rounded-full bg-[#FBEEF0] text-[#B0121F] border border-[#CF1427]/40 tracking-[0.12em] uppercase" style="font-family: var(--font-heading)">Signature</span>
+            </span>
+            <span class="text-[9.5px] text-[#56616A] tracking-[0.08em] uppercase font-bold" style="font-family: var(--font-heading)">Distribuidora de Alimentos y Productos</span>
+          </span>
+        </button>
 
-        <!-- MENÚ SUPERIOR SIMPLIFICADO: ÚNICAMENTE INICIO Y CONTACTO -->
-        <nav class="hidden md:flex items-center gap-8 text-sm font-semibold">
-          <button onclick="window.OlivoApp.setView('landing')" data-view="landing" class="nav-link text-[#163F32] hover:text-[#C6A16C] transition py-1">
-            Inicio
-          </button>
-          <button onclick="window.OlivoApp.scrollToContact()" class="text-[#566760] hover:text-[#163F32] transition py-1">
-            Contacto
-          </button>
+        <!-- MENÚ: SOLO INICIO Y CONTACTO -->
+        <nav aria-label="Principal" class="hidden md:flex items-center gap-7 text-[15px] font-semibold mx-auto" style="font-family: var(--font-heading)">
+          <button type="button" onclick="window.OlivoApp.setView('landing')" data-view="landing" class="nav-link text-[#17472C] hover:text-[#CF1427] transition py-1 bg-transparent border-0 cursor-pointer">Inicio</button>
+          <button type="button" onclick="window.OlivoApp.scrollToContact()" class="text-[#56616A] hover:text-[#17472C] transition py-1 bg-transparent border-0 cursor-pointer">Contacto</button>
         </nav>
 
-        <!-- ACCIONES HEADER: BÚSQUEDA Y SOLICITAR COTIZACIÓN -->
-        <div class="flex items-center gap-4">
-          
-          <!-- Búsqueda en vivo -->
-          <div class="relative flex items-center">
-            <input id="globalSearchInput" type="text" placeholder="Buscar insumos..." class="w-36 sm:w-56 pl-8 pr-3 py-1.5 rounded-full border border-[#E5ECE8] bg-[#FAF8F3] text-xs focus:w-64 focus:border-[#C6A16C] transition-all outline-none" />
-            <i data-lucide="search" class="w-3.5 h-3.5 text-[#82928B] absolute left-3 pointer-events-none"></i>
-          </div>
+        <!-- BÚSQUEDA, SOLICITAR COTIZACIÓN Y LISTA -->
+        <div class="flex items-center gap-3 flex-wrap ml-auto md:ml-0 w-full sm:w-auto">
+          <form role="search" class="relative flex items-center w-full sm:w-[280px]" onsubmit="return false">
+            <label for="globalSearchInput" class="sr-only">Buscar insumos por nombre, marca o SKU</label>
+            <button type="button" id="globalSearchButton" aria-label="Buscar" class="absolute left-1 w-9 h-9 flex items-center justify-center rounded-full bg-transparent border-0 cursor-pointer text-[#56616A] hover:text-[#17472C]">
+              <i data-lucide="search" class="w-4 h-4"></i>
+            </button>
+            <input id="globalSearchInput" type="search" enterkeyhint="search" autocomplete="off" placeholder="Buscar: arroz sushi, mozzarella…" class="w-full h-11 pl-10 pr-3.5 rounded-full border border-[#E4E9E7] bg-[#F8FAF9] text-sm text-[#1A1F1C] outline-none focus:border-[#1F6A3E] transition" />
+          </form>
 
-          <!-- Botón Solicitar Cotización con Contador -->
-          <button onclick="window.OlivoApp.setView('checkout')" class="relative btn-olive text-xs py-2 px-3.5 sm:px-4 shadow-sm flex items-center gap-2">
-            <i data-lucide="file-text" class="w-3.5 h-3.5 text-[#C6A16C]"></i>
-            <span class="font-bold">Solicitar cotización</span>
+          <button type="button" onclick="window.OlivoApp.setView('checkout')" class="relative btn-olive h-11 px-[18px] text-sm flex flex-1 sm:flex-none justify-center items-center gap-2" style="font-family: var(--font-heading); font-weight: 700">
+            <svg aria-hidden="true" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#CF1427" stroke-width="2.2"><path d="M14 3H6a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V9z"></path><path d="M14 3v6h6M8 13h8M8 17h5"></path></svg>
+            <span>Solicitar cotización</span>
             <span class="cart-count-badge cart-badge" style="display: none;">0</span>
           </button>
 
-          <!-- Drawer Cart Trigger (Icono) -->
-          <button onclick="window.OlivoApp.toggleCartDrawer()" class="p-2 rounded-lg bg-[#FAF8F3] hover:bg-[#EBF2EE] border border-[#E5ECE8] text-[#163F32] transition" title="Ver carrito de cotización">
-            <i data-lucide="shopping-bag" class="w-4 h-4"></i>
+          <button type="button" onclick="window.OlivoApp.toggleCartDrawer()" class="w-11 h-11 flex items-center justify-center rounded-[10px] bg-white hover:bg-[#F2F8F3] border border-[#E4E9E7] text-[#17472C] transition cursor-pointer" aria-label="Ver mi lista de cotización" title="Ver mi lista de cotización">
+            <i data-lucide="shopping-bag" class="w-5 h-5"></i>
           </button>
-
         </div>
 
       </div>
     </div>
   </header>
 
-  <!-- CONTENEDOR PRINCIPAL REACTIVO -->
-  <main id="appContent" class="flex-grow">
+  <!-- CONTENEDOR PRINCIPAL -->
+  <main id="appContent" class="flex-grow" tabindex="-1">
     <!-- Renderizado dinámico de vistas por app.js -->
   </main>
 
-  <!-- FOOTER CORPORATIVO OFICIAL -->
-  <footer class="bg-[#0D261E] text-[#D7E8DD] pt-16 pb-7 px-4 sm:px-6 lg:px-8 no-print mt-auto text-sm">
+  <!-- PIE DE PÁGINA -->
+  <footer class="bg-[#0F1F16] text-[#D6E6DB] pt-16 pb-7 px-4 sm:px-8 no-print mt-auto text-sm">
     <div class="max-w-7xl mx-auto flex flex-col gap-10">
       <div class="flex flex-wrap gap-10">
 
         <div class="flex-[2_1_260px] flex flex-col gap-3.5">
           <span class="flex items-center gap-3">
-            <span class="w-9 h-9 rounded-[10px] bg-[#163F32] border border-[#C6A16C]/40 text-[#C6A16C] flex items-center justify-center font-serif font-bold text-xl">O</span>
-            <span class="font-serif font-black text-xl tracking-[0.06em] text-white">OLIVO</span>
+            <span class="w-9 h-9 rounded-[10px] bg-[#CF1427] text-white flex items-center justify-center flex-none">
+              <svg aria-hidden="true" class="w-5 h-5 fill-current" viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 17.93c-3.95-.49-7-3.85-7-7.93 0-.62.08-1.21.21-1.79L9 15v1c0 1.1.9 2 2 2v1.93zm6.9-2.54c-.26-.81-1-1.39-1.9-1.39h-1v-3c0-.55-.45-1-1-1H8v-2h2c.55 0 1-.45 1-1V7h2c1.1 0 2-.9 2-2v-.41c2.93 1.19 5 4.06 5 7.41 0 2.08-.8 3.97-2.1 5.39z"/></svg>
+            </span>
+            <span class="font-black text-xl text-white" style="font-family: var(--font-heading); letter-spacing: -0.01em">OLIVO</span>
           </span>
           <p class="m-0 max-w-[300px]">Distribuidora e Importadora Olivo SpA. Abastecimiento mayorista para el canal HORECA en la V Región.</p>
           <span>Viña del Mar, Región de Valparaíso</span>
-          <span>+56 9 6304 1374 · ventas@olivocorp.cl</span>
+          <span><a href="tel:+56963041374" class="footer-link">+56 9 6304 1374</a> · <a href="mailto:ventas@olivocorp.cl" class="footer-link">ventas@olivocorp.cl</a></span>
         </div>
 
-        <nav aria-label="Catálogo" class="flex-[1_1_160px] flex flex-col gap-2">
-          <strong class="text-xs tracking-[0.12em] uppercase text-[#C6A16C]" style="font-family: var(--font-heading)">Catálogo</strong>
-          <a class="footer-link" onclick="window.OlivoApp.setView('catalog', { category: 'alimentos' })">Alimentos y abarrotes</a>
-          <a class="footer-link" onclick="window.OlivoApp.setView('catalog', { category: 'sushi' })">Sushi y oriental</a>
-          <a class="footer-link" onclick="window.OlivoApp.setView('catalog', { category: 'congelados' })">Congelados</a>
-          <a class="footer-link" onclick="window.OlivoApp.setView('catalog', { category: 'lacteos' })">Lácteos y refrigerados</a>
-          <a class="footer-link" onclick="window.OlivoApp.setView('catalog', { category: 'limpieza' })">Limpieza y aseo</a>
-          <a class="footer-link" onclick="window.OlivoApp.setView('catalog', { category: 'insumos' })">Insumos para restaurantes</a>
+        <nav aria-label="Catálogo" class="flex-[1_1_160px] flex flex-col gap-2 items-start">
+          <strong class="text-xs tracking-[0.12em] uppercase text-[#7BD192]" style="font-family: var(--font-heading)">Catálogo</strong>
+          <button type="button" class="footer-link" onclick="window.OlivoApp.setFilterCategory('alimentos')">Alimentos y abarrotes</button>
+          <button type="button" class="footer-link" onclick="window.OlivoApp.setFilterCategory('proteinas')">Proteínas</button>
+          <button type="button" class="footer-link" onclick="window.OlivoApp.setFilterCategory('sushi')">Sushi y oriental</button>
+          <button type="button" class="footer-link" onclick="window.OlivoApp.setFilterCategory('congelados')">Congelados</button>
+          <button type="button" class="footer-link" onclick="window.OlivoApp.setFilterCategory('lacteos')">Lácteos y refrigerados</button>
+          <button type="button" class="footer-link" onclick="window.OlivoApp.setFilterCategory('limpieza')">Limpieza y aseo</button>
+          <button type="button" class="footer-link" onclick="window.OlivoApp.setFilterCategory('insumos')">Insumos para restaurantes</button>
         </nav>
 
         <div class="flex-[1_1_160px] flex flex-col gap-2">
-          <strong class="text-xs tracking-[0.12em] uppercase text-[#C6A16C]" style="font-family: var(--font-heading)">Despacho</strong>
+          <strong class="text-xs tracking-[0.12em] uppercase text-[#7BD192]" style="font-family: var(--font-heading)">Despacho</strong>
           <span>Viña del Mar</span><span>Valparaíso</span><span>Concón</span><span>Quilpué</span><span>Villa Alemana</span><span>Limache</span><span>Quillota</span>
-          <span class="text-[#C6A16C] text-xs pt-1">Lunes a sábado, 9:00 a 15:00 hrs.</span>
+          <span class="text-[#7BD192] text-xs pt-1">Lunes a sábado, 9:00 a 15:00 hrs.</span>
         </div>
 
-        <nav aria-label="Empresa" class="flex-[1_1_160px] flex flex-col gap-2">
-          <strong class="text-xs tracking-[0.12em] uppercase text-[#C6A16C]" style="font-family: var(--font-heading)">Empresa</strong>
-          <a class="footer-link" onclick="window.OlivoApp.scrollToSteps()">Cómo cotizar</a>
-          <a class="footer-link" onclick="window.OlivoApp.setView('checkout')">Solicitar cotización</a>
-          <a class="footer-link" onclick="window.OlivoApp.scrollToContact()">Contacto</a>
+        <nav aria-label="Empresa" class="flex-[1_1_160px] flex flex-col gap-2 items-start">
+          <strong class="text-xs tracking-[0.12em] uppercase text-[#7BD192]" style="font-family: var(--font-heading)">Empresa</strong>
+          <button type="button" class="footer-link" onclick="window.OlivoApp.scrollToSteps()">Cómo cotizar</button>
+          <button type="button" class="footer-link" onclick="window.OlivoApp.setView('checkout')">Solicitar cotización</button>
+          <button type="button" class="footer-link" onclick="window.OlivoApp.scrollToContact()">Contacto</button>
+          <a class="footer-link" href="https://wa.me/56963041374" target="_blank" rel="noopener">WhatsApp</a>
         </nav>
       </div>
 
-      <div class="border-t border-[#D7E8DD]/15 pt-5 flex flex-wrap justify-between gap-2 text-[13px] text-[#A9BDB2]">
+      <div class="border-t border-[#D6E6DB]/15 pt-5 flex flex-wrap justify-between gap-2 text-[13px] text-[#A9BDB2]">
         <span>© 2026 Distribuidora e Importadora Olivo SpA · Viña del Mar, Región de Valparaíso</span>
         <span>Todos los productos bajo cotización formal</span>
       </div>
     </div>
   </footer>
 
-  <!-- CONTENEDOR SLIDE-OVER DEL CARRITO -->
+  <!-- PANEL LATERAL DE LA LISTA -->
   <div id="cartDrawer" class="no-print"></div>
 
   <!-- MODALES DINÁMICOS -->
   <div id="productDetailModal" class="hidden no-print"></div>
   <div id="emailViewerModal" class="hidden no-print"></div>
 
-  <!-- TOAST CONTAINER -->
-  <div id="toastContainer" class="fixed top-6 right-6 z-50 flex flex-col gap-2 max-w-sm pointer-events-none no-print"></div>
+  <!-- AVISOS -->
+  <div id="toastContainer" class="fixed top-6 right-6 z-50 flex flex-col gap-2 max-w-sm pointer-events-none no-print" aria-live="polite"></div>
 
-  <!-- SCRIPTS DE DATOS Y LÓGICA -->
+  <!-- DATOS Y LÓGICA -->
   <script src="js/data.js"></script>
   <script src="js/app.js"></script>
 

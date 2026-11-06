@@ -31,7 +31,7 @@ Recorta el fondo, centra en 1000×1000 blanco, guarda `public/images/products/<c
 | Fotos que entrega el equipo de Olivo (sin procesar) | `fotos-productos/<categoria>/` |
 | Copia local del lienzo mejorado (Claude Design, 13 pantallas) | `diseno/claude-design-v2/project/` · original en https://claude.ai/artifact/5VgZD9NMShqcs7F2VBwgh5 |
 | Respaldos completos del proyecto | `OneDrive\Respaldos Olivo\olivo-2026-respaldo-AAAA-MM-DD-HHMM.zip` |
-| Historial de versiones | Git local, rama `main` (desde el 4 nov 2026, sin repositorio remoto). `.gitignore` excluye `olivo-privado/config.php`, `entregables/*.zip` y `romeo-sports-linkbio/` (otro proyecto) |
+| Historial de versiones | Git, rama `main` (desde el 4 nov 2026). Remoto privado en GitHub: https://github.com/julietaanahi991-source/olivo-portal-mayorista (`origin`). `.gitignore` excluye `olivo-privado/config.php`, `entregables/*.zip` y `romeo-sports-linkbio/` (otro proyecto) |
 | Diseño aprobado en Claude Design | `diseno/claude-design/` (ver sección 4) |
 | Guía para el equipo sobre cómo entregar fotos | `docs/guia-fotos-productos.md` |
 | Catálogos de Canva originales (con precios, solo referencia) | `referencias/catalogos-canva/` |
@@ -43,7 +43,7 @@ Recorta el fondo, centra en 1000×1000 blanco, guarda `public/images/products/<c
 1. **Cero precios en el portal.** Ningún producto muestra precios, descuentos en dinero ni totales. Todo opera bajo cotización formal. Los catálogos de Canva traen precios y % de descuento: **nunca** usarlos tal cual en el portal.
 2. **Despacho exclusivo en la V Región:** Viña del Mar, Valparaíso, Concón, Quilpué, Villa Alemana, Limache y Quillota. Visible en la franja superior y en las condiciones comerciales.
 3. **Sin registro ni login** para cotizar.
-4. **Logotipo intacto:** isotipo y palabra OLIVO con el distintivo *Signature* (decisión confirmada: se mantiene la identidad que creó Antigravity).
+4. **Logotipo:** isotipo y palabra OLIVO con el distintivo *Signature*. **Desde el 6 nov va con la marca roja del lienzo:** cuadro rojo `#CF1427` con el isotipo blanco, «OLIVO» en Montserrat 900 rojo y pastilla «Signature» en tonos rojos.
 5. **Menú superior simplificado:** solo **Inicio**, **Contacto**, buscador y botón **Solicitar cotización**. Las categorías se entran desde la portada.
 6. **Titular del hero exacto:** `Todo lo que tu negocio necesita, en un solo lugar.` (sin comillas decorativas).
 7. **Banners con fotos reales y luminosas:** sin velos verdes; solo un degradado negro suave a la izquierda para el texto.
@@ -56,7 +56,7 @@ Recorta el fondo, centra en 1000×1000 blanco, guarda `public/images/products/<c
 
 | Tema | Decisión |
 |---|---|
-| Identidad visual | Se **mantiene el diseño de Antigravity** (verde oliva, dorado, Playfair Display + Manrope + DM Sans). Se exploró una propuesta con la marca real roja de Olivo (`diseno/propuesta-alternativa-marca-roja.html`) y **se descartó**. |
+| Identidad visual | **Cambió el 6 nov:** el lienzo de Claude Design pasó a la **marca roja de OLIVO** y el portal la sigue. Rojo `#CF1427` (hover `#AD1020`, texto `#B0121F`, fondo `#FBEEF0`) para la acción principal; verde `#17472C` (hover `#1F6A3E`, fondo `#F2F8F3`); verde claro `#7BD192` como acento **sobre fondos oscuros** (nunca rojo chico sobre verde); textos `#131A16` / `#1A1F1C` / `#56616A` / `#626D76`; fondo `#F8FAF9`; borde `#E4E9E7`; pie `#0F1F16`. Tipografías **Montserrat** (titulares, botones, logo) y **Nunito** (texto). Botón rojo con texto blanco (5,6:1). La paleta anterior (verde oliva, dorado, Playfair) queda solo como historia en las secciones 6 y 7. |
 | Subcategorías | Pasan de pastillas horizontales bajo el título a un **menú lateral izquierdo** en todas las categorías. |
 | Quesos crema | Se **quedan en Sushi** (subcategoría `insumos-crujientes`). Se elimina de Lácteos la subcategoría vacía `quesos-crema` ("Quesos crema gastronómicos"). |
 | Nombre de la subcategoría de Sushi con quesos crema | **Pendiente.** Hoy se llama "Panko, tempura y rebozados" y contiene los quesos crema; se propuso "Quesos crema, panko y rebozados". |
@@ -73,6 +73,10 @@ Recorta el fondo, centra en 1000×1000 blanco, guarda `public/images/products/<c
 ---
 
 ## 3. Tareas pendientes para Claude Code (en orden)
+
+> **Hecho el 6 nov — portal v3 = lienzo completo en `public/`:** marca roja y Montserrat + Nunito (ver tabla de decisiones), **372 productos en 7 líneas** con Proteínas real (10 SKU, foto `images/cat-proteinas.jpg`). `data.js` se **genera desde el lienzo** (`Categoria.dc.html`: bloques `CATS`, `P`, `IMG`, `PROT`) con `scripts/lienzo-1-extraer.ps1` → `lienzo-2-fotos.ps1` (fotos bajadas del lienzo, una por una con `Artifact read path=<id>`) → `lienzo-3-generar-data.ps1`: `CATALOGO` + `FICHAS_DETALLE` (fichas técnicas antiguas, se usan solo si coinciden SKU y marca: 32 productos). El `id` de cada producto es su SKU (la lista guardada con ids `prod-001` se migra sola). Fotos: 365 en `public/images/products/<línea>/<SKU>.jpg|webp` (≤1000 px, ≤250 KB); **7 sin foto** (`OLV-CON-002, 003, 049`, `OLV-LAC-024`, `OLV-INS-024, 025, 027`) muestran «Foto pendiente». 86 productos con marca «por confirmar» y 7 con formato «por confirmar» se muestran sin inventar datos. Buscador del encabezado = **todas las líneas** (sin tildes, todas las palabras; Enter o lupa; en vivo dentro del catálogo); el filtro de la página busca solo en esa línea. **Todos los botones probados** (portada, catálogo, ficha, lista, cotización, confirmación, pie): sin botones sin acción ni `href="#"`; Escape cierra ficha y lista. Lucide fijo en `0.460.0`. En celular el encabezado no queda fijo (ocupaba 187 px).
+>
+> **Lienzo (6 nov):** el buscador de la portada del lienzo ahora funciona. Ojo: en Claude Design **solo se navega entre pantallas con `<a href>`**; cambiar `window.location` rompe la pantalla («An error occurred»). La búsqueda pasa por `localStorage` (`olivo_q`) y la página `Categoria.dc.html` la toma al abrirse o al instante (evento `storage`); las páginas `Linea-*.dc.html` la ignoran.
 
 > **Hecho el 3 nov — portal v2 en `public/`** (basado en el lienzo https://claude.ai/artifact/5VgZD9NMShqcs7F2VBwgh5): portada nueva (hero con fotos locales, 3 pasos «Cómo cotizar», atajo por tipo de negocio `BIZ`, grilla de 7 categorías con Proteínas «Próximamente», cobertura, guías «Próximamente», llamado con WhatsApp, footer nuevo), categoría con **menú lateral** (3.1, oculta subcategorías sin productos), cotización en 2 pasos con validación por campo y confirmación animada, botones dorados con texto `#0D261E`, aparición al hacer scroll, panel de la lista sin destello (`.drawer-root` en CSS propio). Fotos de categoría y `og:image` ya son locales (3.2). Quedan Unsplash solo en los 16 productos sin foto.
 
@@ -156,7 +160,9 @@ El diseño es la referencia visual; el código de producción sigue siendo `publ
 
 ---
 
-## 6. Sistema de diseño (heredado de Antigravity)
+## 6. Sistema de diseño (heredado de Antigravity — **reemplazado el 6 nov por la marca roja**, ver tabla de decisiones)
+
+> Lo que sigue es la paleta anterior. En el código las variables `--color-olive-*` y `--color-gold-*` se conservan por compatibilidad, pero ahora valen verde OLIVO y rojo OLIVO.
 
 ### Paleta Cromática Signature
 

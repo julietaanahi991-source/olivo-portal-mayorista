@@ -159,7 +159,7 @@
       "y": 0,
       "w": 400,
       "fill": "green",
-      "text": "CONTRASTE\nUna sola acción dominante: «Solicitar cotización» en dorado con texto verde noche (7:1) en vez de blanco (2,4:1). Titulares serif olivo sobre marfil; textos chicos en #66756E y dorado #8A6A3A."
+      "text": "CONTRASTE\nUna sola acción dominante: «Solicitar cotización» en rojo OLIVO (#CF1427) con texto blanco (5,6:1). Titulares Montserrat casi negros sobre fondos claros; acentos verde claro sobre fondos oscuros."
     },
     "p2": {
       "x": -480,
@@ -180,7 +180,7 @@
       "y": 1800,
       "w": 400,
       "fill": "purple",
-      "text": "REPETICIÓN\nCada sección repite eyebrow dorado + título serif + bajada. Mismas tarjetas, radio 16 px, pastilla «Bajo cotización» y botón de cotizar en todo el portal: el cliente aprende el patrón una vez."
+      "text": "REPETICIÓN\nCada sección repite eyebrow rojo + título Montserrat + bajada en Nunito. Mismas tarjetas, radio 16 px, pastilla «Bajo cotización» y botón de cotizar en todo el portal: el cliente aprende el patrón una vez."
     },
     "p5": {
       "x": -480,

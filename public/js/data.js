@@ -1,110 +1,399 @@
-// OLIVO SIGNATURE — Base de Datos Maestra de Productos, Categorías y Colecciones
-// Portal B2B Distribuidora Olivo, Chile — Despacho Exclusivo V Región
+// OLIVO — Catálogo del portal B2B (Distribuidora Olivo, V Región)
+// Generado desde el lienzo de Claude Design (fuente del catálogo). Cero precios: todo va a cotización.
+// Para regenerar: scripts de la sesión (lienzo.json + mapa de fotos). Las fichas técnicas antiguas se
+// conservan solo cuando el SKU y la marca coinciden.
 
 const INITIAL_CATEGORIES = [
-  {
-    id: "alimentos",
-    slug: "alimentos-y-abarrotes",
-    name: "Alimentos y abarrotes",
-    shortName: "Alimentos",
-    badge: "Despensa B2B",
-    description: "Aceites de alto rendimiento, arroces seleccionados, harinas, pastas y abarrotes a escala industrial para gastronomía.",
-    image: "images/cat-alimentos.jpg",
-    subcategories: [
-      { id: "aceites", name: "Aceites y fritura profunda" },
-      { id: "arroces", name: "Arroces y granos especiales" },
-      { id: "pastas-harinas", name: "Pastas, harinas y masas" },
-      { id: "salsas-conservas", name: "Salsas, conservas y condimentos" },
-      { id: "azucar-sal", name: "Azúcar, sal y especias" }
-    ]
-  },
-  {
-    id: "sushi",
-    slug: "sushi-y-gastronomia-oriental",
-    name: "Sushi y gastronomía oriental",
-    shortName: "Sushi",
-    badge: "Línea Estrella",
-    featured: true,
-    description: "Insumos indispensables para locales de sushi y dark kitchens: arroz grano corto Shirakiku, algas nori, panko, quesos crema y salsas orientales.",
-    image: "images/cat-sushi.jpg",
-    subcategories: [
-      { id: "arroz-sushi", name: "Arroz grano corto" },
-      { id: "algas-nori", name: "Algas nori y coberturas" },
-      { id: "salsas-orientales", name: "Salsas de soya, teriyaki y unagi" },
-      { id: "insumos-crujientes", name: "Panko, tempura y rebozados" },
-      { id: "condimentos-orientales", name: "Wasabi, jengibre y sésamo" },
-      { id: "herramientas-sushi", name: "Esterillas makisu y herramientas" }
-    ]
-  },
-  {
-    id: "congelados",
-    slug: "congelados",
-    name: "Congelados",
-    shortName: "Congelados",
-    badge: "Cadena de Frío Garantizada",
-    description: "Mariscos seleccionados, camarón ecuatoriano, papas prefritas corte bastón, carnes seleccionadas y pulpas de fruta 100% natural Río Alto.",
-    image: "images/cat-congelados.jpg",
-    subcategories: [
-      { id: "mariscos-camarones", name: "Camarones y mariscos" },
-      { id: "papas-prefritas", name: "Papas prefritas bastón" },
-      { id: "carnes-cortes", name: "Carnes y cortes al vacío" },
-      { id: "pulpas-fruta", name: "Pulpas de fruta natural Río Alto" }
-    ]
-  },
-  {
-    id: "lacteos",
-    slug: "lacteos-y-refrigerados",
-    name: "Lácteos y refrigerados",
-    shortName: "Lácteos",
-    badge: "UHT & Gastronomía",
-    description: "Quesos crema en formato gastronómico de alto corte, quesos mozzarella, parmesano en horma, mantequillas y cremas de leche.",
-    image: "images/cat-lacteos.jpg",
-    subcategories: [
-      { id: "quesos-crema", name: "Quesos crema gastronómicos" },
-      { id: "quesos-maduros", name: "Mozzarella, parmesano y maduros" },
-      { id: "cremas-leche", name: "Cremas de leche UHT y leches" },
-      { id: "mantequillas", name: "Mantequillas profesionales" }
-    ]
-  },
-  {
-    id: "limpieza",
-    slug: "limpieza-y-aseo",
-    name: "Limpieza y aseo",
-    shortName: "Limpieza",
-    badge: "Certificación SEREMI",
-    featured: true,
-    description: "Detergentes concentrados, desengrasantes de cocina pesada, sanitizantes, cloro industrial, guantes certificados y bolsas de alto micronaje.",
-    image: "images/cat-limpieza.jpg",
-    subcategories: [
-      { id: "quimicos-limpieza", name: "Lavalozas, desengrasantes y cloro" },
-      { id: "bolsas-aseo", name: "Bolsas de aseo alta densidad" },
-      { id: "guantes-seguridad", name: "Guantes de nitrilo, látex y vinilo" },
-      { id: "papeleria-servilletas", name: "Papel jumbo, toalla nova y servilletas" },
-      { id: "accesorios-aseo", name: "Paños microfibra y esponjas industriales" }
-    ]
-  },
-  {
-    id: "insumos",
-    slug: "insumos-para-restaurantes",
-    name: "Insumos para restaurantes",
-    shortName: "Insumos",
-    badge: "Food Service & Packaging",
-    description: "Films de embalaje PVC profesional, rollos térmicos de boleta/comanda, envases para sushi, bowls kraft y bolsas de reparto.",
-    image: "images/cat-insumos.jpg",
-    subcategories: [
-      { id: "films-alusa", name: "Alusa film PVC y embalaje" },
-      { id: "rollos-termicos", name: "Rollos térmicos POS y comandas" },
-      { id: "envases-delivery", name: "Envases sushi, bowls y vasos" }
-    ]
-  }
+  {"id":"alimentos","slug":"alimentos-y-abarrotes","name":"Alimentos y abarrotes","shortName":"Alimentos","badge":"Línea despensa","featured":false,"description":"Aceites de alto rendimiento, arroces seleccionados, harinas, pastas y abarrotes a escala industrial para gastronomía.","image":"images/cat-alimentos.jpg","subcategories":[{"id":"aceites","name":"Aceites y fritura profunda"},{"id":"arroces","name":"Arroces y granos especiales"},{"id":"pastas-harinas","name":"Pastas, harinas y masas"},{"id":"salsas-conservas","name":"Salsas, conservas y condimentos"},{"id":"azucar-sal","name":"Azúcar, sal y especias"},{"id":"menestras","name":"Menestras y legumbres"},{"id":"frutos-secos","name":"Frutos secos y semillas"},{"id":"peruanos","name":"Productos peruanos"},{"id":"bebidas","name":"Bebidas"}]},
+  {"id":"sushi","slug":"sushi-y-gastronomia-oriental","name":"Sushi y gastronomía oriental","shortName":"Sushi","badge":"Línea estrella","featured":true,"description":"Insumos para locales de sushi y dark kitchens: arroz grano corto Shirakiku, panko, quesos crema, sésamo, masa wantán y salsas orientales.","image":"images/cat-sushi.jpg","subcategories":[{"id":"arroz-sushi","name":"Arroz grano corto"},{"id":"salsas-orientales","name":"Salsas de soya, ostión y hoisin"},{"id":"insumos-crujientes","name":"Quesos crema, panko y masas"},{"id":"condimentos-orientales","name":"Sésamo, nori y jengibre"}]},
+  {"id":"proteinas","slug":"proteinas","name":"Proteínas","shortName":"Proteínas","badge":"Nueva línea · Cortes seleccionados","featured":false,"description":"Vacuno al vacío, cerdo, pollo y aves, y elaborados como longanizas, hamburguesas y tocino, en formatos para cocina profesional.","image":"images/cat-proteinas.jpg","subcategories":[{"id":"vacuno","name":"Vacuno"},{"id":"cerdo","name":"Cerdo"},{"id":"pollo","name":"Pollo y aves"},{"id":"elaborados","name":"Elaborados y embutidos"}]},
+  {"id":"congelados","slug":"congelados","name":"Congelados","shortName":"Congelados","badge":"Cadena de frío -18 °C","featured":false,"description":"Camarón ecuatoriano y chino, papas prefritas, verduras congeladas y pulpas de fruta 100 % natural.","image":"images/cat-congelados.jpg","subcategories":[{"id":"mariscos-camarones","name":"Camarones, mariscos y pescados"},{"id":"papas-prefritas","name":"Papas prefritas"},{"id":"verduras","name":"Verduras congeladas"},{"id":"pulpas-fruta","name":"Pulpas de fruta natural"}]},
+  {"id":"lacteos","slug":"lacteos-y-refrigerados","name":"Lácteos y refrigerados","shortName":"Lácteos","badge":"Formato gastronómico","featured":false,"description":"Mozzarella en barra, parmesano en horma, mantequillas y cremas de leche en formato para cocina profesional.","image":"images/cat-lacteos.jpg","subcategories":[{"id":"quesos-maduros","name":"Mozzarella, parmesano y maduros"},{"id":"cremas-leche","name":"Cremas de leche UHT y leches"},{"id":"condensadas-manjar","name":"Condensadas, evaporadas y manjar"},{"id":"mantequillas","name":"Mantequillas y margarinas"}]},
+  {"id":"limpieza","slug":"limpieza-y-aseo","name":"Limpieza y aseo","shortName":"Limpieza","badge":"Higiene SEREMI","featured":true,"description":"Detergentes concentrados, desengrasantes de cocina pesada, cloro industrial, guantes certificados, papel y bolsas de alto micronaje.","image":"images/cat-limpieza.jpg","subcategories":[{"id":"quimicos-limpieza","name":"Lavalozas, desengrasantes y cloro"},{"id":"bolsas-aseo","name":"Bolsas de aseo alta densidad"},{"id":"guantes-seguridad","name":"Guantes de nitrilo, látex y vinilo"},{"id":"papeleria-servilletas","name":"Papel jumbo, toalla y servilletas"},{"id":"accesorios-aseo","name":"Paños, esponjas, escobas y mopas"}]},
+  {"id":"insumos","slug":"insumos-para-restaurantes","name":"Insumos para restaurantes","shortName":"Insumos","badge":"Packaging y cocina","featured":false,"description":"Film alusa, rollos térmicos para boletas y comandas, envases y bowls kraft, bombillas de papel, bolsas, sacos kraft y papel aluminio para delivery.","image":"images/cat-insumos.jpg","subcategories":[{"id":"films-alusa","name":"Alusa film PVC y embalaje"},{"id":"rollos-termicos","name":"Rollos térmicos POS y comandas"},{"id":"envases-delivery","name":"Envases, bowls, vasos y bombillas"},{"id":"bolsas-sacos","name":"Bolsas, sacos kraft y aluminio"}]}
 ];
 
-const INITIAL_PRODUCTS = [
+const CATALOGO = [
+  {"id":"OLV-ALM-001","sku":"OLV-ALM-001","name":"Aceite para Freír Don Maravilla 5 LT","brand":"Don Maravilla","categoryId":"alimentos","categoryName":"Alimentos y abarrotes","subcategoryId":"aceites","subcategoryName":"Aceites y fritura profunda","format":"Bidón 5 Litros (Caja 4 unidades)","image":"images/products/alimentos/OLV-ALM-001.jpg"},
+  {"id":"OLV-ALM-002","sku":"OLV-ALM-002","name":"Aceite para Freír MaxiFrits Maravilla 10 LT","brand":"MaxiFrits","categoryId":"alimentos","categoryName":"Alimentos y abarrotes","subcategoryId":"aceites","subcategoryName":"Aceites y fritura profunda","format":"Bidón industrial 10 Litros","image":"images/products/alimentos/OLV-ALM-002.jpg"},
+  {"id":"OLV-ALM-004","sku":"OLV-ALM-004","name":"Aceite Oliva Extra Virgen Sabattini 5 LT","brand":"Sabattini","categoryId":"alimentos","categoryName":"Alimentos y abarrotes","subcategoryId":"aceites","subcategoryName":"Aceites y fritura profunda","format":"Bidón 5 Litros (Caja 4 unidades)","image":"images/products/alimentos/OLV-ALM-004.jpg"},
+  {"id":"OLV-ALM-005","sku":"OLV-ALM-005","name":"Arroz Arborio Scotti 1 KG (Display 10 unidades)","brand":"Scotti","categoryId":"alimentos","categoryName":"Alimentos y abarrotes","subcategoryId":"arroces","subcategoryName":"Arroces y granos especiales","format":"Paquete 1 Kg (Display 10 unidades)","image":"images/products/alimentos/OLV-ALM-005.jpg"},
+  {"id":"OLV-ALM-006","sku":"OLV-ALM-006","name":"Arroz Cristalino Coliseo G2 1 KG (Manga 10 KG)","brand":"Coliseo","categoryId":"alimentos","categoryName":"Alimentos y abarrotes","subcategoryId":"arroces","subcategoryName":"Arroces y granos especiales","format":"Manga 10 paquetes x 1 Kg","image":"images/products/alimentos/OLV-ALM-006.jpg"},
+  {"id":"OLV-ALM-007","sku":"OLV-ALM-007","name":"Harina de Trigo Mont Blanc Con Polvos 1 KG (Fardo 10 KG)","brand":"Mont Blanc","categoryId":"alimentos","categoryName":"Alimentos y abarrotes","subcategoryId":"pastas-harinas","subcategoryName":"Pastas, harinas y masas","format":"Fardo 10 paquetes x 1 Kg","image":"images/products/alimentos/OLV-ALM-007.jpg"},
+  {"id":"OLV-ALM-008","sku":"OLV-ALM-008","name":"Harina de Trigo Mont Blanc Sin Polvos 1 KG (Fardo 10 KG)","brand":"Mont Blanc","categoryId":"alimentos","categoryName":"Alimentos y abarrotes","subcategoryId":"pastas-harinas","subcategoryName":"Pastas, harinas y masas","format":"Fardo 10 paquetes x 1 Kg","image":"images/products/alimentos/OLV-ALM-008.jpg"},
+  {"id":"OLV-ALM-009","sku":"OLV-ALM-009","name":"Spaghetti Tradicional Don Giuseppe 400 GR (Caja 20 unidades)","brand":"Don Giuseppe","categoryId":"alimentos","categoryName":"Alimentos y abarrotes","subcategoryId":"pastas-harinas","subcategoryName":"Pastas, harinas y masas","format":"Caja de 20 paquetes x 400 g","image":"images/products/alimentos/OLV-ALM-009.jpg"},
+  {"id":"OLV-ALM-010","sku":"OLV-ALM-010","name":"Fideos Espiral Don Giuseppe 400 GR (Caja 20 unidades)","brand":"Don Giuseppe","categoryId":"alimentos","categoryName":"Alimentos y abarrotes","subcategoryId":"pastas-harinas","subcategoryName":"Pastas, harinas y masas","format":"Caja de 20 paquetes x 400 g","image":"images/products/alimentos/OLV-ALM-010.jpg"},
+  {"id":"OLV-ALM-011","sku":"OLV-ALM-011","name":"Salsa de Tomate Italiana San Remo 1 KG (Caja 10 unidades)","brand":"San Remo","categoryId":"alimentos","categoryName":"Alimentos y abarrotes","subcategoryId":"salsas-conservas","subcategoryName":"Salsas, conservas y condimentos","format":"Caja de 10 bolsas pouch x 1 Kg","image":"images/products/alimentos/OLV-ALM-011.jpg"},
+  {"id":"OLV-ALM-013","sku":"OLV-ALM-013","name":"Azúcar Blanca Refinada Coliseo 1 KG (Fardo 10 KG)","brand":"Coliseo","categoryId":"alimentos","categoryName":"Alimentos y abarrotes","subcategoryId":"azucar-sal","subcategoryName":"Azúcar, sal y especias","format":"Fardo 10 paquetes x 1 Kg","image":"images/products/alimentos/OLV-ALM-013.jpg"},
+  {"id":"OLV-ALM-014","sku":"OLV-ALM-014","name":"Sal Fina Yodada Smart Price 1 KG (Fardo 20 KG)","brand":"Smart Price","categoryId":"alimentos","categoryName":"Alimentos y abarrotes","subcategoryId":"azucar-sal","subcategoryName":"Azúcar, sal y especias","format":"Fardo 20 paquetes x 1 Kg","image":"images/products/alimentos/OLV-ALM-014.jpg"},
+  {"id":"OLV-ALM-015","sku":"OLV-ALM-015","name":"Coca-Cola Sabor Original Lata 350 CC (Pack 6 unidades)","brand":"Coca-Cola","categoryId":"alimentos","categoryName":"Alimentos y abarrotes","subcategoryId":"bebidas","subcategoryName":"Bebidas","format":"Pack 6 latas x 350 cc","image":"images/products/alimentos/OLV-ALM-015.jpg"},
+  {"id":"OLV-ALM-016","sku":"OLV-ALM-016","name":"Coca-Cola Zero Lata 350 CC (Pack 6 unidades)","brand":"Coca-Cola","categoryId":"alimentos","categoryName":"Alimentos y abarrotes","subcategoryId":"bebidas","subcategoryName":"Bebidas","format":"Pack 6 latas x 350 cc","image":"images/products/alimentos/OLV-ALM-016.jpg"},
+  {"id":"OLV-ALM-017","sku":"OLV-ALM-017","name":"Sprite Lata 350 CC (Pack 6 unidades)","brand":"Sprite","categoryId":"alimentos","categoryName":"Alimentos y abarrotes","subcategoryId":"bebidas","subcategoryName":"Bebidas","format":"Pack 6 latas x 350 cc","image":"images/products/alimentos/OLV-ALM-017.jpg"},
+  {"id":"OLV-ALM-018","sku":"OLV-ALM-018","name":"Masa de Empanada 20 CM (Pack 10 unidades)","brand":"","categoryId":"alimentos","categoryName":"Alimentos y abarrotes","subcategoryId":"pastas-harinas","subcategoryName":"Pastas, harinas y masas","format":"Pack 10 discos de 20 cm","image":"images/products/alimentos/OLV-ALM-018.jpg"},
+  {"id":"OLV-ALM-019","sku":"OLV-ALM-019","name":"Masa de Empanada 18 CM (Pack 10 unidades)","brand":"","categoryId":"alimentos","categoryName":"Alimentos y abarrotes","subcategoryId":"pastas-harinas","subcategoryName":"Pastas, harinas y masas","format":"Pack 10 discos de 18 cm","image":"images/products/alimentos/OLV-ALM-019.jpg"},
+  {"id":"OLV-ALM-020","sku":"OLV-ALM-020","name":"Sopaipillas (Pack 10 unidades)","brand":"","categoryId":"alimentos","categoryName":"Alimentos y abarrotes","subcategoryId":"pastas-harinas","subcategoryName":"Pastas, harinas y masas","format":"Pack 10 unidades","image":"images/products/alimentos/OLV-ALM-020.jpg"},
+  {"id":"OLV-ALM-022","sku":"OLV-ALM-022","name":"Sal Fina Andesal 1 KG","brand":"Andesal","categoryId":"alimentos","categoryName":"Alimentos y abarrotes","subcategoryId":"azucar-sal","subcategoryName":"Azúcar, sal y especias","format":"Bolsa 1 Kg","image":"images/products/alimentos/OLV-ALM-022.jpg"},
+  {"id":"OLV-ALM-023","sku":"OLV-ALM-023","name":"Base para Hamburguesa Gourmet 90 GR (Caja 15 unidades)","brand":"Gourmet","categoryId":"alimentos","categoryName":"Alimentos y abarrotes","subcategoryId":"salsas-conservas","subcategoryName":"Salsas, conservas y condimentos","format":"Sobre 90 g (Caja 15 unidades)","image":"images/products/alimentos/OLV-ALM-023.jpg"},
+  {"id":"OLV-ALM-024","sku":"OLV-ALM-024","name":"Mayonesa Hellmann’s con Tapa Bolsa 1 KG","brand":"Hellmann’s","categoryId":"alimentos","categoryName":"Alimentos y abarrotes","subcategoryId":"salsas-conservas","subcategoryName":"Salsas, conservas y condimentos","format":"Doypack 1 Kg con tapa","image":"images/products/alimentos/OLV-ALM-024.jpg"},
+  {"id":"OLV-ALM-025","sku":"OLV-ALM-025","name":"Ketchup Carozzi Bolsa 1 KG","brand":"Carozzi","categoryId":"alimentos","categoryName":"Alimentos y abarrotes","subcategoryId":"salsas-conservas","subcategoryName":"Salsas, conservas y condimentos","format":"Bolsa 1 Kg","image":"images/products/alimentos/OLV-ALM-025.jpg"},
+  {"id":"OLV-ALM-026","sku":"OLV-ALM-026","name":"Mostaza Traverso Bolsa 1 KG","brand":"Traverso","categoryId":"alimentos","categoryName":"Alimentos y abarrotes","subcategoryId":"salsas-conservas","subcategoryName":"Salsas, conservas y condimentos","format":"Bolsa 1 Kg","image":"images/products/alimentos/OLV-ALM-026.jpg"},
+  {"id":"OLV-ALM-027","sku":"OLV-ALM-027","name":"Ají Chileno Crema Don Juan 900 GR","brand":"Don Juan","categoryId":"alimentos","categoryName":"Alimentos y abarrotes","subcategoryId":"salsas-conservas","subcategoryName":"Salsas, conservas y condimentos","format":"Bolsa 900 g","image":"images/products/alimentos/OLV-ALM-027.webp"},
+  {"id":"OLV-ALM-028","sku":"OLV-ALM-028","name":"Salsa Barbacoa BBQ Carozzi 1 KG","brand":"Carozzi","categoryId":"alimentos","categoryName":"Alimentos y abarrotes","subcategoryId":"salsas-conservas","subcategoryName":"Salsas, conservas y condimentos","format":"Bolsa 1 Kg","image":"images/products/alimentos/OLV-ALM-028.jpg"},
+  {"id":"OLV-ALM-029","sku":"OLV-ALM-029","name":"Vinagre Blanco Maxifoods Bidón 5 LT","brand":"Maxifoods","categoryId":"alimentos","categoryName":"Alimentos y abarrotes","subcategoryId":"salsas-conservas","subcategoryName":"Salsas, conservas y condimentos","format":"Bidón 5 Litros","image":"images/products/alimentos/OLV-ALM-029.webp"},
+  {"id":"OLV-ALM-030","sku":"OLV-ALM-030","name":"Ajo Pelado al Vacío Bolsa 1 KG","brand":"","categoryId":"alimentos","categoryName":"Alimentos y abarrotes","subcategoryId":"salsas-conservas","subcategoryName":"Salsas, conservas y condimentos","format":"Bolsa al vacío 1 Kg","image":"images/products/alimentos/OLV-ALM-030.jpg"},
+  {"id":"OLV-ALM-031","sku":"OLV-ALM-031","name":"Sal Parrillera Lobos 750 GR","brand":"Lobos","categoryId":"alimentos","categoryName":"Alimentos y abarrotes","subcategoryId":"azucar-sal","subcategoryName":"Azúcar, sal y especias","format":"Tarro 750 g","image":"images/products/alimentos/OLV-ALM-031.webp"},
+  {"id":"OLV-ALM-032","sku":"OLV-ALM-032","name":"Orégano Seco Premium","brand":"","categoryId":"alimentos","categoryName":"Alimentos y abarrotes","subcategoryId":"azucar-sal","subcategoryName":"Azúcar, sal y especias","format":"","image":"images/products/alimentos/OLV-ALM-032.jpg"},
+  {"id":"OLV-ALM-033","sku":"OLV-ALM-033","name":"Aceite Vegetal Los Silos 900 ML","brand":"Los Silos","categoryId":"alimentos","categoryName":"Alimentos y abarrotes","subcategoryId":"aceites","subcategoryName":"Aceites y fritura profunda","format":"Botella 900 ml","image":"images/products/alimentos/OLV-ALM-033.webp"},
+  {"id":"OLV-ALM-034","sku":"OLV-ALM-034","name":"Aceite Vegetal Coliseo Bidón 5 LT","brand":"Coliseo","categoryId":"alimentos","categoryName":"Alimentos y abarrotes","subcategoryId":"aceites","subcategoryName":"Aceites y fritura profunda","format":"Bidón 5 Litros","image":"images/products/alimentos/OLV-ALM-034.jpg"},
+  {"id":"OLV-ALM-035","sku":"OLV-ALM-035","name":"Arroz Grano Largo Ancho Valle de Oro G2 1 KG","brand":"Valle de Oro","categoryId":"alimentos","categoryName":"Alimentos y abarrotes","subcategoryId":"arroces","subcategoryName":"Arroces y granos especiales","format":"Bolsa 1 Kg","image":"images/products/alimentos/OLV-ALM-035.jpg"},
+  {"id":"OLV-ALM-036","sku":"OLV-ALM-036","name":"Harina de Fuerza San Cristóbal Estampa Saco 25 KG","brand":"La Estampa","categoryId":"alimentos","categoryName":"Alimentos y abarrotes","subcategoryId":"pastas-harinas","subcategoryName":"Pastas, harinas y masas","format":"Saco 25 Kg","image":"images/products/alimentos/OLV-ALM-036.jpg"},
+  {"id":"OLV-ALM-037","sku":"OLV-ALM-037","name":"Harina Precocida de Maíz Blanco Arepa La Nieve 1 KG","brand":"La Nieve","categoryId":"alimentos","categoryName":"Alimentos y abarrotes","subcategoryId":"pastas-harinas","subcategoryName":"Pastas, harinas y masas","format":"Paquete 1 Kg","image":"images/products/alimentos/OLV-ALM-037.jpg"},
+  {"id":"OLV-ALM-038","sku":"OLV-ALM-038","name":"Harina de Maíz Blanco Precocida P.A.N. 1 KG","brand":"P.A.N.","categoryId":"alimentos","categoryName":"Alimentos y abarrotes","subcategoryId":"pastas-harinas","subcategoryName":"Pastas, harinas y masas","format":"Paquete 1 Kg","image":"images/products/alimentos/OLV-ALM-038.jpg"},
+  {"id":"OLV-ALM-039","sku":"OLV-ALM-039","name":"Fideos Corbatas Don Giuseppe 400 GR","brand":"Don Giuseppe","categoryId":"alimentos","categoryName":"Alimentos y abarrotes","subcategoryId":"pastas-harinas","subcategoryName":"Pastas, harinas y masas","format":"Paquete 400 g","image":"images/products/alimentos/OLV-ALM-039.jpg"},
+  {"id":"OLV-ALM-040","sku":"OLV-ALM-040","name":"Fettuccine N° 12 Divella 500 GR","brand":"Divella","categoryId":"alimentos","categoryName":"Alimentos y abarrotes","subcategoryId":"pastas-harinas","subcategoryName":"Pastas, harinas y masas","format":"Paquete 500 g","image":"images/products/alimentos/OLV-ALM-040.jpg"},
+  {"id":"OLV-ALM-041","sku":"OLV-ALM-041","name":"Fettuccine 88 Carozzi 400 GR","brand":"Carozzi","categoryId":"alimentos","categoryName":"Alimentos y abarrotes","subcategoryId":"pastas-harinas","subcategoryName":"Pastas, harinas y masas","format":"Paquete 400 g","image":"images/products/alimentos/OLV-ALM-041.jpg"},
+  {"id":"OLV-ALM-042","sku":"OLV-ALM-042","name":"Fettuccini Don Vittorio 500 GR","brand":"Don Vittorio","categoryId":"alimentos","categoryName":"Alimentos y abarrotes","subcategoryId":"pastas-harinas","subcategoryName":"Pastas, harinas y masas","format":"Paquete 500 g","image":"images/products/alimentos/OLV-ALM-042.jpg"},
+  {"id":"OLV-ALM-043","sku":"OLV-ALM-043","name":"Fideos Quífaros Carozzi 400 GR","brand":"Carozzi","categoryId":"alimentos","categoryName":"Alimentos y abarrotes","subcategoryId":"pastas-harinas","subcategoryName":"Pastas, harinas y masas","format":"Paquete 400 g","image":"images/products/alimentos/OLV-ALM-043.jpg"},
+  {"id":"OLV-ALM-044","sku":"OLV-ALM-044","name":"Fideos Quífaros Don Giuseppe 400 GR","brand":"Don Giuseppe","categoryId":"alimentos","categoryName":"Alimentos y abarrotes","subcategoryId":"pastas-harinas","subcategoryName":"Pastas, harinas y masas","format":"Paquete 400 g","image":"images/products/alimentos/OLV-ALM-044.jpg"},
+  {"id":"OLV-ALM-045","sku":"OLV-ALM-045","name":"Fideos Rigatoni Carozzi 400 GR","brand":"Carozzi","categoryId":"alimentos","categoryName":"Alimentos y abarrotes","subcategoryId":"pastas-harinas","subcategoryName":"Pastas, harinas y masas","format":"Paquete 400 g","image":"images/products/alimentos/OLV-ALM-045.jpg"},
+  {"id":"OLV-ALM-046","sku":"OLV-ALM-046","name":"Fideos Rigatoni Coliseo Speciale 400 GR","brand":"Coliseo","categoryId":"alimentos","categoryName":"Alimentos y abarrotes","subcategoryId":"pastas-harinas","subcategoryName":"Pastas, harinas y masas","format":"Paquete 400 g","image":"images/products/alimentos/OLV-ALM-046.jpg"},
+  {"id":"OLV-ALM-047","sku":"OLV-ALM-047","name":"Spaghetti Don Vittorio 400 GR","brand":"Don Vittorio","categoryId":"alimentos","categoryName":"Alimentos y abarrotes","subcategoryId":"pastas-harinas","subcategoryName":"Pastas, harinas y masas","format":"Paquete 400 g","image":"images/products/alimentos/OLV-ALM-047.jpg"},
+  {"id":"OLV-ALM-048","sku":"OLV-ALM-048","name":"Spaghetti Ristorante Divella 500 GR","brand":"Divella","categoryId":"alimentos","categoryName":"Alimentos y abarrotes","subcategoryId":"pastas-harinas","subcategoryName":"Pastas, harinas y masas","format":"Paquete 500 g","image":"images/products/alimentos/OLV-ALM-048.jpg"},
+  {"id":"OLV-ALM-049","sku":"OLV-ALM-049","name":"Tallarín 87 Don Vittorio 400 GR","brand":"Don Vittorio","categoryId":"alimentos","categoryName":"Alimentos y abarrotes","subcategoryId":"pastas-harinas","subcategoryName":"Pastas, harinas y masas","format":"Paquete 400 g","image":"images/products/alimentos/OLV-ALM-049.jpg"},
+  {"id":"OLV-SSH-001","sku":"OLV-SSH-001","name":"Arroz Grano Corto Shirakiku 9 KG (Especial Sushi)","brand":"Shirakiku","categoryId":"sushi","categoryName":"Sushi y gastronomía oriental","subcategoryId":"arroz-sushi","subcategoryName":"Arroz grano corto","format":"Saco industrial 9 Kg","image":"images/products/sushi/OLV-SSH-001.jpg"},
+  {"id":"OLV-SSH-003","sku":"OLV-SSH-003","name":"Queso Crema Milkaut Gastronómico Balde 3.6 KG","brand":"Milkaut","categoryId":"sushi","categoryName":"Sushi y gastronomía oriental","subcategoryId":"insumos-crujientes","subcategoryName":"Quesos crema, panko y masas","format":"Balde sellado 3.6 Kg","image":"images/products/sushi/OLV-SSH-003.jpg"},
+  {"id":"OLV-SSH-004","sku":"OLV-SSH-004","name":"Queso Crema Reny Picot Barra 1.36 KG (Caja 10 barras)","brand":"Reny Picot","categoryId":"sushi","categoryName":"Sushi y gastronomía oriental","subcategoryId":"insumos-crujientes","subcategoryName":"Quesos crema, panko y masas","format":"Barra 1.36 Kg (Caja 13.6 Kg)","image":"images/products/sushi/OLV-SSH-004.jpg"},
+  {"id":"OLV-SSH-005","sku":"OLV-SSH-005","name":"Queso Crema Zanafoods Barra 1.36 KG","brand":"Zanafoods","categoryId":"sushi","categoryName":"Sushi y gastronomía oriental","subcategoryId":"insumos-crujientes","subcategoryName":"Quesos crema, panko y masas","format":"Barra sellada 1.36 Kg","image":"images/products/sushi/OLV-SSH-005.jpg"},
+  {"id":"OLV-SSH-006","sku":"OLV-SSH-006","name":"Panko Blanco Grueso Bread Crumbs 1 KG","brand":"Otoro","categoryId":"sushi","categoryName":"Sushi y gastronomía oriental","subcategoryId":"insumos-crujientes","subcategoryName":"Quesos crema, panko y masas","format":"Bolsa 1 Kg","image":"images/products/sushi/OLV-SSH-006.jpg"},
+  {"id":"OLV-SSH-007","sku":"OLV-SSH-007","name":"Salsa de Soya Kikko Peruana Bidón 5 LT","brand":"Kikko","categoryId":"sushi","categoryName":"Sushi y gastronomía oriental","subcategoryId":"salsas-orientales","subcategoryName":"Salsas de soya, ostión y hoisin","format":"Bidón 5 Litros","image":"images/products/sushi/OLV-SSH-007.jpg"},
+  {"id":"OLV-SSH-012","sku":"OLV-SSH-012","name":"Sésamo Blanco 1 KG","brand":"Granel","categoryId":"sushi","categoryName":"Sushi y gastronomía oriental","subcategoryId":"condimentos-orientales","subcategoryName":"Sésamo, nori y jengibre","format":"Bolsa 1 Kg","image":"images/products/sushi/OLV-SSH-012.jpg"},
+  {"id":"OLV-CON-001","sku":"OLV-CON-001","name":"Camarón Ecuatoriano 36/40 Pelado y Desvenado (20% glaseado)","brand":"Importado Ecuador","categoryId":"congelados","categoryName":"Congelados","subcategoryId":"mariscos-camarones","subcategoryName":"Camarones, mariscos y pescados","format":"Bolsa 1 Kg (Caja 10 Kg)","image":"images/products/congelados/OLV-CON-001.webp"},
+  {"id":"OLV-CON-002","sku":"OLV-CON-002","name":"Camarón Ecuatoriano 36/40 Con Cáscara","brand":"Importado Ecuador","categoryId":"congelados","categoryName":"Congelados","subcategoryId":"mariscos-camarones","subcategoryName":"Camarones, mariscos y pescados","format":"Bolsa 1 Kg (Caja 10 Kg)","image":""},
+  {"id":"OLV-CON-003","sku":"OLV-CON-003","name":"Camarón Chino 36/40 Pelado y Desvenado (25% glaseado)","brand":"Importado China","categoryId":"congelados","categoryName":"Congelados","subcategoryId":"mariscos-camarones","subcategoryName":"Camarones, mariscos y pescados","format":"Bolsa 1 Kg (Caja 10 Kg)","image":""},
+  {"id":"OLV-CON-004","sku":"OLV-CON-004","name":"Papas Prefritas Corte Bastón 10 MM Cresswell (Caja 12 KG)","brand":"Cresswell","categoryId":"congelados","categoryName":"Congelados","subcategoryId":"papas-prefritas","subcategoryName":"Papas prefritas","format":"Caja 6 bolsas x 2 Kg (12 Kg)","image":"images/products/congelados/OLV-CON-004.jpg"},
+  {"id":"OLV-CON-005","sku":"OLV-CON-005","name":"Papas Prefritas Corte Fino 7 MM Cresswell (Caja 12 KG)","brand":"Cresswell","categoryId":"congelados","categoryName":"Congelados","subcategoryId":"papas-prefritas","subcategoryName":"Papas prefritas","format":"Caja 6 bolsas x 2 Kg (12 Kg)","image":"images/products/congelados/OLV-CON-005.jpg"},
+  {"id":"OLV-CON-006","sku":"OLV-CON-006","name":"Papas Prefritas Corte Grueso 12 MM Cresswell (Caja 12 KG)","brand":"Cresswell","categoryId":"congelados","categoryName":"Congelados","subcategoryId":"papas-prefritas","subcategoryName":"Papas prefritas","format":"Caja 6 bolsas x 2 Kg (12 Kg)","image":"images/products/congelados/OLV-CON-006.jpg"},
+  {"id":"OLV-CON-007","sku":"OLV-CON-007","name":"Corte de Vacuno Asado Carnicero / Vacío Importado","brand":"Frigorífico Pampa","categoryId":"congelados","categoryName":"Congelados","subcategoryId":"carnes-cortes","subcategoryName":null,"format":"Piezas al vacío de 2.5 a 4 Kg (venta por kilo)","image":"images/products/congelados/OLV-CON-007.jpg"},
+  {"id":"OLV-CON-008","sku":"OLV-CON-008","name":"Pulpa de Maracuyá Natural Con Pepa Río Alto 1 KG","brand":"Río Alto","categoryId":"congelados","categoryName":"Congelados","subcategoryId":"pulpas-fruta","subcategoryName":"Pulpas de fruta natural","format":"Bolsa 1 Kg (Caja 10 unidades)","image":"images/products/congelados/OLV-CON-008.jpg"},
+  {"id":"OLV-CON-009","sku":"OLV-CON-009","name":"Pulpa de Maracuyá Natural Sin Pepa Río Alto 1 KG","brand":"Río Alto","categoryId":"congelados","categoryName":"Congelados","subcategoryId":"pulpas-fruta","subcategoryName":"Pulpas de fruta natural","format":"Bolsa 1 Kg (Caja 10 unidades)","image":"images/products/congelados/OLV-CON-009.jpg"},
+  {"id":"OLV-CON-010","sku":"OLV-CON-010","name":"Pulpa de Mango Natural Río Alto 1 KG","brand":"Río Alto","categoryId":"congelados","categoryName":"Congelados","subcategoryId":"pulpas-fruta","subcategoryName":"Pulpas de fruta natural","format":"Bolsa 1 Kg congelada","image":"images/products/congelados/OLV-CON-010.jpg"},
+  {"id":"OLV-CON-012","sku":"OLV-CON-012","name":"Pulpa de Frutilla Natural Río Alto 1 KG","brand":"Río Alto","categoryId":"congelados","categoryName":"Congelados","subcategoryId":"pulpas-fruta","subcategoryName":"Pulpas de fruta natural","format":"Bolsa 1 Kg congelada","image":"images/products/congelados/OLV-CON-012.jpg"},
+  {"id":"OLV-CON-013","sku":"OLV-CON-013","name":"Pulpa de Piña Natural Guallarauco 1 KG","brand":"Guallarauco","categoryId":"congelados","categoryName":"Congelados","subcategoryId":"pulpas-fruta","subcategoryName":"Pulpas de fruta natural","format":"Bolsa 1 Kg congelada","image":"images/products/congelados/OLV-CON-013.jpg"},
+  {"id":"OLV-CON-014","sku":"OLV-CON-014","name":"Papas Prefritas Corte Casero 12 MM McCain","brand":"McCain","categoryId":"congelados","categoryName":"Congelados","subcategoryId":"papas-prefritas","subcategoryName":"Papas prefritas","format":"Bolsa 2,5 Kg","image":"images/products/congelados/OLV-CON-014.jpg"},
+  {"id":"OLV-CON-015","sku":"OLV-CON-015","name":"Papas Prefritas Corte Fino 7 MM McCain","brand":"McCain","categoryId":"congelados","categoryName":"Congelados","subcategoryId":"papas-prefritas","subcategoryName":"Papas prefritas","format":"Bolsa 2,25 Kg","image":"images/products/congelados/OLV-CON-015.jpg"},
+  {"id":"OLV-CON-016","sku":"OLV-CON-016","name":"Papas Rústicas Gajo BemBrasil","brand":"BemBrasil","categoryId":"congelados","categoryName":"Congelados","subcategoryId":"papas-prefritas","subcategoryName":"Papas prefritas","format":"Bolsa 2,5 Kg","image":"images/products/congelados/OLV-CON-016.webp"},
+  {"id":"OLV-CON-017","sku":"OLV-CON-017","name":"Nuggets de Pollo Crocantes Sadia","brand":"Sadia","categoryId":"congelados","categoryName":"Congelados","subcategoryId":"carnes-cortes","subcategoryName":null,"format":"Bolsa 3 Kg","image":"images/products/congelados/OLV-CON-017.webp"},
+  {"id":"OLV-CON-018","sku":"OLV-CON-018","name":"Pechuga de Pollo Deshuesada Congelada","brand":"","categoryId":"congelados","categoryName":"Congelados","subcategoryId":"carnes-cortes","subcategoryName":null,"format":"Caja 15 Kg","image":"images/products/congelados/OLV-CON-018.jpg"},
+  {"id":"OLV-CON-019","sku":"OLV-CON-019","name":"Poroto Granado Congelado Interagro 1 KG","brand":"Interagro","categoryId":"congelados","categoryName":"Congelados","subcategoryId":"verduras","subcategoryName":"Verduras congeladas","format":"Bolsa 1 Kg","image":"images/products/congelados/OLV-CON-019.jpg"},
+  {"id":"OLV-CON-020","sku":"OLV-CON-020","name":"Lomo Vetado Vacío Importado","brand":"","categoryId":"congelados","categoryName":"Congelados","subcategoryId":"carnes-cortes","subcategoryName":null,"format":"Pieza al vacío (venta por kilo)","image":"images/products/congelados/OLV-CON-020.jpg"},
+  {"id":"OLV-CON-021","sku":"OLV-CON-021","name":"Entraña Premium Vacío Importado","brand":"","categoryId":"congelados","categoryName":"Congelados","subcategoryId":"carnes-cortes","subcategoryName":null,"format":"Pieza al vacío (venta por kilo)","image":"images/products/congelados/OLV-CON-021.jpg"},
+  {"id":"OLV-CON-022","sku":"OLV-CON-022","name":"Huachalomo Categoría V Vacío Importado","brand":"La Gran Estancia","categoryId":"congelados","categoryName":"Congelados","subcategoryId":"carnes-cortes","subcategoryName":null,"format":"Pieza al vacío (venta por kilo)","image":"images/products/congelados/OLV-CON-022.jpg"},
+  {"id":"OLV-CON-023","sku":"OLV-CON-023","name":"Sobrecostilla Categoría V Vacío Importado","brand":"","categoryId":"congelados","categoryName":"Congelados","subcategoryId":"carnes-cortes","subcategoryName":null,"format":"Pieza al vacío (venta por kilo)","image":"images/products/congelados/OLV-CON-023.jpg"},
+  {"id":"OLV-CON-024","sku":"OLV-CON-024","name":"Costillar de Cerdo Trozado","brand":"","categoryId":"congelados","categoryName":"Congelados","subcategoryId":"carnes-cortes","subcategoryName":null,"format":"","image":"images/products/congelados/OLV-CON-024.jpg"},
+  {"id":"OLV-CON-025","sku":"OLV-CON-025","name":"Pulpa de Pierna de Cerdo","brand":"","categoryId":"congelados","categoryName":"Congelados","subcategoryId":"carnes-cortes","subcategoryName":null,"format":"Porcionada, peso variable","image":"images/products/congelados/OLV-CON-025.webp"},
+  {"id":"OLV-CON-026","sku":"OLV-CON-026","name":"Longaniza Tradicional Quimera","brand":"Quimera","categoryId":"congelados","categoryName":"Congelados","subcategoryId":"carnes-cortes","subcategoryName":null,"format":"","image":"images/products/congelados/OLV-CON-026.jpg"},
+  {"id":"OLV-CON-027","sku":"OLV-CON-027","name":"Longaniza Tradicional Mendoza 950 GR aprox.","brand":"Mendoza","categoryId":"congelados","categoryName":"Congelados","subcategoryId":"carnes-cortes","subcategoryName":null,"format":"Paquete al vacío 950 g aprox.","image":"images/products/congelados/OLV-CON-027.jpg"},
+  {"id":"OLV-CON-028","sku":"OLV-CON-028","name":"Trutro Cuarto de Pollo Marinado (Caja 15 KG)","brand":"","categoryId":"congelados","categoryName":"Congelados","subcategoryId":"carnes-cortes","subcategoryName":null,"format":"Caja 15 Kg","image":"images/products/congelados/OLV-CON-028.jpg"},
+  {"id":"OLV-CON-029","sku":"OLV-CON-029","name":"Hamburguesa Don Bife 100% Angus 100 GR","brand":"Don Bife","categoryId":"congelados","categoryName":"Congelados","subcategoryId":"carnes-cortes","subcategoryName":null,"format":"Unidad 100 g congelada","image":"images/products/congelados/OLV-CON-029.webp"},
+  {"id":"OLV-CON-030","sku":"OLV-CON-030","name":"Churrasco Posta Rosada (Caja 5 KG)","brand":"","categoryId":"congelados","categoryName":"Congelados","subcategoryId":"carnes-cortes","subcategoryName":null,"format":"Caja 5 Kg","image":"images/products/congelados/OLV-CON-030.jpg"},
+  {"id":"OLV-CON-031","sku":"OLV-CON-031","name":"Filetitos de Pollo Sin Marinar Sadia 1 KG (Caja 12 unidades)","brand":"Sadia","categoryId":"congelados","categoryName":"Congelados","subcategoryId":"carnes-cortes","subcategoryName":null,"format":"Bolsa 1 Kg (Caja 12 x 1 Kg)","image":"images/products/congelados/OLV-CON-031.jpg"},
+  {"id":"OLV-CON-032","sku":"OLV-CON-032","name":"Tocino Laminado Ahumado 1 KG","brand":"","categoryId":"congelados","categoryName":"Congelados","subcategoryId":"carnes-cortes","subcategoryName":null,"format":"Paquete al vacío 1 Kg","image":"images/products/congelados/OLV-CON-032.jpg"},
+  {"id":"OLV-SSH-014","sku":"OLV-SSH-014","name":"Masa Wantán 500 GR","brand":"","categoryId":"sushi","categoryName":"Sushi y gastronomía oriental","subcategoryId":"insumos-crujientes","subcategoryName":"Quesos crema, panko y masas","format":"Paquete 500 g","image":"images/products/sushi/OLV-SSH-014.jpg"},
+  {"id":"OLV-CON-033","sku":"OLV-CON-033","name":"Papa Duquesa (Noisette) BemBrasil","brand":"BemBrasil","categoryId":"congelados","categoryName":"Congelados","subcategoryId":"papas-prefritas","subcategoryName":"Papas prefritas","format":"Bolsa 1,05 Kg","image":"images/products/congelados/OLV-CON-033.jpg"},
+  {"id":"OLV-CON-034","sku":"OLV-CON-034","name":"Papas Prefritas Corte 12x12 BemBrasil","brand":"BemBrasil","categoryId":"congelados","categoryName":"Congelados","subcategoryId":"papas-prefritas","subcategoryName":"Papas prefritas","format":"Bolsa 2,5 Kg","image":"images/products/congelados/OLV-CON-034.jpg"},
+  {"id":"OLV-CON-035","sku":"OLV-CON-035","name":"Papas Prefritas Corte Casero 12 MM Simplot","brand":"Simplot","categoryId":"congelados","categoryName":"Congelados","subcategoryId":"papas-prefritas","subcategoryName":"Papas prefritas","format":"Bolsa 2,5 Kg","image":"images/products/congelados/OLV-CON-035.jpg"},
+  {"id":"OLV-CON-036","sku":"OLV-CON-036","name":"Papas Prefritas Corte Fino 7 MM Simplot","brand":"Simplot","categoryId":"congelados","categoryName":"Congelados","subcategoryId":"papas-prefritas","subcategoryName":"Papas prefritas","format":"Bolsa 2,25 Kg","image":"images/products/congelados/OLV-CON-036.jpg"},
+  {"id":"OLV-CON-037","sku":"OLV-CON-037","name":"Pulpa de Piña Natural Río Alto 1 KG","brand":"Río Alto","categoryId":"congelados","categoryName":"Congelados","subcategoryId":"pulpas-fruta","subcategoryName":"Pulpas de fruta natural","format":"Bolsa 1 Kg congelada","image":"images/products/congelados/OLV-CON-037.jpg"},
+  {"id":"OLV-CON-038","sku":"OLV-CON-038","name":"Pulpa de Frutilla Natural Guallarauco 1 KG","brand":"Guallarauco","categoryId":"congelados","categoryName":"Congelados","subcategoryId":"pulpas-fruta","subcategoryName":"Pulpas de fruta natural","format":"Bolsa 1 Kg congelada","image":"images/products/congelados/OLV-CON-038.jpg"},
+  {"id":"OLV-CON-039","sku":"OLV-CON-039","name":"Pulpa de Mango Natural Guallarauco 1 KG","brand":"Guallarauco","categoryId":"congelados","categoryName":"Congelados","subcategoryId":"pulpas-fruta","subcategoryName":"Pulpas de fruta natural","format":"Bolsa 1 Kg congelada","image":"images/products/congelados/OLV-CON-039.jpg"},
+  {"id":"OLV-CON-040","sku":"OLV-CON-040","name":"Pulpa de Maracuyá Sin Pepa Guallarauco 1 KG","brand":"Guallarauco","categoryId":"congelados","categoryName":"Congelados","subcategoryId":"pulpas-fruta","subcategoryName":"Pulpas de fruta natural","format":"Bolsa 1 Kg congelada","image":"images/products/congelados/OLV-CON-040.jpg"},
+  {"id":"OLV-CON-041","sku":"OLV-CON-041","name":"Ají Amarillo Desvenado Congelado 500 GR","brand":"","categoryId":"congelados","categoryName":"Congelados","subcategoryId":"verduras","subcategoryName":"Verduras congeladas","format":"Bolsa 500 g","image":"images/products/congelados/OLV-CON-041.jpg"},
+  {"id":"OLV-CON-042","sku":"OLV-CON-042","name":"Ají Limo Peruano Congelado 250 GR","brand":"","categoryId":"congelados","categoryName":"Congelados","subcategoryId":"verduras","subcategoryName":"Verduras congeladas","format":"Bolsa 250 g","image":"images/products/congelados/OLV-CON-042.jpg"},
+  {"id":"OLV-CON-043","sku":"OLV-CON-043","name":"Choclo en Grano Chileno Delicias del Prado 1 KG","brand":"Delicias del Prado","categoryId":"congelados","categoryName":"Congelados","subcategoryId":"verduras","subcategoryName":"Verduras congeladas","format":"Bolsa 1 Kg","image":"images/products/congelados/OLV-CON-043.jpg"},
+  {"id":"OLV-CON-044","sku":"OLV-CON-044","name":"Granos de Choclo Peruano Congelado 500 GR","brand":"","categoryId":"congelados","categoryName":"Congelados","subcategoryId":"verduras","subcategoryName":"Verduras congeladas","format":"Bolsa 500 g","image":"images/products/congelados/OLV-CON-044.jpg"},
+  {"id":"OLV-CON-045","sku":"OLV-CON-045","name":"Choclo Desgranado Interagro 200 GR","brand":"Interagro","categoryId":"congelados","categoryName":"Congelados","subcategoryId":"verduras","subcategoryName":"Verduras congeladas","format":"Bolsa 200 g","image":"images/products/congelados/OLV-CON-045.jpg"},
+  {"id":"OLV-CON-046","sku":"OLV-CON-046","name":"Sofrito IQF Delicias del Prado 500 GR","brand":"Delicias del Prado","categoryId":"congelados","categoryName":"Congelados","subcategoryId":"verduras","subcategoryName":"Verduras congeladas","format":"Bolsa 500 g","image":"images/products/congelados/OLV-CON-046.jpg"},
+  {"id":"OLV-CON-047","sku":"OLV-CON-047","name":"Yuca Peruana Congelada 500 GR","brand":"","categoryId":"congelados","categoryName":"Congelados","subcategoryId":"verduras","subcategoryName":"Verduras congeladas","format":"Bolsa 500 g","image":"images/products/congelados/OLV-CON-047.jpg"},
+  {"id":"OLV-LAC-001","sku":"OLV-LAC-001","name":"Crema de Leche Gastronómica Colún 1 L (Caja 12 unidades)","brand":"Colún","categoryId":"lacteos","categoryName":"Lácteos y refrigerados","subcategoryId":"cremas-leche","subcategoryName":"Cremas de leche UHT y leches","format":"Caja 12 Tetra Pak x 1 Litro","image":"images/products/lacteos/OLV-LAC-001.jpg"},
+  {"id":"OLV-LAC-002","sku":"OLV-LAC-002","name":"Crema de Leche UHT Surlat 1 L (Caja 12 unidades)","brand":"Surlat","categoryId":"lacteos","categoryName":"Lácteos y refrigerados","subcategoryId":"cremas-leche","subcategoryName":"Cremas de leche UHT y leches","format":"Caja de 12 Litros","image":"images/products/lacteos/OLV-LAC-002.jpg"},
+  {"id":"OLV-LAC-003","sku":"OLV-LAC-003","name":"Leche Entera UHT Tottus 1 L (Caja 12 unidades)","brand":"Tottus","categoryId":"lacteos","categoryName":"Lácteos y refrigerados","subcategoryId":"cremas-leche","subcategoryName":"Cremas de leche UHT y leches","format":"Caja 12 envases x 1 Litro","image":"images/products/lacteos/OLV-LAC-003.jpg"},
+  {"id":"OLV-LAC-004","sku":"OLV-LAC-004","name":"Mantequilla Con Sal Colún Barra 250 GR (Caja 40 unidades)","brand":"Colún","categoryId":"lacteos","categoryName":"Lácteos y refrigerados","subcategoryId":"mantequillas","subcategoryName":"Mantequillas y margarinas","format":"Caja 40 barras x 250 g (10 Kg)","image":"images/products/lacteos/OLV-LAC-004.jpg"},
+  {"id":"OLV-LAC-005","sku":"OLV-LAC-005","name":"Queso Mozzarella Barra Gastronómica Molfino 3.5 KG","brand":"Molfino","categoryId":"lacteos","categoryName":"Lácteos y refrigerados","subcategoryId":"quesos-maduros","subcategoryName":"Mozzarella, parmesano y maduros","format":"Pieza al vacío 3.5 Kg (Caja 14 Kg)","image":"images/products/lacteos/OLV-LAC-005.jpg"},
+  {"id":"OLV-LAC-006","sku":"OLV-LAC-006","name":"Queso Parmesano Vaquita Horma 5,5 KG aprox.","brand":"Vaquita","categoryId":"lacteos","categoryName":"Lácteos y refrigerados","subcategoryId":"quesos-maduros","subcategoryName":"Mozzarella, parmesano y maduros","format":"Horma 5,5 a 5,6 Kg","image":"images/products/lacteos/OLV-LAC-006.jpg"},
+  {"id":"OLV-LAC-007","sku":"OLV-LAC-007","name":"Queso Gouda Laminado Surlat 1,5 KG","brand":"Surlat","categoryId":"lacteos","categoryName":"Lácteos y refrigerados","subcategoryId":"quesos-maduros","subcategoryName":"Mozzarella, parmesano y maduros","format":"Paquete laminado 1,5 Kg","image":"images/products/lacteos/OLV-LAC-007.jpg"},
+  {"id":"OLV-LAC-008","sku":"OLV-LAC-008","name":"Leche Condensada Nestlé 397 GR","brand":"Nestlé","categoryId":"lacteos","categoryName":"Lácteos y refrigerados","subcategoryId":"condensadas-manjar","subcategoryName":"Condensadas, evaporadas y manjar","format":"Lata 397 g","image":"images/products/lacteos/OLV-LAC-008.jpg"},
+  {"id":"OLV-LAC-009","sku":"OLV-LAC-009","name":"Sucedáneo de Leche Condensada Novamilk 395 GR","brand":"Novamilk","categoryId":"lacteos","categoryName":"Lácteos y refrigerados","subcategoryId":"condensadas-manjar","subcategoryName":"Condensadas, evaporadas y manjar","format":"Lata 395 g","image":"images/products/lacteos/OLV-LAC-009.jpg"},
+  {"id":"OLV-LAC-010","sku":"OLV-LAC-010","name":"Leche Evaporada Ideal Nestlé 390 GR","brand":"Nestlé","categoryId":"lacteos","categoryName":"Lácteos y refrigerados","subcategoryId":"condensadas-manjar","subcategoryName":"Condensadas, evaporadas y manjar","format":"Lata 366 ml (390 g)","image":"images/products/lacteos/OLV-LAC-010.jpg"},
+  {"id":"OLV-LAC-011","sku":"OLV-LAC-011","name":"Mantequilla Con Sal Fundo Los Alerces 250 GR","brand":"Fundo Los Alerces","categoryId":"lacteos","categoryName":"Lácteos y refrigerados","subcategoryId":"mantequillas","subcategoryName":"Mantequillas y margarinas","format":"Barra 250 g","image":"images/products/lacteos/OLV-LAC-011.jpg"},
+  {"id":"OLV-LAC-012","sku":"OLV-LAC-012","name":"Mantequilla Sin Sal Colun 250 GR","brand":"Colun","categoryId":"lacteos","categoryName":"Lácteos y refrigerados","subcategoryId":"mantequillas","subcategoryName":"Mantequillas y margarinas","format":"Barra 250 g","image":"images/products/lacteos/OLV-LAC-012.jpg"},
+  {"id":"OLV-LAC-013","sku":"OLV-LAC-013","name":"Queso Gouda Quillayes Barra 3,25 KG","brand":"Quillayes","categoryId":"lacteos","categoryName":"Lácteos y refrigerados","subcategoryId":"quesos-maduros","subcategoryName":"Mozzarella, parmesano y maduros","format":"Barra 3,25 Kg","image":"images/products/lacteos/OLV-LAC-013.jpg"},
+  {"id":"OLV-ASE-001","sku":"OLV-ASE-001","name":"Lavaloza Concentrado Industrial Ecol L-2000 Bidón 5 LT","brand":"Ecol Químicos","categoryId":"limpieza","categoryName":"Limpieza y aseo","subcategoryId":"quimicos-limpieza","subcategoryName":"Lavalozas, desengrasantes y cloro","format":"Bidón industrial 5 Litros","image":"images/products/limpieza/OLV-ASE-001.jpg"},
+  {"id":"OLV-ASE-002","sku":"OLV-ASE-002","name":"Desengrasante Industrial D-2000 OKey Bidón 5 LT","brand":"OKey","categoryId":"limpieza","categoryName":"Limpieza y aseo","subcategoryId":"quimicos-limpieza","subcategoryName":"Lavalozas, desengrasantes y cloro","format":"Bidón 5 Litros","image":"images/products/limpieza/OLV-ASE-002.jpg"},
+  {"id":"OLV-ASE-003","sku":"OLV-ASE-003","name":"Cloro Concentrado OKey Bidón 5 LT","brand":"OKey","categoryId":"limpieza","categoryName":"Limpieza y aseo","subcategoryId":"quimicos-limpieza","subcategoryName":"Lavalozas, desengrasantes y cloro","format":"Bidón 5 Litros","image":"images/products/limpieza/OLV-ASE-003.webp"},
+  {"id":"OLV-ASE-004","sku":"OLV-ASE-004","name":"Limpia Pisos Mantenedor OKey Bidón 5 LT","brand":"OKey","categoryId":"limpieza","categoryName":"Limpieza y aseo","subcategoryId":"quimicos-limpieza","subcategoryName":"Lavalozas, desengrasantes y cloro","format":"Bidón 5 Litros","image":"images/products/limpieza/OLV-ASE-004.jpg"},
+  {"id":"OLV-ASE-005","sku":"OLV-ASE-005","name":"Bolsas de Basura 80x110 (10 unidades)","brand":"","categoryId":"limpieza","categoryName":"Limpieza y aseo","subcategoryId":"bolsas-aseo","subcategoryName":"Bolsas de aseo alta densidad","format":"Paquete 10 bolsas","image":"images/products/limpieza/OLV-ASE-005.jpg"},
+  {"id":"OLV-ASE-006","sku":"OLV-ASE-006","name":"Bolsas de Basura 110x130 (10 unidades)","brand":"","categoryId":"limpieza","categoryName":"Limpieza y aseo","subcategoryId":"bolsas-aseo","subcategoryName":"Bolsas de aseo alta densidad","format":"Paquete 10 bolsas","image":"images/products/limpieza/OLV-ASE-006.jpg"},
+  {"id":"OLV-ASE-007","sku":"OLV-ASE-007","name":"Guante Nitrilo Negro Caja 100 unidades","brand":"","categoryId":"limpieza","categoryName":"Limpieza y aseo","subcategoryId":"guantes-seguridad","subcategoryName":"Guantes de nitrilo, látex y vinilo","format":"Caja 100 unidades (Tallas M y S)","image":"images/products/limpieza/OLV-ASE-007.jpg"},
+  {"id":"OLV-ASE-008","sku":"OLV-ASE-008","name":"Guante Látex Caja 100 unidades","brand":"","categoryId":"limpieza","categoryName":"Limpieza y aseo","subcategoryId":"guantes-seguridad","subcategoryName":"Guantes de nitrilo, látex y vinilo","format":"Caja 100 unidades (Tallas L, M y S)","image":"images/products/limpieza/OLV-ASE-008.jpg"},
+  {"id":"OLV-ASE-009","sku":"OLV-ASE-009","name":"Toalla de Papel Económica 2 x 250 MTS","brand":"","categoryId":"limpieza","categoryName":"Limpieza y aseo","subcategoryId":"papeleria-servilletas","subcategoryName":"Papel jumbo, toalla y servilletas","format":"Pack 2 rollos x 250 m (500 m)","image":"images/products/limpieza/OLV-ASE-009.webp"},
+  {"id":"OLV-ASE-010","sku":"OLV-ASE-010","name":"Papel Higiénico Jumbo 6 x 300 MTS","brand":"","categoryId":"limpieza","categoryName":"Limpieza y aseo","subcategoryId":"papeleria-servilletas","subcategoryName":"Papel jumbo, toalla y servilletas","format":"Fardo 6 rollos x 300 m (1.800 m)","image":"images/products/limpieza/OLV-ASE-010.jpg"},
+  {"id":"OLV-ASE-011","sku":"OLV-ASE-011","name":"Servilleta Blanca Doblada Joker 40x40 (Caja 1200 unidades)","brand":"Joker","categoryId":"limpieza","categoryName":"Limpieza y aseo","subcategoryId":"papeleria-servilletas","subcategoryName":"Papel jumbo, toalla y servilletas","format":"Caja 1.200 unidades dobladas en 1/4","image":"images/products/limpieza/OLV-ASE-011.jpg"},
+  {"id":"OLV-ASE-012","sku":"OLV-ASE-012","name":"Servilleta Negra Doblada Gourmet Joker 40x40 (Caja 1200 unidades)","brand":"Joker","categoryId":"limpieza","categoryName":"Limpieza y aseo","subcategoryId":"papeleria-servilletas","subcategoryName":"Papel jumbo, toalla y servilletas","format":"Caja 1.200 unidades","image":"images/products/limpieza/OLV-ASE-012.jpg"},
+  {"id":"OLV-ASE-013","sku":"OLV-ASE-013","name":"Paños Microfibra Absorbente Teddy 38x38 CM (Pack 10 unidades)","brand":"Teddy Pro","categoryId":"limpieza","categoryName":"Limpieza y aseo","subcategoryId":"accesorios-aseo","subcategoryName":"Paños, esponjas, escobas y mopas","format":"Pack 10 paños amarillos","image":"images/products/limpieza/OLV-ASE-013.webp"},
+  {"id":"OLV-ASE-014","sku":"OLV-ASE-014","name":"Desengrasante Relux Bidón 5 LT","brand":"Relux","categoryId":"limpieza","categoryName":"Limpieza y aseo","subcategoryId":"quimicos-limpieza","subcategoryName":"Lavalozas, desengrasantes y cloro","format":"Bidón 5 Litros","image":"images/products/limpieza/OLV-ASE-014.jpg"},
+  {"id":"OLV-ASE-015","sku":"OLV-ASE-015","name":"Cloro Gel Relux Bidón 5 LT","brand":"Relux","categoryId":"limpieza","categoryName":"Limpieza y aseo","subcategoryId":"quimicos-limpieza","subcategoryName":"Lavalozas, desengrasantes y cloro","format":"Bidón 5 Litros","image":"images/products/limpieza/OLV-ASE-015.jpg"},
+  {"id":"OLV-ASE-016","sku":"OLV-ASE-016","name":"Cloro Relux Bidón 5 LT","brand":"Relux","categoryId":"limpieza","categoryName":"Limpieza y aseo","subcategoryId":"quimicos-limpieza","subcategoryName":"Lavalozas, desengrasantes y cloro","format":"Bidón 5 Litros","image":"images/products/limpieza/OLV-ASE-016.jpg"},
+  {"id":"OLV-ASE-017","sku":"OLV-ASE-017","name":"Lavaloza Concentrado Tía Elsy Bidón 5 LT","brand":"Tía Elsy","categoryId":"limpieza","categoryName":"Limpieza y aseo","subcategoryId":"quimicos-limpieza","subcategoryName":"Lavalozas, desengrasantes y cloro","format":"Bidón 5 Litros","image":"images/products/limpieza/OLV-ASE-017.jpg"},
+  {"id":"OLV-ASE-018","sku":"OLV-ASE-018","name":"Limpia Piso Tía Elsy Bidón 5 LT","brand":"Tía Elsy","categoryId":"limpieza","categoryName":"Limpieza y aseo","subcategoryId":"quimicos-limpieza","subcategoryName":"Lavalozas, desengrasantes y cloro","format":"Bidón 5 Litros","image":"images/products/limpieza/OLV-ASE-018.jpg"},
+  {"id":"OLV-ASE-019","sku":"OLV-ASE-019","name":"Alcohol al 70% Ecosafe Botella 1 LT","brand":"Ecosafe","categoryId":"limpieza","categoryName":"Limpieza y aseo","subcategoryId":"quimicos-limpieza","subcategoryName":"Lavalozas, desengrasantes y cloro","format":"Botella 1 Litro","image":"images/products/limpieza/OLV-ASE-019.jpg"},
+  {"id":"OLV-ASE-020","sku":"OLV-ASE-020","name":"Jabón Líquido Mr. Rob Bidón 5 LT","brand":"Mr. Rob","categoryId":"limpieza","categoryName":"Limpieza y aseo","subcategoryId":"quimicos-limpieza","subcategoryName":"Lavalozas, desengrasantes y cloro","format":"Bidón 5 Litros","image":"images/products/limpieza/OLV-ASE-020.webp"},
+  {"id":"OLV-ASE-021","sku":"OLV-ASE-021","name":"Papel Toalla Interfoliada Doble (Caja 4.000 unidades)","brand":"","categoryId":"limpieza","categoryName":"Limpieza y aseo","subcategoryId":"papeleria-servilletas","subcategoryName":"Papel jumbo, toalla y servilletas","format":"Caja 20 paquetes x 200 unidades","image":"images/products/limpieza/OLV-ASE-021.jpg"},
+  {"id":"OLV-ASE-022","sku":"OLV-ASE-022","name":"Guante Vinilo Talla M Caja 100 unidades","brand":"","categoryId":"limpieza","categoryName":"Limpieza y aseo","subcategoryId":"guantes-seguridad","subcategoryName":"Guantes de nitrilo, látex y vinilo","format":"Caja 100 unidades (Talla M)","image":"images/products/limpieza/OLV-ASE-022.jpg"},
+  {"id":"OLV-ASE-023","sku":"OLV-ASE-023","name":"Guante Nitrilo Azul Talla M Caja 100 unidades","brand":"Heyle","categoryId":"limpieza","categoryName":"Limpieza y aseo","subcategoryId":"guantes-seguridad","subcategoryName":"Guantes de nitrilo, látex y vinilo","format":"Caja 100 unidades (Talla M)","image":"images/products/limpieza/OLV-ASE-023.jpg"},
+  {"id":"OLV-ASE-024","sku":"OLV-ASE-024","name":"Guante Multiuso Amarillo Impeke Talla S","brand":"Impeke","categoryId":"limpieza","categoryName":"Limpieza y aseo","subcategoryId":"guantes-seguridad","subcategoryName":"Guantes de nitrilo, látex y vinilo","format":"1 par (Talla S)","image":"images/products/limpieza/OLV-ASE-024.jpg"},
+  {"id":"OLV-ASE-025","sku":"OLV-ASE-025","name":"Paño Microfibra Teddy (Unidad)","brand":"Teddy","categoryId":"limpieza","categoryName":"Limpieza y aseo","subcategoryId":"accesorios-aseo","subcategoryName":"Paños, esponjas, escobas y mopas","format":"Unidad, colores surtidos","image":"images/products/limpieza/OLV-ASE-025.jpg"},
+  {"id":"OLV-ASE-026","sku":"OLV-ASE-026","name":"Paños Esponja (Pack 3 unidades)","brand":"","categoryId":"limpieza","categoryName":"Limpieza y aseo","subcategoryId":"accesorios-aseo","subcategoryName":"Paños, esponjas, escobas y mopas","format":"Pack 3 paños","image":"images/products/limpieza/OLV-ASE-026.jpg"},
+  {"id":"OLV-ASE-027","sku":"OLV-ASE-027","name":"Esponja Amarilla Acanalada","brand":"","categoryId":"limpieza","categoryName":"Limpieza y aseo","subcategoryId":"accesorios-aseo","subcategoryName":"Paños, esponjas, escobas y mopas","format":"Esponja con fibra verde [cantidad por confirmar]","image":"images/products/limpieza/OLV-ASE-027.jpg"},
+  {"id":"OLV-ASE-028","sku":"OLV-ASE-028","name":"Trapero de Algodón Teddy 50 x 70 CM","brand":"Teddy","categoryId":"limpieza","categoryName":"Limpieza y aseo","subcategoryId":"accesorios-aseo","subcategoryName":"Paños, esponjas, escobas y mopas","format":"Unidad 50 x 70 cm","image":"images/products/limpieza/OLV-ASE-028.webp"},
+  {"id":"OLV-ASE-029","sku":"OLV-ASE-029","name":"Virutilla Gruesa de Acero","brand":"","categoryId":"limpieza","categoryName":"Limpieza y aseo","subcategoryId":"accesorios-aseo","subcategoryName":"Paños, esponjas, escobas y mopas","format":"","image":"images/products/limpieza/OLV-ASE-029.jpg"},
+  {"id":"OLV-ASE-030","sku":"OLV-ASE-030","name":"Papel Toalla Eco Reciclable (Pack 2 x 250 Metros)","brand":"","categoryId":"limpieza","categoryName":"Limpieza y aseo","subcategoryId":"papeleria-servilletas","subcategoryName":"Papel jumbo, toalla y servilletas","format":"Pack 2 rollos x 250 m","image":"images/products/limpieza/OLV-ASE-030.webp"},
+  {"id":"OLV-INS-001","sku":"OLV-INS-001","name":"Rollo Alusa Film PVC DPS 28 CM x 300 M","brand":"DPS","categoryId":"insumos","categoryName":"Insumos para restaurantes","subcategoryId":"films-alusa","subcategoryName":"Alusa film PVC y embalaje","format":"Rollo 300 metros","image":"images/products/insumos/OLV-INS-001.jpg"},
+  {"id":"OLV-INS-002","sku":"OLV-INS-002","name":"Rollo Alusa Film PVC 45 CM x 1.400 M","brand":"","categoryId":"insumos","categoryName":"Insumos para restaurantes","subcategoryId":"films-alusa","subcategoryName":"Alusa film PVC y embalaje","format":"Bobina 1.400 metros","image":"images/products/insumos/OLV-INS-002.jpg"},
+  {"id":"OLV-INS-003","sku":"OLV-INS-003","name":"Rollo Térmico 80x80 (Caja 50 unidades)","brand":"","categoryId":"insumos","categoryName":"Insumos para restaurantes","subcategoryId":"rollos-termicos","subcategoryName":"Rollos térmicos POS y comandas","format":"Caja 50 rollos","image":"images/products/insumos/OLV-INS-003.jpg"},
+  {"id":"OLV-INS-005","sku":"OLV-INS-005","name":"Bowl Kraft 1000 CC (Caja 12 x 25 unidades)","brand":"","categoryId":"insumos","categoryName":"Insumos para restaurantes","subcategoryId":"envases-delivery","subcategoryName":"Envases, bowls, vasos y bombillas","format":"Caja 300 bowls","image":"images/products/insumos/OLV-INS-005.jpg"},
+  {"id":"OLV-INS-006","sku":"OLV-INS-006","name":"Vasos Transparentes Económicos 500 CC","brand":"","categoryId":"insumos","categoryName":"Insumos para restaurantes","subcategoryId":"envases-delivery","subcategoryName":"Envases, bowls, vasos y bombillas","format":"Vaso 500 cc [cantidad por confirmar]","image":"images/products/insumos/OLV-INS-006.jpg"},
+  {"id":"OLV-INS-007","sku":"OLV-INS-007","name":"Vasos PET Transparentes 12 OZ con Tapa","brand":"","categoryId":"insumos","categoryName":"Insumos para restaurantes","subcategoryId":"envases-delivery","subcategoryName":"Envases, bowls, vasos y bombillas","format":"Vaso 12 oz + tapa domo [cantidad por confirmar]","image":"images/products/insumos/OLV-INS-007.jpg"},
+  {"id":"OLV-INS-008","sku":"OLV-INS-008","name":"Bowl Kraft 750 CC (Caja 300 unidades)","brand":"","categoryId":"insumos","categoryName":"Insumos para restaurantes","subcategoryId":"envases-delivery","subcategoryName":"Envases, bowls, vasos y bombillas","format":"Caja 300 bowls","image":"images/products/insumos/OLV-INS-008.jpg"},
+  {"id":"OLV-INS-009","sku":"OLV-INS-009","name":"Tapa para Bowl Kraft 750 CC (Caja 300 unidades)","brand":"","categoryId":"insumos","categoryName":"Insumos para restaurantes","subcategoryId":"envases-delivery","subcategoryName":"Envases, bowls, vasos y bombillas","format":"Caja 300 tapas","image":"images/products/insumos/OLV-INS-009.jpg"},
+  {"id":"OLV-INS-010","sku":"OLV-INS-010","name":"Tenedor Plástico Blanco","brand":"","categoryId":"insumos","categoryName":"Insumos para restaurantes","subcategoryId":"envases-delivery","subcategoryName":"Envases, bowls, vasos y bombillas","format":"","image":"images/products/insumos/OLV-INS-010.jpg"},
+  {"id":"OLV-INS-011","sku":"OLV-INS-011","name":"Papel Antigrasa Cuadrado 30 x 30 CM","brand":"","categoryId":"insumos","categoryName":"Insumos para restaurantes","subcategoryId":"envases-delivery","subcategoryName":"Envases, bowls, vasos y bombillas","format":"Hoja 30 x 30 cm [cantidad por confirmar]","image":"images/products/insumos/OLV-INS-011.webp"},
+  {"id":"OLV-INS-012","sku":"OLV-INS-012","name":"Bolsa Camiseta Blanca 42 x 50 (Paquete 100 unidades)","brand":"","categoryId":"insumos","categoryName":"Insumos para restaurantes","subcategoryId":"bolsas-sacos","subcategoryName":"Bolsas, sacos kraft y aluminio","format":"Paquete 100 bolsas","image":"images/products/insumos/OLV-INS-012.jpg"},
+  {"id":"OLV-INS-013","sku":"OLV-INS-013","name":"Bolsa Camiseta 50 x 60 (Paquete 100 unidades)","brand":"","categoryId":"insumos","categoryName":"Insumos para restaurantes","subcategoryId":"bolsas-sacos","subcategoryName":"Bolsas, sacos kraft y aluminio","format":"Paquete 100 bolsas","image":"images/products/insumos/OLV-INS-013.jpg"},
+  {"id":"OLV-ALM-050","sku":"OLV-ALM-050","name":"Aceite 100% Maravilla Parral 900 CC (Caja 12 unidades)","brand":"Parral","categoryId":"alimentos","categoryName":"Alimentos y abarrotes","subcategoryId":"aceites","subcategoryName":"Aceites y fritura profunda","format":"Caja 12 botellas x 900 cc","image":"images/products/alimentos/OLV-ALM-050.jpg"},
+  {"id":"OLV-ALM-051","sku":"OLV-ALM-051","name":"Aceite Maravilla Aceitenso Bidón 10 LT","brand":"Aceitenso","categoryId":"alimentos","categoryName":"Alimentos y abarrotes","subcategoryId":"aceites","subcategoryName":"Aceites y fritura profunda","format":"Bidón 10 Litros","image":"images/products/alimentos/OLV-ALM-051.jpg"},
+  {"id":"OLV-ALM-052","sku":"OLV-ALM-052","name":"Aceite de Oliva Extra Virgen VDR 5 LT","brand":"VDR","categoryId":"alimentos","categoryName":"Alimentos y abarrotes","subcategoryId":"aceites","subcategoryName":"Aceites y fritura profunda","format":"Bidón 5 Litros","image":"images/products/alimentos/OLV-ALM-052.jpg"},
+  {"id":"OLV-ALM-053","sku":"OLV-ALM-053","name":"Arroz Miraflores G1 1 KG (Manga 10 KG)","brand":"Miraflores","categoryId":"alimentos","categoryName":"Alimentos y abarrotes","subcategoryId":"arroces","subcategoryName":"Arroces y granos especiales","format":"Manga 10 paquetes x 1 Kg","image":"images/products/alimentos/OLV-ALM-053.jpg"},
+  {"id":"OLV-ALM-054","sku":"OLV-ALM-054","name":"Arroz Flor de Ñiquén G2 1 KG (Manga 10 KG)","brand":"Flor de Ñiquén","categoryId":"alimentos","categoryName":"Alimentos y abarrotes","subcategoryId":"arroces","subcategoryName":"Arroces y granos especiales","format":"Manga 10 paquetes x 1 Kg","image":"images/products/alimentos/OLV-ALM-054.jpg"},
+  {"id":"OLV-ALM-055","sku":"OLV-ALM-055","name":"Arroz Pregraneado Coliseo G1 1 KG (Manga 10 KG)","brand":"Coliseo","categoryId":"alimentos","categoryName":"Alimentos y abarrotes","subcategoryId":"arroces","subcategoryName":"Arroces y granos especiales","format":"Manga 10 paquetes x 1 Kg","image":"images/products/alimentos/OLV-ALM-055.jpg"},
+  {"id":"OLV-ALM-056","sku":"OLV-ALM-056","name":"Arroz Peruano Pacasmayo Saco 25 KG","brand":"Pacasmayo","categoryId":"alimentos","categoryName":"Alimentos y abarrotes","subcategoryId":"arroces","subcategoryName":"Arroces y granos especiales","format":"Saco 25 Kg","image":"images/products/alimentos/OLV-ALM-056.jpg"},
+  {"id":"OLV-ALM-057","sku":"OLV-ALM-057","name":"Azúcar Blanca Granulada IANSA 1 KG","brand":"IANSA","categoryId":"alimentos","categoryName":"Alimentos y abarrotes","subcategoryId":"azucar-sal","subcategoryName":"Azúcar, sal y especias","format":"Bolsa 1 Kg","image":"images/products/alimentos/OLV-ALM-057.jpg"},
+  {"id":"OLV-ALM-058","sku":"OLV-ALM-058","name":"Azúcar Risaralda Saco 25 KG","brand":"Risaralda","categoryId":"alimentos","categoryName":"Alimentos y abarrotes","subcategoryId":"azucar-sal","subcategoryName":"Azúcar, sal y especias","format":"Saco 25 Kg","image":"images/products/alimentos/OLV-ALM-058.jpg"},
+  {"id":"OLV-ALM-059","sku":"OLV-ALM-059","name":"Harina Tostada Bolsa 1 KG","brand":"","categoryId":"alimentos","categoryName":"Alimentos y abarrotes","subcategoryId":"pastas-harinas","subcategoryName":"Pastas, harinas y masas","format":"Bolsa 1 Kg","image":"images/products/alimentos/OLV-ALM-059.jpg"},
+  {"id":"OLV-ALM-060","sku":"OLV-ALM-060","name":"Levadura Instantánea Seca Gloripan 500 GR (Caja 20 unidades)","brand":"Gloripan","categoryId":"alimentos","categoryName":"Alimentos y abarrotes","subcategoryId":"pastas-harinas","subcategoryName":"Pastas, harinas y masas","format":"Caja 20 x 500 g","image":"images/products/alimentos/OLV-ALM-060.jpg"},
+  {"id":"OLV-ALM-061","sku":"OLV-ALM-061","name":"Maicena Almidón de Maíz Innova 1 KG","brand":"Innova","categoryId":"alimentos","categoryName":"Alimentos y abarrotes","subcategoryId":"pastas-harinas","subcategoryName":"Pastas, harinas y masas","format":"Bolsa 1 Kg","image":"images/products/alimentos/OLV-ALM-061.jpg"},
+  {"id":"OLV-ALM-062","sku":"OLV-ALM-062","name":"Pan Rallado Granel 1 KG","brand":"Granel","categoryId":"alimentos","categoryName":"Alimentos y abarrotes","subcategoryId":"pastas-harinas","subcategoryName":"Pastas, harinas y masas","format":"Bolsa 1 Kg","image":"images/products/alimentos/OLV-ALM-062.jpg"},
+  {"id":"OLV-ALM-063","sku":"OLV-ALM-063","name":"Lasaña Precocida Carozzi 330 GR (Caja 24 unidades)","brand":"Carozzi","categoryId":"alimentos","categoryName":"Alimentos y abarrotes","subcategoryId":"pastas-harinas","subcategoryName":"Pastas, harinas y masas","format":"Caja 24 x 330 g","image":"images/products/alimentos/OLV-ALM-063.jpg"},
+  {"id":"OLV-ALM-064","sku":"OLV-ALM-064","name":"Cabello de Ángel Carozzi 400 GR","brand":"Carozzi","categoryId":"alimentos","categoryName":"Alimentos y abarrotes","subcategoryId":"pastas-harinas","subcategoryName":"Pastas, harinas y masas","format":"Paquete 400 g","image":"images/products/alimentos/OLV-ALM-064.jpg"},
+  {"id":"OLV-ALM-065","sku":"OLV-ALM-065","name":"Tagliatelle Nido 91 Divella 500 GR (Caja 12 unidades)","brand":"Divella","categoryId":"alimentos","categoryName":"Alimentos y abarrotes","subcategoryId":"pastas-harinas","subcategoryName":"Pastas, harinas y masas","format":"Caja 12 x 500 g","image":"images/products/alimentos/OLV-ALM-065.jpg"},
+  {"id":"OLV-ALM-066","sku":"OLV-ALM-066","name":"Rigatoni Don Vittorio 400 GR (Pack 30 unidades)","brand":"Don Vittorio","categoryId":"alimentos","categoryName":"Alimentos y abarrotes","subcategoryId":"pastas-harinas","subcategoryName":"Pastas, harinas y masas","format":"Pack 30 x 400 g","image":"images/products/alimentos/OLV-ALM-066.jpg"},
+  {"id":"OLV-ALM-067","sku":"OLV-ALM-067","name":"Mayonesa Kraft 3,78 LT","brand":"Kraft","categoryId":"alimentos","categoryName":"Alimentos y abarrotes","subcategoryId":"salsas-conservas","subcategoryName":"Salsas, conservas y condimentos","format":"Envase 3,78 Litros","image":"images/products/alimentos/OLV-ALM-067.jpg"},
+  {"id":"OLV-ALM-068","sku":"OLV-ALM-068","name":"Mayonesa Alacena 475 GR","brand":"Alacena","categoryId":"alimentos","categoryName":"Alimentos y abarrotes","subcategoryId":"salsas-conservas","subcategoryName":"Salsas, conservas y condimentos","format":"Doypack 475 g","image":"images/products/alimentos/OLV-ALM-068.jpg"},
+  {"id":"OLV-ALM-069","sku":"OLV-ALM-069","name":"Salsa de Tomate Pomarola Triple Concentrado 3 KG","brand":"Pomarola Carozzi","categoryId":"alimentos","categoryName":"Alimentos y abarrotes","subcategoryId":"salsas-conservas","subcategoryName":"Salsas, conservas y condimentos","format":"Envase 3 Kg","image":"images/products/alimentos/OLV-ALM-069.jpg"},
+  {"id":"OLV-ALM-070","sku":"OLV-ALM-070","name":"Salsa BBQ Traverso 1 LT","brand":"Traverso","categoryId":"alimentos","categoryName":"Alimentos y abarrotes","subcategoryId":"salsas-conservas","subcategoryName":"Salsas, conservas y condimentos","format":"Botella 1 Litro","image":"images/products/alimentos/OLV-ALM-070.webp"},
+  {"id":"OLV-ALM-071","sku":"OLV-ALM-071","name":"Salsa Inglesa 1 LT","brand":"Gourmet","categoryId":"alimentos","categoryName":"Alimentos y abarrotes","subcategoryId":"salsas-conservas","subcategoryName":"Salsas, conservas y condimentos","format":"Botella 1 Litro","image":"images/products/alimentos/OLV-ALM-071.jpg"},
+  {"id":"OLV-ALM-072","sku":"OLV-ALM-072","name":"Salsa Española 1 LT","brand":"Gourmet","categoryId":"alimentos","categoryName":"Alimentos y abarrotes","subcategoryId":"salsas-conservas","subcategoryName":"Salsas, conservas y condimentos","format":"Botella 1 Litro","image":"images/products/alimentos/OLV-ALM-072.jpg"},
+  {"id":"OLV-ALM-073","sku":"OLV-ALM-073","name":"Salsa de Chocolate 1 LT","brand":"Gourmet","categoryId":"alimentos","categoryName":"Alimentos y abarrotes","subcategoryId":"salsas-conservas","subcategoryName":"Salsas, conservas y condimentos","format":"Botella 1 Litro","image":"images/products/alimentos/OLV-ALM-073.jpg"},
+  {"id":"OLV-ALM-074","sku":"OLV-ALM-074","name":"Salsa Caramelo 1 LT","brand":"Gourmet","categoryId":"alimentos","categoryName":"Alimentos y abarrotes","subcategoryId":"salsas-conservas","subcategoryName":"Salsas, conservas y condimentos","format":"Botella 1 Litro","image":"images/products/alimentos/OLV-ALM-074.jpg"},
+  {"id":"OLV-ALM-075","sku":"OLV-ALM-075","name":"Salsa de Frambuesa 1 LT","brand":"Gourmet","categoryId":"alimentos","categoryName":"Alimentos y abarrotes","subcategoryId":"salsas-conservas","subcategoryName":"Salsas, conservas y condimentos","format":"Botella 1 Litro","image":"images/products/alimentos/OLV-ALM-075.jpg"},
+  {"id":"OLV-ALM-076","sku":"OLV-ALM-076","name":"Salsa Manjar 1 LT","brand":"Gourmet","categoryId":"alimentos","categoryName":"Alimentos y abarrotes","subcategoryId":"salsas-conservas","subcategoryName":"Salsas, conservas y condimentos","format":"Botella 1 Litro","image":"images/products/alimentos/OLV-ALM-076.jpg"},
+  {"id":"OLV-ALM-077","sku":"OLV-ALM-077","name":"Vinagre Blanco Rico Bidón 5 LT","brand":"Rico","categoryId":"alimentos","categoryName":"Alimentos y abarrotes","subcategoryId":"salsas-conservas","subcategoryName":"Salsas, conservas y condimentos","format":"Bidón 5 Litros","image":"images/products/alimentos/OLV-ALM-077.jpg"},
+  {"id":"OLV-ALM-078","sku":"OLV-ALM-078","name":"Vinagre Tinto Rico Bidón 5 LT","brand":"Rico","categoryId":"alimentos","categoryName":"Alimentos y abarrotes","subcategoryId":"salsas-conservas","subcategoryName":"Salsas, conservas y condimentos","format":"Bidón 5 Litros","image":"images/products/alimentos/OLV-ALM-078.jpg"},
+  {"id":"OLV-ALM-079","sku":"OLV-ALM-079","name":"Vinagre de Manzana Rico Bidón 5 LT","brand":"Rico","categoryId":"alimentos","categoryName":"Alimentos y abarrotes","subcategoryId":"salsas-conservas","subcategoryName":"Salsas, conservas y condimentos","format":"Bidón 5 Litros","image":"images/products/alimentos/OLV-ALM-079.jpg"},
+  {"id":"OLV-ALM-080","sku":"OLV-ALM-080","name":"Jugo de Limón Rico Bidón 5 LT","brand":"Rico","categoryId":"alimentos","categoryName":"Alimentos y abarrotes","subcategoryId":"salsas-conservas","subcategoryName":"Salsas, conservas y condimentos","format":"Bidón 5 Litros","image":"images/products/alimentos/OLV-ALM-080.jpg"},
+  {"id":"OLV-ALM-081","sku":"OLV-ALM-081","name":"Salsa Tabasco 60 ML","brand":"Tabasco","categoryId":"alimentos","categoryName":"Alimentos y abarrotes","subcategoryId":"salsas-conservas","subcategoryName":"Salsas, conservas y condimentos","format":"Botella 60 ml","image":"images/products/alimentos/OLV-ALM-081.jpg"},
+  {"id":"OLV-ALM-082","sku":"OLV-ALM-082","name":"Tinta de Calamar 90 GR","brand":"","categoryId":"alimentos","categoryName":"Alimentos y abarrotes","subcategoryId":"salsas-conservas","subcategoryName":"Salsas, conservas y condimentos","format":"Frasco 90 g","image":"images/products/alimentos/OLV-ALM-082.jpg"},
+  {"id":"OLV-ALM-083","sku":"OLV-ALM-083","name":"Alcaparras 965 GR","brand":"","categoryId":"alimentos","categoryName":"Alimentos y abarrotes","subcategoryId":"salsas-conservas","subcategoryName":"Salsas, conservas y condimentos","format":"Frasco 965 g","image":"images/products/alimentos/OLV-ALM-083.jpg"},
+  {"id":"OLV-ALM-084","sku":"OLV-ALM-084","name":"Crema de Mariscos Maggi (Caja 20 unidades)","brand":"Maggi","categoryId":"alimentos","categoryName":"Alimentos y abarrotes","subcategoryId":"salsas-conservas","subcategoryName":"Salsas, conservas y condimentos","format":"Caja 20 sobres","image":"images/products/alimentos/OLV-ALM-084.jpg"},
+  {"id":"OLV-ALM-085","sku":"OLV-ALM-085","name":"Ajinomoto Glutamato Monosódico 1 KG","brand":"Ajinomoto","categoryId":"alimentos","categoryName":"Alimentos y abarrotes","subcategoryId":"salsas-conservas","subcategoryName":"Salsas, conservas y condimentos","format":"Bolsa 1 Kg","image":"images/products/alimentos/OLV-ALM-085.jpg"},
+  {"id":"OLV-ALM-086","sku":"OLV-ALM-086","name":"Gelatina Caricia 1 KG (Frutilla, Frambuesa, Naranja, Piña)","brand":"Caricia","categoryId":"alimentos","categoryName":"Alimentos y abarrotes","subcategoryId":"salsas-conservas","subcategoryName":"Salsas, conservas y condimentos","format":"Bolsa 1 Kg","image":"images/products/alimentos/OLV-ALM-086.jpg"},
+  {"id":"OLV-ALM-087","sku":"OLV-ALM-087","name":"Palmito Entero Don Giuseppe 400 GR (Caja 24 unidades)","brand":"Don Giuseppe","categoryId":"alimentos","categoryName":"Alimentos y abarrotes","subcategoryId":"salsas-conservas","subcategoryName":"Salsas, conservas y condimentos","format":"Tarro 400 g (Caja 24)","image":"images/products/alimentos/OLV-ALM-087.jpg"},
+  {"id":"OLV-ALM-088","sku":"OLV-ALM-088","name":"Palmito en Rodajas Don Giuseppe 400 GR (Caja 24 unidades)","brand":"Don Giuseppe","categoryId":"alimentos","categoryName":"Alimentos y abarrotes","subcategoryId":"salsas-conservas","subcategoryName":"Salsas, conservas y condimentos","format":"Tarro 400 g (Caja 24)","image":"images/products/alimentos/OLV-ALM-088.jpg"},
+  {"id":"OLV-ALM-089","sku":"OLV-ALM-089","name":"Corazones de Alcachofa Don Giuseppe 400 GR (Caja 24 unidades)","brand":"Don Giuseppe","categoryId":"alimentos","categoryName":"Alimentos y abarrotes","subcategoryId":"salsas-conservas","subcategoryName":"Salsas, conservas y condimentos","format":"Tarro 400 g (Caja 24)","image":"images/products/alimentos/OLV-ALM-089.jpg"},
+  {"id":"OLV-ALM-090","sku":"OLV-ALM-090","name":"Pimiento Piquillo Don Giuseppe 400 GR (Caja 24 unidades)","brand":"Don Giuseppe","categoryId":"alimentos","categoryName":"Alimentos y abarrotes","subcategoryId":"salsas-conservas","subcategoryName":"Salsas, conservas y condimentos","format":"Tarro 400 g (Caja 24)","image":"images/products/alimentos/OLV-ALM-090.jpg"},
+  {"id":"OLV-ALM-091","sku":"OLV-ALM-091","name":"Espárrago Verde Entero Don Giuseppe 425 GR","brand":"Don Giuseppe","categoryId":"alimentos","categoryName":"Alimentos y abarrotes","subcategoryId":"salsas-conservas","subcategoryName":"Salsas, conservas y condimentos","format":"Tarro 425 g","image":"images/products/alimentos/OLV-ALM-091.jpg"},
+  {"id":"OLV-ALM-092","sku":"OLV-ALM-092","name":"Champiñón Laminado Alicia 400 GR (Caja 24 unidades)","brand":"Alicia","categoryId":"alimentos","categoryName":"Alimentos y abarrotes","subcategoryId":"salsas-conservas","subcategoryName":"Salsas, conservas y condimentos","format":"Lata 400 g (Caja 24)","image":"images/products/alimentos/OLV-ALM-092.jpg"},
+  {"id":"OLV-ALM-093","sku":"OLV-ALM-093","name":"Cóctel de Frutas Novafruta 820 GR (Caja 24 unidades)","brand":"Novafruta","categoryId":"alimentos","categoryName":"Alimentos y abarrotes","subcategoryId":"salsas-conservas","subcategoryName":"Salsas, conservas y condimentos","format":"Lata 820 g (Caja 24)","image":"images/products/alimentos/OLV-ALM-093.jpg"},
+  {"id":"OLV-ALM-094","sku":"OLV-ALM-094","name":"Piña en Rodajas Novafruta 850 GR","brand":"Novafruta","categoryId":"alimentos","categoryName":"Alimentos y abarrotes","subcategoryId":"salsas-conservas","subcategoryName":"Salsas, conservas y condimentos","format":"Lata 850 g","image":"images/products/alimentos/OLV-ALM-094.jpg"},
+  {"id":"OLV-ALM-095","sku":"OLV-ALM-095","name":"Pepinillo Dill Laminado (Caja 10 KG)","brand":"","categoryId":"alimentos","categoryName":"Alimentos y abarrotes","subcategoryId":"salsas-conservas","subcategoryName":"Salsas, conservas y condimentos","format":"Caja 10 Kg","image":"images/products/alimentos/OLV-ALM-095.jpg"},
+  {"id":"OLV-ALM-096","sku":"OLV-ALM-096","name":"Fondos de Alcachofa Ghosh 1,05 KG","brand":"Ghosh","categoryId":"alimentos","categoryName":"Alimentos y abarrotes","subcategoryId":"salsas-conservas","subcategoryName":"Salsas, conservas y condimentos","format":"Frasco 1,05 Kg","image":"images/products/alimentos/OLV-ALM-096.jpg"},
+  {"id":"OLV-ALM-097","sku":"OLV-ALM-097","name":"Atún Lomito Dorasol 142 GR","brand":"Dorasol","categoryId":"alimentos","categoryName":"Alimentos y abarrotes","subcategoryId":"salsas-conservas","subcategoryName":"Salsas, conservas y condimentos","format":"Lata 142 g","image":"images/products/alimentos/OLV-ALM-097.jpg"},
+  {"id":"OLV-ALM-098","sku":"OLV-ALM-098","name":"Jurel Natural Coliseo 425 GR","brand":"Coliseo","categoryId":"alimentos","categoryName":"Alimentos y abarrotes","subcategoryId":"salsas-conservas","subcategoryName":"Salsas, conservas y condimentos","format":"Lata 425 g","image":"images/products/alimentos/OLV-ALM-098.jpg"},
+  {"id":"OLV-ALM-099","sku":"OLV-ALM-099","name":"Puré de Papas Maggi 1,5 KG","brand":"Maggi","categoryId":"alimentos","categoryName":"Alimentos y abarrotes","subcategoryId":"salsas-conservas","subcategoryName":"Salsas, conservas y condimentos","format":"Bolsa 1,5 Kg","image":"images/products/alimentos/OLV-ALM-099.jpg"},
+  {"id":"OLV-ALM-100","sku":"OLV-ALM-100","name":"Papas al Hilo Elys 1 KG","brand":"Elys","categoryId":"alimentos","categoryName":"Alimentos y abarrotes","subcategoryId":"salsas-conservas","subcategoryName":"Salsas, conservas y condimentos","format":"Bolsa 1 Kg","image":"images/products/alimentos/OLV-ALM-100.jpg"},
+  {"id":"OLV-ALM-101","sku":"OLV-ALM-101","name":"Sal en Sachet Osku (Caja 2.000 unidades)","brand":"Osku","categoryId":"alimentos","categoryName":"Alimentos y abarrotes","subcategoryId":"azucar-sal","subcategoryName":"Azúcar, sal y especias","format":"Caja 2.000 sachets","image":"images/products/alimentos/OLV-ALM-101.jpg"},
+  {"id":"OLV-ALM-102","sku":"OLV-ALM-102","name":"Comino Molido 1 KG","brand":"Granel","categoryId":"alimentos","categoryName":"Alimentos y abarrotes","subcategoryId":"azucar-sal","subcategoryName":"Azúcar, sal y especias","format":"Bolsa 1 Kg","image":"images/products/alimentos/OLV-ALM-102.jpg"},
+  {"id":"OLV-ALM-103","sku":"OLV-ALM-103","name":"Ají de Color 1 KG","brand":"Granel","categoryId":"alimentos","categoryName":"Alimentos y abarrotes","subcategoryId":"azucar-sal","subcategoryName":"Azúcar, sal y especias","format":"Bolsa 1 Kg","image":"images/products/alimentos/OLV-ALM-103.jpg"},
+  {"id":"OLV-ALM-104","sku":"OLV-ALM-104","name":"Aliño Completo 1 KG","brand":"Granel","categoryId":"alimentos","categoryName":"Alimentos y abarrotes","subcategoryId":"azucar-sal","subcategoryName":"Azúcar, sal y especias","format":"Bolsa 1 Kg","image":"images/products/alimentos/OLV-ALM-104.jpg"},
+  {"id":"OLV-ALM-105","sku":"OLV-ALM-105","name":"Cúrcuma 1 KG","brand":"Granel","categoryId":"alimentos","categoryName":"Alimentos y abarrotes","subcategoryId":"azucar-sal","subcategoryName":"Azúcar, sal y especias","format":"Bolsa 1 Kg","image":"images/products/alimentos/OLV-ALM-105.jpg"},
+  {"id":"OLV-ALM-106","sku":"OLV-ALM-106","name":"Merkén 1 KG","brand":"Granel","categoryId":"alimentos","categoryName":"Alimentos y abarrotes","subcategoryId":"azucar-sal","subcategoryName":"Azúcar, sal y especias","format":"Bolsa 1 Kg","image":"images/products/alimentos/OLV-ALM-106.jpg"},
+  {"id":"OLV-ALM-107","sku":"OLV-ALM-107","name":"Pimienta Negra Entera 1 KG","brand":"Granel","categoryId":"alimentos","categoryName":"Alimentos y abarrotes","subcategoryId":"azucar-sal","subcategoryName":"Azúcar, sal y especias","format":"Bolsa 1 Kg","image":"images/products/alimentos/OLV-ALM-107.jpg"},
+  {"id":"OLV-ALM-108","sku":"OLV-ALM-108","name":"Pimienta Negra Molida 1 KG","brand":"Granel","categoryId":"alimentos","categoryName":"Alimentos y abarrotes","subcategoryId":"azucar-sal","subcategoryName":"Azúcar, sal y especias","format":"Bolsa 1 Kg","image":"images/products/alimentos/OLV-ALM-108.jpg"},
+  {"id":"OLV-ALM-109","sku":"OLV-ALM-109","name":"Nuez Moscada 1 KG","brand":"Granel","categoryId":"alimentos","categoryName":"Alimentos y abarrotes","subcategoryId":"azucar-sal","subcategoryName":"Azúcar, sal y especias","format":"Bolsa 1 Kg","image":"images/products/alimentos/OLV-ALM-109.jpg"},
+  {"id":"OLV-ALM-110","sku":"OLV-ALM-110","name":"Romero 1 KG","brand":"Granel","categoryId":"alimentos","categoryName":"Alimentos y abarrotes","subcategoryId":"azucar-sal","subcategoryName":"Azúcar, sal y especias","format":"Bolsa 1 Kg","image":"images/products/alimentos/OLV-ALM-110.jpg"},
+  {"id":"OLV-ALM-111","sku":"OLV-ALM-111","name":"Curry 1 KG","brand":"Granel","categoryId":"alimentos","categoryName":"Alimentos y abarrotes","subcategoryId":"azucar-sal","subcategoryName":"Azúcar, sal y especias","format":"Bolsa 1 Kg","image":"images/products/alimentos/OLV-ALM-111.jpg"},
+  {"id":"OLV-ALM-112","sku":"OLV-ALM-112","name":"Laurel 100 GR","brand":"Granel","categoryId":"alimentos","categoryName":"Alimentos y abarrotes","subcategoryId":"azucar-sal","subcategoryName":"Azúcar, sal y especias","format":"Bolsa 100 g","image":"images/products/alimentos/OLV-ALM-112.jpg"},
+  {"id":"OLV-ALM-113","sku":"OLV-ALM-113","name":"Canela Entera en Rama 500 GR","brand":"Granel","categoryId":"alimentos","categoryName":"Alimentos y abarrotes","subcategoryId":"azucar-sal","subcategoryName":"Azúcar, sal y especias","format":"Bolsa 500 g","image":"images/products/alimentos/OLV-ALM-113.jpg"},
+  {"id":"OLV-ALM-114","sku":"OLV-ALM-114","name":"Canela Molida 1 KG","brand":"Granel","categoryId":"alimentos","categoryName":"Alimentos y abarrotes","subcategoryId":"azucar-sal","subcategoryName":"Azúcar, sal y especias","format":"Bolsa 1 Kg","image":"images/products/alimentos/OLV-ALM-114.jpg"},
+  {"id":"OLV-ALM-115","sku":"OLV-ALM-115","name":"Poroto Canario Orogón 1 KG","brand":"Orogón","categoryId":"alimentos","categoryName":"Alimentos y abarrotes","subcategoryId":"menestras","subcategoryName":"Menestras y legumbres","format":"Bolsa 1 Kg","image":"images/products/alimentos/OLV-ALM-115.jpg"},
+  {"id":"OLV-ALM-116","sku":"OLV-ALM-116","name":"Poroto Tórtola Orogón 1 KG","brand":"Orogón","categoryId":"alimentos","categoryName":"Alimentos y abarrotes","subcategoryId":"menestras","subcategoryName":"Menestras y legumbres","format":"Bolsa 1 Kg","image":"images/products/alimentos/OLV-ALM-116.jpg"},
+  {"id":"OLV-ALM-117","sku":"OLV-ALM-117","name":"Poroto Negro Orogón 1 KG","brand":"Orogón","categoryId":"alimentos","categoryName":"Alimentos y abarrotes","subcategoryId":"menestras","subcategoryName":"Menestras y legumbres","format":"Bolsa 1 Kg","image":"images/products/alimentos/OLV-ALM-117.jpg"},
+  {"id":"OLV-ALM-118","sku":"OLV-ALM-118","name":"Lenteja Coliseo 1 KG","brand":"Coliseo","categoryId":"alimentos","categoryName":"Alimentos y abarrotes","subcategoryId":"menestras","subcategoryName":"Menestras y legumbres","format":"Bolsa 1 Kg","image":"images/products/alimentos/OLV-ALM-118.jpg"},
+  {"id":"OLV-ALM-119","sku":"OLV-ALM-119","name":"Lenteja Roja 1 KG","brand":"Granel","categoryId":"alimentos","categoryName":"Alimentos y abarrotes","subcategoryId":"menestras","subcategoryName":"Menestras y legumbres","format":"Bolsa 1 Kg","image":"images/products/alimentos/OLV-ALM-119.jpg"},
+  {"id":"OLV-ALM-120","sku":"OLV-ALM-120","name":"Garbanzo sin Piel El Monarca 1 KG","brand":"El Monarca","categoryId":"alimentos","categoryName":"Alimentos y abarrotes","subcategoryId":"menestras","subcategoryName":"Menestras y legumbres","format":"Bolsa 1 Kg","image":"images/products/alimentos/OLV-ALM-120.jpg"},
+  {"id":"OLV-ALM-121","sku":"OLV-ALM-121","name":"Quinoa Blanca 1 KG","brand":"Granel","categoryId":"alimentos","categoryName":"Alimentos y abarrotes","subcategoryId":"frutos-secos","subcategoryName":"Frutos secos y semillas","format":"Bolsa 1 Kg","image":"images/products/alimentos/OLV-ALM-121.jpg"},
+  {"id":"OLV-ALM-122","sku":"OLV-ALM-122","name":"Quinoa Negra 1 KG","brand":"Granel","categoryId":"alimentos","categoryName":"Alimentos y abarrotes","subcategoryId":"frutos-secos","subcategoryName":"Frutos secos y semillas","format":"Bolsa 1 Kg","image":"images/products/alimentos/OLV-ALM-122.jpg"},
+  {"id":"OLV-ALM-123","sku":"OLV-ALM-123","name":"Quinoa Roja 1 KG","brand":"Granel","categoryId":"alimentos","categoryName":"Alimentos y abarrotes","subcategoryId":"frutos-secos","subcategoryName":"Frutos secos y semillas","format":"Bolsa 1 Kg","image":"images/products/alimentos/OLV-ALM-123.jpg"},
+  {"id":"OLV-ALM-124","sku":"OLV-ALM-124","name":"Chía 1 KG","brand":"Granel","categoryId":"alimentos","categoryName":"Alimentos y abarrotes","subcategoryId":"frutos-secos","subcategoryName":"Frutos secos y semillas","format":"Bolsa 1 Kg","image":"images/products/alimentos/OLV-ALM-124.jpg"},
+  {"id":"OLV-ALM-125","sku":"OLV-ALM-125","name":"Semilla de Zapallo 1 KG","brand":"Granel","categoryId":"alimentos","categoryName":"Alimentos y abarrotes","subcategoryId":"frutos-secos","subcategoryName":"Frutos secos y semillas","format":"Bolsa 1 Kg","image":"images/products/alimentos/OLV-ALM-125.jpg"},
+  {"id":"OLV-ALM-126","sku":"OLV-ALM-126","name":"Almendra Non Pareil 1 KG","brand":"Granel","categoryId":"alimentos","categoryName":"Alimentos y abarrotes","subcategoryId":"frutos-secos","subcategoryName":"Frutos secos y semillas","format":"Bolsa 1 Kg","image":"images/products/alimentos/OLV-ALM-126.jpg"},
+  {"id":"OLV-ALM-127","sku":"OLV-ALM-127","name":"Almendra Laminada 1 KG","brand":"Granel","categoryId":"alimentos","categoryName":"Alimentos y abarrotes","subcategoryId":"frutos-secos","subcategoryName":"Frutos secos y semillas","format":"Bolsa 1 Kg","image":"images/products/alimentos/OLV-ALM-127.jpg"},
+  {"id":"OLV-ALM-128","sku":"OLV-ALM-128","name":"Nuez Mariposa 1 KG","brand":"Granel","categoryId":"alimentos","categoryName":"Alimentos y abarrotes","subcategoryId":"frutos-secos","subcategoryName":"Frutos secos y semillas","format":"Bolsa 1 Kg","image":"images/products/alimentos/OLV-ALM-128.jpg"},
+  {"id":"OLV-ALM-129","sku":"OLV-ALM-129","name":"Nuez Mitades 1 KG","brand":"Granel","categoryId":"alimentos","categoryName":"Alimentos y abarrotes","subcategoryId":"frutos-secos","subcategoryName":"Frutos secos y semillas","format":"Bolsa 1 Kg","image":"images/products/alimentos/OLV-ALM-129.jpg"},
+  {"id":"OLV-ALM-130","sku":"OLV-ALM-130","name":"Pistacho Natural con Cáscara 1 KG","brand":"Granel","categoryId":"alimentos","categoryName":"Alimentos y abarrotes","subcategoryId":"frutos-secos","subcategoryName":"Frutos secos y semillas","format":"Bolsa 1 Kg","image":"images/products/alimentos/OLV-ALM-130.jpg"},
+  {"id":"OLV-ALM-131","sku":"OLV-ALM-131","name":"Pasa Morena Flame 1 KG","brand":"Granel","categoryId":"alimentos","categoryName":"Alimentos y abarrotes","subcategoryId":"frutos-secos","subcategoryName":"Frutos secos y semillas","format":"Bolsa 1 Kg","image":"images/products/alimentos/OLV-ALM-131.jpg"},
+  {"id":"OLV-ALM-132","sku":"OLV-ALM-132","name":"Pasa Rubia Ámbar 1 KG","brand":"Granel","categoryId":"alimentos","categoryName":"Alimentos y abarrotes","subcategoryId":"frutos-secos","subcategoryName":"Frutos secos y semillas","format":"Bolsa 1 Kg","image":"images/products/alimentos/OLV-ALM-132.jpg"},
+  {"id":"OLV-ALM-133","sku":"OLV-ALM-133","name":"Maní Sin Sal 1 KG","brand":"Granel","categoryId":"alimentos","categoryName":"Alimentos y abarrotes","subcategoryId":"frutos-secos","subcategoryName":"Frutos secos y semillas","format":"Bolsa 1 Kg","image":"images/products/alimentos/OLV-ALM-133.jpg"},
+  {"id":"OLV-ALM-134","sku":"OLV-ALM-134","name":"Inca Kola 600 ML (Pack 12 unidades)","brand":"Inca Kola","categoryId":"alimentos","categoryName":"Alimentos y abarrotes","subcategoryId":"bebidas","subcategoryName":"Bebidas","format":"Pack 12 x 600 ml","image":"images/products/alimentos/OLV-ALM-134.jpg"},
+  {"id":"OLV-ALM-135","sku":"OLV-ALM-135","name":"Chicha Morada 2 LT","brand":"","categoryId":"alimentos","categoryName":"Alimentos y abarrotes","subcategoryId":"bebidas","subcategoryName":"Bebidas","format":"Botella 2 Litros","image":"images/products/alimentos/OLV-ALM-135.jpg"},
+  {"id":"OLV-ALM-136","sku":"OLV-ALM-136","name":"Bebida Vegetal de Soya Berief 1 LT (Caja 8 unidades)","brand":"Berief","categoryId":"alimentos","categoryName":"Alimentos y abarrotes","subcategoryId":"bebidas","subcategoryName":"Bebidas","format":"Caja 8 x 1 Litro","image":"images/products/alimentos/OLV-ALM-136.jpg"},
+  {"id":"OLV-ALM-137","sku":"OLV-ALM-137","name":"Bebida de Avena ViviCosi 1 LT (Caja 12 unidades)","brand":"ViviCosi","categoryId":"alimentos","categoryName":"Alimentos y abarrotes","subcategoryId":"bebidas","subcategoryName":"Bebidas","format":"Caja 12 x 1 Litro","image":"images/products/alimentos/OLV-ALM-137.jpg"},
+  {"id":"OLV-ALM-138","sku":"OLV-ALM-138","name":"Ají Panka Perú 1 KG","brand":"Importado Perú","categoryId":"alimentos","categoryName":"Alimentos y abarrotes","subcategoryId":"peruanos","subcategoryName":"Productos peruanos","format":"Bolsa 1 Kg","image":"images/products/alimentos/OLV-ALM-138.jpg"},
+  {"id":"OLV-ALM-139","sku":"OLV-ALM-139","name":"Canchita Carway","brand":"Importado Perú","categoryId":"alimentos","categoryName":"Alimentos y abarrotes","subcategoryId":"peruanos","subcategoryName":"Productos peruanos","format":"","image":"images/products/alimentos/OLV-ALM-139.jpg"},
+  {"id":"OLV-ALM-140","sku":"OLV-ALM-140","name":"Aceituna Morada 1 KG","brand":"Importado Perú","categoryId":"alimentos","categoryName":"Alimentos y abarrotes","subcategoryId":"peruanos","subcategoryName":"Productos peruanos","format":"Bolsa 1 Kg","image":"images/products/alimentos/OLV-ALM-140.jpg"},
+  {"id":"OLV-ALM-141","sku":"OLV-ALM-141","name":"Aceituna Negra Deshuesada 1 KG","brand":"Importado Perú","categoryId":"alimentos","categoryName":"Alimentos y abarrotes","subcategoryId":"peruanos","subcategoryName":"Productos peruanos","format":"Bolsa 1 Kg","image":"images/products/alimentos/OLV-ALM-141.jpg"},
+  {"id":"OLV-ALM-142","sku":"OLV-ALM-142","name":"Limón Sutil Peruano (Caja 23 KG aprox.)","brand":"Importado Perú","categoryId":"alimentos","categoryName":"Alimentos y abarrotes","subcategoryId":"peruanos","subcategoryName":"Productos peruanos","format":"Caja 23 Kg aprox.","image":"images/products/alimentos/OLV-ALM-142.jpg"},
+  {"id":"OLV-ALM-143","sku":"OLV-ALM-143","name":"Cebolla Morada Peruana (Malla 22 a 23 KG)","brand":"Importado Perú","categoryId":"alimentos","categoryName":"Alimentos y abarrotes","subcategoryId":"peruanos","subcategoryName":"Productos peruanos","format":"Malla 22 a 23 Kg","image":"images/products/alimentos/OLV-ALM-143.jpg"},
+  {"id":"OLV-ALM-144","sku":"OLV-ALM-144","name":"Crema de Coco Deyco","brand":"Deyco","categoryId":"alimentos","categoryName":"Alimentos y abarrotes","subcategoryId":"peruanos","subcategoryName":"Productos peruanos","format":"Lata [gramaje por confirmar]","image":"images/products/alimentos/OLV-ALM-144.jpg"},
+  {"id":"OLV-ALM-145","sku":"OLV-ALM-145","name":"Marrasquino Perello 1,1 KG","brand":"Perello","categoryId":"alimentos","categoryName":"Alimentos y abarrotes","subcategoryId":"peruanos","subcategoryName":"Productos peruanos","format":"Frasco 1,1 Kg","image":"images/products/alimentos/OLV-ALM-145.jpg"},
+  {"id":"OLV-ALM-146","sku":"OLV-ALM-146","name":"Jengibre Entero 1 KG","brand":"Importado Perú","categoryId":"alimentos","categoryName":"Alimentos y abarrotes","subcategoryId":"peruanos","subcategoryName":"Productos peruanos","format":"Bolsa 1 Kg","image":"images/products/alimentos/OLV-ALM-146.jpg"},
+  {"id":"OLV-SSH-015","sku":"OLV-SSH-015","name":"Panko Amarillo 1 KG","brand":"Japo Food","categoryId":"sushi","categoryName":"Sushi y gastronomía oriental","subcategoryId":"insumos-crujientes","subcategoryName":"Quesos crema, panko y masas","format":"Bolsa 1 Kg","image":"images/products/sushi/OLV-SSH-015.jpg"},
+  {"id":"OLV-SSH-016","sku":"OLV-SSH-016","name":"Sésamo Negro 1 KG","brand":"Granel","categoryId":"sushi","categoryName":"Sushi y gastronomía oriental","subcategoryId":"condimentos-orientales","subcategoryName":"Sésamo, nori y jengibre","format":"Bolsa 1 Kg","image":"images/products/sushi/OLV-SSH-016.jpg"},
+  {"id":"OLV-SSH-017","sku":"OLV-SSH-017","name":"Sésamo Tostado 1 KG","brand":"Granel","categoryId":"sushi","categoryName":"Sushi y gastronomía oriental","subcategoryId":"condimentos-orientales","subcategoryName":"Sésamo, nori y jengibre","format":"Bolsa 1 Kg","image":"images/products/sushi/OLV-SSH-017.jpg"},
+  {"id":"OLV-SSH-018","sku":"OLV-SSH-018","name":"Aceite de Sésamo 250 ML (Caja 24 unidades)","brand":"","categoryId":"sushi","categoryName":"Sushi y gastronomía oriental","subcategoryId":"condimentos-orientales","subcategoryName":"Sésamo, nori y jengibre","format":"Botella 250 ml (Caja 24)","image":"images/products/sushi/OLV-SSH-018.jpg"},
+  {"id":"OLV-SSH-019","sku":"OLV-SSH-019","name":"Salsa de Soya Kikko Peruana 500 ML","brand":"Kikko","categoryId":"sushi","categoryName":"Sushi y gastronomía oriental","subcategoryId":"salsas-orientales","subcategoryName":"Salsas de soya, ostión y hoisin","format":"Botella 500 ml","image":"images/products/sushi/OLV-SSH-019.jpg"},
+  {"id":"OLV-SSH-020","sku":"OLV-SSH-020","name":"Salsa de Ostión Lee Kum Kee 510 ML","brand":"Lee Kum Kee","categoryId":"sushi","categoryName":"Sushi y gastronomía oriental","subcategoryId":"salsas-orientales","subcategoryName":"Salsas de soya, ostión y hoisin","format":"Botella 510 ml","image":"images/products/sushi/OLV-SSH-020.jpg"},
+  {"id":"OLV-SSH-021","sku":"OLV-SSH-021","name":"Salsa Hoisin Lee Kum Kee Lata 2,27 KG","brand":"Lee Kum Kee","categoryId":"sushi","categoryName":"Sushi y gastronomía oriental","subcategoryId":"salsas-orientales","subcategoryName":"Salsas de soya, ostión y hoisin","format":"Lata 2,27 Kg","image":"images/products/sushi/OLV-SSH-021.jpg"},
+  {"id":"OLV-SSH-022","sku":"OLV-SSH-022","name":"Salsa de Soya Dark China Gruesa 1,87 LT","brand":"","categoryId":"sushi","categoryName":"Sushi y gastronomía oriental","subcategoryId":"salsas-orientales","subcategoryName":"Salsas de soya, ostión y hoisin","format":"Bidón 1,87 Litros","image":"images/products/sushi/OLV-SSH-022.jpg"},
+  {"id":"OLV-SSH-023","sku":"OLV-SSH-023","name":"Jengibre Encurtido Gari Blanco Balde 1.5 KG","brand":"Gari","categoryId":"sushi","categoryName":"Sushi y gastronomía oriental","subcategoryId":"condimentos-orientales","subcategoryName":"Sésamo, nori y jengibre","format":"Balde 1.5 Kg","image":"images/products/sushi/OLV-SSH-023.jpg"},
+  {"id":"OLV-SSH-024","sku":"OLV-SSH-024","name":"Alga Nori Platinium Yingxuan (50 hojas)","brand":"Yingxuan","categoryId":"sushi","categoryName":"Sushi y gastronomía oriental","subcategoryId":"condimentos-orientales","subcategoryName":"Sésamo, nori y jengibre","format":"Paquete 50 hojas","image":"images/products/sushi/OLV-SSH-024.webp"},
+  {"id":"OLV-CON-048","sku":"OLV-CON-048","name":"Calamar en Anillos Ulala 1 KG (Caja 10 KG)","brand":"Ulala","categoryId":"congelados","categoryName":"Congelados","subcategoryId":"mariscos-camarones","subcategoryName":"Camarones, mariscos y pescados","format":"Bolsa 1 Kg (Caja 10 Kg)","image":"images/products/congelados/OLV-CON-048.jpg"},
+  {"id":"OLV-CON-049","sku":"OLV-CON-049","name":"Atún Filete Importado (Caja 15 KG)","brand":"Importado","categoryId":"congelados","categoryName":"Congelados","subcategoryId":"mariscos-camarones","subcategoryName":"Camarones, mariscos y pescados","format":"Caja 15 Kg","image":""},
+  {"id":"OLV-CON-050","sku":"OLV-CON-050","name":"Atún en Rodaja 200 GR (Caja 10 KG)","brand":"Importado","categoryId":"congelados","categoryName":"Congelados","subcategoryId":"mariscos-camarones","subcategoryName":"Camarones, mariscos y pescados","format":"Porción 200 g (Caja 10 Kg)","image":"images/products/congelados/OLV-CON-050.jpg"},
+  {"id":"OLV-CON-051","sku":"OLV-CON-051","name":"Papas Prefritas One Fry 12 MM","brand":"One Fry","categoryId":"congelados","categoryName":"Congelados","subcategoryId":"papas-prefritas","subcategoryName":"Papas prefritas","format":"Bolsa 2,5 Kg (Caja 7 bolsas)","image":"images/products/congelados/OLV-CON-051.jpg"},
+  {"id":"OLV-CON-052","sku":"OLV-CON-052","name":"Papas Prefritas Star Frites 12 MM","brand":"Star Frites","categoryId":"congelados","categoryName":"Congelados","subcategoryId":"papas-prefritas","subcategoryName":"Papas prefritas","format":"Bolsa 2 Kg (Caja 5 bolsas)","image":"images/products/congelados/OLV-CON-052.jpg"},
+  {"id":"OLV-CON-053","sku":"OLV-CON-053","name":"Papas Prefritas Cool Mind 12 MM","brand":"Cool Mind","categoryId":"congelados","categoryName":"Congelados","subcategoryId":"papas-prefritas","subcategoryName":"Papas prefritas","format":"Bolsa 2,5 Kg (Caja 6 bolsas)","image":"images/products/congelados/OLV-CON-053.jpg"},
+  {"id":"OLV-CON-054","sku":"OLV-CON-054","name":"Papas Prefritas Cool Mind 10 MM","brand":"Cool Mind","categoryId":"congelados","categoryName":"Congelados","subcategoryId":"papas-prefritas","subcategoryName":"Papas prefritas","format":"Bolsa 2 Kg (Caja 7 bolsas)","image":"images/products/congelados/OLV-CON-054.jpg"},
+  {"id":"OLV-CON-055","sku":"OLV-CON-055","name":"Papas Rústicas Gajo Simplot","brand":"Simplot","categoryId":"congelados","categoryName":"Congelados","subcategoryId":"papas-prefritas","subcategoryName":"Papas prefritas","format":"Bolsa 2 Kg (Caja 7 bolsas)","image":"images/products/congelados/OLV-CON-055.jpg"},
+  {"id":"OLV-CON-056","sku":"OLV-CON-056","name":"Papa Duquesa McCain","brand":"McCain","categoryId":"congelados","categoryName":"Congelados","subcategoryId":"papas-prefritas","subcategoryName":"Papas prefritas","format":"Bolsa 2,5 Kg (Caja 4 bolsas)","image":"images/products/congelados/OLV-CON-056.jpg"},
+  {"id":"OLV-CON-057","sku":"OLV-CON-057","name":"Arveja Congelada Interagro 1 KG","brand":"Interagro","categoryId":"congelados","categoryName":"Congelados","subcategoryId":"verduras","subcategoryName":"Verduras congeladas","format":"Bolsa 1 Kg","image":"images/products/congelados/OLV-CON-057.jpg"},
+  {"id":"OLV-CON-058","sku":"OLV-CON-058","name":"Coliflor Congelada Interagro 2 KG","brand":"Interagro","categoryId":"congelados","categoryName":"Congelados","subcategoryId":"verduras","subcategoryName":"Verduras congeladas","format":"Bolsa 2 Kg (Caja 8 Kg)","image":"images/products/congelados/OLV-CON-058.jpg"},
+  {"id":"OLV-CON-059","sku":"OLV-CON-059","name":"Espinaca Food Service Minuto Verde 1 KG","brand":"Minuto Verde","categoryId":"congelados","categoryName":"Congelados","subcategoryId":"verduras","subcategoryName":"Verduras congeladas","format":"Bolsa 1 Kg (Caja 4 Kg)","image":"images/products/congelados/OLV-CON-059.webp"},
+  {"id":"OLV-CON-060","sku":"OLV-CON-060","name":"Jardinera de Verduras Delicias del Prado 1 KG","brand":"Delicias del Prado","categoryId":"congelados","categoryName":"Congelados","subcategoryId":"verduras","subcategoryName":"Verduras congeladas","format":"Bolsa 1 Kg (Caja 16 Kg)","image":"images/products/congelados/OLV-CON-060.jpg"},
+  {"id":"OLV-CON-061","sku":"OLV-CON-061","name":"Poroto Verde Corte Francés Interagro 1 KG","brand":"Interagro","categoryId":"congelados","categoryName":"Congelados","subcategoryId":"verduras","subcategoryName":"Verduras congeladas","format":"Bolsa 1 Kg (Caja 10 Kg)","image":"images/products/congelados/OLV-CON-061.jpg"},
+  {"id":"OLV-CON-062","sku":"OLV-CON-062","name":"Habas Congeladas 1 KG","brand":"Delicias del Prado","categoryId":"congelados","categoryName":"Congelados","subcategoryId":"verduras","subcategoryName":"Verduras congeladas","format":"Bolsa 1 Kg (Caja 16 unidades)","image":"images/products/congelados/OLV-CON-062.jpg"},
+  {"id":"OLV-CON-063","sku":"OLV-CON-063","name":"Pasta de Choclo Interagro 1 KG","brand":"Interagro","categoryId":"congelados","categoryName":"Congelados","subcategoryId":"verduras","subcategoryName":"Verduras congeladas","format":"Bolsa 1 Kg (Caja 16 bolsas)","image":"images/products/congelados/OLV-CON-063.jpg"},
+  {"id":"OLV-CON-064","sku":"OLV-CON-064","name":"Pasta de Choclo Minuto Verde 1 KG","brand":"Minuto Verde","categoryId":"congelados","categoryName":"Congelados","subcategoryId":"verduras","subcategoryName":"Verduras congeladas","format":"Bolsa 1 Kg (Caja 7 bolsas)","image":"images/products/congelados/OLV-CON-064.jpg"},
+  {"id":"OLV-CON-065","sku":"OLV-CON-065","name":"Rocoto Congelado 1 KG","brand":"Importado Perú","categoryId":"congelados","categoryName":"Congelados","subcategoryId":"verduras","subcategoryName":"Verduras congeladas","format":"Bolsa 1 Kg","image":"images/products/congelados/OLV-CON-065.jpg"},
+  {"id":"OLV-CON-066","sku":"OLV-CON-066","name":"Ají Amarillo Congelado Bolsa 2,5 KG","brand":"Importado Perú","categoryId":"congelados","categoryName":"Congelados","subcategoryId":"verduras","subcategoryName":"Verduras congeladas","format":"Bolsa 2,5 Kg","image":"images/products/congelados/OLV-CON-066.jpg"},
+  {"id":"OLV-CON-067","sku":"OLV-CON-067","name":"Pulpa de Frambuesa Natural Río Alto 1 KG","brand":"Río Alto","categoryId":"congelados","categoryName":"Congelados","subcategoryId":"pulpas-fruta","subcategoryName":"Pulpas de fruta natural","format":"Bolsa 1 Kg congelada","image":"images/products/congelados/OLV-CON-067.jpg"},
+  {"id":"OLV-PRO-001","sku":"OLV-PRO-001","name":"Pechuga de Pollo Sin Marinar Sadia 1 KG (Caja 12 KG)","brand":"Sadia","categoryId":"proteinas","categoryName":"Proteínas","subcategoryId":"pollo","subcategoryName":"Pollo y aves","format":"Bolsa 1 Kg (Caja 12 Kg)","image":"images/products/proteinas/OLV-PRO-001.jpg"},
+  {"id":"OLV-PRO-002","sku":"OLV-PRO-002","name":"Alitas de Pollo Rebozadas Sadia 2 KG","brand":"Sadia","categoryId":"proteinas","categoryName":"Proteínas","subcategoryId":"pollo","subcategoryName":"Pollo y aves","format":"Bolsa 2 Kg (Caja 6 Kg)","image":"images/products/proteinas/OLV-PRO-002.jpg"},
+  {"id":"OLV-PRO-003","sku":"OLV-PRO-003","name":"Tiras de Pollo Rebozadas Sadia 2 KG","brand":"Sadia","categoryId":"proteinas","categoryName":"Proteínas","subcategoryId":"pollo","subcategoryName":"Pollo y aves","format":"Bolsa 2 Kg (Caja 6 unidades)","image":"images/products/proteinas/OLV-PRO-003.jpg"},
+  {"id":"OLV-PRO-004","sku":"OLV-PRO-004","name":"Suprema de Pollo Rebozada Sadia 3 KG","brand":"Sadia","categoryId":"proteinas","categoryName":"Proteínas","subcategoryId":"pollo","subcategoryName":"Pollo y aves","format":"Bolsa 3 Kg (Caja 2 bolsas)","image":"images/products/proteinas/OLV-PRO-004.jpg"},
+  {"id":"OLV-PRO-005","sku":"OLV-PRO-005","name":"Supremita Chicken Fingers Sadia 3 KG","brand":"Sadia","categoryId":"proteinas","categoryName":"Proteínas","subcategoryId":"pollo","subcategoryName":"Pollo y aves","format":"Bolsa 3 Kg (Caja 2 bolsas)","image":"images/products/proteinas/OLV-PRO-005.jpg"},
+  {"id":"OLV-PRO-006","sku":"OLV-PRO-006","name":"Golden Chicken Pechuga Rebozada Sadia 300 GR","brand":"Sadia","categoryId":"proteinas","categoryName":"Proteínas","subcategoryId":"pollo","subcategoryName":"Pollo y aves","format":"Bolsa 300 g (Caja 16 unidades)","image":"images/products/proteinas/OLV-PRO-006.jpg"},
+  {"id":"OLV-PRO-007","sku":"OLV-PRO-007","name":"Golden Strips Tiras de Pollo Sadia 300 GR","brand":"Sadia","categoryId":"proteinas","categoryName":"Proteínas","subcategoryId":"pollo","subcategoryName":"Pollo y aves","format":"Bolsa 300 g (Caja 12 unidades)","image":"images/products/proteinas/OLV-PRO-007.jpg"},
+  {"id":"OLV-PRO-008","sku":"OLV-PRO-008","name":"Carne Molida Rupanco 250 GR (Caja 12 unidades)","brand":"Rupanco","categoryId":"proteinas","categoryName":"Proteínas","subcategoryId":"vacuno","subcategoryName":"Vacuno","format":"Bandeja 250 g (Caja 12)","image":"images/products/proteinas/OLV-PRO-008.jpg"},
+  {"id":"OLV-PRO-009","sku":"OLV-PRO-009","name":"Churrasco Corte Económico Rupanco 2 KG","brand":"Rupanco","categoryId":"proteinas","categoryName":"Proteínas","subcategoryId":"vacuno","subcategoryName":"Vacuno","format":"Caja 2 Kg","image":"images/products/proteinas/OLV-PRO-009.jpg"},
+  {"id":"OLV-PRO-010","sku":"OLV-PRO-010","name":"Jamón Pierna Ahumado 3,6 KG aprox.","brand":"","categoryId":"proteinas","categoryName":"Proteínas","subcategoryId":"elaborados","subcategoryName":"Elaborados y embutidos","format":"Pieza 3,6 Kg aprox.","image":"images/products/proteinas/OLV-PRO-010.jpg"},
+  {"id":"OLV-LAC-014","sku":"OLV-LAC-014","name":"Leche Entera Surlat Auténtica 1 L (Caja 12 unidades)","brand":"Surlat","categoryId":"lacteos","categoryName":"Lácteos y refrigerados","subcategoryId":"cremas-leche","subcategoryName":"Cremas de leche UHT y leches","format":"Caja 12 x 1 Litro","image":"images/products/lacteos/OLV-LAC-014.jpg"},
+  {"id":"OLV-LAC-015","sku":"OLV-LAC-015","name":"Leche Descremada Sin Lactosa Surlat 1 L (Caja 12 unidades)","brand":"Surlat","categoryId":"lacteos","categoryName":"Lácteos y refrigerados","subcategoryId":"cremas-leche","subcategoryName":"Cremas de leche UHT y leches","format":"Caja 12 x 1 Litro","image":"images/products/lacteos/OLV-LAC-015.jpg"},
+  {"id":"OLV-LAC-016","sku":"OLV-LAC-016","name":"Leche Entera Colún 1 L (Caja 12 unidades)","brand":"Colún","categoryId":"lacteos","categoryName":"Lácteos y refrigerados","subcategoryId":"cremas-leche","subcategoryName":"Cremas de leche UHT y leches","format":"Caja 12 x 1 Litro","image":"images/products/lacteos/OLV-LAC-016.jpg"},
+  {"id":"OLV-LAC-017","sku":"OLV-LAC-017","name":"Leche Descremada Sin Lactosa Colún 1 L (Caja 12 unidades)","brand":"Colún","categoryId":"lacteos","categoryName":"Lácteos y refrigerados","subcategoryId":"cremas-leche","subcategoryName":"Cremas de leche UHT y leches","format":"Caja 12 x 1 Litro","image":"images/products/lacteos/OLV-LAC-017.jpg"},
+  {"id":"OLV-LAC-018","sku":"OLV-LAC-018","name":"Leche Descremada Colún 1 L (Caja 12 unidades)","brand":"Colún","categoryId":"lacteos","categoryName":"Lácteos y refrigerados","subcategoryId":"cremas-leche","subcategoryName":"Cremas de leche UHT y leches","format":"Caja 12 x 1 Litro","image":"images/products/lacteos/OLV-LAC-018.jpg"},
+  {"id":"OLV-LAC-019","sku":"OLV-LAC-019","name":"Leche Evaporada Gloria","brand":"Gloria","categoryId":"lacteos","categoryName":"Lácteos y refrigerados","subcategoryId":"condensadas-manjar","subcategoryName":"Condensadas, evaporadas y manjar","format":"Lata [gramaje por confirmar]","image":"images/products/lacteos/OLV-LAC-019.jpg"},
+  {"id":"OLV-LAC-020","sku":"OLV-LAC-020","name":"Leche Condensada Nestlé Bolsa 6 KG","brand":"Nestlé","categoryId":"lacteos","categoryName":"Lácteos y refrigerados","subcategoryId":"condensadas-manjar","subcategoryName":"Condensadas, evaporadas y manjar","format":"Bolsa 6 Kg","image":"images/products/lacteos/OLV-LAC-020.jpg"},
+  {"id":"OLV-LAC-021","sku":"OLV-LAC-021","name":"Manjar Nestlé 1 KG","brand":"Nestlé","categoryId":"lacteos","categoryName":"Lácteos y refrigerados","subcategoryId":"condensadas-manjar","subcategoryName":"Condensadas, evaporadas y manjar","format":"Envase 1 Kg","image":"images/products/lacteos/OLV-LAC-021.jpg"},
+  {"id":"OLV-LAC-022","sku":"OLV-LAC-022","name":"Manjar Colún 1 KG","brand":"Colún","categoryId":"lacteos","categoryName":"Lácteos y refrigerados","subcategoryId":"condensadas-manjar","subcategoryName":"Condensadas, evaporadas y manjar","format":"Envase 1 Kg","image":"images/products/lacteos/OLV-LAC-022.jpg"},
+  {"id":"OLV-LAC-023","sku":"OLV-LAC-023","name":"Manjar Los Alerces 1 KG","brand":"Fundo Los Alerces","categoryId":"lacteos","categoryName":"Lácteos y refrigerados","subcategoryId":"condensadas-manjar","subcategoryName":"Condensadas, evaporadas y manjar","format":"Envase 1 Kg","image":"images/products/lacteos/OLV-LAC-023.jpg"},
+  {"id":"OLV-LAC-024","sku":"OLV-LAC-024","name":"Mantequilla Sin Sal Surlat (Caja 25 KG)","brand":"Surlat","categoryId":"lacteos","categoryName":"Lácteos y refrigerados","subcategoryId":"mantequillas","subcategoryName":"Mantequillas y margarinas","format":"Caja 25 Kg","image":""},
+  {"id":"OLV-LAC-025","sku":"OLV-LAC-025","name":"Mantequilla Colún Porción Sachet (Caja 200 unidades)","brand":"Colún","categoryId":"lacteos","categoryName":"Lácteos y refrigerados","subcategoryId":"mantequillas","subcategoryName":"Mantequillas y margarinas","format":"Caja 200 sachets","image":"images/products/lacteos/OLV-LAC-025.jpg"},
+  {"id":"OLV-LAC-026","sku":"OLV-LAC-026","name":"Mantequilla Tonadita Sachet 10 GR (Caja 300 unidades)","brand":"Tonadita","categoryId":"lacteos","categoryName":"Lácteos y refrigerados","subcategoryId":"mantequillas","subcategoryName":"Mantequillas y margarinas","format":"Caja 300 x 10 g","image":"images/products/lacteos/OLV-LAC-026.jpg"},
+  {"id":"OLV-LAC-027","sku":"OLV-LAC-027","name":"Mantequilla Sin Sal Tonadita 5 KG","brand":"Tonadita","categoryId":"lacteos","categoryName":"Lácteos y refrigerados","subcategoryId":"mantequillas","subcategoryName":"Mantequillas y margarinas","format":"Bloque 5 Kg","image":"images/products/lacteos/OLV-LAC-027.jpg"},
+  {"id":"OLV-LAC-028","sku":"OLV-LAC-028","name":"Margarina 100% Vegetal Quillayes 1 KG","brand":"Quillayes","categoryId":"lacteos","categoryName":"Lácteos y refrigerados","subcategoryId":"mantequillas","subcategoryName":"Mantequillas y margarinas","format":"Envase 1 Kg","image":"images/products/lacteos/OLV-LAC-028.jpg"},
+  {"id":"OLV-LAC-029","sku":"OLV-LAC-029","name":"Queso Mozzarella Granulado 2 KG","brand":"","categoryId":"lacteos","categoryName":"Lácteos y refrigerados","subcategoryId":"quesos-maduros","subcategoryName":"Mozzarella, parmesano y maduros","format":"Bolsa 2 Kg","image":"images/products/lacteos/OLV-LAC-029.jpg"},
+  {"id":"OLV-LAC-030","sku":"OLV-LAC-030","name":"Queso Rayado Surlat 1 KG","brand":"Surlat","categoryId":"lacteos","categoryName":"Lácteos y refrigerados","subcategoryId":"quesos-maduros","subcategoryName":"Mozzarella, parmesano y maduros","format":"Bolsa 1 Kg","image":"images/products/lacteos/OLV-LAC-030.jpg"},
+  {"id":"OLV-LAC-031","sku":"OLV-LAC-031","name":"Queso Rayado Colún 2 KG","brand":"Colún","categoryId":"lacteos","categoryName":"Lácteos y refrigerados","subcategoryId":"quesos-maduros","subcategoryName":"Mozzarella, parmesano y maduros","format":"Bolsa 2 Kg","image":"images/products/lacteos/OLV-LAC-031.jpg"},
+  {"id":"OLV-LAC-032","sku":"OLV-LAC-032","name":"Queso Parmesano Reggianito Colún Pieza 8,3 KG aprox.","brand":"Colún","categoryId":"lacteos","categoryName":"Lácteos y refrigerados","subcategoryId":"quesos-maduros","subcategoryName":"Mozzarella, parmesano y maduros","format":"Pieza 8,3 Kg aprox.","image":"images/products/lacteos/OLV-LAC-032.jpg"},
+  {"id":"OLV-LAC-033","sku":"OLV-LAC-033","name":"Queso Cheddar Laminado Schreiber 2,27 KG","brand":"Schreiber","categoryId":"lacteos","categoryName":"Lácteos y refrigerados","subcategoryId":"quesos-maduros","subcategoryName":"Mozzarella, parmesano y maduros","format":"Paquete 2,27 Kg","image":"images/products/lacteos/OLV-LAC-033.jpg"},
+  {"id":"OLV-LAC-034","sku":"OLV-LAC-034","name":"Queso Gouda Llifén Colún Barra 9,55 KG","brand":"Colún","categoryId":"lacteos","categoryName":"Lácteos y refrigerados","subcategoryId":"quesos-maduros","subcategoryName":"Mozzarella, parmesano y maduros","format":"Barra 9,55 Kg","image":"images/products/lacteos/OLV-LAC-034.jpg"},
+  {"id":"OLV-ASE-031","sku":"OLV-ASE-031","name":"Servilleta de Mesa Económica Okey 31 x 30 (Pack 10 x 200)","brand":"Okey","categoryId":"limpieza","categoryName":"Limpieza y aseo","subcategoryId":"papeleria-servilletas","subcategoryName":"Papel jumbo, toalla y servilletas","format":"Caja 2.000 unidades","image":"images/products/limpieza/OLV-ASE-031.jpg"},
+  {"id":"OLV-ASE-032","sku":"OLV-ASE-032","name":"Servilleta Cocktail Slogo 24 x 23 (Pack 12 x 200)","brand":"Slogo","categoryId":"limpieza","categoryName":"Limpieza y aseo","subcategoryId":"papeleria-servilletas","subcategoryName":"Papel jumbo, toalla y servilletas","format":"Caja 2.400 unidades","image":"images/products/limpieza/OLV-ASE-032.jpg"},
+  {"id":"OLV-ASE-033","sku":"OLV-ASE-033","name":"Servilleta Lunch (Caja 10.000 unidades)","brand":"","categoryId":"limpieza","categoryName":"Limpieza y aseo","subcategoryId":"papeleria-servilletas","subcategoryName":"Papel jumbo, toalla y servilletas","format":"Caja 10.000 unidades","image":"images/products/limpieza/OLV-ASE-033.jpg"},
+  {"id":"OLV-ASE-034","sku":"OLV-ASE-034","name":"Servilleta Duni 40 x 40 (Sin doblar y doblada)","brand":"Duni","categoryId":"limpieza","categoryName":"Limpieza y aseo","subcategoryId":"papeleria-servilletas","subcategoryName":"Papel jumbo, toalla y servilletas","format":"","image":"images/products/limpieza/OLV-ASE-034.jpg"},
+  {"id":"OLV-ASE-035","sku":"OLV-ASE-035","name":"Toalla Absorbente OK Resistente 2 x 250 MTS","brand":"OK","categoryId":"limpieza","categoryName":"Limpieza y aseo","subcategoryId":"papeleria-servilletas","subcategoryName":"Papel jumbo, toalla y servilletas","format":"Pack 2 rollos x 250 m (2,27 Kg aprox.)","image":"images/products/limpieza/OLV-ASE-035.jpg"},
+  {"id":"OLV-ASE-036","sku":"OLV-ASE-036","name":"Papel Higiénico Jumbo 5 x 400 MTS","brand":"","categoryId":"limpieza","categoryName":"Limpieza y aseo","subcategoryId":"papeleria-servilletas","subcategoryName":"Papel jumbo, toalla y servilletas","format":"Fardo 5 rollos x 400 m","image":"images/products/limpieza/OLV-ASE-036.jpg"},
+  {"id":"OLV-ASE-037","sku":"OLV-ASE-037","name":"Papel Higiénico Confort 30 MTS (Manga 48 unidades)","brand":"Confort","categoryId":"limpieza","categoryName":"Limpieza y aseo","subcategoryId":"papeleria-servilletas","subcategoryName":"Papel jumbo, toalla y servilletas","format":"Manga 48 rollos","image":"images/products/limpieza/OLV-ASE-037.jpg"},
+  {"id":"OLV-ASE-038","sku":"OLV-ASE-038","name":"Papel Toalla Interfoliada Simple (Caja 18 x 250)","brand":"","categoryId":"limpieza","categoryName":"Limpieza y aseo","subcategoryId":"papeleria-servilletas","subcategoryName":"Papel jumbo, toalla y servilletas","format":"Caja 18 paquetes x 250 unidades","image":"images/products/limpieza/OLV-ASE-038.jpg"},
+  {"id":"OLV-ASE-039","sku":"OLV-ASE-039","name":"Bolsas de Basura 50x70 (10 unidades)","brand":"","categoryId":"limpieza","categoryName":"Limpieza y aseo","subcategoryId":"bolsas-aseo","subcategoryName":"Bolsas de aseo alta densidad","format":"Paquete 10 bolsas","image":"images/products/limpieza/OLV-ASE-039.jpg"},
+  {"id":"OLV-ASE-040","sku":"OLV-ASE-040","name":"Bolsas de Basura 70x90 (10 unidades)","brand":"","categoryId":"limpieza","categoryName":"Limpieza y aseo","subcategoryId":"bolsas-aseo","subcategoryName":"Bolsas de aseo alta densidad","format":"Paquete 10 bolsas","image":"images/products/limpieza/OLV-ASE-040.jpg"},
+  {"id":"OLV-ASE-041","sku":"OLV-ASE-041","name":"Pala Plástica con Mango","brand":"","categoryId":"limpieza","categoryName":"Limpieza y aseo","subcategoryId":"accesorios-aseo","subcategoryName":"Paños, esponjas, escobas y mopas","format":"Unidad","image":"images/products/limpieza/OLV-ASE-041.jpg"},
+  {"id":"OLV-ASE-042","sku":"OLV-ASE-042","name":"Mopa de Algodón","brand":"","categoryId":"limpieza","categoryName":"Limpieza y aseo","subcategoryId":"accesorios-aseo","subcategoryName":"Paños, esponjas, escobas y mopas","format":"Unidad","image":"images/products/limpieza/OLV-ASE-042.jpg"},
+  {"id":"OLV-ASE-043","sku":"OLV-ASE-043","name":"Escobillón","brand":"","categoryId":"limpieza","categoryName":"Limpieza y aseo","subcategoryId":"accesorios-aseo","subcategoryName":"Paños, esponjas, escobas y mopas","format":"Unidad","image":"images/products/limpieza/OLV-ASE-043.jpg"},
+  {"id":"OLV-ASE-044","sku":"OLV-ASE-044","name":"Escoba con Mango","brand":"","categoryId":"limpieza","categoryName":"Limpieza y aseo","subcategoryId":"accesorios-aseo","subcategoryName":"Paños, esponjas, escobas y mopas","format":"Unidad","image":"images/products/limpieza/OLV-ASE-044.jpg"},
+  {"id":"OLV-ASE-045","sku":"OLV-ASE-045","name":"Trapero Húmedo Multiuso Ultra Clean 40 x 60 (Paquete 13 unidades)","brand":"Ultra Clean","categoryId":"limpieza","categoryName":"Limpieza y aseo","subcategoryId":"accesorios-aseo","subcategoryName":"Paños, esponjas, escobas y mopas","format":"Paquete 13 (Naranja, Lavanda, Manzana, Limón)","image":"images/products/limpieza/OLV-ASE-045.jpg"},
+  {"id":"OLV-ASE-046","sku":"OLV-ASE-046","name":"Lavaloza Concentrado OKey Bidón 5 LT","brand":"OKey","categoryId":"limpieza","categoryName":"Limpieza y aseo","subcategoryId":"quimicos-limpieza","subcategoryName":"Lavalozas, desengrasantes y cloro","format":"Bidón 5 Litros","image":"images/products/limpieza/OLV-ASE-046.jpg"},
+  {"id":"OLV-ASE-047","sku":"OLV-ASE-047","name":"Limpiavidrios OKey Bidón 5 LT","brand":"OKey","categoryId":"limpieza","categoryName":"Limpieza y aseo","subcategoryId":"quimicos-limpieza","subcategoryName":"Lavalozas, desengrasantes y cloro","format":"Bidón 5 Litros","image":"images/products/limpieza/OLV-ASE-047.jpg"},
+  {"id":"OLV-ASE-048","sku":"OLV-ASE-048","name":"Limpiavidrios Mr. Rob Bidón 5 LT","brand":"Mr. Rob","categoryId":"limpieza","categoryName":"Limpieza y aseo","subcategoryId":"quimicos-limpieza","subcategoryName":"Lavalozas, desengrasantes y cloro","format":"Bidón 5 Litros","image":"images/products/limpieza/OLV-ASE-048.jpg"},
+  {"id":"OLV-ASE-049","sku":"OLV-ASE-049","name":"Lavaloza Relux Bidón 5 LT","brand":"Relux","categoryId":"limpieza","categoryName":"Limpieza y aseo","subcategoryId":"quimicos-limpieza","subcategoryName":"Lavalozas, desengrasantes y cloro","format":"Bidón 5 Litros","image":"images/products/limpieza/OLV-ASE-049.jpg"},
+  {"id":"OLV-ASE-050","sku":"OLV-ASE-050","name":"Jabón Líquido Relux Bidón 5 LT","brand":"Relux","categoryId":"limpieza","categoryName":"Limpieza y aseo","subcategoryId":"quimicos-limpieza","subcategoryName":"Lavalozas, desengrasantes y cloro","format":"Bidón 5 Litros","image":"images/products/limpieza/OLV-ASE-050.jpg"},
+  {"id":"OLV-ASE-051","sku":"OLV-ASE-051","name":"Limpia Pisos Home Clean Bidón 5 LT","brand":"Home Clean","categoryId":"limpieza","categoryName":"Limpieza y aseo","subcategoryId":"quimicos-limpieza","subcategoryName":"Lavalozas, desengrasantes y cloro","format":"Bidón 5 Litros","image":"images/products/limpieza/OLV-ASE-051.jpg"},
+  {"id":"OLV-ASE-052","sku":"OLV-ASE-052","name":"Desengrasante de Cocina Delimp Bidón 5 LT","brand":"Delimp","categoryId":"limpieza","categoryName":"Limpieza y aseo","subcategoryId":"quimicos-limpieza","subcategoryName":"Lavalozas, desengrasantes y cloro","format":"Bidón 5 Litros","image":"images/products/limpieza/OLV-ASE-052.jpg"},
+  {"id":"OLV-ASE-053","sku":"OLV-ASE-053","name":"Jabón Líquido Elite Almendra Bidón 5 LT","brand":"Elite","categoryId":"limpieza","categoryName":"Limpieza y aseo","subcategoryId":"quimicos-limpieza","subcategoryName":"Lavalozas, desengrasantes y cloro","format":"Bidón 5 Litros","image":"images/products/limpieza/OLV-ASE-053.jpg"},
+  {"id":"OLV-ASE-054","sku":"OLV-ASE-054","name":"Pastillas Desinfectantes para Estanque Teddy (Pack 3)","brand":"Teddy","categoryId":"limpieza","categoryName":"Limpieza y aseo","subcategoryId":"quimicos-limpieza","subcategoryName":"Lavalozas, desengrasantes y cloro","format":"Pack 3 pastillas","image":"images/products/limpieza/OLV-ASE-054.jpg"},
+  {"id":"OLV-ASE-055","sku":"OLV-ASE-055","name":"Desodorante para Inodoro Teddy","brand":"Teddy","categoryId":"limpieza","categoryName":"Limpieza y aseo","subcategoryId":"quimicos-limpieza","subcategoryName":"Lavalozas, desengrasantes y cloro","format":"Unidad 45 g (varios aromas)","image":"images/products/limpieza/OLV-ASE-055.jpg"},
+  {"id":"OLV-ASE-056","sku":"OLV-ASE-056","name":"Limpiador en Crema Cif 750 CC","brand":"Cif","categoryId":"limpieza","categoryName":"Limpieza y aseo","subcategoryId":"quimicos-limpieza","subcategoryName":"Lavalozas, desengrasantes y cloro","format":"Botella 750 cc","image":"images/products/limpieza/OLV-ASE-056.jpg"},
+  {"id":"OLV-ASE-057","sku":"OLV-ASE-057","name":"Limpiador en Crema Teddy 750 CC","brand":"Teddy","categoryId":"limpieza","categoryName":"Limpieza y aseo","subcategoryId":"quimicos-limpieza","subcategoryName":"Lavalozas, desengrasantes y cloro","format":"Botella 750 cc","image":"images/products/limpieza/OLV-ASE-057.jpg"},
+  {"id":"OLV-ASE-058","sku":"OLV-ASE-058","name":"Cera Incolora Brillina 340 CC","brand":"Brillina","categoryId":"limpieza","categoryName":"Limpieza y aseo","subcategoryId":"quimicos-limpieza","subcategoryName":"Lavalozas, desengrasantes y cloro","format":"Doypack 340 cc","image":"images/products/limpieza/OLV-ASE-058.jpg"},
+  {"id":"OLV-ASE-059","sku":"OLV-ASE-059","name":"Lustra Muebles en Crema Excell","brand":"Excell","categoryId":"limpieza","categoryName":"Limpieza y aseo","subcategoryId":"quimicos-limpieza","subcategoryName":"Lavalozas, desengrasantes y cloro","format":"Botella [ml por confirmar]","image":"images/products/limpieza/OLV-ASE-059.jpg"},
+  {"id":"OLV-ASE-060","sku":"OLV-ASE-060","name":"Desodorante Ambiental Arom","brand":"Arom","categoryId":"limpieza","categoryName":"Limpieza y aseo","subcategoryId":"quimicos-limpieza","subcategoryName":"Lavalozas, desengrasantes y cloro","format":"Aerosol [ml por confirmar]","image":"images/products/limpieza/OLV-ASE-060.jpg"},
+  {"id":"OLV-ASE-061","sku":"OLV-ASE-061","name":"Insecticida Killer Mata Todo 560 CC","brand":"Killer","categoryId":"limpieza","categoryName":"Limpieza y aseo","subcategoryId":"quimicos-limpieza","subcategoryName":"Lavalozas, desengrasantes y cloro","format":"Aerosol 560 cc","image":"images/products/limpieza/OLV-ASE-061.jpg"},
+  {"id":"OLV-ASE-062","sku":"OLV-ASE-062","name":"Desengrasante Pesado Industrial Ecol D-2000 Bidón 5 LT","brand":"Ecol Químicos","categoryId":"limpieza","categoryName":"Limpieza y aseo","subcategoryId":"quimicos-limpieza","subcategoryName":"Lavalozas, desengrasantes y cloro","format":"Bidón industrial 5 Litros","image":"images/products/limpieza/OLV-ASE-062.jpg"},
+  {"id":"OLV-ASE-063","sku":"OLV-ASE-063","name":"Limpiador Desinfectante de Pisos Don Tito Lavanda 5 LT","brand":"Don Tito","categoryId":"limpieza","categoryName":"Limpieza y aseo","subcategoryId":"quimicos-limpieza","subcategoryName":"Lavalozas, desengrasantes y cloro","format":"Bidón 5 Litros","image":"images/products/limpieza/OLV-ASE-063.jpg"},
+  {"id":"OLV-INS-014","sku":"OLV-INS-014","name":"Rollo Térmico 40x50 (Caja 24 unidades)","brand":"","categoryId":"insumos","categoryName":"Insumos para restaurantes","subcategoryId":"rollos-termicos","subcategoryName":"Rollos térmicos POS y comandas","format":"Caja 24 rollos","image":"images/products/insumos/OLV-INS-014.jpg"},
+  {"id":"OLV-INS-015","sku":"OLV-INS-015","name":"Rollo Térmico (Pack 10 unidades)","brand":"","categoryId":"insumos","categoryName":"Insumos para restaurantes","subcategoryId":"rollos-termicos","subcategoryName":"Rollos térmicos POS y comandas","format":"Pack 10 rollos","image":"images/products/insumos/OLV-INS-015.jpg"},
+  {"id":"OLV-INS-016","sku":"OLV-INS-016","name":"Bombillas de Papel Bicolor 8 x 8 (10 x 100 unidades)","brand":"","categoryId":"insumos","categoryName":"Insumos para restaurantes","subcategoryId":"envases-delivery","subcategoryName":"Envases, bowls, vasos y bombillas","format":"Pack 10 x 100 bombillas","image":"images/products/insumos/OLV-INS-016.jpg"},
+  {"id":"OLV-INS-017","sku":"OLV-INS-017","name":"Bombillas de Papel Negras (Caja 5.000 unidades)","brand":"","categoryId":"insumos","categoryName":"Insumos para restaurantes","subcategoryId":"envases-delivery","subcategoryName":"Envases, bowls, vasos y bombillas","format":"Caja 5.000 bombillas","image":"images/products/insumos/OLV-INS-017.jpg"},
+  {"id":"OLV-INS-018","sku":"OLV-INS-018","name":"Pote Salsero 4 OZ (1.000 unidades)","brand":"","categoryId":"insumos","categoryName":"Insumos para restaurantes","subcategoryId":"envases-delivery","subcategoryName":"Envases, bowls, vasos y bombillas","format":"Caja 1.000 unidades","image":"images/products/insumos/OLV-INS-018.jpg"},
+  {"id":"OLV-INS-019","sku":"OLV-INS-019","name":"Pote Salsero 0,2 OZ (2.500 unidades)","brand":"","categoryId":"insumos","categoryName":"Insumos para restaurantes","subcategoryId":"envases-delivery","subcategoryName":"Envases, bowls, vasos y bombillas","format":"Caja 2.500 unidades","image":"images/products/insumos/OLV-INS-019.jpg"},
+  {"id":"OLV-INS-020","sku":"OLV-INS-020","name":"Pote Salsero 1,5 OZ (2.500 unidades)","brand":"","categoryId":"insumos","categoryName":"Insumos para restaurantes","subcategoryId":"envases-delivery","subcategoryName":"Envases, bowls, vasos y bombillas","format":"Caja 2.500 unidades","image":"images/products/insumos/OLV-INS-020.jpg"},
+  {"id":"OLV-INS-021","sku":"OLV-INS-021","name":"Envase Plumavit Chorrillana CT1 (Pack 100 unidades)","brand":"","categoryId":"insumos","categoryName":"Insumos para restaurantes","subcategoryId":"envases-delivery","subcategoryName":"Envases, bowls, vasos y bombillas","format":"Pack 100 envases","image":"images/products/insumos/OLV-INS-021.jpg"},
+  {"id":"OLV-INS-022","sku":"OLV-INS-022","name":"Envase Plumavit Menú (Pack 200 unidades)","brand":"","categoryId":"insumos","categoryName":"Insumos para restaurantes","subcategoryId":"envases-delivery","subcategoryName":"Envases, bowls, vasos y bombillas","format":"Pack 200 envases","image":"images/products/insumos/OLV-INS-022.jpg"},
+  {"id":"OLV-INS-023","sku":"OLV-INS-023","name":"Bowl Kraft 1300 CC (Caja 300 unidades)","brand":"","categoryId":"insumos","categoryName":"Insumos para restaurantes","subcategoryId":"envases-delivery","subcategoryName":"Envases, bowls, vasos y bombillas","format":"Caja 300 bowls","image":"images/products/insumos/OLV-INS-023.jpg"},
+  {"id":"OLV-INS-024","sku":"OLV-INS-024","name":"Tapa para Bowl Kraft 1300 CC (Caja 300 unidades)","brand":"","categoryId":"insumos","categoryName":"Insumos para restaurantes","subcategoryId":"envases-delivery","subcategoryName":"Envases, bowls, vasos y bombillas","format":"Caja 300 tapas","image":""},
+  {"id":"OLV-INS-025","sku":"OLV-INS-025","name":"Tapa para Bowl Kraft 1000 CC (Caja 300 unidades)","brand":"","categoryId":"insumos","categoryName":"Insumos para restaurantes","subcategoryId":"envases-delivery","subcategoryName":"Envases, bowls, vasos y bombillas","format":"Caja 300 tapas","image":""},
+  {"id":"OLV-INS-026","sku":"OLV-INS-026","name":"Bowl Kraft 600 CC (Caja 400 unidades)","brand":"","categoryId":"insumos","categoryName":"Insumos para restaurantes","subcategoryId":"envases-delivery","subcategoryName":"Envases, bowls, vasos y bombillas","format":"Caja 400 bowls","image":"images/products/insumos/OLV-INS-026.jpg"},
+  {"id":"OLV-INS-027","sku":"OLV-INS-027","name":"Tapa para Bowl Kraft 600 CC (Caja 400 unidades)","brand":"","categoryId":"insumos","categoryName":"Insumos para restaurantes","subcategoryId":"envases-delivery","subcategoryName":"Envases, bowls, vasos y bombillas","format":"Caja 400 tapas","image":""},
+  {"id":"OLV-INS-028","sku":"OLV-INS-028","name":"Saco Kraft con Asa 28 x 28 x 15 (Caja 500 unidades)","brand":"","categoryId":"insumos","categoryName":"Insumos para restaurantes","subcategoryId":"bolsas-sacos","subcategoryName":"Bolsas, sacos kraft y aluminio","format":"Caja 500 sacos","image":"images/products/insumos/OLV-INS-028.jpg"},
+  {"id":"OLV-INS-029","sku":"OLV-INS-029","name":"Saco Kraft con Asa 35 x 32 x 18 (Caja 200 unidades)","brand":"","categoryId":"insumos","categoryName":"Insumos para restaurantes","subcategoryId":"bolsas-sacos","subcategoryName":"Bolsas, sacos kraft y aluminio","format":"Caja 200 sacos","image":"images/products/insumos/OLV-INS-029.jpg"},
+  {"id":"OLV-INS-030","sku":"OLV-INS-030","name":"Saco Kraft Café T-100 (Caja 1.000 unidades)","brand":"","categoryId":"insumos","categoryName":"Insumos para restaurantes","subcategoryId":"bolsas-sacos","subcategoryName":"Bolsas, sacos kraft y aluminio","format":"Caja 1.000 · 12 x 22,3 cm","image":"images/products/insumos/OLV-INS-030.jpg"},
+  {"id":"OLV-INS-031","sku":"OLV-INS-031","name":"Saco Kraft Café T-200 (Caja 1.000 unidades)","brand":"","categoryId":"insumos","categoryName":"Insumos para restaurantes","subcategoryId":"bolsas-sacos","subcategoryName":"Bolsas, sacos kraft y aluminio","format":"Caja 1.000 · 14,4 x 27,5 cm","image":"images/products/insumos/OLV-INS-031.jpg"},
+  {"id":"OLV-INS-032","sku":"OLV-INS-032","name":"Saco Kraft Café T-300 (Caja 1.000 unidades)","brand":"","categoryId":"insumos","categoryName":"Insumos para restaurantes","subcategoryId":"bolsas-sacos","subcategoryName":"Bolsas, sacos kraft y aluminio","format":"Caja 1.000 · 16 x 35 cm","image":"images/products/insumos/OLV-INS-032.jpg"},
+  {"id":"OLV-INS-033","sku":"OLV-INS-033","name":"Saco Kraft Café T-400 (Caja 500 unidades)","brand":"","categoryId":"insumos","categoryName":"Insumos para restaurantes","subcategoryId":"bolsas-sacos","subcategoryName":"Bolsas, sacos kraft y aluminio","format":"Caja 500 · 18,1 x 36,2 cm","image":"images/products/insumos/OLV-INS-033.jpg"},
+  {"id":"OLV-INS-034","sku":"OLV-INS-034","name":"Saco Kraft Café T-500 (Caja 500 unidades)","brand":"","categoryId":"insumos","categoryName":"Insumos para restaurantes","subcategoryId":"bolsas-sacos","subcategoryName":"Bolsas, sacos kraft y aluminio","format":"Caja 500 · 19 x 41 cm","image":"images/products/insumos/OLV-INS-034.jpg"},
+  {"id":"OLV-INS-035","sku":"OLV-INS-035","name":"Saco Kraft Café T-700 (Caja 500 unidades)","brand":"","categoryId":"insumos","categoryName":"Insumos para restaurantes","subcategoryId":"bolsas-sacos","subcategoryName":"Bolsas, sacos kraft y aluminio","format":"Caja 500 · 27 x 47,3 cm","image":"images/products/insumos/OLV-INS-035.jpg"},
+  {"id":"OLV-INS-036","sku":"OLV-INS-036","name":"Bolsa Prepicada 40 x 80 (Rollo)","brand":"","categoryId":"insumos","categoryName":"Insumos para restaurantes","subcategoryId":"bolsas-sacos","subcategoryName":"Bolsas, sacos kraft y aluminio","format":"Rollo","image":"images/products/insumos/OLV-INS-036.jpg"},
+  {"id":"OLV-INS-037","sku":"OLV-INS-037","name":"Bolsa Prepicada 30 x 40 (Rollo)","brand":"","categoryId":"insumos","categoryName":"Insumos para restaurantes","subcategoryId":"bolsas-sacos","subcategoryName":"Bolsas, sacos kraft y aluminio","format":"Rollo","image":"images/products/insumos/OLV-INS-037.jpg"},
+  {"id":"OLV-INS-038","sku":"OLV-INS-038","name":"Bolsa Porcionadora Prepicada 20 x 30 (Rollo 8 KG)","brand":"","categoryId":"insumos","categoryName":"Insumos para restaurantes","subcategoryId":"bolsas-sacos","subcategoryName":"Bolsas, sacos kraft y aluminio","format":"Rollo 8 Kg","image":"images/products/insumos/OLV-INS-038.jpg"},
+  {"id":"OLV-INS-039","sku":"OLV-INS-039","name":"Papel Aluminio 100 MTS","brand":"","categoryId":"insumos","categoryName":"Insumos para restaurantes","subcategoryId":"bolsas-sacos","subcategoryName":"Bolsas, sacos kraft y aluminio","format":"Rollo 100 m en caja","image":"images/products/insumos/OLV-INS-039.jpg"}
+];
+
+// Detalle técnico del catálogo anterior (63 SKU). Se usa solo si coinciden SKU y marca.
+const FICHAS_DETALLE = [
   // ==========================================
   // ALIMENTOS Y ABARROTES
   // ==========================================
   {
-    id: "prod-001",
     sku: "OLV-ALM-001",
     name: "Aceite para Freír Don Maravilla 5 LT",
     brand: "Don Maravilla",
@@ -112,10 +401,8 @@ const INITIAL_PRODUCTS = [
     categoryName: "Alimentos y Abarrotes",
     subcategoryId: "aceites",
     subcategoryName: "Aceites y Fritura Profunda",
-    collections: ["top-sellers", "horeca-esencial"],
     format: "Bidón 5 Litros (Caja 4 unidades)",
     unit: "Bidón / Caja",
-    minOrder: 1,
     description: "Aceite formulado especialmente para frituras profundas de alto rendimiento y resistencia térmica. No transfiere sabores ni olores no deseados. Ideal para restaurantes, locales de sushi y empanadas.",
     specs: {
       "Contenido": "5 Litros por bidón",
@@ -123,11 +410,8 @@ const INITIAL_PRODUCTS = [
       "Punto de humo": "220°C alto rendimiento",
       "Origen": "Nacional (Chile)"
     },
-    image: "images/products/alimentos/OLV-ALM-001.jpg",
-    inStock: true
   },
   {
-    id: "prod-002",
     sku: "OLV-ALM-002",
     name: "Aceite para Freír MaxiFrits Maravilla 10 LT",
     brand: "MaxiFrits",
@@ -135,10 +419,8 @@ const INITIAL_PRODUCTS = [
     categoryName: "Alimentos y Abarrotes",
     subcategoryId: "aceites",
     subcategoryName: "Aceites y Fritura Profunda",
-    collections: ["horeca-esencial", "gran-volumen"],
     format: "Bidón industrial 10 Litros",
     unit: "Bidón",
-    minOrder: 1,
     description: "Formulación profesional de máxima durabilidad para freidoras continuas industriales. Mayor vida útil entre cambios de aceite, reduciendo costos operativos por servicio.",
     specs: {
       "Contenido": "10 Litros",
@@ -146,11 +428,8 @@ const INITIAL_PRODUCTS = [
       "Aplicación": "Freidoras industriales B2B",
       "Estabilidad": "Ultra resistente a la oxidación"
     },
-    image: "images/products/alimentos/OLV-ALM-002.jpg",
-    inStock: true
   },
   {
-    id: "prod-003",
     sku: "OLV-ALM-003",
     name: "Aceite Vegetal Coliseo 900 ML (Caja 15 unidades)",
     brand: "Coliseo",
@@ -158,21 +437,16 @@ const INITIAL_PRODUCTS = [
     categoryName: "Alimentos y Abarrotes",
     subcategoryId: "aceites",
     subcategoryName: "Aceites y Fritura Profunda",
-    collections: ["almacenes-minimarkets"],
     format: "Caja máster de 15 botellas x 900 ml",
     unit: "Caja 15 Botellas",
-    minOrder: 1,
     description: "Aceite vegetal multiuso 100% puro, ideal para cocción diaria, salteados y ensaladas. Excelente rotación para minimarkets, casinos y cocinas institucionales.",
     specs: {
       "Presentación": "Botellas PET 900 ml",
       "Contenido por caja": "15 unidades (13.5L totales)",
       "Uso recomendado": "Salteados, sofritos y preparaciones calientes"
     },
-    image: "images/products/alimentos/OLV-ALM-003.jpg",
-    inStock: true
   },
   {
-    id: "prod-004",
     sku: "OLV-ALM-004",
     name: "Aceite Oliva Extra Virgen Sabattini 5 LT",
     brand: "Sabattini",
@@ -180,10 +454,8 @@ const INITIAL_PRODUCTS = [
     categoryName: "Alimentos y Abarrotes",
     subcategoryId: "aceites",
     subcategoryName: "Aceites y Fritura Profunda",
-    collections: ["gourmet-premium", "top-sellers"],
     format: "Bidón 5 Litros (Caja 4 unidades)",
     unit: "Bidón / Caja",
-    minOrder: 1,
     description: "Aceite de oliva extra virgen de primera presión en frío. Acidez inferior al 0.3%, aroma afrutado mediterráneo con notas de hierba fresca. Perfecto para restaurantes gourmet y pastas finas.",
     specs: {
       "Contenido": "5 Litros",
@@ -191,11 +463,8 @@ const INITIAL_PRODUCTS = [
       "Extracción": "Primera prensada en frío",
       "Calidad": "Extra Virgen Gourmet"
     },
-    image: "images/products/alimentos/OLV-ALM-004.jpg",
-    inStock: true
   },
   {
-    id: "prod-005",
     sku: "OLV-ALM-005",
     name: "Arroz Grano Corto Arborio Roma 1 KG",
     brand: "Roma",
@@ -203,21 +472,16 @@ const INITIAL_PRODUCTS = [
     categoryName: "Alimentos y Abarrotes",
     subcategoryId: "arroces",
     subcategoryName: "Arroces y Granos Especiales",
-    collections: ["gourmet-premium"],
     format: "Caja / Paquete 1 Kg al vacío",
     unit: "Paquete 1 Kg",
-    minOrder: 5,
     description: "Arroz variedad Arborio seleccionado de grano grueso y alto contenido de amilosa. Desarrolla la cremosidad exacta requerida para risottos y preparaciones de alta cocina italiana.",
     specs: {
       "Variedad": "Arborio Italiano",
       "Formato": "1 Kilogramo al vacío",
       "Rendimiento": "Excelente absorción de caldos"
     },
-    image: "images/products/alimentos/OLV-ALM-005.jpg",
-    inStock: true
   },
   {
-    id: "prod-006",
     sku: "OLV-ALM-006",
     name: "Arroz Grano Largo Coliseo G2 1 KG (Display 10 KG)",
     brand: "Coliseo",
@@ -225,21 +489,16 @@ const INITIAL_PRODUCTS = [
     categoryName: "Alimentos y Abarrotes",
     subcategoryId: "arroces",
     subcategoryName: "Arroces y Granos Especiales",
-    collections: ["horeca-esencial"],
     format: "Bolsa 1 Kg (Fardo display de 10 paquetes)",
     unit: "Display 10 Kg",
-    minOrder: 1,
     description: "Arroz Grano Largo Grado 2 de grano parejo y cocción suelta garantizada. El insumo más confiable para guarniciones en casinos, rotiserías y restaurantes.",
     specs: {
       "Grado": "Grado 2 seleccionado",
       "Presentación": "Fardo 10 unidades x 1 Kg",
       "Punto de cocción": "Grano blanco, firme y suelto"
     },
-    image: "images/products/alimentos/OLV-ALM-006.jpg",
-    inStock: true
   },
   {
-    id: "prod-007",
     sku: "OLV-ALM-007",
     name: "Harina de Trigo Mont Blanc Con Polvos 1 KG (Fardo 10 KG)",
     brand: "Mont Blanc",
@@ -247,21 +506,16 @@ const INITIAL_PRODUCTS = [
     categoryName: "Alimentos y Abarrotes",
     subcategoryId: "pastas-harinas",
     subcategoryName: "Pastas, Harinas y Masas",
-    collections: ["panaderia-pizzeria"],
     format: "Fardo 10 paquetes x 1 Kg",
     unit: "Fardo 10 Kg",
-    minOrder: 1,
     description: "Harina refinada extra blanca con agentes leudantes dosificados de fábrica de manera homogénea. Formulada para bizcochuelos, masas dulces, empanadas y repostería uniforme.",
     specs: {
       "Tipo": "Con agentes leudantes equilibrados",
       "Empaque": "10 paquetes de 1 Kg",
       "Humedad": "Máx 14.5%"
     },
-    image: "images/products/alimentos/OLV-ALM-007.jpg",
-    inStock: true
   },
   {
-    id: "prod-008",
     sku: "OLV-ALM-008",
     name: "Harina de Trigo Mont Blanc Sin Polvos 1 KG (Fardo 10 KG)",
     brand: "Mont Blanc",
@@ -269,21 +523,16 @@ const INITIAL_PRODUCTS = [
     categoryName: "Alimentos y Abarrotes",
     subcategoryId: "pastas-harinas",
     subcategoryName: "Pastas, Harinas y Masas",
-    collections: ["panaderia-pizzeria", "horeca-esencial"],
     format: "Fardo 10 paquetes x 1 Kg",
     unit: "Fardo 10 Kg",
-    minOrder: 1,
     description: "Harina de trigo pura sin leudantes, de excelente fuerza de gluten para panificación artesanal, masas de pizza, pastas frescas y tempuras crujientes.",
     specs: {
       "Tipo": "Sin polvos de hornear",
       "Empaque": "Fardo de 10 paquetes x 1 Kg",
       "Gluten": "Óptimo para elasticidad y estructura"
     },
-    image: "images/products/alimentos/OLV-ALM-008.jpg",
-    inStock: true
   },
   {
-    id: "prod-009",
     sku: "OLV-ALM-009",
     name: "Spaghetti Tradicional Don Giuseppe 400 GR (Caja 20 unidades)",
     brand: "Don Giuseppe",
@@ -291,21 +540,16 @@ const INITIAL_PRODUCTS = [
     categoryName: "Alimentos y Abarrotes",
     subcategoryId: "pastas-harinas",
     subcategoryName: "Pastas, Harinas y Masas",
-    collections: ["horeca-esencial"],
     format: "Caja máster de 20 paquetes x 400g",
     unit: "Caja 20 Unidades",
-    minOrder: 1,
     description: "Pasta elaborada con sémola de trigo candeal seleccionado. Mantiene el punto al dente sin ablandarse ni apelmazarse en el mantenimiento de buffet y servicios de alto tráfico.",
     specs: {
       "Variedad": "Spaghetti N°5",
       "Sémola": "100% Trigo candeal durüm",
       "Contenido por caja": "20 paquetes de 400 gramos (8 Kg)"
     },
-    image: "images/products/alimentos/OLV-ALM-009.jpg",
-    inStock: true
   },
   {
-    id: "prod-010",
     sku: "OLV-ALM-010",
     name: "Fideos Espiral Don Giuseppe 400 GR (Caja 20 unidades)",
     brand: "Don Giuseppe",
@@ -313,20 +557,15 @@ const INITIAL_PRODUCTS = [
     categoryName: "Alimentos y Abarrotes",
     subcategoryId: "pastas-harinas",
     subcategoryName: "Pastas, Harinas y Masas",
-    collections: ["horeca-esencial"],
     format: "Caja máster de 20 paquetes x 400g",
     unit: "Caja 20 Unidades",
-    minOrder: 1,
     description: "Fideos formato espiral que retienen con gran adherencia salsas cremosas y pestos. Excelente presentación visual en platos y ensaladas frías.",
     specs: {
       "Corte": "Espiral (Fusilli)",
       "Empaque": "Caja 20 paquetes (8 Kg netos)"
     },
-    image: "images/products/alimentos/OLV-ALM-010.jpg",
-    inStock: true
   },
   {
-    id: "prod-011",
     sku: "OLV-ALM-011",
     name: "Salsa de Tomate Italiana San Remo 1 KG (Caja 10 unidades)",
     brand: "San Remo",
@@ -334,21 +573,16 @@ const INITIAL_PRODUCTS = [
     categoryName: "Alimentos y Abarrotes",
     subcategoryId: "salsas-conservas",
     subcategoryName: "Salsas, Conservas y Condimentos",
-    collections: ["horeca-esencial", "panaderia-pizzeria"],
     format: "Caja máster de 10 bolsas pouch x 1 Kg",
     unit: "Caja 10 Bolsas (10 Kg)",
-    minOrder: 1,
     description: "Salsa de tomates maduros seleccionados con orégano y especias mediterráneas en formato pouch fácil de abrir y almacenar. Ahorra tiempo en cocina con balance perfecto de acidez.",
     specs: {
       "Formato": "Bolsas pouch ergonómicas 1 Kg",
       "Total por caja": "10 Kilogramos",
       "Conservación": "Temperatura ambiente hasta abrir"
     },
-    image: "images/products/alimentos/OLV-ALM-011.jpg",
-    inStock: true
   },
   {
-    id: "prod-012",
     sku: "OLV-ALM-012",
     name: "Salsa Pizza Lista para Usar RTU 1 KG (Caja 10 unidades)",
     brand: "San Remo Pro",
@@ -356,21 +590,16 @@ const INITIAL_PRODUCTS = [
     categoryName: "Alimentos y Abarrotes",
     subcategoryId: "salsas-conservas",
     subcategoryName: "Salsas, Conservas y Condimentos",
-    collections: ["panaderia-pizzeria"],
     format: "Caja máster de 10 bolsas pouch x 1 Kg",
     unit: "Caja 10 Bolsas (10 Kg)",
-    minOrder: 1,
     description: "Salsa lista para pizza (Ready To Use), especiada con albahaca y ajo natural, con consistencia espesa para no humedecer la masa de pizza durante el horneado a alta temperatura.",
     specs: {
       "Densidad": "Alta concentración brix para pizza",
       "Condimento": "Orégano, albahaca y sal balanceada",
       "Formato": "Caja 10 Kg (10 pouches de 1 Kg)"
     },
-    image: "images/products/alimentos/OLV-ALM-012.jpg",
-    inStock: true
   },
   {
-    id: "prod-013",
     sku: "OLV-ALM-013",
     name: "Azúcar Blanca Refinada Coliseo 1 KG (Fardo 10 KG)",
     brand: "Coliseo",
@@ -378,20 +607,15 @@ const INITIAL_PRODUCTS = [
     categoryName: "Alimentos y Abarrotes",
     subcategoryId: "azucar-sal",
     subcategoryName: "Azúcar, Sal y Especias",
-    collections: ["horeca-esencial"],
     format: "Fardo 10 paquetes x 1 Kg",
     unit: "Fardo 10 Kg",
-    minOrder: 1,
     description: "Azúcar blanca refinada de alta pureza y cristalización fina. Esencial para pastelería, salsas agridulces, almíbares de sushi (shari) y cafetería.",
     specs: {
       "Pureza": "Grado 1 refinada blanca",
       "Empaque": "10 paquetes x 1 Kg"
     },
-    image: "images/products/alimentos/OLV-ALM-013.jpg",
-    inStock: true
   },
   {
-    id: "prod-014",
     sku: "OLV-ALM-014",
     name: "Sal Fina Yodada Smart Price 1 KG (Fardo 20 KG)",
     brand: "Smart Price",
@@ -399,24 +623,19 @@ const INITIAL_PRODUCTS = [
     categoryName: "Alimentos y Abarrotes",
     subcategoryId: "azucar-sal",
     subcategoryName: "Azúcar, Sal y Especias",
-    collections: ["horeca-esencial"],
     format: "Fardo 20 paquetes x 1 Kg",
     unit: "Fardo 20 Kg",
-    minOrder: 1,
     description: "Sal fina seca yodada de fluidez controlada. Rápida disolución en caldos, marinadas y curado de carnes o pescados.",
     specs: {
       "Granulometría": "Fina y homogénea con antihumectante",
       "Formato": "Fardo 20 Kg (20 x 1 Kg)"
     },
-    image: "images/products/alimentos/OLV-ALM-014.jpg",
-    inStock: true
   },
 
   // ==========================================
   // SUSHI Y GASTRONOMÍA ORIENTAL
   // ==========================================
   {
-    id: "prod-015",
     sku: "OLV-SSH-001",
     name: "Arroz Grano Corto Shirakiku 9 KG (Especial Sushi)",
     brand: "Shirakiku",
@@ -424,10 +643,8 @@ const INITIAL_PRODUCTS = [
     categoryName: "Sushi y Gastronomía Oriental",
     subcategoryId: "arroz-sushi",
     subcategoryName: "Arroz Grano Corto",
-    collections: ["sushi-specials", "top-sellers", "horeca-esencial"],
     format: "Saco industrial 9 Kilogramos",
     unit: "Saco 9 Kg",
-    minOrder: 1,
     description: "El arroz de sushi preferido por los itamae y sushimen en Chile. Grano corto japonés Koshihikari-style con la cantidad exacta de almidón para armar rolls firmes, brillantes y de textura inigualable.",
     specs: {
       "Variedad": "Grano corto premium tipo Calrose/Japónica",
@@ -435,11 +652,8 @@ const INITIAL_PRODUCTS = [
       "Rendimiento shari": "Aprox 20 a 22 Kg de arroz aderezado cocido",
       "Importación": "Grado Superior gastronómico"
     },
-    image: "images/products/sushi/OLV-SSH-001.jpg",
-    inStock: true
   },
   {
-    id: "prod-016",
     sku: "OLV-SSH-002",
     name: "Alga Nori Tostada Platinum Gold (Pack 50 Hojas)",
     brand: "Japofood Pro",
@@ -447,10 +661,8 @@ const INITIAL_PRODUCTS = [
     categoryName: "Sushi y Gastronomía Oriental",
     subcategoryId: "algas-nori",
     subcategoryName: "Algas Nori y Coberturas",
-    collections: ["sushi-specials", "top-sellers"],
     format: "Pack sellado hermético con 50 hojas enteras (21x19 cm)",
     unit: "Pack 50 Hojas",
-    minOrder: 2,
     description: "Algas nori de grado Platinum, color verde oscuro intenso, aroma marino limpio y textura crocante que no se rompe al enrollar makis ni temakis. Resistente a la humedad del arroz.",
     specs: {
       "Calidad": "Platinum Gold 100% Yaki Nori",
@@ -458,11 +670,8 @@ const INITIAL_PRODUCTS = [
       "Rendimiento": "100 medios rolls (hosomakis/uramaki)",
       "Empaque": "Bolsa metalizada con cierre zip y desecante"
     },
-    image: "https://images.unsplash.com/photo-1617093727343-374698b1b08d?auto=format&fit=crop&w=700&q=80",
-    inStock: true
   },
   {
-    id: "prod-017",
     sku: "OLV-SSH-003",
     name: "Queso Crema Milkaut Gastronómico Balde 3.6 KG",
     brand: "Milkaut",
@@ -470,10 +679,8 @@ const INITIAL_PRODUCTS = [
     categoryName: "Sushi y Gastronomía Oriental",
     subcategoryId: "insumos-crujientes",
     subcategoryName: "Panko, Tempura y Rebozados",
-    collections: ["sushi-specials", "top-sellers", "lacteos-top"],
     format: "Balde sellado 3.6 Kilogramos",
     unit: "Balde 3.6 Kg",
-    minOrder: 1,
     description: "El queso crema emblemático de la sushitería en Chile. Estructura compacta y cremosa que permite manguear con facilidad, cortar sin desarmarse y mantener firmeza dentro de los rolls tibios o fritos.",
     specs: {
       "Contenido": "3.6 Kg neto",
@@ -481,11 +688,8 @@ const INITIAL_PRODUCTS = [
       "Comportamiento térmico": "Excelente resistencia en hot rolls fritos",
       "Conservación": "Refrigerado 2°C a 6°C"
     },
-    image: "images/products/sushi/OLV-SSH-003.jpg",
-    inStock: true
   },
   {
-    id: "prod-018",
     sku: "OLV-SSH-004",
     name: "Queso Crema Reny Picot Barra 1.36 KG (Caja 10 barras)",
     brand: "Reny Picot",
@@ -493,21 +697,16 @@ const INITIAL_PRODUCTS = [
     categoryName: "Sushi y Gastronomía Oriental",
     subcategoryId: "insumos-crujientes",
     subcategoryName: "Panko, Tempura y Rebozados",
-    collections: ["sushi-specials", "lacteos-top"],
     format: "Barra sellada 1.36 Kg (Caja máster de 10 barras = 13.6 Kg)",
     unit: "Barra 1.36 Kg / Caja",
-    minOrder: 1,
     description: "Barra tradicional de queso crema de sabor suave y consistencia densa. Se corta con hilo o cuchillo en tiras parejas para el corazón del roll con cero desperdicio.",
     specs: {
       "Presentación": "Barra rectangular 1.36 Kilogramos",
       "Caja máster": "10 barras individuales",
       "Rendimiento": "Corte preciso en bastones para rolls"
     },
-    image: "images/products/sushi/OLV-SSH-004.jpg",
-    inStock: true
   },
   {
-    id: "prod-019",
     sku: "OLV-SSH-005",
     name: "Queso Crema Zanafoods Barra 1.36 KG",
     brand: "Zanafoods",
@@ -515,20 +714,15 @@ const INITIAL_PRODUCTS = [
     categoryName: "Sushi y Gastronomía Oriental",
     subcategoryId: "insumos-crujientes",
     subcategoryName: "Panko, Tempura y Rebozados",
-    collections: ["sushi-specials"],
     format: "Barra sellada al vacío 1.36 Kilogramos",
     unit: "Barra 1.36 Kg",
-    minOrder: 1,
     description: "Opción de alto rendimiento y excelente relación costo-calidad para restaurantes de sushi con alta demanda diaria.",
     specs: {
       "Contenido": "1.36 Kg",
       "Formato": "Barra gastronómica"
     },
-    image: "images/products/sushi/OLV-SSH-005.jpg",
-    inStock: true
   },
   {
-    id: "prod-020",
     sku: "OLV-SSH-006",
     name: "Panko Japonés Extra Crujiente 1 KG (Caja 10 KG)",
     brand: "Tokyo Panko Pro",
@@ -536,21 +730,16 @@ const INITIAL_PRODUCTS = [
     categoryName: "Sushi y Gastronomía Oriental",
     subcategoryId: "insumos-crujientes",
     subcategoryName: "Panko, Tempura y Rebozados",
-    collections: ["sushi-specials", "top-sellers"],
     format: "Bolsa 1 Kg (Caja 10 unidades)",
     unit: "Bolsa 1 Kg / Caja 10 Kg",
-    minOrder: 2,
     description: "Escamas de miga de pan deshidratada en hojuelas aireadas. Absorbe 40% menos aceite que el pan rallado común, dejando rolls fritos, ebi furai y gyozas con un dorado ligero y crujiente prolongado.",
     specs: {
       "Hojuela": "Formato aguja / copo grande",
       "Absorción grasa": "Baja absorción, máximo crunch",
       "Presentación": "Bolsa 1 Kg al vacío"
     },
-    image: "https://images.unsplash.com/photo-1541544741938-0af808871cc0?auto=format&fit=crop&w=700&q=80",
-    inStock: true
   },
   {
-    id: "prod-021",
     sku: "OLV-SSH-007",
     name: "Salsa de Soya Tradicional Japofood Bidón 5 LT",
     brand: "Japofood",
@@ -558,21 +747,16 @@ const INITIAL_PRODUCTS = [
     categoryName: "Sushi y Gastronomía Oriental",
     subcategoryId: "salsas-orientales",
     subcategoryName: "Salsas de Soya, Teriyaki y Unagi",
-    collections: ["sushi-specials", "horeca-esencial"],
     format: "Bidón 5 Litros industrial",
     unit: "Bidón 5L",
-    minOrder: 1,
     description: "Salsa de soya naturalmente fermentada de perfil umami balanceado y color ámbar brillante. Ideal para fraccionar en potes individuales de delivery o emplear en woks.",
     specs: {
       "Contenido": "5 Litros",
       "Fermentación": "Método natural tradicional",
       "Formato": "Bidón apilable con vertedor"
     },
-    image: "https://images.unsplash.com/photo-1582878826629-29b7ad1cdc43?auto=format&fit=crop&w=700&q=80",
-    inStock: true
   },
   {
-    id: "prod-022",
     sku: "OLV-SSH-008",
     name: "Salsa Teriyaki Glaze Espesa Japofood 1.8 LT",
     brand: "Japofood",
@@ -580,21 +764,16 @@ const INITIAL_PRODUCTS = [
     categoryName: "Sushi y Gastronomía Oriental",
     subcategoryId: "salsas-orientales",
     subcategoryName: "Salsas de Soya, Teriyaki y Unagi",
-    collections: ["sushi-specials"],
     format: "Botella plástica profesional 1.8 Litros (Caja 6 unidades)",
     unit: "Botella 1.8L",
-    minOrder: 1,
     description: "Glaseado teriyaki de consistencia espesa, brillo espejo y notas dulces de jengibre y mirin. Se mantiene perfecta sobre los rolls al decorar sin escurrirse.",
     specs: {
       "Presentación": "1.8 Litros",
       "Viscosidad": "Glaze espeso para decoración",
       "Sabor": "Equilibrio dulce-salado profundo"
     },
-    image: "https://images.unsplash.com/photo-1582878826629-29b7ad1cdc43?auto=format&fit=crop&w=700&q=80",
-    inStock: true
   },
   {
-    id: "prod-023",
     sku: "OLV-SSH-009",
     name: "Salsa Anguila Unagi Tare Premium 1.8 LT",
     brand: "Japofood",
@@ -602,20 +781,15 @@ const INITIAL_PRODUCTS = [
     categoryName: "Sushi y Gastronomía Oriental",
     subcategoryId: "salsas-orientales",
     subcategoryName: "Salsas de Soya, Teriyaki y Unagi",
-    collections: ["sushi-specials", "gourmet-premium"],
     format: "Botella 1.8 Litros",
     unit: "Botella 1.8L",
-    minOrder: 1,
     description: "Reducción artesanal tradicional para unagi y rolls flameados. Aporta un acabado ahumado agridulce y cuerpo caramelizado sublime.",
     specs: {
       "Contenido": "1.8 Litros",
       "Uso": "Rolls especiales, flameados y mariscos grillados"
     },
-    image: "https://images.unsplash.com/photo-1582878826629-29b7ad1cdc43?auto=format&fit=crop&w=700&q=80",
-    inStock: true
   },
   {
-    id: "prod-024",
     sku: "OLV-SSH-010",
     name: "Wasabi en Polvo Grado A Lata 1 KG",
     brand: "Wasabi Fuji",
@@ -623,21 +797,16 @@ const INITIAL_PRODUCTS = [
     categoryName: "Sushi y Gastronomía Oriental",
     subcategoryId: "condimentos-orientales",
     subcategoryName: "Condimentos Orientales",
-    collections: ["sushi-specials"],
     format: "Lata metálica hermética 1 Kg",
     unit: "Lata 1 Kg",
-    minOrder: 1,
     description: "Polvo de wasabi de rápida hidratación. Rinde más de 3.5 kg de pasta de picor nasal intenso, verde vivo y excelente plasticidad para modelar figuras de servicio.",
     specs: {
       "Rendimiento": "1 Kg de polvo + 2.5L de agua = 3.5 Kg de pasta",
       "Color": "Verde esmeralda natural",
       "Envase": "Lata sellada con tapa plástica reutilizable"
     },
-    image: "https://images.unsplash.com/photo-1617093727343-374698b1b08d?auto=format&fit=crop&w=700&q=80",
-    inStock: true
   },
   {
-    id: "prod-025",
     sku: "OLV-SSH-011",
     name: "Jengibre Encurtido Gari Blanco Balde 1.5 KG",
     brand: "Gari Master",
@@ -645,21 +814,16 @@ const INITIAL_PRODUCTS = [
     categoryName: "Sushi y Gastronomía Oriental",
     subcategoryId: "condimentos-orientales",
     subcategoryName: "Condimentos Orientales",
-    collections: ["sushi-specials"],
     format: "Balde plástico con salmuera 1.5 Kg",
     unit: "Balde 1.5 Kg",
-    minOrder: 1,
     description: "Láminas finas de raíz de jengibre joven encurtido en vinagre dulce de arroz. Limpia el paladar entre diferentes piezas de sushi con frescura cítrica.",
     specs: {
       "Corte": "Láminas ultra delgadas sin fibras duras",
       "Color": "Blanco marfil natural (sin colorantes artificiales)",
       "Peso drenado": "1.0 Kg neto"
     },
-    image: "https://images.unsplash.com/photo-1546069901-ba9599a7e63c?auto=format&fit=crop&w=700&q=80",
-    inStock: true
   },
   {
-    id: "prod-026",
     sku: "OLV-SSH-012",
     name: "Sésamo Tostado Bicolor Blanco y Negro 1 KG",
     brand: "Japofood",
@@ -667,20 +831,15 @@ const INITIAL_PRODUCTS = [
     categoryName: "Sushi y Gastronomía Oriental",
     subcategoryId: "condimentos-orientales",
     subcategoryName: "Condimentos Orientales",
-    collections: ["sushi-specials"],
     format: "Bolsa sellada 1 Kg",
     unit: "Bolsa 1 Kg",
-    minOrder: 1,
     description: "Semillas seleccionadas de sésamo blanco y negro en proporción 50/50, tostadas uniformemente para otorgar un toque crocante y aroma a nuez sobre uramakis y ensaladas sunomono.",
     specs: {
       "Composición": "50% sésamo blanco tostado + 50% sésamo negro tostado",
       "Contenido": "1 Kg"
     },
-    image: "https://images.unsplash.com/photo-1546069901-ba9599a7e63c?auto=format&fit=crop&w=700&q=80",
-    inStock: true
   },
   {
-    id: "prod-027",
     sku: "OLV-SSH-013",
     name: "Esterilla Makisu de Bambú Reforzada (Pack 5 unidades)",
     brand: "Chef Tools Pro",
@@ -688,25 +847,20 @@ const INITIAL_PRODUCTS = [
     categoryName: "Sushi y Gastronomía Oriental",
     subcategoryId: "herramientas-sushi",
     subcategoryName: "Esterillas Makisu y Cuchillería",
-    collections: ["sushi-specials", "equipamiento-b2b"],
     format: "Pack de 5 esterillas de bambú natural",
     unit: "Pack 5 Unidades",
-    minOrder: 1,
     description: "Esterillas tradicionales tejidas con hilo de algodón de alta resistencia. Varillas de bambú pulidas sin astillas para un armado perfecto de rolls redondos o cuadrados.",
     specs: {
       "Medidas": "24 x 24 cm",
       "Material": "Bambú verde tratado apto alimentos",
       "Cantidad": "5 piezas por set"
     },
-    image: "https://images.unsplash.com/photo-1579871494447-9811cf80d66c?auto=format&fit=crop&w=700&q=80",
-    inStock: true
   },
 
   // ==========================================
   // CONGELADOS
   // ==========================================
   {
-    id: "prod-028",
     sku: "OLV-CON-001",
     name: "Camarón Ecuatoriano P&D 36/40 (Pelado y Desvenado) 1 KG",
     brand: "Pacífico Sur",
@@ -714,10 +868,8 @@ const INITIAL_PRODUCTS = [
     categoryName: "Congelados y Frutas IQF",
     subcategoryId: "mariscos-camarones",
     subcategoryName: "Camarones y Mariscos",
-    collections: ["top-sellers", "sushi-specials", "horeca-esencial"],
     format: "Bolsa IQF 1 Kg (Caja máster de 10 Kg)",
     unit: "Bolsa 1 Kg / Caja 10 Kg",
-    minOrder: 1,
     description: "Camarón ecuatoriano de cultivo seleccionado, calibre 36/40 piezas por libra. Congelado individualmente IQF con glaseado técnico del 10%. Pelado y desvenado listo para tempura, salteados y sushi ebi furai.",
     specs: {
       "Calibre": "36/40 piezas / libra (aprox 75 a 85 camarones/kg)",
@@ -725,11 +877,8 @@ const INITIAL_PRODUCTS = [
       "Glaseado": "10% protector",
       "Caja máster": "10 bolsas de 1 Kilogramo"
     },
-    image: "images/products/congelados/OLV-CON-001.jpg",
-    inStock: true
   },
   {
-    id: "prod-029",
     sku: "OLV-CON-002",
     name: "Camarón Ecuatoriano Con Cáscara 36/40 1 KG (Caja 10 KG)",
     brand: "Pacífico Sur",
@@ -737,20 +886,15 @@ const INITIAL_PRODUCTS = [
     categoryName: "Congelados y Frutas IQF",
     subcategoryId: "mariscos-camarones",
     subcategoryName: "Camarones y Mariscos",
-    collections: ["horeca-esencial"],
     format: "Bolsa 1 Kg (Caja máster de 10 Kg)",
     unit: "Bolsa 1 Kg / Caja 10 Kg",
-    minOrder: 1,
     description: "Camarón entero con cola y caparazón para cocción al vapor o parrilla, conservando todos los jugos naturales del marisco.",
     specs: {
       "Calibre": "36/40 con cáscara",
       "Presentación": "Bolsa 1 Kg al vacío"
     },
-    image: "images/products/congelados/OLV-CON-002.jpg",
-    inStock: true
   },
   {
-    id: "prod-030",
     sku: "OLV-CON-003",
     name: "Camarón Chino Calibre 36/40 Bolsa 1 KG",
     brand: "Importado Oriental",
@@ -758,20 +902,15 @@ const INITIAL_PRODUCTS = [
     categoryName: "Congelados y Frutas IQF",
     subcategoryId: "mariscos-camarones",
     subcategoryName: "Camarones y Mariscos",
-    collections: ["sushi-specials"],
     format: "Bolsa 1 Kg congelado rápido",
     unit: "Bolsa 1 Kg",
-    minOrder: 1,
     description: "Excelente alternativa comercial para preparaciones cocidas, empanadas de mariscos y rellenos de sushi.",
     specs: {
       "Calibre": "36/40 piezas/libra",
       "Formato": "Bolsa 1 Kg"
     },
-    image: "images/products/congelados/OLV-CON-003.jpg",
-    inStock: true
   },
   {
-    id: "prod-031",
     sku: "OLV-CON-004",
     name: "Papas Prefritas Corte Bastón 10 MM Cresswell (Caja 12 KG)",
     brand: "Cresswell",
@@ -779,10 +918,8 @@ const INITIAL_PRODUCTS = [
     categoryName: "Congelados y Frutas IQF",
     subcategoryId: "papas-prefritas",
     subcategoryName: "Papas Prefritas Bastón",
-    collections: ["top-sellers", "horeca-esencial"],
     format: "Caja máster de 6 bolsas x 2 Kg (12 Kg totales)",
     unit: "Caja 12 Kg (6x2kg)",
-    minOrder: 1,
     description: "Papas prefritas congeladas de corte tradicional 10x10 mm. Excelente relación exterior dorado crocante e interior cremoso puré. No se ablandan en delivery.",
     specs: {
       "Corte": "10 x 10 mm bastón estándar",
@@ -790,11 +927,8 @@ const INITIAL_PRODUCTS = [
       "Tiempo de fritura": "3 a 4 minutos a 175°C",
       "Origen": "Bélgica / Holanda Premium"
     },
-    image: "images/products/congelados/OLV-CON-004.jpg",
-    inStock: true
   },
   {
-    id: "prod-032",
     sku: "OLV-CON-005",
     name: "Papas Prefritas Corte Fino 7 MM Cresswell (Caja 12 KG)",
     brand: "Cresswell",
@@ -802,21 +936,16 @@ const INITIAL_PRODUCTS = [
     categoryName: "Congelados y Frutas IQF",
     subcategoryId: "papas-prefritas",
     subcategoryName: "Papas Prefritas Bastón",
-    collections: ["horeca-esencial"],
     format: "Caja máster de 6 bolsas x 2 Kg (12 Kg totales)",
     unit: "Caja 12 Kg (6x2kg)",
-    minOrder: 1,
     description: "Corte fino estilo Fast Food de 7x7 mm. Fritura ultrarrápida en menos de 2.5 minutos con crocancia prolongada. Ideal para hamburgueserías y delivery.",
     specs: {
       "Corte": "7 x 7 mm fino / shoestring",
       "Empaque": "6 bolsas de 2 Kg (12 Kg netos)",
       "Tiempo de cocción": "2 a 2.5 minutos"
     },
-    image: "images/products/congelados/OLV-CON-005.jpg",
-    inStock: true
   },
   {
-    id: "prod-033",
     sku: "OLV-CON-006",
     name: "Papas Prefritas Corte Grueso 12 MM Cresswell (Caja 12 KG)",
     brand: "Cresswell",
@@ -824,20 +953,15 @@ const INITIAL_PRODUCTS = [
     categoryName: "Congelados y Frutas IQF",
     subcategoryId: "papas-prefritas",
     subcategoryName: "Papas Prefritas Bastón",
-    collections: ["horeca-esencial"],
     format: "Caja máster de 6 bolsas x 2 Kg (12 Kg totales)",
     unit: "Caja 12 Kg (6x2kg)",
-    minOrder: 1,
     description: "Corte rústico grueso de 12x12 mm con gran presencia en plato. Ideal para parrillas, lomos a lo pobre y chorrillanas.",
     specs: {
       "Corte": "12 x 12 mm corte grueso",
       "Empaque": "6 x 2 Kg (12 Kg)"
     },
-    image: "images/products/congelados/OLV-CON-006.jpg",
-    inStock: true
   },
   {
-    id: "prod-034",
     sku: "OLV-CON-007",
     name: "Corte de Vacuno Asado Carnicero / Vacío Importado",
     brand: "Frigorífico Pampa",
@@ -845,21 +969,16 @@ const INITIAL_PRODUCTS = [
     categoryName: "Congelados y Frutas IQF",
     subcategoryId: "carnes-cortes",
     subcategoryName: "Carnes y Cortes al Vacío",
-    collections: ["carnicerias-restaurantes"],
     format: "Piezas al vacío de 2.5 a 4 Kg aprox (Venta por Kilo)",
     unit: "Kilo (Pieza al vacío)",
-    minOrder: 5,
     description: "Corte de vacuno seleccionado importado de textura tierna y veteado de grasa justa. Especial para parrilladas, cocciones lentas al horno y empanadas.",
     specs: {
       "Origen": "Paraguay / Argentina seleccionado",
       "Presentación": "Envasado al vacío termoencogible",
       "Unidad de venta": "Kilos brutos por pesaje de pieza"
     },
-    image: "https://images.unsplash.com/photo-1607623814075-e51df1bdc82f?auto=format&fit=crop&w=700&q=80",
-    inStock: true
   },
   {
-    id: "prod-035",
     sku: "OLV-CON-008",
     name: "Pulpa de Maracuyá Natural Con Pepa Río Alto 1 KG",
     brand: "Río Alto",
@@ -867,21 +986,16 @@ const INITIAL_PRODUCTS = [
     categoryName: "Congelados y Frutas IQF",
     subcategoryId: "pulpas-fruta",
     subcategoryName: "Pulpas de Fruta Natural Río Alto",
-    collections: ["cocteleria-sushi", "top-sellers"],
     format: "Bolsa congelada 1 Kilogramo (Caja 10 unidades)",
     unit: "Bolsa 1 Kg / Caja 10 Kg",
-    minOrder: 2,
     description: "Pulpa de maracuyá 100% natural con semilla crujiente. Vital para salsas acevichadas de sushi, reducciones para rolls, postres y coctelería premium (Maracuyá Sour, Caipirinhas).",
     specs: {
       "Ingrediente": "100% Maracuyá natural con pepa",
       "Sin azúcar añadida": "100% fruta pura sin conservantes",
       "Formato": "Bolsa 1 Kg congelada a -18°C"
     },
-    image: "images/products/congelados/OLV-CON-008.jpg",
-    inStock: true
   },
   {
-    id: "prod-036",
     sku: "OLV-CON-009",
     name: "Pulpa de Maracuyá Natural Sin Pepa Río Alto 1 KG",
     brand: "Río Alto",
@@ -889,20 +1003,15 @@ const INITIAL_PRODUCTS = [
     categoryName: "Congelados y Frutas IQF",
     subcategoryId: "pulpas-fruta",
     subcategoryName: "Pulpas de Fruta Natural Río Alto",
-    collections: ["cocteleria-sushi"],
     format: "Bolsa congelada 1 Kilogramo (Caja 10 unidades)",
     unit: "Bolsa 1 Kg / Caja 10 Kg",
-    minOrder: 2,
     description: "Pulpa de maracuyá colada y pasteurizada sin semillas. Ahorra mano de obra en bar y cocina dulce garantizando textura sedosa en mousses y salsas coladas.",
     specs: {
       "Contenido": "1 Kg neto colado",
       "Brix": "Natural de fruta madura"
     },
-    image: "images/products/congelados/OLV-CON-009.jpg",
-    inStock: true
   },
   {
-    id: "prod-037",
     sku: "OLV-CON-010",
     name: "Pulpa de Mango Natural Río Alto 1 KG",
     brand: "Río Alto",
@@ -910,20 +1019,15 @@ const INITIAL_PRODUCTS = [
     categoryName: "Congelados y Frutas IQF",
     subcategoryId: "pulpas-fruta",
     subcategoryName: "Pulpas de Fruta Natural Río Alto",
-    collections: ["cocteleria-sushi", "top-sellers"],
     format: "Bolsa 1 Kilogramo congelada",
     unit: "Bolsa 1 Kg",
-    minOrder: 2,
     description: "Mango maduro tropical seleccionado. Esencial para salsas de mango-chutney, rolls nikkei, smoothies y jugos naturales.",
     specs: {
       "Contenido": "1 Kilogramo",
       "Variedad": "Mango Tommy/Kent dulce"
     },
-    image: "images/products/congelados/OLV-CON-010.jpg",
-    inStock: true
   },
   {
-    id: "prod-038",
     sku: "OLV-CON-011",
     name: "Pulpa de Frambuesa Natural Río Alto 1 KG",
     brand: "Río Alto",
@@ -931,20 +1035,15 @@ const INITIAL_PRODUCTS = [
     categoryName: "Congelados y Frutas IQF",
     subcategoryId: "pulpas-fruta",
     subcategoryName: "Pulpas de Fruta Natural Río Alto",
-    collections: ["reposteria-cocteleria"],
     format: "Bolsa 1 Kilogramo congelada",
     unit: "Bolsa 1 Kg",
-    minOrder: 2,
     description: "Frambuesas del sur de Chile seleccionadas y trituradas al vacío. Acidez y color rubí brillante para coulis, cheesecakes y tragos.",
     specs: {
       "Origen": "Sur de Chile IQF",
       "Contenido": "1 Kilogramo"
     },
-    image: "images/products/congelados/OLV-CON-011.jpg",
-    inStock: true
   },
   {
-    id: "prod-039",
     sku: "OLV-CON-012",
     name: "Pulpa de Frutilla Natural Río Alto 1 KG",
     brand: "Río Alto",
@@ -952,23 +1051,18 @@ const INITIAL_PRODUCTS = [
     categoryName: "Congelados y Frutas IQF",
     subcategoryId: "pulpas-fruta",
     subcategoryName: "Pulpas de Fruta Natural Río Alto",
-    collections: ["reposteria-cocteleria"],
     format: "Bolsa 1 Kilogramo congelada",
     unit: "Bolsa 1 Kg",
-    minOrder: 2,
     description: "Frutilla fresca aromática congelada de inmediato tras cosecha. Versatilidad total para batidos, postres y sushis dulces.",
     specs: {
       "Contenido": "1 Kilogramo"
     },
-    image: "images/products/congelados/OLV-CON-012.jpg",
-    inStock: true
   },
 
   // ==========================================
   // LÁCTEOS Y REFRIGERADOS
   // ==========================================
   {
-    id: "prod-040",
     sku: "OLV-LAC-001",
     name: "Crema de Leche Gastronómica Colún 1 L (Caja 12 unidades)",
     brand: "Colún",
@@ -976,10 +1070,8 @@ const INITIAL_PRODUCTS = [
     categoryName: "Lácteos y Refrigerados",
     subcategoryId: "cremas-leche",
     subcategoryName: "Cremas de Leche UHT y Leches",
-    collections: ["top-sellers", "horeca-esencial"],
     format: "Caja máster de 12 botellas Tetra Pak x 1 Litro",
     unit: "Caja 12 Litros",
-    minOrder: 1,
     description: "Crema natural con 35% de materia grasa de la cooperativa lechera del sur de Chile. Monta con volumen consistente y resiste la reducción al calor sin cortarse ni separar suero.",
     specs: {
       "Materia Grasa": "35% MG natural",
@@ -987,11 +1079,8 @@ const INITIAL_PRODUCTS = [
       "Origen": "La Unión, Región de Los Ríos, Chile",
       "Uso": "Salado y repostería fina"
     },
-    image: "images/products/lacteos/OLV-LAC-001.jpg",
-    inStock: true
   },
   {
-    id: "prod-041",
     sku: "OLV-LAC-002",
     name: "Crema de Leche UHT Surlat 1 L (Caja 12 unidades)",
     brand: "Surlat",
@@ -999,20 +1088,15 @@ const INITIAL_PRODUCTS = [
     categoryName: "Lácteos y Refrigerados",
     subcategoryId: "cremas-leche",
     subcategoryName: "Cremas de Leche UHT y Leches",
-    collections: ["horeca-esencial"],
     format: "Caja máster de 12 litros",
     unit: "Caja 12 Litros",
-    minOrder: 1,
     description: "Crema de leche UHT de larga vida útil y consistencia pareja para preparaciones calientes y salsas blancas.",
     specs: {
       "Contenido": "12 Litros por caja",
       "Conservación": "UHT ambiente hasta apertura"
     },
-    image: "images/products/lacteos/OLV-LAC-002.jpg",
-    inStock: true
   },
   {
-    id: "prod-042",
     sku: "OLV-LAC-003",
     name: "Leche Entera UHT Tottus 1 L (Caja 12 unidades)",
     brand: "Tottus",
@@ -1020,20 +1104,15 @@ const INITIAL_PRODUCTS = [
     categoryName: "Lácteos y Refrigerados",
     subcategoryId: "cremas-leche",
     subcategoryName: "Cremas de Leche UHT y Leches",
-    collections: ["horeca-esencial", "almacenes-minimarkets"],
     format: "Caja máster de 12 envases x 1 Litro",
     unit: "Caja 12 Litros",
-    minOrder: 1,
     description: "Leche entera UHT 3.1% grasa. Excelente rotación para cafeterías, desayunos institucionales y comercio minorista.",
     specs: {
       "Presentación": "Caja 12 x 1L Tetra Brik",
       "Fortificación": "Vitaminas A y D"
     },
-    image: "images/products/lacteos/OLV-LAC-003.jpg",
-    inStock: true
   },
   {
-    id: "prod-043",
     sku: "OLV-LAC-004",
     name: "Mantequilla Con Sal Colún Barra 250 GR (Caja 40 unidades)",
     brand: "Colún",
@@ -1041,20 +1120,15 @@ const INITIAL_PRODUCTS = [
     categoryName: "Lácteos y Refrigerados",
     subcategoryId: "mantequillas",
     subcategoryName: "Mantequillas Profesionales",
-    collections: ["horeca-esencial"],
     format: "Caja máster de 40 barras x 250 gramos (10 Kg totales)",
     unit: "Caja 40 Barras (10 Kg)",
-    minOrder: 1,
     description: "Mantequilla pura elaborada a base de crema fresca con sal dosificada al 1.5%. Punto de fusión limpio y aroma a campo sureño.",
     specs: {
       "Empaque": "40 barras de 250 gramos",
       "Materia Grasa": "82% MG mínima"
     },
-    image: "images/products/lacteos/OLV-LAC-004.jpg",
-    inStock: true
   },
   {
-    id: "prod-044",
     sku: "OLV-LAC-005",
     name: "Queso Mozzarella Barra Gastronómica Molfino 3.5 KG",
     brand: "Molfino",
@@ -1062,21 +1136,16 @@ const INITIAL_PRODUCTS = [
     categoryName: "Lácteos y Refrigerados",
     subcategoryId: "quesos-maduros",
     subcategoryName: "Mozzarella, Parmesano y Maduros",
-    collections: ["panaderia-pizzeria", "top-sellers"],
     format: "Pieza al vacío de 3.5 Kilogramos (Caja de 4 barras = 14 Kg)",
     unit: "Pieza 3.5 Kg / Caja",
-    minOrder: 1,
     description: "Mozzarella de hilado uniforme y alto rendimiento de fundido sin generar charcos de aceite. Dorado parejo con excelente elasticidad al estirar sobre pizzas y lasagnas.",
     specs: {
       "Peso pieza": "3.5 Kg aprox",
       "Hilado": "Óptimo para rallado en hebras y gratinado",
       "Humedad": "Humedad intermedia baja (Low moisture)"
     },
-    image: "images/products/lacteos/OLV-LAC-005.jpg",
-    inStock: true
   },
   {
-    id: "prod-045",
     sku: "OLV-LAC-006",
     name: "Queso Parmesano Maduro Horma Entera 7-8 KG",
     brand: "Valle Verde",
@@ -1084,25 +1153,20 @@ const INITIAL_PRODUCTS = [
     categoryName: "Lácteos y Refrigerados",
     subcategoryId: "quesos-maduros",
     subcategoryName: "Mozzarella, Parmesano y Maduros",
-    collections: ["gourmet-premium"],
     format: "Horma entera cilíndrica de 7.5 Kg aprox",
     unit: "Horma Entera (~7.5 Kg)",
-    minOrder: 1,
     description: "Horma entera de queso madurado por más de 12 meses. Textura granulosa con cristales de tirosina crujientes y profundo sabor aromático umami. Ideal para rallar fresco en mesa.",
     specs: {
       "Maduración": "12 meses mínimos en cava",
       "Peso promedio": "7 a 8 Kilogramos",
       "Corteza": "Corteza natural marcada"
     },
-    image: "images/products/lacteos/OLV-LAC-006.jpg",
-    inStock: true
   },
 
   // ==========================================
   // LIMPIEZA Y ASEO INSTITUCIONAL
   // ==========================================
   {
-    id: "prod-046",
     sku: "OLV-ASE-001",
     name: "Lavaloza Concentrado Industrial Ecol L-2000 Bidón 5 LT",
     brand: "Ecol Químicos",
@@ -1110,10 +1174,8 @@ const INITIAL_PRODUCTS = [
     categoryName: "Limpieza y Aseo Institucional",
     subcategoryId: "quimicos-limpieza",
     subcategoryName: "Lavalozas, Desengrasantes y Cloro",
-    collections: ["limpieza-pro", "top-sellers", "horeca-esencial"],
     format: "Bidón industrial 5 Litros (Caja 4 bidones)",
     unit: "Bidón 5L / Caja 20L",
-    minOrder: 1,
     description: "Detergente lavavajillas líquido de alta concentración y biodegradabilidad. Disuelve al instante aceites pesados y grasas quemadas. Espuma activa controlada y neutra para las manos del operador.",
     specs: {
       "Concentración": "Activo al 25% materia activa",
@@ -1121,11 +1183,8 @@ const INITIAL_PRODUCTS = [
       "Rendimiento": "Dilución hasta 1:50 en agua",
       "Certificación": "Registro ISP / SEREMI de Salud"
     },
-    image: "images/products/limpieza/OLV-ASE-001.jpg",
-    inStock: true
   },
   {
-    id: "prod-047",
     sku: "OLV-ASE-002",
     name: "Desengrasante Pesado Industrial Ecol D-2000 Bidón 5 LT",
     brand: "Ecol Químicos",
@@ -1133,21 +1192,16 @@ const INITIAL_PRODUCTS = [
     categoryName: "Limpieza y Aseo Institucional",
     subcategoryId: "quimicos-limpieza",
     subcategoryName: "Lavalozas, Desengrasantes y Cloro",
-    collections: ["limpieza-pro", "horeca-esencial"],
     format: "Bidón industrial 5 Litros",
     unit: "Bidón 5L",
-    minOrder: 1,
     description: "Fórmula cáustica potenciada para campanas de extracción, ductos, planchas gastronómicas y pisos de cocina industrial con acumulación carbonizada.",
     specs: {
       "Acción": "Desincrustante alcalino profundo",
       "Aplicación": "Campanas, hornos, freidoras y filtros de acero",
       "Formato": "Bidón 5 Litros con precinto de seguridad"
     },
-    image: "images/products/limpieza/OLV-ASE-002.jpg",
-    inStock: true
   },
   {
-    id: "prod-048",
     sku: "OLV-ASE-003",
     name: "Cloro Líquido Industrial 5% Bidón OK 5 LT",
     brand: "OK Químicos",
@@ -1155,20 +1209,15 @@ const INITIAL_PRODUCTS = [
     categoryName: "Limpieza y Aseo Institucional",
     subcategoryId: "quimicos-limpieza",
     subcategoryName: "Lavalozas, Desengrasantes y Cloro",
-    collections: ["limpieza-pro", "horeca-esencial"],
     format: "Bidón opaco 5 Litros",
     unit: "Bidón 5L",
-    minOrder: 1,
     description: "Hipoclorito de sodio al 5% estabilizado para sanitización de superficies de contacto alimentario, pisos de packing y desinfección sanitaria general.",
     specs: {
       "Concentración": "50 gramos Cloro activo / Litro",
       "Uso": "Sanitización hospitalaria y gastronómica"
     },
-    image: "images/products/limpieza/OLV-ASE-003.jpg",
-    inStock: true
   },
   {
-    id: "prod-049",
     sku: "OLV-ASE-004",
     name: "Limpiador Desinfectante de Pisos Don Tito Lavanda 5 LT",
     brand: "Don Tito",
@@ -1176,20 +1225,15 @@ const INITIAL_PRODUCTS = [
     categoryName: "Limpieza y Aseo Institucional",
     subcategoryId: "quimicos-limpieza",
     subcategoryName: "Lavalozas, Desengrasantes y Cloro",
-    collections: ["limpieza-pro"],
     format: "Bidón 5 Litros",
     unit: "Bidón 5L",
-    minOrder: 1,
     description: "Limpiador perfumado con amonio cuaternario para salones de atención al público, baños y oficinas. Aroma de alta fijación residual sin dejar vetas opacas.",
     specs: {
       "Fragancia": "Lavanda Silvestre / Floral",
       "Activo germicida": "Amonio cuaternario de 5ta generación"
     },
-    image: "https://images.unsplash.com/photo-1584820927498-cfe5211fd8bf?auto=format&fit=crop&w=700&q=80",
-    inStock: true
   },
   {
-    id: "prod-050",
     sku: "OLV-ASE-005",
     name: "Bolsas de Aseo Alta Densidad 80x110 Rollo 10 Unidades",
     brand: "Aseo Plus",
@@ -1197,21 +1241,16 @@ const INITIAL_PRODUCTS = [
     categoryName: "Limpieza y Aseo Institucional",
     subcategoryId: "bolsas-aseo",
     subcategoryName: "Bolsas de Aseo Alta Densidad",
-    collections: ["limpieza-pro", "top-sellers", "horeca-esencial"],
     format: "Rollo de 10 bolsas (Caja máster de 20 rollos)",
     unit: "Rollo 10 Unidades / Caja",
-    minOrder: 3,
     description: "Bolsas de basura extra gruesas con fondo sellado estrella anti-goteo. Resistentes a punzadas de huesos, latas y residuos húmedos de cocina.",
     specs: {
       "Medidas": "80 cm ancho x 110 cm largo",
       "Capacidad": "120 a 140 Litros (Contenedor estándar)",
       "Espesor": "Micronaje industrial reforzado negro"
     },
-    image: "images/products/limpieza/OLV-ASE-005.jpg",
-    inStock: true
   },
   {
-    id: "prod-051",
     sku: "OLV-ASE-006",
     name: "Bolsas de Aseo Extra Grandes 110x130 Pack 10 Unidades",
     brand: "Aseo Plus",
@@ -1219,20 +1258,15 @@ const INITIAL_PRODUCTS = [
     categoryName: "Limpieza y Aseo Institucional",
     subcategoryId: "bolsas-aseo",
     subcategoryName: "Bolsas de Aseo Alta Densidad",
-    collections: ["limpieza-pro"],
     format: "Pack de 10 bolsas gigantes",
     unit: "Pack 10 Unidades",
-    minOrder: 2,
     description: "Diseñadas para tambores de 200 litros y contenedores rodantes municipales. Gran resistencia al desgarro.",
     specs: {
       "Medidas": "110 cm x 130 cm",
       "Capacidad": "200 Litros"
     },
-    image: "images/products/limpieza/OLV-ASE-006.jpg",
-    inStock: true
   },
   {
-    id: "prod-052",
     sku: "OLV-ASE-007",
     name: "Guante Nitrilo Negro Sin Polvo Caja 100 Unidades",
     brand: "Safeguard Pro",
@@ -1240,10 +1274,8 @@ const INITIAL_PRODUCTS = [
     categoryName: "Limpieza y Aseo Institucional",
     subcategoryId: "guantes-seguridad",
     subcategoryName: "Guantes de Nitrilo, Látex y Vinilo",
-    collections: ["limpieza-pro", "sushi-specials", "top-sellers"],
     format: "Caja dispensadora de 100 guantes (Tallas S, M, L)",
     unit: "Caja 100 Guantes",
-    minOrder: 1,
     description: "Guantes de nitrilo color negro mate con textura microrugosa en las puntas de los dedos. Apto para manipulación de alimentos, desposte de salmón y armado de sushi frente al cliente con máxima estética y destreza.",
     specs: {
       "Material": "100% Nitrilo sintético sin látex ni polvo",
@@ -1251,11 +1283,8 @@ const INITIAL_PRODUCTS = [
       "Resistencia": "Superior a grasas, aceites y punciones",
       "Uso": "Sushi, cocina abierta, tatuajes y aseo fino"
     },
-    image: "images/products/limpieza/OLV-ASE-007.jpg",
-    inStock: true
   },
   {
-    id: "prod-053",
     sku: "OLV-ASE-008",
     name: "Guante Látex Descartable Ambidextro Caja 100 Unidades",
     brand: "Safeguard Pro",
@@ -1263,20 +1292,15 @@ const INITIAL_PRODUCTS = [
     categoryName: "Limpieza y Aseo Institucional",
     subcategoryId: "guantes-seguridad",
     subcategoryName: "Guantes de Nitrilo, Látex y Vinilo",
-    collections: ["limpieza-pro"],
     format: "Caja dispensadora de 100 unidades (Tallas S, M, L)",
     unit: "Caja 100 Guantes",
-    minOrder: 1,
     description: "Guantes elásticos de látex natural de ajuste ergonómico perfecto para labores de limpieza, desinfección y manipulación ligera.",
     specs: {
       "Material": "Látex natural elástico",
       "Tallas": "S, M, L"
     },
-    image: "images/products/limpieza/OLV-ASE-008.jpg",
-    inStock: true
   },
   {
-    id: "prod-054",
     sku: "OLV-ASE-009",
     name: "Papel Toalla Nova Económica Industrial Pack 2x250 Metros",
     brand: "Nova Pro",
@@ -1284,21 +1308,16 @@ const INITIAL_PRODUCTS = [
     categoryName: "Limpieza y Aseo Institucional",
     subcategoryId: "papeleria-servilletas",
     subcategoryName: "Papel Jumbo, Toalla Nova y Servilletas",
-    collections: ["limpieza-pro", "top-sellers", "horeca-esencial"],
     format: "Pack de 2 bobinas continuas de 250 metros c/u (500m totales)",
     unit: "Pack 2 Bobinas (500 Metros)",
-    minOrder: 1,
     description: "Bobinas de toalla de papel absorbente de celulosa pura con precorte suave. No se deshace en húmedo al secar superficies o manos.",
     specs: {
       "Metraje total": "500 Metros por pack",
       "Hoja": "Doble hoja gofrada extra absorbente",
       "Compatibilidad": "Dispensadores estándar autocorte de toalla"
     },
-    image: "images/products/limpieza/OLV-ASE-009.jpg",
-    inStock: true
   },
   {
-    id: "prod-055",
     sku: "OLV-ASE-010",
     name: "Papel Higiénico Institucional Jumbo 1x6 Rollos x 300 Metros",
     brand: "OK Eco Pro",
@@ -1306,20 +1325,15 @@ const INITIAL_PRODUCTS = [
     categoryName: "Limpieza y Aseo Institucional",
     subcategoryId: "papeleria-servilletas",
     subcategoryName: "Papel Jumbo, Toalla Nova y Servilletas",
-    collections: ["limpieza-pro"],
     format: "Fardo termoencogible de 6 rollos x 300 metros (1800m totales)",
     unit: "Fardo 6 Rollos (1800m)",
-    minOrder: 1,
     description: "Papel higiénico institucional de alta capacidad para baños públicos de restaurantes, mall y empresas con alto flujo de visitas.",
     specs: {
       "Contenido": "6 rollos gigantes de 300 metros c/u",
       "Hoja": "Hoja simple resistente y suave"
     },
-    image: "images/products/limpieza/OLV-ASE-010.jpg",
-    inStock: true
   },
   {
-    id: "prod-056",
     sku: "OLV-ASE-011",
     name: "Servilleta Blanca Doblada Joker 40x40 (Caja 1200 unidades)",
     brand: "Joker",
@@ -1327,21 +1341,16 @@ const INITIAL_PRODUCTS = [
     categoryName: "Limpieza y Aseo Institucional",
     subcategoryId: "papeleria-servilletas",
     subcategoryName: "Papel Jumbo, Toalla Nova y Servilletas",
-    collections: ["limpieza-pro", "horeca-esencial"],
     format: "Caja máster de 1200 unidades dobladas en 1/4",
     unit: "Caja 1200 Unidades",
-    minOrder: 1,
     description: "Servilleta gourmet blanca de gran tamaño y gramaje tupido. Otorga categoría y presencia impecable a mesas de restaurantes y salones.",
     specs: {
       "Medidas abiertas": "40 cm x 40 cm",
       "Plegado": "1/4 doblado formal",
       "Textura": "Tipo tela suave al tacto"
     },
-    image: "images/products/limpieza/OLV-ASE-011.jpg",
-    inStock: true
   },
   {
-    id: "prod-057",
     sku: "OLV-ASE-012",
     name: "Servilleta Negra Doblada Gourmet Joker 40x40 (Caja 1200 unidades)",
     brand: "Joker",
@@ -1349,21 +1358,16 @@ const INITIAL_PRODUCTS = [
     categoryName: "Limpieza y Aseo Institucional",
     subcategoryId: "papeleria-servilletas",
     subcategoryName: "Papel Jumbo, Toalla Nova y Servilletas",
-    collections: ["limpieza-pro", "sushi-specials", "gourmet-premium"],
     format: "Caja máster de 1200 unidades",
     unit: "Caja 1200 Unidades",
-    minOrder: 1,
     description: "Servilleta negra mate de lujo. El estándar indiscutido para locales de sushi, bares de coctelería y eventos exclusivos. No destiñe.",
     specs: {
       "Medidas": "40 x 40 cm",
       "Color": "Negro profundo de alta fijación",
       "Gramaje": "Extra absorbente"
     },
-    image: "images/products/limpieza/OLV-ASE-012.jpg",
-    inStock: true
   },
   {
-    id: "prod-058",
     sku: "OLV-ASE-013",
     name: "Paños Microfibra Absorbente Teddy 38x38 CM (Pack 10 unidades)",
     brand: "Teddy Pro",
@@ -1371,24 +1375,19 @@ const INITIAL_PRODUCTS = [
     categoryName: "Limpieza y Aseo Institucional",
     subcategoryId: "accesorios-aseo",
     subcategoryName: "Paños Microfibra y Esponjas Industriales",
-    collections: ["limpieza-pro"],
     format: "Pack de 10 paños amarillos 38x38 cm",
     unit: "Pack 10 Unidades",
-    minOrder: 2,
     description: "Microfibra de alta densidad que atrapa polvo y grasa sin rayar acrílicos, vidrios ni acero inoxidable. Lavable a máquina más de 200 veces.",
     specs: {
       "Medidas": "38 x 38 cm",
       "Color": "Amarillo institucional para codificación HACCP"
     },
-    image: "images/products/limpieza/OLV-ASE-013.jpg",
-    inStock: true
   },
 
   // ==========================================
   // INSUMOS Y PACKAGING GASTRONÓMICO
   // ==========================================
   {
-    id: "prod-059",
     sku: "OLV-INS-001",
     name: "Rollo Alusa Film PVC Adherente 300 Metros Japofood (Caja 6 unidades)",
     brand: "Japofood",
@@ -1396,10 +1395,8 @@ const INITIAL_PRODUCTS = [
     categoryName: "Insumos y Packaging Gastronómico",
     subcategoryId: "films-alusa",
     subcategoryName: "Alusa Film PVC y Embalaje",
-    collections: ["sushi-specials", "top-sellers", "horeca-esencial"],
     format: "Caja de 6 cajas individuales con sierra cortadora x 300 metros",
     unit: "Caja 6 Rollos (1800m)",
-    minOrder: 1,
     description: "Film plástico PVC de adherencia estática superior. Esencial en la mesada de sushi para forrar esterillas makisu y sellar bandejas de pescados conservando frescura absoluta sin condensación.",
     specs: {
       "Ancho": "30 cm ancho estándar",
@@ -1407,11 +1404,8 @@ const INITIAL_PRODUCTS = [
       "Total caja": "6 rollos (1800 metros totales)",
       "Adherencia": "Memory-grip anti-rasgadura"
     },
-    image: "https://images.unsplash.com/photo-1584744982491-665216d95f8b?auto=format&fit=crop&w=700&q=80",
-    inStock: true
   },
   {
-    id: "prod-060",
     sku: "OLV-INS-002",
     name: "Rollo Alusa Film PVC Profesional 45 CM x 1400 Metros",
     brand: "PlastiPack",
@@ -1419,21 +1413,16 @@ const INITIAL_PRODUCTS = [
     categoryName: "Insumos y Packaging Gastronómico",
     subcategoryId: "films-alusa",
     subcategoryName: "Alusa Film PVC y Embalaje",
-    collections: ["horeca-esencial", "gran-volumen"],
     format: "Bobina industrial gigante de 1400 metros continuos",
     unit: "Bobina 1400 Metros",
-    minOrder: 1,
     description: "Bobina industrial para máquinas envolvedoras manuales o empacadoras de bandejas de supermercado y plantas de alimentos.",
     specs: {
       "Ancho": "45 centímetros de cobertura amplia",
       "Metraje": "1400 metros de extensión",
       "Espesor": "Calibre profesional 9 micras"
     },
-    image: "https://images.unsplash.com/photo-1584744982491-665216d95f8b?auto=format&fit=crop&w=700&q=80",
-    inStock: true
   },
   {
-    id: "prod-061",
     sku: "OLV-INS-003",
     name: "Rollo Térmico 80x80 para Impresoras POS y Boletas (Caja 50 unidades)",
     brand: "PaperTech B2B",
@@ -1441,21 +1430,16 @@ const INITIAL_PRODUCTS = [
     categoryName: "Insumos y Packaging Gastronómico",
     subcategoryId: "rollos-termicos",
     subcategoryName: "Rollos Térmicos POS y Comandas",
-    collections: ["horeca-esencial", "top-sellers"],
     format: "Caja máster de 50 rollos térmicos libres de BPA",
     unit: "Caja 50 Rollos",
-    minOrder: 1,
     description: "Papel térmico de alta sensibilidad y contraste nítido para impresoras térmicas de cocina (Epson, Bixolon, Star) y terminales Transbank/POS. Señal roja de fin de rollo incorporada.",
     specs: {
       "Medida": "80 mm de ancho x 80 mm de diámetro",
       "Calidad": "Libre de bisfenol A (BPA Free)",
       "Empaque": "50 unidades en 10 packs de 5 rollos al vacío"
     },
-    image: "https://images.unsplash.com/photo-1584820927498-cfe5211fd8bf?auto=format&fit=crop&w=700&q=80",
-    inStock: true
   },
   {
-    id: "prod-062",
     sku: "OLV-INS-004",
     name: "Envase Sushi Box Premium Negro Tapa Antivaho (Pack 50 unidades)",
     brand: "EcoPack Sushi",
@@ -1463,21 +1447,16 @@ const INITIAL_PRODUCTS = [
     categoryName: "Insumos y Packaging Gastronómico",
     subcategoryId: "envases-delivery",
     subcategoryName: "Envases Sushi, Bowls y Vasos",
-    collections: ["sushi-specials", "top-sellers"],
     format: "Pack de 50 bandejas base negra + 50 tapas cristalinas con clip",
     unit: "Pack 50 Sets",
-    minOrder: 1,
     description: "Bandeja elegante de base negra brillante y tapa transparente ultra clara con tratamiento anti-fog que no se empaña con rolls calientes. El estándar para delivery de 20 a 30 cortes.",
     specs: {
       "Capacidad": "20 a 30 piezas de sushi",
       "Material": "Base PET reciclable + Tapa antivaho",
       "Cierre": "Hermético anti-derrames"
     },
-    image: "https://images.unsplash.com/photo-1579871494447-9811cf80d66c?auto=format&fit=crop&w=700&q=80",
-    inStock: true
   },
   {
-    id: "prod-063",
     sku: "OLV-INS-005",
     name: "Bowl Kraft Ecológico 1000 CC Con Tapa PET (Pack 50 unidades)",
     brand: "EcoKraft",
@@ -1485,32 +1464,31 @@ const INITIAL_PRODUCTS = [
     categoryName: "Insumos y Packaging Gastronómico",
     subcategoryId: "envases-delivery",
     subcategoryName: "Envases Sushi, Bowls y Vasos",
-    collections: ["sushi-specials", "gourmet-premium"],
     format: "Pack de 50 bowls kraft marrón + 50 tapas transparentes",
     unit: "Pack 50 Sets",
-    minOrder: 1,
     description: "Bowl redondo de cartón kraft con laminado interno anti-grasa. Especial para poke bowls, ensaladas gourmet, pastas y preparaciones calientes.",
     specs: {
       "Volumen": "1000 cc (1 Litro)",
       "Resistencia": "Soporta salsas líquidas calientes y frías",
       "Sostenibilidad": "Cartón biodegradable con certificación FSC"
     },
-    image: "https://images.unsplash.com/photo-1546069901-ba9599a7e63c?auto=format&fit=crop&w=700&q=80",
-    inStock: true
   }
 ];
 
-// Colecciones comerciales transversales
-const COLLECTIONS = [
-  { id: "sushi-specials", name: "Especial Sushi Bar", tag: "Especial Sushi", icon: "fish" },
-  { id: "limpieza-pro", name: "Línea Limpieza & Aseo", tag: "Aseo Institucional", icon: "sparkles" },
-  { id: "top-sellers", name: "Más Cotizados Horeca", tag: "Top B2B", icon: "flame" },
-  { id: "horeca-esencial", name: "Básicos de Cocina & Casino", tag: "Cocina Pro", icon: "utensils" },
-  { id: "panaderia-pizzeria", name: "Pizzería, Pastas & Masas", tag: "Pizzería & Pastas", icon: "wheat" },
-  { id: "cocteleria-sushi", name: "Bar & Pulpas de Fruta", tag: "Bar & Pulpas", icon: "glass-water" }
-];
+const INITIAL_PRODUCTS = (function () {
+  const norm = (s) => String(s || '').toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g, '').replace(/[^a-z0-9]/g, '');
+  const porSku = {};
+  FICHAS_DETALLE.forEach((f) => { porSku[f.sku] = f; });
+  return CATALOGO.map((p) => {
+    const f = porSku[p.sku];
+    const base = Object.assign({ unit: '', description: '', specs: {} }, p);
+    if (f && p.brand && norm(f.brand) === norm(p.brand)) {
+      return Object.assign(base, { unit: f.unit || '', description: f.description || '', specs: f.specs || {} });
+    }
+    return base;
+  });
+})();
 
-// Exportación si se usa en Node.js o navegador
 if (typeof module !== "undefined" && module.exports) {
-  module.exports = { INITIAL_CATEGORIES, INITIAL_PRODUCTS, COLLECTIONS };
+  module.exports = { INITIAL_CATEGORIES, INITIAL_PRODUCTS };
 }

@@ -1,41 +1,46 @@
 /* =====================================================================
    OLIVO SIGNATURE — SISTEMA DE ESTILOS Y BRANDING B2B PREMIUM
    Distribuidora Olivo Chile — Región de Valparaíso (V Región)
-   Paleta: Verde Oliva Profundo (#163F32), Marfil (#F6F2E9), Dorado Suave (#C6A16C), Blanco (#FFFFFF)
-   Tipografías: Manrope & DM Sans, con toques editoriales Playfair Display
+   Marca OLIVO (lienzo de Claude Design, nov 2026): rojo OLIVO #CF1427 para la acción
+   principal, verde #17472C, verde claro #7BD192 como acento sobre fondos oscuros.
+   Tipografías: Montserrat (titulares, botones, logo) y Nunito (texto).
+   Los nombres de variables "olive" y "gold" se mantienen por compatibilidad:
+   olive = verde OLIVO, gold = rojo OLIVO.
 ===================================================================== */
 
-@import url('https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&family=Manrope:wght@300;400;500;600;700;800&family=Playfair+Display:ital,wght@0,500;0,600;0,700;1,400;1,600&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@500;600;700;800;900&family=Nunito:wght@400;500;600;700;800&display=swap');
 
 :root {
-  --color-olive-deep: #163F32;
-  --color-olive-dark: #0D261E;
-  --color-olive-light: #215645;
-  --color-olive-surface: #EBF2EE;
-  --color-olive-surface-subtle: #F3F8F5;
+  --color-olive-deep: #17472C;
+  --color-olive-dark: #0F1F16;
+  --color-olive-light: #1F6A3E;
+  --color-olive-surface: #F2F8F3;
+  --color-olive-surface-subtle: #F2F8F3;
 
-  --color-ivory: #F6F2E9;
-  --color-ivory-light: #FAF8F3;
-  --color-ivory-dark: #E8E2D3;
+  --color-ivory: #F2F5F3;
+  --color-ivory-light: #F8FAF9;
+  --color-ivory-dark: #E2E8E5;
 
-  --color-gold: #C6A16C;
-  --color-gold-hover: #B38E57;
-  --color-gold-light: #F7F1E6;
-  --color-gold-border: rgba(198, 161, 108, 0.35);
+  --color-gold: #CF1427;
+  --color-gold-hover: #AD1020;
+  --color-gold-light: #FBEEF0;
+  --color-gold-border: rgba(207, 20, 39, 0.35);
 
-  --color-text-main: #1A2822;
-  --color-text-muted: #566760;
-  --color-text-subtle: #82928B;
-  --color-border: #E5ECE8;
+  --color-text-main: #1A1F1C;
+  --color-text-muted: #56616A;
+  --color-text-subtle: #626D76;
+  --color-border: #E4E9E7;
 
-  --font-heading: 'Manrope', -apple-system, BlinkMacSystemFont, sans-serif;
-  --font-serif: 'Playfair Display', Georgia, serif;
-  --font-body: 'DM Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+  --color-accent-dark: #7BD192; /* acento sobre fondos oscuros */
 
-  --shadow-sm: 0 1px 3px rgba(18, 42, 33, 0.05);
-  --shadow-md: 0 4px 20px -2px rgba(18, 42, 33, 0.08);
-  --shadow-lg: 0 12px 36px -4px rgba(18, 42, 33, 0.12);
-  --shadow-xl: 0 24px 56px -8px rgba(18, 42, 33, 0.16);
+  --font-heading: 'Montserrat', -apple-system, BlinkMacSystemFont, sans-serif;
+  --font-serif: 'Montserrat', -apple-system, BlinkMacSystemFont, sans-serif; /* titulares: la marca no usa serif */
+  --font-body: 'Nunito', -apple-system, BlinkMacSystemFont, sans-serif;
+
+  --shadow-sm: 0 1px 3px rgba(16, 28, 22, 0.05);
+  --shadow-md: 0 4px 20px -2px rgba(16, 28, 22, 0.08);
+  --shadow-lg: 0 12px 36px -4px rgba(16, 28, 22, 0.12);
+  --shadow-xl: 0 24px 56px -8px rgba(16, 28, 22, 0.16);
 
   --radius-sm: 6px;
   --radius-md: 10px;
@@ -92,7 +97,7 @@ h1, h2, h3, h4, h5, h6 {
   background: var(--color-ivory-light);
 }
 ::-webkit-scrollbar-thumb {
-  background: #C4D3CB;
+  background: #CBD9D0;
   border-radius: 4px;
 }
 ::-webkit-scrollbar-thumb:hover {
@@ -123,8 +128,9 @@ h1, h2, h3, h4, h5, h6 {
 /* Buttons */
 .btn-gold {
   background-color: var(--color-gold);
-  color: var(--color-olive-dark); /* texto verde noche: 7:1 sobre dorado (blanco daba 2,4:1) */
-  font-weight: 600;
+  color: #FFFFFF; /* blanco sobre rojo OLIVO: 5,6:1 */
+  font-family: var(--font-heading);
+  font-weight: 800;
   border-radius: var(--radius-md);
   padding: 0.75rem 1.5rem;
   display: inline-flex;
@@ -132,14 +138,14 @@ h1, h2, h3, h4, h5, h6 {
   justify-content: center;
   gap: 0.5rem;
   transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
-  box-shadow: 0 4px 14px rgba(198, 161, 108, 0.3);
+  box-shadow: 0 4px 14px rgba(207, 20, 39, 0.3);
   text-decoration: none;
   border: 1px solid transparent;
   cursor: pointer;
 }
 .btn-gold:hover {
   background-color: var(--color-gold-hover);
-  box-shadow: 0 6px 20px rgba(198, 161, 108, 0.45);
+  box-shadow: 0 6px 20px rgba(207, 20, 39, 0.45);
   transform: translateY(-1px);
 }
 
@@ -154,14 +160,14 @@ h1, h2, h3, h4, h5, h6 {
   justify-content: center;
   gap: 0.5rem;
   transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
-  box-shadow: 0 4px 14px rgba(22, 63, 50, 0.25);
+  box-shadow: 0 4px 14px rgba(23, 71, 44, 0.25);
   text-decoration: none;
   border: 1px solid transparent;
   cursor: pointer;
 }
 .btn-olive:hover {
   background-color: var(--color-olive-dark);
-  box-shadow: 0 6px 20px rgba(22, 63, 50, 0.35);
+  box-shadow: 0 6px 20px rgba(23, 71, 44, 0.35);
   transform: translateY(-1px);
 }
 
@@ -216,7 +222,7 @@ h1, h2, h3, h4, h5, h6 {
 }
 .card-premium:hover {
   box-shadow: var(--shadow-lg);
-  border-color: #D3E0D8;
+  border-color: #CBD9D0;
   transform: translateY(-4px);
 }
 
@@ -229,7 +235,7 @@ h1, h2, h3, h4, h5, h6 {
   cursor: pointer;
   transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
   box-shadow: var(--shadow-sm);
-  border: 1px solid rgba(22, 63, 50, 0.1);
+  border: 1px solid rgba(23, 71, 44, 0.1);
 }
 .category-card:hover {
   transform: translateY(-6px);
@@ -245,8 +251,8 @@ h1, h2, h3, h4, h5, h6 {
 
 /* Gold Accent Badge */
 .badge-gold {
-  background: linear-gradient(135deg, #FBF8F2 0%, #F5EEDB 100%);
-  color: #9B7843;
+  background: linear-gradient(135deg, #FBEEF0 0%, #FBEEF0 100%);
+  color: #B0121F;
   border: 1px solid var(--color-gold-border);
   font-size: 0.75rem;
   font-weight: 700;
@@ -262,7 +268,7 @@ h1, h2, h3, h4, h5, h6 {
 .badge-olive {
   background: var(--color-olive-surface);
   color: var(--color-olive-deep);
-  border: 1px solid rgba(22, 63, 50, 0.15);
+  border: 1px solid rgba(23, 71, 44, 0.15);
   font-size: 0.75rem;
   font-weight: 700;
   text-transform: uppercase;
@@ -308,7 +314,7 @@ h1, h2, h3, h4, h5, h6 {
   width: 100%;
   min-height: 540px;
   overflow: hidden;
-  background-color: #0D261E;
+  background-color: #0F1F16;
 }
 @media (min-width: 1024px) {
   .hero-slider-container {
@@ -377,9 +383,9 @@ h1, h2, h3, h4, h5, h6 {
   to { opacity: 1; transform: none; }
 }
 @keyframes olivoPulse {
-  0% { box-shadow: 0 0 0 0 rgba(198, 161, 108, 0.6); }
-  70% { box-shadow: 0 0 0 8px rgba(198, 161, 108, 0); }
-  100% { box-shadow: 0 0 0 0 rgba(198, 161, 108, 0); }
+  0% { box-shadow: 0 0 0 0 rgba(207, 20, 39, 0.6); }
+  70% { box-shadow: 0 0 0 8px rgba(207, 20, 39, 0); }
+  100% { box-shadow: 0 0 0 0 rgba(207, 20, 39, 0); }
 }
 .hero-copy > * { opacity: 0; }
 .hero-slide.active .hero-copy > * { animation: olivoFadeUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) both; }
@@ -421,26 +427,34 @@ h1, h2, h3, h4, h5, h6 {
 .eyebrow {
   font-family: var(--font-heading);
   font-size: 11px; font-weight: 800; letter-spacing: 0.14em; text-transform: uppercase;
-  color: #8A6A3A;
+  color: #B0121F;
 }
 
 .biz-chip {
   height: 46px; padding: 0 20px; border-radius: 9999px; cursor: pointer;
   font-family: var(--font-heading); font-weight: 700; font-size: 15px;
-  border: 1px solid #D3DED8; background: #FFFFFF; color: var(--color-text-main);
+  border: 1px solid #CBD9D0; background: #FFFFFF; color: var(--color-text-main);
   transition: background 0.2s, color 0.2s, border-color 0.2s, transform 0.2s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.2s;
 }
 .biz-chip:hover { transform: translateY(-1px); }
-.biz-chip[aria-pressed="true"] { background: var(--color-olive-deep); color: #FFFFFF; border-color: var(--color-olive-deep); box-shadow: 0 4px 14px rgba(22, 63, 50, 0.25); }
+.biz-chip[aria-pressed="true"] { background: var(--color-olive-deep); color: #FFFFFF; border-color: var(--color-olive-deep); box-shadow: 0 4px 14px rgba(23, 71, 44, 0.25); }
 
 .lift { transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.3s, border-color 0.3s; }
-.lift:hover { transform: translateY(-4px); box-shadow: var(--shadow-lg); border-color: #D3DED8; }
+.lift:hover { transform: translateY(-4px); box-shadow: var(--shadow-lg); border-color: #CBD9D0; }
 
 .category-card .cat-arrow { transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1); }
 .category-card:hover .cat-arrow { transform: translateX(4px); }
 
-.footer-link { color: #D7E8DD; transition: color 0.2s; cursor: pointer; }
-.footer-link:hover { color: var(--color-gold); }
+.footer-link { color: #D6E6DB; transition: color 0.2s; cursor: pointer; background: none; border: 0; padding: 0; font: inherit; text-align: left; text-decoration: none; }
+.footer-link:hover, .footer-link:focus-visible { color: var(--color-accent-dark); }
+
+/* Titulares: Montserrat con el tracking de la marca */
+.font-serif { letter-spacing: -0.02em; }
+
+/* Foco visible para teclado en todo el portal */
+a:focus-visible, button:focus-visible, input:focus-visible, select:focus-visible, textarea:focus-visible {
+  outline: 3px solid rgba(207, 20, 39, 0.45); outline-offset: 2px;
+}
 
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after { animation: none !important; transition: none !important; }
@@ -453,7 +467,7 @@ h1, h2, h3, h4, h5, h6 {
 
 /* Modal Animations */
 .modal-backdrop {
-  background: rgba(13, 38, 30, 0.75);
+  background: rgba(15, 31, 22, 0.75);
   backdrop-filter: blur(4px);
   transition: opacity 0.3s ease;
 }
