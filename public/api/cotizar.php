@@ -12,8 +12,10 @@
 declare(strict_types=1);
 require __DIR__ . '/_comun.php';
 
-const OLIVO_COMUNAS = ['Viña del Mar', 'Valparaíso', 'Concón', 'Quilpué', 'Villa Alemana', 'Limache', 'Quillota'];
-const OLIVO_TIPOS = ['Restaurante', 'Local de sushi', 'Pizzería', 'Cafetería', 'Minimarket', 'Casino o catering', 'Otro'];
+// Sectores de despacho (Logística Olivo SpA 2026). Misma lista que RUTAS en public/js/app.js.
+const OLIVO_COMUNAS = ['Viña del Mar', 'Reñaca', 'Concón', 'Valparaíso', 'Curauma', 'Quilpué', 'Villa Alemana',
+    'Limache', 'Quillota', 'Calera', 'Quintero', 'Papudo', 'Maitencillo'];
+const OLIVO_TIPOS = ['Restaurante', 'Cafetería', 'Hotel', 'Local de sushi', 'Pizzería', 'Minimarket', 'Casino o catering', 'Otro'];
 
 if (($_SERVER['REQUEST_METHOD'] ?? '') !== 'POST') {
     header('Allow: POST');
@@ -159,11 +161,10 @@ $okVentas = olivo_enviar((string)($correo['ventas'] ?? ''), "Cotización $codigo
 $okCliente = false;
 if (!empty($correo['copia_al_cliente'])) {
     $aCliente = "Hola $nombre,\n\n"
-        . "¡Tu solicitud fue recibida! Un ejecutivo de Distribuidora Olivo revisará los productos seleccionados "
-        . "y enviará una cotización personalizada a tu correo electrónico.\n\n"
+        . "¡Tu solicitud fue recibida! Un asesor comercial se pondrá en contacto contigo a la brevedad "
+        . "para enviarte la cotización y responder a tus requerimientos.\n\n"
         . "Código de seguimiento: $codigo\nDespacho en: $comuna\n\n"
         . "Productos solicitados:\n$detalle\n\n"
-        . "Despachos de lunes a sábado, de 9:00 a 15:00 hrs.\n"
         . ($correo['firma'] ?? 'Distribuidora e Importadora Olivo SpA') . "\n";
     $okCliente = olivo_enviar($email, "Recibimos tu solicitud $codigo · Distribuidora Olivo", $aCliente, $remitente, $nombreRemitente, (string)($correo['ventas'] ?? ''));
 }

@@ -306,7 +306,25 @@
   const ICON_ARROW = '<svg class="cat-arrow" aria-hidden="true" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M5 12h14M12 5l7 7-7 7"></path></svg>';
   const ICON_PIN = '<svg aria-hidden="true" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#7BD192" stroke-width="2"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0z"></path><circle cx="12" cy="10" r="3"></circle></svg>';
   const ICON_DOC = '<svg aria-hidden="true" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M14 3H6a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V9z"></path><path d="M14 3v6h6M8 13h8M8 17h5"></path></svg>';
-  const COMUNAS = ['Viña del Mar', 'Valparaíso', 'Concón', 'Quilpué', 'Villa Alemana', 'Limache', 'Quillota'];
+  // Logística Olivo SpA 2026: días de despacho por sector (L, M, Mi, J, V, S). Misma lista que valida api/cotizar.php.
+  const DIAS_RUTA = [['L', 'Lunes'], ['M', 'Martes'], ['Mi', 'Miércoles'], ['J', 'Jueves'], ['V', 'Viernes'], ['S', 'Sábado']];
+  const RUTAS = [
+    ['Viña del Mar',  [1, 1, 1, 1, 1, 1]],
+    ['Reñaca',        [1, 1, 1, 1, 1, 1]],
+    ['Concón',        [1, 1, 1, 1, 1, 1]],
+    ['Valparaíso',    [0, 1, 0, 0, 1, 0]],
+    ['Curauma',       [0, 1, 0, 0, 1, 0]],
+    ['Quilpué',       [0, 0, 1, 0, 0, 0]],
+    ['Villa Alemana', [0, 0, 1, 0, 0, 0]],
+    ['Limache',       [0, 0, 0, 1, 0, 0]],
+    ['Quillota',      [0, 0, 0, 1, 0, 0]],
+    ['Calera',        [0, 0, 0, 1, 0, 0]],
+    ['Quintero',      [0, 0, 1, 0, 0, 0]],
+    ['Papudo',        [0, 0, 1, 0, 0, 0]],
+    ['Maitencillo',   [0, 0, 1, 0, 1, 0]]
+  ];
+  const RUTA_HORARIO = 'Lunes a viernes de 8:00 a 18:00 hrs. · Sábado de 8:00 a 14:00 hrs.';
+  const COMUNAS = RUTAS.map(r => r[0]);
   const WHATSAPP = 'https://wa.me/56977236128';
 
   const BIZ = [
@@ -395,8 +413,8 @@
           <div class="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full z-20">
             <div class="hero-copy max-w-[640px] flex flex-col gap-[22px]">
               <span class="self-start inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white/10 border border-white/25 text-white text-[11px] font-extrabold uppercase tracking-[0.14em]" style="font-family: var(--font-heading)">${ICON_PIN} Proveedor HORECA · V Región</span>
-              <h1 class="font-serif font-bold text-white text-[38px] sm:text-5xl lg:text-[60px] leading-[1.08] tracking-tight">Todo lo que tu negocio necesita, <em class="not-italic font-extrabold text-[#7BD192]">en un solo lugar.</em></h1>
-              <p class="text-base sm:text-lg text-[#EEF3F0] leading-relaxed max-w-[540px]">Abastecimiento integral para restaurantes, cocinas, locales de sushi y minimarkets. Insumos certificados con entrega directa en tu local.</p>
+              <h1 class="font-serif font-bold text-white text-[38px] sm:text-5xl lg:text-[60px] leading-[1.08] tracking-tight">Todo lo que tu negocio necesita, <em class="not-italic font-extrabold text-[#7BD192]">en un solo proveedor.</em></h1>
+              <p class="text-base sm:text-lg text-[#EEF3F0] leading-relaxed max-w-[540px]">Abastecimiento integral para restaurantes, cafeterías y hoteles.</p>
               <div class="flex flex-wrap gap-3">
                 <button type="button" onclick="window.OlivoApp.setView('checkout')" class="btn-gold h-[52px] px-6 text-[15px] font-extrabold" style="font-family: var(--font-heading)">${ICON_DOC} Solicitar cotización</button>
                 <button type="button" onclick="window.OlivoApp.scrollToCategories()" class="btn-glass h-[52px] px-[22px] text-[15px]" style="font-family: var(--font-heading)">Explorar catálogo <svg aria-hidden="true" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M12 5v14M19 12l-7 7-7-7"></path></svg></button>
@@ -491,21 +509,39 @@
       </section>
 
       <!-- COBERTURA DE DESPACHO -->
-      <section aria-labelledby="despachoTitulo" class="px-4 sm:px-6 lg:px-8 py-16 sm:py-[88px] bg-[#17472C] text-white">
-        <div class="reveal max-w-7xl mx-auto flex flex-wrap items-center gap-10">
-          <div class="flex-[999_1_560px] flex flex-col gap-3.5">
+      <section id="despacho-section" aria-labelledby="despachoTitulo" class="px-4 sm:px-6 lg:px-8 py-16 sm:py-[88px] bg-[#17472C] text-white">
+        <div class="reveal max-w-7xl mx-auto flex flex-wrap items-start gap-10">
+          <div class="flex-[999_1_480px] flex flex-col gap-3.5">
             <span class="eyebrow" style="color: #7BD192">Cobertura de despacho</span>
             <h2 id="despachoTitulo" class="font-serif text-[30px] sm:text-[38px] leading-tight text-white m-0">Llegamos a tu local en toda la V Región</h2>
-            <p class="m-0 text-[#D6E6DB] text-[17px] max-w-[600px]">Despacho directo en siete comunas. Revisa si tu comuna está en la ruta antes de armar tu lista.</p>
+            <p class="m-0 text-[#D6E6DB] text-[17px] max-w-[600px]">Despacho directo en ${COMUNAS.length} sectores. Revisa qué días pasa nuestra ruta por tu sector antes de armar tu lista.</p>
             <ul class="mt-2 p-0 list-none flex flex-wrap gap-2.5">
               ${COMUNAS.map(c => `<li class="inline-flex items-center gap-2 px-3.5 py-2 rounded-full bg-white/[0.08] border border-[#7BD192]/45 font-semibold text-sm" style="font-family: var(--font-heading)">${ICON_PIN}${c}</li>`).join('')}
             </ul>
           </div>
-          <div class="flex-[1_1_340px] bg-[#0F1F16] border border-[#7BD192]/35 rounded-2xl p-7 flex flex-col gap-4">
-            <strong class="text-[17px]" style="font-family: var(--font-heading)">Condiciones comerciales</strong>
-            <div class="flex gap-3 items-start text-[#D6E6DB] text-[15px]"><svg aria-hidden="true" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#7BD192" stroke-width="2" class="flex-none mt-0.5"><path d="M3 6h11v10H3zM14 9h4l3 3v4h-7"></path><circle cx="7" cy="18" r="2"></circle><circle cx="17" cy="18" r="2"></circle></svg><span>Despachos de lunes a sábado, de 9:00 a 15:00 hrs.</span></div>
-            <div class="flex gap-3 items-start text-[#D6E6DB] text-[15px]"><svg aria-hidden="true" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#7BD192" stroke-width="2" class="flex-none mt-0.5"><circle cx="12" cy="12" r="9"></circle><path d="M12 7v5l3 2"></path></svg><span>Congelados con cadena de frío hasta tu local.</span></div>
-            <div class="flex gap-3 items-start text-[#D6E6DB] text-[15px]"><svg aria-hidden="true" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#7BD192" stroke-width="2" class="flex-none mt-0.5"><path d="M14 3H6a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V9z"></path><path d="M14 3v6h6"></path></svg><span>Precios netos por volumen en cotización formal, sin registro.</span></div>
+          <div class="flex-[1_1_360px] bg-[#0F1F16] border border-[#7BD192]/35 rounded-2xl p-6 sm:p-7 flex flex-col gap-4">
+            <div class="flex flex-col gap-1">
+              <strong class="text-[17px]" style="font-family: var(--font-heading)">Horarios de ruta</strong>
+              <span class="text-[14px] text-[#D6E6DB]">${RUTA_HORARIO}</span>
+            </div>
+            <table class="w-full text-[14px] border-collapse">
+              <caption class="sr-only">Días de despacho por sector</caption>
+              <thead>
+                <tr class="text-[#7BD192] text-[12px] font-extrabold" style="font-family: var(--font-heading)">
+                  <th scope="col" class="text-left font-extrabold pb-2">Sector</th>
+                  ${DIAS_RUTA.map(d => `<th scope="col" class="w-8 text-center pb-2"><abbr title="${d[1]}" class="no-underline">${d[0]}</abbr></th>`).join('')}
+                </tr>
+              </thead>
+              <tbody>
+                ${RUTAS.map(([sector, dias]) => `
+                  <tr class="border-t border-white/10">
+                    <th scope="row" class="text-left font-semibold text-white py-1.5 pr-2">${sector}</th>
+                    ${dias.map((si, i) => `<td class="text-center py-1.5">${si
+                      ? `<span class="inline-flex w-5 h-5 rounded-full bg-[#7BD192] text-[#0F1F16] items-center justify-center"><svg aria-hidden="true" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.2"><path d="M20 6 9 17l-5-5"></path></svg></span><span class="sr-only">Despacho el ${DIAS_RUTA[i][1].toLowerCase()}</span>`
+                      : '<span aria-hidden="true" class="text-white/20">·</span>'}</td>`).join('')}
+                  </tr>`).join('')}
+              </tbody>
+            </table>
           </div>
         </div>
       </section>
@@ -548,6 +584,12 @@
       </section>
     `;
     initReveal();
+  }
+
+  // Lleva a la tabla de días de despacho por sector (portada)
+  function scrollToRuta() {
+    const go = () => { const el = document.getElementById('despacho-section'); if (el) el.scrollIntoView({ behavior: 'smooth' }); };
+    if (state.currentView !== 'landing') { setView('landing'); setTimeout(go, 150); } else { go(); }
   }
 
   function scrollToSteps() {
@@ -639,7 +681,7 @@
                 ${global ? `<button type="button" onclick="window.OlivoApp.resetFilters()" class="self-start mt-1 inline-flex items-center gap-1.5 text-sm font-bold text-[#17472C] underline underline-offset-4"><i data-lucide="x" class="w-4 h-4"></i>Borrar búsqueda y volver a ${cat.name}</button>` : ''}
               </div>
               <label class="flex flex-col gap-1.5 text-[11px] font-extrabold tracking-[0.12em] uppercase text-[#56616A]" style="font-family: var(--font-heading)">
-                Ver otra línea
+                Categorías
                 <select onchange="window.OlivoApp.setFilterCategory(this.value)" class="h-11 min-w-[260px] px-3 rounded-[10px] border border-[#CBD9D0] bg-white text-[15px] font-medium normal-case tracking-normal text-[#17472C]" style="font-family: var(--font-body)">
                   ${state.categories.map(c => `<option value="${c.id}" ${c.id === cat.id ? 'selected' : ''}>${c.name}</option>`).join('')}
                 </select>
@@ -751,7 +793,7 @@
     { name: 'companyName', label: 'Razón social o nombre del local', type: 'text', auto: 'organization', req: true, err: 'Indica el nombre de tu local.', grupo: 'negocio' },
     { name: 'rut', label: 'RUT de empresa', type: 'text', req: true, err: 'Revisa el RUT y su dígito verificador, por ejemplo 76.123.456-0.', ph: '76.123.456-0', grupo: 'negocio' }
   ];
-  const TIPOS_NEGOCIO = ['Restaurante', 'Local de sushi', 'Pizzería', 'Cafetería', 'Minimarket', 'Casino o catering', 'Otro'];
+  const TIPOS_NEGOCIO = ['Restaurante', 'Cafetería', 'Hotel', 'Local de sushi', 'Pizzería', 'Minimarket', 'Casino o catering', 'Otro'];
 
   function productoActual(item) {
     return state.products.find(p => p.id === item.productId) || item;
@@ -908,8 +950,7 @@
             <ul class="m-0 p-0 list-none flex flex-col gap-2 text-sm text-[#D6E6DB]">
               ${state.cart.map(i => `<li class="flex justify-between gap-3"><span>${i.name}</span><strong class="text-[#7BD192] tabular-nums">×${i.quantity}</strong></li>`).join('')}
             </ul>
-            <span class="text-[13px] text-[#A9BDB2] pt-2 border-t border-[#D6E6DB]/15">Un ejecutivo revisa tu lista y te responde con precios netos y condiciones de despacho.</span>
-            <span class="flex gap-2 items-center text-[13px] text-[#D6E6DB]"><i data-lucide="truck" class="w-4 h-4 text-[#7BD192]"></i>Despachos de lunes a sábado, de 9:00 a 15:00 hrs.</span>
+            <span class="text-[14px] text-[#D6E6DB] pt-3 border-t border-[#D6E6DB]/15">Un asesor comercial se pondrá en contacto contigo a la brevedad para enviarte la cotización y responder a tus requerimientos.</span>
           </aside>
         </div>`;
     }
@@ -924,6 +965,31 @@
     if (window.lucide) window.lucide.createIcons();
     const primerError = container.querySelector('[aria-invalid="true"]');
     if (primerError) primerError.focus();
+  }
+
+  // Mensaje de WhatsApp para Olivo con todo lo que el cliente escribió en la solicitud
+  function mensajeWhatsApp(q) {
+    const items = q.items || [];
+    const max = 40;
+    const lineas = items.slice(0, max).map(i =>
+      `• ${i.quantity} × ${i.name}${i.format ? ' (' + i.format + ')' : ''} [${i.sku}]`);
+    if (items.length > max) lineas.push(`… y ${items.length - max} productos más (detalle en el correo de ventas).`);
+    return [
+      `*Nueva solicitud de cotización ${q.id}*`,
+      '',
+      `Contacto: ${q.clientName}`,
+      `Teléfono: ${q.phone}`,
+      `Correo: ${q.email}`,
+      `Local / razón social: ${q.companyName}`,
+      `RUT: ${q.rut}`,
+      `Sector de despacho: ${q.comuna}`,
+      q.businessType ? `Tipo de negocio: ${q.businessType}` : null,
+      '',
+      `*Productos (${items.length}):*`,
+      ...lineas,
+      q.notes ? '' : null,
+      q.notes ? `Comentarios: ${q.notes}` : null
+    ].filter(l => l !== null).join('\n');
   }
 
   // =========================================================================
@@ -945,11 +1011,19 @@
             </span>
             <span class="font-mono text-sm px-3 py-1 rounded-full bg-[#FBEEF0] text-[#B0121F]">${quote.id}</span>
             <h1 class="font-serif text-[30px] sm:text-[34px] leading-tight text-[#131A16] m-0">¡Tu solicitud fue recibida!</h1>
-            <p class="m-0 text-[#56616A] text-[17px] max-w-[560px]">Un ejecutivo de Distribuidora Olivo revisará los productos seleccionados y enviará una cotización personalizada a tu correo electrónico.</p>
+            <p class="m-0 text-[#56616A] text-[17px] max-w-[560px]">Un asesor comercial se pondrá en contacto contigo a la brevedad para enviarte la cotización y responder a tus requerimientos.</p>
             <ol class="mt-2 p-0 list-none flex flex-col gap-2.5 text-left w-full max-w-[460px]">
-              ${[`Te llega una copia de tu lista a <strong>${quote.email}</strong>`, 'Tu ejecutivo te contacta con precios y condiciones', `Confirmas y despachamos en <strong>${quote.comuna}</strong>`].map((t, i) => `
+              ${[`Te llega una copia de tu lista a <strong>${escapeHtml(quote.email)}</strong>`, 'Tu asesor comercial te envía la cotización',`Confirmas y despachamos en <strong>${quote.comuna}</strong>`].map((t, i) => `
                 <li class="flex gap-3 items-center"><span class="flex-none w-7 h-7 rounded-lg bg-[#F2F8F3] text-[#17472C] font-extrabold flex items-center justify-center text-[13px]">${i + 1}</span><span>${t}</span></li>`).join('')}
             </ol>
+            <div class="w-full max-w-[540px] mt-3 rounded-2xl border border-[#CBD9D0] bg-[#F2F8F3] px-5 py-5 flex flex-col gap-3 items-center">
+              <strong class="text-[17px] text-[#17472C]" style="font-family: var(--font-heading)">Envíala también por WhatsApp</strong>
+              <span class="text-[15px] text-[#56616A]">Tu asesor comercial la recibe al instante, con tus datos y todos los productos. Solo presiona «Enviar» en WhatsApp.</span>
+              <a href="${WHATSAPP}?text=${encodeURIComponent(mensajeWhatsApp(quote))}" target="_blank" rel="noopener" data-evento="whatsapp-cotizacion" class="inline-flex items-center justify-center gap-2.5 h-12 px-6 rounded-[10px] bg-[#17472C] text-white font-bold text-[15px] no-underline hover:bg-[#1F6A3E] transition" style="font-family: var(--font-heading)">
+                <svg aria-hidden="true" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 11.5a8.4 8.4 0 0 1-12.3 7.4L3 21l2.1-5.6A8.4 8.4 0 1 1 21 11.5z"></path></svg>
+                Enviar solicitud por WhatsApp
+              </a>
+            </div>
             <div class="flex flex-wrap gap-3 justify-center pt-2">
               <button type="button" onclick="window.OlivoApp.setView('landing')" class="btn-olive h-12 px-5 text-sm">Volver al inicio</button>
               <button type="button" onclick="window.OlivoApp.openSimulatedEmailModal('${quote.id}')" class="btn-outline-olive h-12 px-5 text-sm"><i data-lucide="mail-check" class="w-4 h-4"></i>Ver correo de confirmación</button>
@@ -1013,11 +1087,6 @@
               </div>
 
               <div class="pt-4 border-t border-[#E4E9E7] flex flex-col gap-3">
-                <div class="p-2.5 rounded-lg bg-[#FBEEF0] border border-[#CF1427]/30 text-[12px] text-[#56616A] flex items-center gap-2">
-                  <i data-lucide="file-text" class="w-4 h-4 text-[#CF1427] flex-shrink-0"></i>
-                  <span>Sin precios públicos. Tu ejecutivo cotiza este producto según el volumen y tu comuna en la V Región.</span>
-                </div>
-
                 <div class="flex items-center gap-3">
                   <div role="group" aria-label="Cantidad" class="flex items-center border border-[#E4E9E7] rounded-[10px] overflow-hidden flex-none">
                     <button type="button" onclick="window.OlivoApp.stepModalQty(-1)" aria-label="Restar una unidad" class="w-10 h-11 bg-white text-[#17472C] text-lg font-bold hover:bg-[#F2F8F3] transition">−</button>
@@ -1521,6 +1590,7 @@
     closeModal,
     scrollToCategories,
     scrollToSteps,
+    scrollToRuta,
     scrollToContact,
     setHeroSlide,
     nextHeroSlide,
