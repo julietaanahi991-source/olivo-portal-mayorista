@@ -325,7 +325,9 @@
   ];
   const RUTA_HORARIO = 'Lunes a viernes de 8:00 a 18:00 hrs. · Sábado de 8:00 a 14:00 hrs.';
   const COMUNAS = RUTAS.map(r => r[0]);
+  // WhatsApp oficial de Olivo (+56 9 7723 6128). Los botones generales abren con un saludo que identifica al portal.
   const WHATSAPP = 'https://wa.me/56977236128';
+  const WA_SALUDO = 'Hola Olivo, vengo del portal mayorista y quiero solicitar una cotización.';
 
   const BIZ = [
     { id: 'restaurante', label: 'Restaurante', recs: [
@@ -558,7 +560,7 @@
           </div>
           <div class="flex flex-wrap gap-3">
             <button type="button" onclick="window.OlivoApp.setView('checkout')" class="btn-gold h-[52px] px-6 text-[15px] font-extrabold" style="font-family: var(--font-heading)">Solicitar cotización</button>
-            <a href="${WHATSAPP}" target="_blank" rel="noopener" data-evento="whatsapp" class="inline-flex items-center gap-2.5 h-[52px] px-[22px] rounded-[10px] bg-white border border-[#17472C] text-[#17472C] font-bold text-[15px] no-underline transition hover:-translate-y-px" style="font-family: var(--font-heading)">
+            <a href="${WHATSAPP}?text=${encodeURIComponent(WA_SALUDO)}" target="_blank" rel="noopener" data-evento="whatsapp" class="inline-flex items-center gap-2.5 h-[52px] px-[22px] rounded-[10px] bg-white border border-[#17472C] text-[#17472C] font-bold text-[15px] no-underline transition hover:-translate-y-px" style="font-family: var(--font-heading)">
               <svg aria-hidden="true" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 11.5a8.4 8.4 0 0 1-12.3 7.4L3 21l2.1-5.6A8.4 8.4 0 1 1 21 11.5z"></path></svg>
               WhatsApp +56 9 7723 6128
             </a>
@@ -715,7 +717,7 @@
                   <span class="text-[15px] text-[#56616A]">Escríbele a tu asesor comercial: lo buscamos y lo sumamos a tu cotización.</span>
                   <div class="flex flex-wrap gap-3 justify-center mt-2">
                     <button type="button" onclick="window.OlivoApp.resetFilters()" class="h-11 px-4 rounded-[10px] border border-[#CBD9D0] bg-white text-sm font-bold text-[#17472C] hover:bg-[#F2F8F3] transition" style="font-family: var(--font-heading)">Ver todos los productos de ${cat.shortName || cat.name}</button>
-                    <a href="${WHATSAPP}?text=${encodeURIComponent('Hola, busco este insumo para cotizar: ' + (state.filter.search || '').trim())}" target="_blank" rel="noopener" class="h-11 px-4 rounded-[10px] bg-[#17472C] text-white text-sm font-bold inline-flex items-center gap-2 no-underline hover:bg-[#1F6A3E] transition" style="font-family: var(--font-heading)"><i data-lucide="message-circle" class="w-4 h-4"></i>Pedirlo por WhatsApp</a>
+                    <a href="${WHATSAPP}?text=${encodeURIComponent('Hola Olivo, vengo del portal mayorista y busco este insumo para cotizar: ' + (state.filter.search || '').trim())}" target="_blank" rel="noopener" class="h-11 px-4 rounded-[10px] bg-[#17472C] text-white text-sm font-bold inline-flex items-center gap-2 no-underline hover:bg-[#1F6A3E] transition" style="font-family: var(--font-heading)"><i data-lucide="message-circle" class="w-4 h-4"></i>Pedirlo por WhatsApp</a>
                   </div>
                 </div>
               ` : `
@@ -953,9 +955,9 @@
   // Mensaje de WhatsApp para Olivo con todo lo que el cliente escribió en la solicitud
   function mensajeWhatsApp(q) {
     const items = q.items || [];
-    const max = 40;
-    const lineas = items.slice(0, max).map(i =>
-      `• ${i.quantity} × ${i.name}${i.format ? ' (' + i.format + ')' : ''} [${i.sku}]`);
+    // Línea corta (cantidad × producto [SKU]) para que el enlace no sea demasiado largo; el formato va en el correo a ventas
+    const max = 30;
+    const lineas = items.slice(0, max).map(i => `• ${i.quantity} × ${i.name} [${i.sku}]`);
     if (items.length > max) lineas.push(`… y ${items.length - max} productos más (detalle en el correo de ventas).`);
     return [
       `*Nueva solicitud de cotización ${q.id}*`,
@@ -995,18 +997,19 @@
             <span class="font-mono text-sm px-3 py-1 rounded-full bg-[#FBEEF0] text-[#B0121F]">${quote.id}</span>
             <h1 class="font-serif text-[30px] sm:text-[34px] leading-tight text-[#131A16] m-0">¡Tu solicitud fue recibida!</h1>
             <p class="m-0 text-[#56616A] text-[17px] max-w-[560px]">Un asesor comercial se pondrá en contacto contigo a la brevedad para enviarte la cotización y responder a tus requerimientos.</p>
-            <ol class="mt-2 p-0 list-none flex flex-col gap-2.5 text-left w-full max-w-[460px]">
-              ${[`Te llega una copia de tu lista a <strong>${escapeHtml(quote.email)}</strong>`, 'Tu asesor comercial te envía la cotización',`Confirmas y despachamos en <strong>${quote.comuna}</strong>`].map((t, i) => `
-                <li class="flex gap-3 items-center"><span class="flex-none w-7 h-7 rounded-lg bg-[#F2F8F3] text-[#17472C] font-extrabold flex items-center justify-center text-[13px]">${i + 1}</span><span>${t}</span></li>`).join('')}
-            </ol>
-            <div class="w-full max-w-[540px] mt-3 rounded-2xl border border-[#CBD9D0] bg-[#F2F8F3] px-5 py-5 flex flex-col gap-3 items-center">
-              <strong class="text-[17px] text-[#17472C]" style="font-family: var(--font-heading)">Envíala también por WhatsApp</strong>
+            <!-- Pedido del dueño: que la solicitud llegue al WhatsApp de Olivo. Va primero, justo bajo el título. -->
+            <div class="w-full max-w-[540px] mt-2 rounded-2xl border border-[#CBD9D0] bg-[#F2F8F3] px-5 py-5 flex flex-col gap-3 items-center">
+              <strong class="text-[17px] text-[#17472C]" style="font-family: var(--font-heading)">Envíala ahora por WhatsApp</strong>
               <span class="text-[15px] text-[#56616A]">Tu asesor comercial la recibe al instante, con tus datos y todos los productos. Solo presiona «Enviar» en WhatsApp.</span>
-              <a href="${WHATSAPP}?text=${encodeURIComponent(mensajeWhatsApp(quote))}" target="_blank" rel="noopener" data-evento="whatsapp-cotizacion" class="inline-flex items-center justify-center gap-2.5 h-12 px-6 rounded-[10px] bg-[#17472C] text-white font-bold text-[15px] no-underline hover:bg-[#1F6A3E] transition" style="font-family: var(--font-heading)">
+              <a href="${WHATSAPP}?text=${encodeURIComponent(mensajeWhatsApp(quote))}" target="_blank" rel="noopener" data-evento="whatsapp-cotizacion" class="w-full sm:w-auto inline-flex items-center justify-center gap-2.5 h-12 px-6 rounded-[10px] bg-[#17472C] text-white font-bold text-[15px] no-underline hover:bg-[#1F6A3E] transition" style="font-family: var(--font-heading)">
                 <svg aria-hidden="true" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 11.5a8.4 8.4 0 0 1-12.3 7.4L3 21l2.1-5.6A8.4 8.4 0 1 1 21 11.5z"></path></svg>
                 Enviar solicitud por WhatsApp
               </a>
             </div>
+            <ol class="mt-2 p-0 list-none flex flex-col gap-2.5 text-left w-full max-w-[460px]">
+              ${[`Te llega una copia de tu lista a <strong>${escapeHtml(quote.email)}</strong>`, 'Tu asesor comercial te envía la cotización', `Confirmas y despachamos en <strong>${escapeHtml(quote.comuna)}</strong>`].map((t, i) => `
+                <li class="flex gap-3 items-center"><span class="flex-none w-7 h-7 rounded-lg bg-[#F2F8F3] text-[#17472C] font-extrabold flex items-center justify-center text-[13px]">${i + 1}</span><span>${t}</span></li>`).join('')}
+            </ol>
             <div class="flex flex-wrap gap-3 justify-center pt-2">
               <button type="button" onclick="window.OlivoApp.setView('landing')" class="btn-olive h-12 px-5 text-sm">Volver al inicio</button>
               <button type="button" onclick="window.OlivoApp.openSimulatedEmailModal('${quote.id}')" class="btn-outline-olive h-12 px-5 text-sm"><i data-lucide="mail-check" class="w-4 h-4"></i>Ver correo de confirmación</button>
