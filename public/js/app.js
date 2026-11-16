@@ -343,22 +343,15 @@
       { tag: 'Despensa', cat: 'alimentos', name: 'Alimentos y abarrotes', items: 'Aceite para freír en bidón, arroz, harinas y salsa de tomate en pouch.' },
       { tag: 'Cadena de frío', cat: 'congelados', name: 'Congelados', items: 'Papas prefritas en 3 cortes y camarón ecuatoriano P&D.' },
       { tag: 'Higiene SEREMI', cat: 'limpieza', name: 'Limpieza y aseo', items: 'Desengrasante pesado, lavalozas concentrado y guantes de nitrilo.' }] },
-    { id: 'sushi', label: 'Local de sushi', recs: [
-      { tag: 'Línea estrella', cat: 'sushi', name: 'Sushi y gastronomía oriental', items: 'Arroz Shirakiku 9 kg, panko, quesos crema y salsa de soya Kikko.' },
-      { tag: 'Cadena de frío', cat: 'congelados', name: 'Congelados', items: 'Camarón P&D 36/40 para tempura y ebi furai.' },
-      { tag: 'Delivery', cat: 'insumos', name: 'Insumos para restaurantes', items: 'Sushi box negro antivaho y film alusa para esterillas.' }] },
-    { id: 'pizzeria', label: 'Pizzería', recs: [
-      { tag: 'Formato gastronómico', cat: 'lacteos', name: 'Lácteos y refrigerados', items: 'Mozzarella en barra de 3,5 kg y parmesano en horma.' },
-      { tag: 'Despensa', cat: 'alimentos', name: 'Alimentos y abarrotes', items: 'Harina Mont Blanc, salsa de tomate San Remo y aceite de oliva.' },
-      { tag: 'Mesón', cat: 'insumos', name: 'Insumos para restaurantes', items: 'Rollos térmicos 80x80 para POS y comandas.' }] },
+    // Atajo por tipo de negocio: solo Restaurante, Cafetería y Sushi (pedido de Olivo, 16 nov)
     { id: 'cafeteria', label: 'Cafetería', recs: [
       { tag: 'Formato gastronómico', cat: 'lacteos', name: 'Lácteos y refrigerados', items: 'Crema UHT, leche entera en caja y mantequilla en barra.' },
       { tag: 'Cadena de frío', cat: 'congelados', name: 'Congelados', items: 'Pulpas de fruta Río Alto: maracuyá, mango, frambuesa y frutilla.' },
       { tag: 'Para llevar', cat: 'insumos', name: 'Insumos para restaurantes', items: 'Bowls kraft con tapa y servilletas dobladas.' }] },
-    { id: 'minimarket', label: 'Minimarket', recs: [
-      { tag: 'Despensa', cat: 'alimentos', name: 'Alimentos y abarrotes', items: 'Arroz, azúcar, sal y pastas en fardo para reventa.' },
-      { tag: 'Rotación alta', cat: 'limpieza', name: 'Limpieza y aseo', items: 'Cloro, papel higiénico jumbo y bolsas de aseo.' },
-      { tag: 'Refrigerados', cat: 'lacteos', name: 'Lácteos y refrigerados', items: 'Leche UHT en caja de 12 y mantequilla.' }] }
+    { id: 'sushi', label: 'Local de sushi', recs: [
+      { tag: 'Línea estrella', cat: 'sushi', name: 'Sushi y gastronomía oriental', items: 'Arroz Shirakiku 9 kg, panko, quesos crema y salsa de soya Kikko.' },
+      { tag: 'Cadena de frío', cat: 'congelados', name: 'Congelados', items: 'Camarón P&D 36/40 para tempura y ebi furai.' },
+      { tag: 'Delivery', cat: 'insumos', name: 'Insumos para restaurantes', items: 'Sushi box negro antivaho y film alusa para esterillas.' }] }
   ];
 
   const CAT_CARDS = [
