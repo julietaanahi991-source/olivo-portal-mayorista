@@ -39,23 +39,25 @@
     s37('001', 'Blanca'), s37('002', 'Color Natural'), s37('003', 'Negra'), s37('004', 'Roja'),
     // 40 x 40 cm (orden: blanca, negra y luego colores)
     s40('005', 'Blanca'), s40('012', 'Negra'), s40('007', 'Roja'), s40('008', 'Burdeo'), s40('013', 'Rosa'),
-    s40('006', 'Amarillo Suave'), s40('009', 'Verde'), s40('010', 'Azul'),
-    // Azul marino: sin envase nuevo, conserva la foto anterior
-    nuevo('011', 'Servilleta Joker Premium 40 x 40 cm Azul Marino (Caja 1.200 unidades)', 'serv-40x40', F_40)
+    s40('006', 'Amarillo Suave'), s40('009', 'Verde'), s40('010', 'Azul')
+    // OLV-SER-011 (azul marino) eliminado: repetido (Olivo, 16 nov). No reutilizar el SKU.
   ];
+
+  // Repetidas con las 40 x 40 «Punta a Punta» (Olivo, 16 nov): se quitan del catálogo.
+  const ELIMINAR = ['OLV-ASE-011', 'OLV-ASE-012'];
+  for (let k = INITIAL_PRODUCTS.length - 1; k >= 0; k--) {
+    if (ELIMINAR.includes(INITIAL_PRODUCTS[k].sku)) INITIAL_PRODUCTS.splice(k, 1);
+  }
 
   // Servilletas que ya estaban en Limpieza: pasan a esta línea (conservan su SKU y su foto).
   const MOVER = {
-    'OLV-ASE-011': 'serv-40x40', 'OLV-ASE-012': 'serv-40x40', 'OLV-ASE-034': 'serv-40x40',
+    'OLV-ASE-034': 'serv-40x40',
     'OLV-ASE-031': 'serv-otras', 'OLV-ASE-032': 'serv-otras', 'OLV-ASE-033': 'serv-otras'
   };
-  // Fotos y nombres corregidos con los envases que entregó Olivo (16 nov): las fotos antiguas
-  // mostraban otro color o solo el logo.
+  // Nombres sin «Pack» (Olivo, 16 nov)
   const CORREGIR = {
-    'OLV-ASE-011': { name: 'Servilleta Joker Premium 40 x 40 cm Blanca (Caja 1.200 unidades)', format: F_40, image: 'images/products/servilletas/OLV-ASE-011.jpg' },
     'OLV-ASE-031': { name: 'Servilleta de Mesa Económica Okey 31 x 30 (Caja 2.000 unidades)' },
-    'OLV-ASE-032': { name: 'Servilleta Cocktail Slogo 24 x 23 (Caja 2.400 unidades)' },
-    'OLV-ASE-012': { name: 'Servilleta Joker Gourmet 40 x 40 cm Negra (Caja 1.200 unidades)', format: F_40, image: 'images/products/servilletas/OLV-ASE-012.jpg' }
+    'OLV-ASE-032': { name: 'Servilleta Cocktail Slogo 24 x 23 (Caja 2.400 unidades)' }
   };
   INITIAL_PRODUCTS.forEach((p) => {
     const sub = MOVER[p.sku];
