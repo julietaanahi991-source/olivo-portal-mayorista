@@ -546,24 +546,7 @@
         </div>
       </section>
 
-      <!-- GUÍAS (pillar pages, contenido por venir) -->
-      <section aria-labelledby="guiasTitulo" class="px-4 sm:px-6 lg:px-8 py-16 sm:py-24 bg-white">
-        <div class="max-w-7xl mx-auto flex flex-col gap-8">
-          <div class="reveal flex flex-col gap-2 max-w-[680px]">
-            <span class="eyebrow">Guías para tu cocina</span>
-            <h2 id="guiasTitulo" class="font-serif text-[30px] sm:text-[38px] leading-tight text-[#131A16] m-0">Compra mejor, cocina mejor</h2>
-            <p class="m-0 text-[#56616A] text-[17px]">Contenido práctico para dueños y jefes de cocina de la V Región.</p>
-          </div>
-          <div class="grid grid-cols-1 md:grid-cols-3 gap-5">
-            ${[['Insumos para sushi: guía para locales', 'Arroz, nori, quesos crema, salsas y packaging de delivery.'], ['Abastecimiento para restaurantes', 'Cómo planificar compras, formatos y rotación de bodega.'], ['Higiene y limpieza en cocinas', 'Químicos, guantes y protocolos para la fiscalización SEREMI.']].map(g => `
-              <article class="reveal flex flex-col gap-3.5 p-7 rounded-2xl border border-[#E4E9E7] bg-[#F8FAF9]">
-                <span class="flex justify-between items-center"><span class="text-[10px] font-extrabold tracking-[0.12em] uppercase text-[#17472C] bg-[#F2F8F3] px-2.5 py-1 rounded-full" style="font-family: var(--font-heading)">Guía completa</span><span class="text-xs text-[#626D76]">Próximamente</span></span>
-                <strong class="font-serif text-[22px] leading-snug text-[#17472C]">${g[0]}</strong>
-                <span class="text-[15px] text-[#56616A]">${g[1]}</span>
-              </article>`).join('')}
-          </div>
-        </div>
-      </section>
+      <!-- (Sección «Guías para tu cocina» quitada a pedido de Olivo, 16 nov) -->
 
       <!-- LLAMADO FINAL / CONTACTO -->
       <section id="contacto-section" aria-labelledby="ctaTitulo" class="px-4 sm:px-6 lg:px-8 py-16 sm:py-20 bg-[#F2F5F3]">
