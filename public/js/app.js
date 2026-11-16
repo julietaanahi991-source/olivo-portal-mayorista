@@ -221,6 +221,10 @@
       }
     });
 
+    // Banner de fondo claro: los puntos del carrusel pasan a verde para que se vean
+    const cont = document.querySelector('.hero-slider-container');
+    if (cont) cont.dataset.tono = slides[index]?.dataset.tono || 'oscuro';
+
     dots.forEach((dot, idx) => {
       if (idx === index) {
         dot.classList.add('active');
@@ -343,15 +347,20 @@
       { tag: 'Despensa', cat: 'alimentos', name: 'Alimentos y abarrotes', items: 'Aceite para freír en bidón, arroz, harinas y salsa de tomate en pouch.' },
       { tag: 'Cadena de frío', cat: 'congelados', name: 'Congelados', items: 'Papas prefritas en 3 cortes y camarón ecuatoriano P&D.' },
       { tag: 'Higiene SEREMI', cat: 'limpieza', name: 'Limpieza y aseo', items: 'Desengrasante pesado, lavalozas concentrado y guantes de nitrilo.' }] },
-    // Atajo por tipo de negocio: solo Restaurante, Cafetería y Sushi (pedido de Olivo, 16 nov)
+    // Atajo por tipo de negocio: Restaurante, Cafetería, Sushi y Hotel (pedido de Olivo, 16 nov)
     { id: 'cafeteria', label: 'Cafetería', recs: [
       { tag: 'Formato gastronómico', cat: 'lacteos', name: 'Lácteos y refrigerados', items: 'Crema UHT, leche entera en caja y mantequilla en barra.' },
       { tag: 'Cadena de frío', cat: 'congelados', name: 'Congelados', items: 'Pulpas de fruta Río Alto: maracuyá, mango, frambuesa y frutilla.' },
-      { tag: 'Para llevar', cat: 'insumos', name: 'Insumos para restaurantes', items: 'Bowls kraft con tapa y servilletas dobladas.' }] },
+      { tag: 'Para llevar', cat: 'insumos', name: 'Insumos para restaurantes', items: 'Bowls kraft con tapa, vasos y bombillas de papel.' }] },
     { id: 'sushi', label: 'Local de sushi', recs: [
       { tag: 'Línea estrella', cat: 'sushi', name: 'Sushi y gastronomía oriental', items: 'Arroz Shirakiku 9 kg, panko, quesos crema y salsa de soya Kikko.' },
       { tag: 'Cadena de frío', cat: 'congelados', name: 'Congelados', items: 'Camarón P&D 36/40 para tempura y ebi furai.' },
-      { tag: 'Delivery', cat: 'insumos', name: 'Insumos para restaurantes', items: 'Sushi box negro antivaho y film alusa para esterillas.' }] }
+      { tag: 'Delivery', cat: 'insumos', name: 'Insumos para restaurantes', items: 'Sushi box negro antivaho y film alusa para esterillas.' }] },
+    // Hotel (pedido de Olivo, 16 nov)
+    { id: 'hotel', label: 'Hotel', recs: [
+      { tag: 'Desayuno', cat: 'lacteos', name: 'Lácteos y refrigerados', items: 'Leche entera en caja, crema UHT, mantequilla y quesos.' },
+      { tag: 'Presentación', cat: 'servilletas', name: 'Servilletas', items: 'Servilletas Joker 40 x 40 y 37,5 x 33 en blanco, natural y colores.' },
+      { tag: 'Higiene SEREMI', cat: 'limpieza', name: 'Limpieza y aseo', items: 'Papel higiénico jumbo, papel toalla, cloro y bolsas de alta densidad.' }] }
   ];
 
   const CAT_CARDS = [
@@ -362,6 +371,13 @@
     { id: 'limpieza', tag: 'Higiene SEREMI', name: 'Limpieza y aseo', desc: 'Lavalozas, cloro, desengrasantes, papel.', img: 'images/cat-limpieza.jpg' },
     { id: 'insumos', tag: 'Packaging y cocina', name: 'Insumos para restaurantes', desc: 'Film PVC, rollos térmicos, sushi box, bowls.', img: 'images/cat-insumos.jpg' }
   ];
+
+  // «Ocho líneas» / «las 8 líneas»: sale del número real de categorías
+  function lineasTexto(conPalabra) {
+    const n = state.categories.length;
+    const palabras = ['Cero', 'Una', 'Dos', 'Tres', 'Cuatro', 'Cinco', 'Seis', 'Siete', 'Ocho', 'Nueve', 'Diez'];
+    return conPalabra && palabras[n] ? `${palabras[n]} líneas` : `${n} líneas`;
+  }
 
   function renderBizRecs() {
     const biz = BIZ.find(b => b.id === state.biz) || BIZ[0];
@@ -432,17 +448,24 @@
           </div>
         </div>
 
-        <div class="hero-slide">
-          <img src="images/hero-sushi.jpg" alt="Rolls de sushi frescos" class="hero-slide-bg" />
-          <div class="hero-overlay"></div>
+        <!-- Banner 2: Servilletas Joker (reemplaza al de sushi, pedido de Olivo 16 nov). Fondo claro: data-tono="claro". -->
+        <div class="hero-slide hero-slide-claro" data-tono="claro">
+          <img src="images/hero-servilletas.jpg" alt="Servilletas Joker en azul, blanco, amarillo, rojo, rosa, verde y burdeo" class="hero-servilletas-img hidden md:block" />
           <div class="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full z-20">
-            <div class="hero-copy max-w-[640px] flex flex-col gap-[22px]">
-              <span class="self-start px-3.5 py-1.5 rounded-full bg-white/10 border border-white/25 text-white text-[11px] font-extrabold uppercase tracking-[0.14em]" style="font-family: var(--font-heading)">Línea estrella · Sushi</span>
-              <h2 class="font-serif font-bold text-white text-[38px] sm:text-5xl lg:text-[60px] leading-[1.08] tracking-tight">Insumos de Alta Gama para <em class="not-italic font-extrabold text-[#7BD192]">Sushi &amp; Asian Food.</em></h2>
-              <p class="text-base sm:text-lg text-[#EEF3F0] leading-relaxed max-w-[540px]">Arroz grano corto, algas nori, quesos crema, panko y salsas orientales en formatos para producción diaria.</p>
+            <div class="hero-copy max-w-[560px] md:max-w-[45%] xl:max-w-[560px] flex flex-col gap-3.5 sm:gap-5 pb-16 sm:pb-0">
+              <span class="self-start inline-flex items-center gap-3 text-[#17472C] text-[12px] font-extrabold uppercase tracking-[0.22em]" style="font-family: var(--font-heading)">Servilletas Joker <span class="hidden sm:inline-block w-14 h-[2px] bg-[#17472C]"></span></span>
+              <h2 class="font-serif font-bold text-[#17472C] text-[32px] sm:text-5xl xl:text-[56px] leading-[1.08] tracking-tight">Las servilletas que tu restaurante <em class="not-italic font-extrabold text-[#CF1427]">necesita.</em></h2>
+              <p class="text-base sm:text-lg text-[#3E4A44] leading-relaxed max-w-[460px]">Resistencia, presentación y versatilidad en cada detalle.</p>
+              <ul class="m-0 p-0 list-none hidden sm:flex flex-wrap gap-x-6 gap-y-3 text-[14px] text-[#17472C] font-semibold" style="font-family: var(--font-heading)">
+                <li class="inline-flex items-center gap-2"><i data-lucide="layers" class="w-5 h-5"></i>Variedad de colores</li>
+                <li class="inline-flex items-center gap-2"><i data-lucide="award" class="w-5 h-5"></i>Calidad garantizada</li>
+                <li class="inline-flex items-center gap-2"><i data-lucide="package" class="w-5 h-5"></i>Formatos para tu negocio</li>
+              </ul>
+              <div class="md:hidden flex gap-1.5" aria-hidden="true">
+                ${['#1446B8', '#FFFFFF', '#F5D21A', '#D9101E', '#E8238C', '#17663A', '#7A1430'].map(c => `<span class="w-7 h-10 rounded-md shadow-sm border border-black/10" style="background:${c}"></span>`).join('')}
+              </div>
               <div class="flex flex-wrap gap-3">
-                <button type="button" onclick="window.OlivoApp.setFilterCategory('sushi')" class="btn-gold h-[52px] px-6 text-[15px] font-extrabold" style="font-family: var(--font-heading)">Ver insumos de sushi ${ICON_ARROW}</button>
-                <button type="button" onclick="window.OlivoApp.setView('checkout')" class="btn-glass h-[52px] px-[22px] text-[15px]" style="font-family: var(--font-heading)">Solicitar cotización</button>
+                <button type="button" onclick="window.OlivoApp.setFilterCategory('servilletas')" class="btn-gold h-[52px] px-6 text-[15px] font-extrabold" style="font-family: var(--font-heading)">Cotiza con nosotros ${ICON_ARROW}</button>
               </div>
             </div>
           </div>
@@ -494,7 +517,7 @@
           <div class="reveal flex flex-col gap-2 max-w-[680px]">
             <span class="eyebrow">Catálogo mayorista</span>
             <h2 id="exploraTitulo" class="font-serif text-[30px] sm:text-[38px] leading-tight text-[#131A16] m-0">Explora todo para tu negocio</h2>
-            <p class="m-0 text-[#56616A] text-[17px]">Siete líneas de abastecimiento con formatos gastronómicos y precios bajo cotización.</p>
+            <p class="m-0 text-[#56616A] text-[17px]">${lineasTexto(true)} de abastecimiento con formatos gastronómicos y precios bajo cotización.</p>
           </div>
           <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
             <button type="button" onclick="window.OlivoApp.setFilterCategory('proteinas')" class="category-card reveal text-left block h-[340px] sm:col-span-2">
@@ -508,6 +531,17 @@
               </div>
             </button>
             ${CAT_CARDS.map(catCard).join('')}
+            <!-- Servilletas: tarjeta a todo el ancho (pedido de Olivo, 16 nov) -->
+            <button type="button" onclick="window.OlivoApp.setFilterCategory('servilletas')" class="category-card reveal text-left block h-[340px] sm:col-span-2 lg:col-span-4">
+              <img src="images/cat-servilletas.jpg" alt="" class="absolute inset-0 w-full h-full object-cover" style="object-position: center 35%" />
+              <div class="absolute inset-0" style="background: linear-gradient(0deg, rgba(15, 31, 22,0.92) 0%, rgba(15, 31, 22,0.45) 40%, rgba(15, 31, 22,0) 70%)"></div>
+              <div class="absolute inset-x-0 bottom-0 p-7 flex flex-col gap-2">
+                <span class="self-start text-[10px] font-extrabold tracking-[0.12em] uppercase px-2.5 py-1 rounded-md bg-[#CF1427] text-white" style="font-family: var(--font-heading)">Nueva línea · Joker</span>
+                <span class="font-serif font-bold text-[30px] leading-tight text-white">Servilletas</span>
+                <span class="text-[15px] text-[#E2E8E5]">37,5 x 33 cm y 40 x 40 cm, en blanco, natural y colores.</span>
+                <span class="inline-flex items-center gap-1.5 text-sm font-bold text-[#7BD192]" style="font-family: var(--font-heading)">Ver productos ${ICON_ARROW}</span>
+              </div>
+            </button>
           </div>
         </div>
       </section>
@@ -608,7 +642,7 @@
     const activeSub = subs.find(s => s.id === state.filter.subcategoryId);
     if (!activeSub) state.filter.subcategoryId = 'all';
 
-    // Búsqueda del encabezado: recorre las 7 líneas. Filtro interno: solo esta línea.
+    // Búsqueda del encabezado: recorre todas las líneas. Filtro interno: solo esta línea.
     const palabras = norm(state.filter.search).split(/\s+/).filter(Boolean);
     const global = state.filter.scope === 'global' && palabras.length > 0;
     let filtered;
@@ -632,7 +666,7 @@
     else if (state.filter.sortBy === 'brand') filtered.sort((a, b) => (a.brand || 'zzz').localeCompare(b.brand || 'zzz'));
     const titulo = global ? 'Resultados de búsqueda' : cat.name;
     const bajada = global
-      ? `${filtered.length} ${filtered.length === 1 ? 'producto' : 'productos'} para «${escapeHtml(state.filter.search.trim())}» en las 7 líneas.`
+      ? `${filtered.length} ${filtered.length === 1 ? 'producto' : 'productos'} para «${escapeHtml(state.filter.search.trim())}» en las ${lineasTexto(false)}.`
       : cat.description;
 
     const enLista = (id) => state.cart.find(i => i.productId === id);

@@ -423,6 +423,22 @@ h1, h2, h3, h4, h5, h6 {
   transition: width 0.4s cubic-bezier(0.16, 1, 0.3, 1), background 0.4s;
 }
 .hero-dot.active { width: 36px; background: var(--color-gold); }
+/* Banner de servilletas: fondo claro como el arte de Joker; los puntos pasan a verde */
+.hero-slide-claro { background: #FCF9F3; }
+.hero-servilletas-img {
+  position: absolute; right: 2%; top: 6%; height: 80%; width: auto; aspect-ratio: 940 / 870; max-width: 50%;
+  object-fit: cover; object-position: center;
+  /* Bordes difuminados para que la foto se funda con el fondo claro */
+  -webkit-mask-image: linear-gradient(to right, transparent 0, #000 6%, #000 94%, transparent 100%), linear-gradient(to bottom, transparent 0, #000 6%, #000 94%, transparent 100%);
+  -webkit-mask-composite: source-in;
+  mask-image: linear-gradient(to right, transparent 0, #000 6%, #000 94%, transparent 100%), linear-gradient(to bottom, transparent 0, #000 6%, #000 94%, transparent 100%);
+  mask-composite: intersect;
+  transform: scale(1.03); transition: transform 6s ease-out;
+}
+.hero-slide.active .hero-servilletas-img { transform: scale(1); }
+@media (min-width: 1280px) { .hero-servilletas-img { right: max(2%, calc((100% - 1280px) / 2)); } }
+.hero-slider-container[data-tono="claro"] .hero-dot { background: rgba(23, 71, 44, 0.3); }
+.hero-slider-container[data-tono="claro"] .hero-dot.active { background: var(--color-gold); }
 
 .eyebrow {
   font-family: var(--font-heading);
