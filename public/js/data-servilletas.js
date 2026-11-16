@@ -6,7 +6,7 @@
   const CAT = {
     id: 'servilletas', slug: 'servilletas', name: 'Servilletas', shortName: 'Servilletas',
     badge: 'Joker · Variedad de colores', featured: false,
-    description: 'Servilletas de doble hoja para restaurantes, cafeterías y hoteles, ordenadas por medida: 37,5 x 33 cm (pack 1/6) y 40 x 40 cm, en blanco, natural y colores.',
+    description: 'Servilletas de doble hoja para restaurantes, cafeterías y hoteles, ordenadas por medida: 37,5 x 33 cm (caja 1.800 unidades) y 40 x 40 cm (caja 1.200 unidades), en blanco, natural y colores.',
     image: 'images/cat-servilletas.jpg',
     subcategories: [
       { id: 'serv-37x33', name: 'Servilletas 37,5 x 33 cm' },
@@ -20,25 +20,21 @@
   const nuevo = (n, nombre, sub, formato) => ({
     id: 'OLV-SER-' + n, sku: 'OLV-SER-' + n, name: nombre, brand: 'Joker',
     categoryId: CAT.id, categoryName: CAT.name, subcategoryId: sub, subcategoryName: SUB[sub],
-    format: formato, image: 'images/products/servilletas/OLV-SER-' + n + '.jpg',
+    // ?v=2: fotos sin la palabra «PACK» (evita que el navegador muestre la versión anterior)
+    format: formato, image: 'images/products/servilletas/OLV-SER-' + n + '.jpg?v=2',
     unit: '', description: '', specs: {}
   });
-  const F_1_6 = 'Pack 1/6 · 1.800 unidades · 37,5 x 33 cm';
+  // Olivo (16 nov): sin «Pack» ni «1/6 / 1/8»; 37,5 x 33 cm = caja 1.800 unidades, 40 x 40 cm = caja 1.200 unidades.
+  const F_37 = 'Caja 1.800 unidades · 37,5 x 33 cm';
+  const F_40 = 'Caja 1.200 unidades · 40 x 40 cm';
+  const s37 = (n, color) => nuevo(n, `Servilleta Joker Premium 37,5 x 33 cm ${color} (Caja 1.800 unidades)`, 'serv-37x33', F_37);
+  const s40 = (n, color) => nuevo(n, `Servilleta Joker Premium 40 x 40 cm ${color} (Caja 1.200 unidades)`, 'serv-40x40', F_40);
   const SERVILLETAS = [
-    // 37,5 x 33 cm (pack 1/6)
-    nuevo('001', 'Servilleta Joker Premium 37,5 x 33 cm Blanca (Pack 1/6)', 'serv-37x33', F_1_6),
-    nuevo('002', 'Servilleta Joker Premium 37,5 x 33 cm Color Natural (Pack 1/6)', 'serv-37x33', F_1_6),
-    nuevo('003', 'Servilleta Joker Premium 37,5 x 33 cm Negra (Pack 1/6)', 'serv-37x33', F_1_6),
-    nuevo('004', 'Servilleta Joker Premium 37,5 x 33 cm Roja (Pack 1/6)', 'serv-37x33', F_1_6),
+    // 37,5 x 33 cm
+    s37('001', 'Blanca'), s37('002', 'Color Natural'), s37('003', 'Negra'), s37('004', 'Roja'),
     // 40 x 40 cm
-    nuevo('005', 'Servilleta Joker Premium 40 x 40 cm Blanca (Pack 200)', 'serv-40x40', 'Pack 200 · 40 x 40 cm · doble hoja'),
-    nuevo('006', 'Servilleta Joker Premium 40 x 40 cm Amarilla (500S)', 'serv-40x40', 'Pack 500S · 40 x 40 cm · doble hoja'),
-    nuevo('007', 'Servilleta Joker Premium 40 x 40 cm Roja', 'serv-40x40', 'Pack 40 x 40 cm · doble hoja'),
-    nuevo('008', 'Servilleta Joker 40 x 40 cm Burdeo (1/8)', 'serv-40x40', 'Doblada 1/8 · 1.200 unidades · 40 x 40 cm'),
-    nuevo('009', 'Servilleta Joker 40 x 40 cm Verde (1/8)', 'serv-40x40', 'Doblada 1/8 · 1.200 unidades · 40 x 40 cm'),
-    nuevo('010', 'Servilleta Joker Premium 40 x 40 cm Azul Rey', 'serv-40x40', 'Pack 40 x 40 cm · doble hoja'),
-    nuevo('011', 'Servilleta Joker 40 x 40 cm Azul Marino (1/8)', 'serv-40x40', 'Doblada 1/8 · 1.200 unidades · 40 x 40 cm'),
-    nuevo('012', 'Servilleta Joker Premium 40 x 40 cm Negra', 'serv-40x40', 'Pack 40 x 40 cm · doble hoja')
+    s40('005', 'Blanca'), s40('006', 'Amarilla'), s40('007', 'Roja'), s40('008', 'Burdeo'),
+    s40('009', 'Verde'), s40('010', 'Azul Rey'), s40('011', 'Azul Marino'), s40('012', 'Negra')
   ];
 
   // Servilletas que ya estaban en Limpieza: pasan a esta línea (conservan su SKU y su foto).
@@ -49,8 +45,10 @@
   // Fotos y nombres corregidos con los envases que entregó Olivo (16 nov): las fotos antiguas
   // mostraban otro color o solo el logo.
   const CORREGIR = {
-    'OLV-ASE-011': { name: 'Servilleta Joker Premium 40 x 40 cm Blanca (Caja 1.200 unidades)', format: 'Caja 1.200 unidades dobladas en 1/4 · doble hoja', image: 'images/products/servilletas/OLV-ASE-011.jpg' },
-    'OLV-ASE-012': { name: 'Servilleta Joker Gourmet 40 x 40 cm Negra (Caja 1.200 unidades)', format: 'Caja 1.200 unidades dobladas en 1/4', image: 'images/products/servilletas/OLV-ASE-012.jpg' }
+    'OLV-ASE-011': { name: 'Servilleta Joker Premium 40 x 40 cm Blanca (Caja 1.200 unidades)', format: F_40, image: 'images/products/servilletas/OLV-ASE-011.jpg' },
+    'OLV-ASE-031': { name: 'Servilleta de Mesa Económica Okey 31 x 30 (Caja 2.000 unidades)' },
+    'OLV-ASE-032': { name: 'Servilleta Cocktail Slogo 24 x 23 (Caja 2.400 unidades)' },
+    'OLV-ASE-012': { name: 'Servilleta Joker Gourmet 40 x 40 cm Negra (Caja 1.200 unidades)', format: F_40, image: 'images/products/servilletas/OLV-ASE-012.jpg' }
   };
   INITIAL_PRODUCTS.forEach((p) => {
     const sub = MOVER[p.sku];
