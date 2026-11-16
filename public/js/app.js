@@ -72,7 +72,7 @@
 
   // Formato pendiente de confirmar por Olivo: se dice tal cual, sin inventar
   function formatoTexto(p) {
-    return p.format ? escapeHtml(p.format) : '<span class="text-[#626D76]">Por confirmar con tu ejecutivo</span>';
+    return p.format ? escapeHtml(p.format) : '<span class="text-[#626D76]">Por confirmar con tu asesor comercial</span>';
   }
 
   // La lista guardada de una versión anterior puede traer ids viejos (prod-001): se pasan al SKU
@@ -422,7 +422,7 @@
               <div class="flex flex-wrap gap-x-[22px] gap-y-2 text-sm text-[#EEF3F0]">
                 <span class="inline-flex items-center gap-2">${ICON_CHECK}Sin registro ni login</span>
                 <span class="inline-flex items-center gap-2">${ICON_CHECK}Cotización formal por correo</span>
-                <span class="inline-flex items-center gap-2">${ICON_CHECK}Ejecutivo asignado</span>
+                <span class="inline-flex items-center gap-2">${ICON_CHECK}Asesor comercial asignado</span>
               </div>
             </div>
           </div>
@@ -460,7 +460,7 @@
             <h2 id="comoTitulo" class="font-serif font-bold text-2xl leading-tight text-[#131A16] mt-1 mb-0">Tres pasos, sin crear cuenta</h2>
           </div>
           <ol class="flex-[999_1_640px] m-0 p-0 list-none grid grid-cols-1 md:grid-cols-3 gap-4">
-            ${[['Arma tu lista', 'Elige productos y cantidades del catálogo.'], ['Envía tu solicitud', 'Datos de tu local y comuna de despacho.'], ['Recibe tu cotización', 'Tu ejecutivo te responde por correo con precios y condiciones.']].map((s, i) => `
+            ${[['Arma tu lista', 'Elige productos y cantidades del catálogo.'], ['Envía tu solicitud', 'Datos de tu local y comuna de despacho.'], ['Recibe tu cotización', 'Tu asesor comercial te responde por correo con precios y condiciones.']].map((s, i) => `
               <li class="flex gap-3.5 items-start">
                 <span class="flex-none w-10 h-10 rounded-xl bg-[#17472C] text-[#7BD192] flex items-center justify-center font-serif font-bold text-lg">${i + 1}</span>
                 <span><strong class="block text-[15px] text-[#17472C]" style="font-family: var(--font-heading)">${s[0]}</strong><span class="text-sm text-[#56616A]">${s[1]}</span></span>
@@ -554,7 +554,7 @@
           <div class="flex-[1_1_420px] flex flex-col gap-2">
             <span class="eyebrow">Atención 1 a 1</span>
             <h2 id="ctaTitulo" class="font-serif text-[30px] sm:text-[34px] leading-tight text-[#131A16] m-0">¿Ya tienes tu lista de compras?</h2>
-            <p class="m-0 text-[#56616A] text-[17px]">Envíala tal cual y tu ejecutivo arma la cotización por ti.</p>
+            <p class="m-0 text-[#56616A] text-[17px]">Envíala tal cual y tu asesor comercial arma la cotización por ti.</p>
           </div>
           <div class="flex flex-wrap gap-3">
             <button type="button" onclick="window.OlivoApp.setView('checkout')" class="btn-gold h-[52px] px-6 text-[15px] font-extrabold" style="font-family: var(--font-heading)">Solicitar cotización</button>
@@ -684,7 +684,7 @@
               </div>
               <div class="bg-[#17472C] rounded-2xl p-[22px] text-white flex flex-col gap-1.5">
                 <strong class="text-base" style="font-family: var(--font-heading)">¿No encuentras un insumo?</strong>
-                <span class="text-sm text-[#D6E6DB]">Pídelo a tu ejecutivo y lo sumamos a tu cotización.</span>
+                <span class="text-sm text-[#D6E6DB]">Pídelo a tu asesor comercial y lo sumamos a tu cotización.</span>
                 <a href="tel:+56977236128" class="mt-1.5 font-extrabold text-base text-[#7BD192] no-underline" style="font-family: var(--font-heading)">+56 9 7723 6128</a>
               </div>
             </aside>
@@ -712,7 +712,7 @@
               ${filtered.length === 0 ? `
                 <div class="bg-white border border-dashed border-[#CBD9D0] rounded-2xl p-10 text-center flex flex-col gap-2 items-center">
                   <strong class="text-[17px] text-[#17472C]" style="font-family: var(--font-heading)">${global ? `No encontramos «${escapeHtml(state.filter.search.trim())}» en el catálogo` : 'No encontramos ese insumo en esta categoría'}</strong>
-                  <span class="text-[15px] text-[#56616A]">Escríbele a tu ejecutivo: lo buscamos y lo sumamos a tu cotización.</span>
+                  <span class="text-[15px] text-[#56616A]">Escríbele a tu asesor comercial: lo buscamos y lo sumamos a tu cotización.</span>
                   <div class="flex flex-wrap gap-3 justify-center mt-2">
                     <button type="button" onclick="window.OlivoApp.resetFilters()" class="h-11 px-4 rounded-[10px] border border-[#CBD9D0] bg-white text-sm font-bold text-[#17472C] hover:bg-[#F2F8F3] transition" style="font-family: var(--font-heading)">Ver todos los productos de ${cat.shortName || cat.name}</button>
                     <a href="${WHATSAPP}?text=${encodeURIComponent('Hola, busco este insumo para cotizar: ' + (state.filter.search || '').trim())}" target="_blank" rel="noopener" class="h-11 px-4 rounded-[10px] bg-[#17472C] text-white text-sm font-bold inline-flex items-center gap-2 no-underline hover:bg-[#1F6A3E] transition" style="font-family: var(--font-heading)"><i data-lucide="message-circle" class="w-4 h-4"></i>Pedirlo por WhatsApp</a>
@@ -1056,7 +1056,7 @@
 
                 <h3 id="fichaTitulo" class="text-xl font-serif font-bold text-[#131A16] leading-tight">${p.name}</h3>
 
-                <p class="text-sm text-[#56616A] leading-relaxed mt-2.5">${p.description ? p.description : 'Ficha completa, vida útil y empaque máster: pídelos a tu ejecutivo junto con la cotización.'}</p>
+                <p class="text-sm text-[#56616A] leading-relaxed mt-2.5">${p.description ? p.description : 'Ficha completa, vida útil y empaque máster: pídelos a tu asesor comercial junto con la cotización.'}</p>
 
                 <dl class="mt-4 pt-4 border-t border-[#E4E9E7] text-[13px] m-0">
                   ${[['Presentación', formatoTexto(p)], ['Línea', escapeHtml(p.categoryName)], ['Subcategoría', escapeHtml(p.subcategoryName)], p.unit ? ['Unidad comercial', escapeHtml(p.unit)] : null]
@@ -1134,11 +1134,11 @@
               <p>Estimado/a <strong>${q.clientName}</strong> (${q.companyName}),</p>
               
               <div class="p-4 rounded-xl bg-[#F2F8F3] border border-[#17472C]/10 text-xs text-[#17472C] leading-relaxed">
-                <strong>«¡Tu solicitud fue recibida! Un ejecutivo de Distribuidora Olivo revisará los productos seleccionados y enviará una cotización personalizada a tu correo electrónico».</strong>
+                <strong>«¡Tu solicitud fue recibida! Un asesor comercial se pondrá en contacto contigo a la brevedad para enviarte la cotización y responder a tus requerimientos».</strong>
               </div>
 
               <p class="text-xs text-[#56616A] leading-relaxed">
-                Hemos registrado tu solicitud bajo el código de seguimiento <strong>${q.id}</strong> para despacho en <strong>${q.comuna}</strong>. Nuestro ejecutivo comercial te enviará la propuesta formal con precios netos e IVA.
+                Hemos registrado tu solicitud bajo el código de seguimiento <strong>${q.id}</strong> para despacho en <strong>${q.comuna}</strong>. Nuestro asesor comercial te enviará la propuesta formal con precios netos e IVA.
               </p>
             </div>
 
@@ -1407,7 +1407,7 @@
   }
 
   function handleQuickContactSubmit(form) {
-    showToast("¡Mensaje recibido! Un ejecutivo comercial de Olivo se comunicará con tu negocio.");
+    showToast("¡Mensaje recibido! Un asesor comercial de Olivo se comunicará con tu negocio.");
     form.reset();
   }
 
