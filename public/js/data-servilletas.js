@@ -20,7 +20,7 @@
   const nuevo = (n, nombre, sub, formato) => ({
     id: 'OLV-SER-' + n, sku: 'OLV-SER-' + n, name: nombre, brand: 'Joker',
     categoryId: CAT.id, categoryName: CAT.name, subcategoryId: sub, subcategoryName: SUB[sub],
-    // ?v=2: fotos sin la palabra «PACK» (evita que el navegador muestre la versión anterior)
+    // ?v=N: versión de la foto (evita que el navegador muestre la anterior)
     format: formato, image: 'images/products/servilletas/OLV-SER-' + n + '.jpg?v=2',
     unit: '', description: '', specs: {}
   });
@@ -28,13 +28,20 @@
   const F_37 = 'Caja 1.800 unidades · 37,5 x 33 cm';
   const F_40 = 'Caja 1.200 unidades · 40 x 40 cm';
   const s37 = (n, color) => nuevo(n, `Servilleta Joker Premium 37,5 x 33 cm ${color} (Caja 1.800 unidades)`, 'serv-37x33', F_37);
-  const s40 = (n, color) => nuevo(n, `Servilleta Joker Premium 40 x 40 cm ${color} (Caja 1.200 unidades)`, 'serv-40x40', F_40);
+  // 40 x 40 «Punta a Punta»: envases nuevos entregados por Olivo (16 nov). La foto lleva ?v=3.
+  const s40 = (n, color) => {
+    const p = nuevo(n, `Servilleta Joker Punta a Punta 40 x 40 cm ${color} (Caja 1.200 unidades)`, 'serv-40x40', F_40);
+    p.image = p.image.replace('?v=2', '?v=3');
+    return p;
+  };
   const SERVILLETAS = [
     // 37,5 x 33 cm
     s37('001', 'Blanca'), s37('002', 'Color Natural'), s37('003', 'Negra'), s37('004', 'Roja'),
-    // 40 x 40 cm
-    s40('005', 'Blanca'), s40('006', 'Amarilla'), s40('007', 'Roja'), s40('008', 'Burdeo'),
-    s40('009', 'Verde'), s40('010', 'Azul Rey'), s40('011', 'Azul Marino'), s40('012', 'Negra')
+    // 40 x 40 cm (orden: blanca, negra y luego colores)
+    s40('005', 'Blanca'), s40('012', 'Negra'), s40('007', 'Roja'), s40('008', 'Burdeo'), s40('013', 'Rosa'),
+    s40('006', 'Amarillo Suave'), s40('009', 'Verde'), s40('010', 'Azul'),
+    // Azul marino: sin envase nuevo, conserva la foto anterior
+    nuevo('011', 'Servilleta Joker Premium 40 x 40 cm Azul Marino (Caja 1.200 unidades)', 'serv-40x40', F_40)
   ];
 
   // Servilletas que ya estaban en Limpieza: pasan a esta línea (conservan su SKU y su foto).
