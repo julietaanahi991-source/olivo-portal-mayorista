@@ -27,7 +27,12 @@
   // Olivo (16 nov): sin «Pack» ni «1/6 / 1/8»; 37,5 x 33 cm = caja 1.800 unidades, 40 x 40 cm = caja 1.200 unidades.
   const F_37 = 'Caja 1.800 unidades · 37,5 x 33 cm';
   const F_40 = 'Caja 1.200 unidades · 40 x 40 cm';
-  const s37 = (n, color) => nuevo(n, `Servilleta Joker Premium 37,5 x 33 cm ${color} (Caja 1.800 unidades)`, 'serv-37x33', F_37);
+  // 37,5 x 33 «Premium»: envases nuevos entregados por Olivo (16 nov). La foto lleva ?v=3.
+  const s37 = (n, color) => {
+    const p = nuevo(n, `Servilleta Joker Premium 37,5 x 33 cm ${color} (Caja 1.800 unidades)`, 'serv-37x33', F_37);
+    p.image = p.image.replace('?v=2', '?v=3');
+    return p;
+  };
   // 40 x 40 «Punta a Punta»: envases nuevos entregados por Olivo (16 nov). La foto lleva ?v=3.
   const s40 = (n, color) => {
     const p = nuevo(n, `Servilleta Joker Punta a Punta 40 x 40 cm ${color} (Caja 1.200 unidades)`, 'serv-40x40', F_40);
