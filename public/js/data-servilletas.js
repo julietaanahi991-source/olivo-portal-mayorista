@@ -46,11 +46,18 @@
     'OLV-ASE-011': 'serv-40x40', 'OLV-ASE-012': 'serv-40x40', 'OLV-ASE-034': 'serv-40x40',
     'OLV-ASE-031': 'serv-otras', 'OLV-ASE-032': 'serv-otras', 'OLV-ASE-033': 'serv-otras'
   };
+  // Fotos y nombres corregidos con los envases que entregó Olivo (16 nov): las fotos antiguas
+  // mostraban otro color o solo el logo.
+  const CORREGIR = {
+    'OLV-ASE-011': { name: 'Servilleta Joker Premium 40 x 40 cm Blanca (Caja 1.200 unidades)', format: 'Caja 1.200 unidades dobladas en 1/4 · doble hoja', image: 'images/products/servilletas/OLV-ASE-011.jpg' },
+    'OLV-ASE-012': { name: 'Servilleta Joker Gourmet 40 x 40 cm Negra (Caja 1.200 unidades)', format: 'Caja 1.200 unidades dobladas en 1/4', image: 'images/products/servilletas/OLV-ASE-012.jpg' }
+  };
   INITIAL_PRODUCTS.forEach((p) => {
     const sub = MOVER[p.sku];
     if (!sub) return;
     p.categoryId = CAT.id; p.categoryName = CAT.name;
     p.subcategoryId = sub; p.subcategoryName = SUB[sub];
+    if (CORREGIR[p.sku]) Object.assign(p, CORREGIR[p.sku]);
   });
   const limpieza = INITIAL_CATEGORIES.find((c) => c.id === 'limpieza');
   if (limpieza) {
