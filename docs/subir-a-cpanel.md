@@ -10,7 +10,7 @@ Todo lo que está dentro de la carpeta **`public/`** del repositorio va en la ca
 (la misma donde hoy está `index.html`), **respetando las mismas subcarpetas**.
 Ejemplo: `public/js/app.js` → `js/app.js` del subdominio.
 
-## 1. Archivos que se reemplazan (5)
+## 1. Archivos que se reemplazan (4)
 
 | Archivo en el repositorio | Va en el servidor como |
 |---|---|
