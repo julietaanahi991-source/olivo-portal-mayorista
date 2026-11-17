@@ -10,7 +10,7 @@ Todo lo que está dentro de la carpeta **`public/`** del repositorio va en la ca
 (la misma donde hoy está `index.html`), **respetando las mismas subcarpetas**.
 Ejemplo: `public/js/app.js` → `js/app.js` del subdominio.
 
-## 1. Archivos que se reemplazan (6)
+## 1. Archivos que se reemplazan (7)
 
 | Archivo en el repositorio | Va en el servidor como |
 |---|---|
@@ -19,6 +19,7 @@ Ejemplo: `public/js/app.js` → `js/app.js` del subdominio.
 | `public/js/app.js` | `js/app.js` |
 | `public/js/data.js` | `js/data.js` |
 | `public/api/cotizar.php` | `api/cotizar.php` |
+| `public/images/products/congelados/OLV-CON-002.jpg` | `images/products/congelados/OLV-CON-002.jpg` |
 | `public/images/products/congelados/OLV-CON-003.jpg` | `images/products/congelados/OLV-CON-003.jpg` |
 
 ## 2. Archivos nuevos (20)
@@ -45,8 +46,8 @@ Las 12 fotos de la carpeta `servilletas` son: `OLV-SER-001.jpg` a `OLV-SER-010.j
 
 1. Abrir https://mayorista.distribuidoraolivo.cl y recargar con **Ctrl + F5**.
 2. Debe verse: logo solo «OLIVO», titular «Todo lo que tu negocio necesita, **en un solo proveedor**.», sin la fila «Sin registro ni login · Cotización formal por correo · …» bajo los botones del banner principal, el 2.º banner de **Servilletas Joker** (ya no el de sushi) y la tarjeta **Servilletas** al final de «Explora todo para tu negocio».
-3. Entrar a **Servilletas**: 16 productos (37,5 x 33 cm: 4 · 40 x 40 cm: 9 · otras medidas: 3), todos con foto. Buscar «tapa bowl», «camarón chino», «atún filete» y «Surlat»: ya no deben decir «Foto pendiente».
+3. Entrar a **Servilletas**: 16 productos (37,5 x 33 cm: 4 · 40 x 40 cm: 9 · otras medidas: 3), todos con foto. Buscar «tapa bowl», «camarón», «atún filete» y «Surlat»: ya no deben decir «Foto pendiente» (ningún producto del portal queda sin foto).
 4. En «¿Qué tipo de local tienes?» deben aparecer Restaurante, Cafetería, Local de sushi y **Hotel**.
 5. Hacer una cotización de prueba y revisar que llegue el correo y que el botón «Enviar solicitud por WhatsApp» abra el chat con Olivo (+56 9 7723 6128).
 
-Si la página sale con el diseño anterior, es caché: `index.html` carga los archivos con `?v=2026-11-17-2`, así que basta con confirmar que se subió el `index.html` nuevo.
+Si la página sale con el diseño anterior, es caché: `index.html` carga los archivos con `?v=2026-11-17-3`, así que basta con confirmar que se subió el `index.html` nuevo.
