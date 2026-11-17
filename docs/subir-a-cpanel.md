@@ -1,7 +1,7 @@
 # Subir el portal a cPanel — entrega del 17 nov 2026
 
 **Sitio:** https://mayorista.distribuidoraolivo.cl
-**Versión a subir:** commit `8e6c66f` de la rama `main` (GitHub: julietaanahi991-source/olivo-portal-mayorista).
+**Versión a subir:** la última de la rama `main` (GitHub: julietaanahi991-source/olivo-portal-mayorista).
 **Versión que hoy está en producción:** la del 9 nov (logo con «Signature», titular «…en un solo lugar», 7 líneas).
 
 ## Dónde van los archivos
@@ -39,9 +39,9 @@ Las 12 fotos de la carpeta `servilletas` son: `OLV-SER-001.jpg` a `OLV-SER-010.j
 ## 4. Revisión después de subir
 
 1. Abrir https://mayorista.distribuidoraolivo.cl y recargar con **Ctrl + F5**.
-2. Debe verse: logo solo «OLIVO», titular «Todo lo que tu negocio necesita, **en un solo proveedor**.», el 2.º banner de **Servilletas Joker** y la tarjeta **Servilletas** al final de «Explora todo para tu negocio».
+2. Debe verse: logo solo «OLIVO», titular «Todo lo que tu negocio necesita, **en un solo proveedor**.», sin la fila «Sin registro ni login · Cotización formal por correo · …» bajo los botones del banner principal, el 2.º banner de **Servilletas Joker** (ya no el de sushi) y la tarjeta **Servilletas** al final de «Explora todo para tu negocio».
 3. Entrar a **Servilletas**: 16 productos (37,5 x 33 cm: 4 · 40 x 40 cm: 9 · otras medidas: 3), todos con foto.
 4. En «¿Qué tipo de local tienes?» deben aparecer Restaurante, Cafetería, Local de sushi y **Hotel**.
 5. Hacer una cotización de prueba y revisar que llegue el correo y que el botón «Enviar solicitud por WhatsApp» abra el chat con Olivo (+56 9 7723 6128).
 
-Si la página sale con el diseño anterior, es caché: `index.html` carga los archivos con `?v=2026-11-16-9`, así que basta con confirmar que se subió el `index.html` nuevo.
+Si la página sale con el diseño anterior, es caché: `index.html` carga los archivos con `?v=2026-11-17-1`, así que basta con confirmar que se subió el `index.html` nuevo.

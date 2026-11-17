@@ -306,7 +306,6 @@
   // =========================================================================
   // VISTA 1: PORTADA v2 (propuesta UX aprobada en Claude Design)
   // =========================================================================
-  const ICON_CHECK = '<svg aria-hidden="true" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#7BD192" stroke-width="2.4"><path d="M20 6 9 17l-5-5"></path></svg>';
   const ICON_ARROW = '<svg class="cat-arrow" aria-hidden="true" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M5 12h14M12 5l7 7-7 7"></path></svg>';
   const ICON_PIN = '<svg aria-hidden="true" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#7BD192" stroke-width="2"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0z"></path><circle cx="12" cy="10" r="3"></circle></svg>';
   const ICON_DOC = '<svg aria-hidden="true" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M14 3H6a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V9z"></path><path d="M14 3v6h6M8 13h8M8 17h5"></path></svg>';
@@ -438,11 +437,6 @@
               <div class="flex flex-wrap gap-3">
                 <button type="button" onclick="window.OlivoApp.setView('checkout')" class="btn-gold h-[52px] px-6 text-[15px] font-extrabold" style="font-family: var(--font-heading)">${ICON_DOC} Solicitar cotización</button>
                 <button type="button" onclick="window.OlivoApp.scrollToCategories()" class="btn-glass h-[52px] px-[22px] text-[15px]" style="font-family: var(--font-heading)">Explorar catálogo <svg aria-hidden="true" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M12 5v14M19 12l-7 7-7-7"></path></svg></button>
-              </div>
-              <div class="flex flex-wrap gap-x-[22px] gap-y-2 text-sm text-[#EEF3F0]">
-                <span class="inline-flex items-center gap-2">${ICON_CHECK}Sin registro ni login</span>
-                <span class="inline-flex items-center gap-2">${ICON_CHECK}Cotización formal por correo</span>
-                <span class="inline-flex items-center gap-2">${ICON_CHECK}Asesor comercial asignado</span>
               </div>
             </div>
           </div>
