@@ -444,7 +444,7 @@
 
         <!-- Banner 2: Servilletas Joker (reemplaza al de sushi, pedido de Olivo 16 nov). Fondo claro: data-tono="claro". -->
         <div class="hero-slide hero-slide-claro" data-tono="claro">
-          <img src="images/hero-servilletas.jpg" alt="Servilletas Joker en azul, blanco, amarillo, rojo, rosa, verde y burdeo" class="hero-servilletas-img hidden md:block" />
+          <img src="images/hero-servilletas.jpg" alt="Servilletas Joker en azul, blanco, amarillo, negro, rojo, rosa, verde y burdeo" class="hero-servilletas-img hidden md:block" />
           <div class="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full z-20">
             <div class="hero-copy max-w-[560px] md:max-w-[45%] xl:max-w-[560px] flex flex-col gap-3.5 sm:gap-5 pb-16 sm:pb-0">
               <span class="self-start inline-flex items-center gap-3 text-[#17472C] text-[12px] font-extrabold uppercase tracking-[0.22em]" style="font-family: var(--font-heading)">Servilletas Joker <span class="hidden sm:inline-block w-14 h-[2px] bg-[#17472C]"></span></span>
@@ -456,7 +456,7 @@
                 <li class="inline-flex items-center gap-2"><i data-lucide="package" class="w-5 h-5"></i>Formatos para tu negocio</li>
               </ul>
               <div class="md:hidden flex gap-1.5" aria-hidden="true">
-                ${['#1446B8', '#FFFFFF', '#F5D21A', '#D9101E', '#E8238C', '#17663A', '#7A1430'].map(c => `<span class="w-7 h-10 rounded-md shadow-sm border border-black/10" style="background:${c}"></span>`).join('')}
+                ${['#1446B8', '#FFFFFF', '#F5D21A', '#161616', '#D9101E', '#E8238C', '#17663A', '#7A1430'].map(c => `<span class="w-7 h-10 rounded-md shadow-sm border border-black/10" style="background:${c}"></span>`).join('')}
               </div>
               <div class="flex flex-wrap gap-3">
                 <button type="button" onclick="window.OlivoApp.setFilterCategory('servilletas')" class="btn-gold h-[52px] px-6 text-[15px] font-extrabold" style="font-family: var(--font-heading)">Cotiza con nosotros ${ICON_ARROW}</button>
@@ -805,8 +805,7 @@
     { name: 'clientName', label: 'Nombre de contacto', type: 'text', auto: 'name', req: true, err: 'Escribe tu nombre.', grupo: 'contacto' },
     { name: 'phone', label: 'Teléfono móvil', type: 'tel', auto: 'tel', req: true, err: 'Necesitamos un teléfono para coordinar.', ph: '+56 9 …', grupo: 'contacto' },
     { name: 'email', label: 'Correo electrónico', type: 'email', auto: 'email', req: true, err: 'Revisa el correo: ahí llega tu cotización.', full: true, grupo: 'contacto' },
-    { name: 'companyName', label: 'Razón social o nombre del local', type: 'text', auto: 'organization', req: true, err: 'Indica el nombre de tu local.', grupo: 'negocio' },
-    { name: 'rut', label: 'RUT de empresa', type: 'text', req: true, err: 'Revisa el RUT y su dígito verificador, por ejemplo 76.123.456-0.', ph: '76.123.456-0', grupo: 'negocio' }
+    { name: 'companyName', label: 'Nombre del local', type: 'text', auto: 'organization', req: true, err: 'Indica el nombre de tu local.', grupo: 'negocio' }
   ];
   const TIPOS_NEGOCIO = ['Restaurante', 'Cafetería', 'Hotel', 'Local de sushi', 'Pizzería', 'Minimarket', 'Casino o catering', 'Otro'];
 
@@ -940,12 +939,6 @@
                 </select>
                 ${e.comuna ? '<span id="err-comuna" class="text-[13px] text-[#A33A2E]">Elige una comuna de la V Región.</span>' : ''}
               </label>
-              <label class="flex flex-col gap-1.5">
-                <span class="text-xs font-extrabold tracking-[0.08em] uppercase text-[#56616A]" style="font-family: var(--font-heading)">Tipo de establecimiento</span>
-                <select name="businessType" onchange="window.OlivoApp.saveCheckoutField(this)" class="h-12 px-3.5 rounded-[10px] border border-[#E4E9E7] bg-[#F8FAF9] text-[15px] outline-none focus:border-[#1F6A3E]">
-                  ${TIPOS_NEGOCIO.map(t => `<option ${(f.businessType || (BIZ.find(b => b.id === state.biz) || {}).label) === t ? 'selected' : ''}>${t}</option>`).join('')}
-                </select>
-              </label>
               <label class="flex flex-col gap-1.5 sm:col-span-2">
                 <span class="text-xs font-extrabold tracking-[0.08em] uppercase text-[#56616A]" style="font-family: var(--font-heading)">Comentarios de despacho <span class="normal-case tracking-normal font-semibold text-[#626D76]">(opcional)</span></span>
                 <textarea name="notes" rows="3" oninput="window.OlivoApp.saveCheckoutField(this)" placeholder="Horario de recepción, acceso para camión, productos que no encontraste…" class="px-3.5 py-3 rounded-[10px] border border-[#E4E9E7] bg-[#F8FAF9] text-[15px] outline-none focus:border-[#1F6A3E] resize-y">${f.notes || ''}</textarea>
@@ -997,8 +990,7 @@
       '',
       '*DATOS DEL CLIENTE*',
       `Nombre: ${q.clientName}`,
-      `Empresa: ${q.companyName}`,
-      `RUT: ${q.rut}`,
+      `Local: ${q.companyName}`,
       q.businessType ? `Tipo de negocio: ${q.businessType}` : null,
       `Teléfono: ${q.phone}`,
       `Correo: ${q.email}`,
@@ -1153,7 +1145,7 @@
           </div>
 
           <div class="bg-[#F8FAF9] p-4 sm:px-6 border-b border-[#E4E9E7] text-xs space-y-1.5 font-mono">
-            <div><span class="text-[#626D76]">De:</span> <strong class="text-[#17472C]">Distribuidora Olivo &lt;ventas@olivocorp.cl&gt;</strong></div>
+            <div><span class="text-[#626D76]">De:</span> <strong class="text-[#17472C]">Distribuidora Olivo &lt;ventasolivocorp@gmail.com&gt;</strong></div>
             <div><span class="text-[#626D76]">Para:</span> <strong class="text-[#17472C]">${q.clientName} &lt;${q.email}&gt;</strong></div>
             <div><span class="text-[#626D76]">Asunto:</span> <strong class="text-[#17472C]">Confirmación de Solicitud de Cotización N° ${q.id} — Distribuidora Olivo</strong></div>
           </div>
@@ -1207,7 +1199,7 @@
             <div class="p-4 rounded-xl bg-[#F8FAF9] border border-[#E4E9E7] text-xs space-y-1">
               <span class="text-[#626D76] block">Atención Comercial V Región:</span>
               <strong class="text-[#17472C] block text-sm">Equipo comercial Distribuidora Olivo</strong>
-              <span class="text-[#56616A] block">WhatsApp Comercial: +56 9 7723 6128 | ventas@olivocorp.cl</span>
+              <span class="text-[#56616A] block">WhatsApp Comercial: +56 9 7723 6128 | ventasolivocorp@gmail.com</span>
             </div>
 
             <div class="text-[11px] text-[#626D76] border-t border-[#E4E9E7] pt-4 text-center">
@@ -1365,7 +1357,6 @@
     if (!/^[0-9+\s().-]{8,30}$/.test(v('phone'))) errores.phone = true;
     if (!/^\S+@\S+\.\S+$/.test(v('email'))) errores.email = true;
     if (!v('companyName')) errores.companyName = true;
-    if (!rutValido(v('rut'))) errores.rut = true;
     if (!v('comuna')) errores.comuna = true;
     state.checkoutForm = Object.fromEntries(formData.entries());
     if (Object.keys(errores).length) {
@@ -1377,7 +1368,7 @@
 
     const payload = {
       clientName: v('clientName'), phone: v('phone'), email: v('email'), companyName: v('companyName'),
-      rut: v('rut'), comuna: v('comuna'), businessType: v('businessType'), notes: v('notes'),
+      comuna: v('comuna'), notes: v('notes'),
       website: v('website'),
       tracking: leerCampania(),
       items: state.cart.map(i => ({ sku: i.sku, name: i.name, brand: i.brand, format: i.format, quantity: i.quantity }))
