@@ -47,7 +47,9 @@ $nombre   = olivo_texto($d['clientName'] ?? '', 120);
 $telefono = olivo_texto($d['phone'] ?? '', 30);
 $email    = olivo_texto($d['email'] ?? '', 160);
 $local    = olivo_texto($d['companyName'] ?? '', 160);
-$rut      = olivo_rut(olivo_texto($d['rut'] ?? '', 20));
+// RUT y tipo de local dejaron de pedirse en el formulario (Olivo, 24 nov 2026): se guardan si llegan
+$rutTxt   = olivo_texto($d['rut'] ?? '', 20);
+$rut      = $rutTxt === '' ? '' : (olivo_rut($rutTxt) ?? '');
 $comuna   = olivo_texto($d['comuna'] ?? '', 40);
 $tipo     = olivo_texto($d['businessType'] ?? '', 40);
 $notas    = olivo_parrafo($d['notes'] ?? '', 1000);
@@ -56,9 +58,8 @@ if ($nombre === '') $errores['clientName'] = true;
 if (!preg_match('/^[0-9+\s().-]{8,30}$/', $telefono)) $errores['phone'] = true;
 if (!filter_var($email, FILTER_VALIDATE_EMAIL)) $errores['email'] = true;
 if ($local === '') $errores['companyName'] = true;
-if ($rut === null) $errores['rut'] = true;
 if (!in_array($comuna, OLIVO_COMUNAS, true)) $errores['comuna'] = true;
-if (!in_array($tipo, OLIVO_TIPOS, true)) $tipo = 'Otro';
+if ($tipo !== '' && !in_array($tipo, OLIVO_TIPOS, true)) $tipo = 'Otro';
 
 $items = [];
 foreach ((array)($d['items'] ?? []) as $it) {
@@ -152,7 +153,7 @@ function olivo_enviar(string $para, string $asunto, string $cuerpo, string $remi
 $aVentas = "Nueva solicitud de cotización desde el portal mayorista.\n\n"
     . "Código: $codigo\nFecha: " . date('d-m-Y H:i') . "\n\n"
     . "Contacto: $nombre\nTeléfono: $telefono\nCorreo: $email\n"
-    . "Razón social / local: $local\nRUT: $rut\nComuna: $comuna\nTipo de negocio: $tipo\n\n"
+    . "Local: $local\n" . ($rut !== '' ? "RUT: $rut\n" : '') . "Comuna: $comuna\n" . ($tipo !== '' ? "Tipo de negocio: $tipo\n" : '') . "\n"
     . "Productos solicitados:\n$detalle\n\n"
     . ($notas !== '' ? "Comentarios de despacho:\n$notas\n\n" : '')
     . ($campania['gclid'] || $campania['utm_source'] ? "Origen: " . ($campania['utm_source'] ?? '') . ' ' . ($campania['utm_campaign'] ?? '') . ($campania['gclid'] ? ' (Google Ads)' : '') . "\n" : '');
