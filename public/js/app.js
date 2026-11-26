@@ -23,8 +23,15 @@
     selectedProductModal: null,
     isCartDrawerOpen: false,
     currentSlide: 0,
-    slideInterval: null
+    slideInterval: null,
+    heroPausado: false,
+    catalogY: 0,          // posición del catálogo para volver al mismo lugar
+    filtrosAbiertos: false
   };
+
+  // Preferencia de movimiento reducido: sin animaciones de scroll ni carrusel automático
+  const REDUCE = !!(window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches);
+  function iconos() { if (window.lucide) window.lucide.createIcons(); }
 
   // Cargar carrito previo de localStorage si existe
   try {
@@ -64,7 +71,7 @@
 
   // Foto del producto o, si aún no llega, un recuadro «Foto pendiente»
   function fotoProducto(p, cls, chica = false) {
-    if (p && p.image) return `<img src="${p.image}" alt="${chica ? '' : escapeHtml(p.name)}" class="${cls} ${imgFit(p.image)}" loading="lazy" />`;
+    if (p && p.image) return `<img src="${p.image}" alt="${chica ? '' : escapeHtml(p.name)}" class="${cls} ${imgFit(p.image)}" loading="lazy" decoding="async" width="400" height="400" />`;
     return `<span class="${cls} flex flex-col items-center justify-center gap-2 text-[#A9B8B0]" style="background: linear-gradient(160deg, #F2F5F3 0%, #E9F5EC 100%)" ${chica ? 'aria-hidden="true"' : ''}>
       <svg aria-hidden="true" width="${chica ? 24 : 56}" height="${chica ? 24 : 56}" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2"><path d="M21 8 12 3 3 8v8l9 5 9-5z"></path><path d="m3 8 9 5 9-5M12 13v8"></path></svg>
       ${chica ? '' : '<span class="text-[11px] text-[#626D76]">Foto pendiente</span>'}</span>`;
@@ -90,30 +97,22 @@
     }
   }
 
+  // Aviso breve. Uno a la vez (no se apilan ni empujan a otros); en celular aparece arriba, bajo el encabezado.
   function showToast(message, type = 'success') {
     const container = document.getElementById('toastContainer');
     if (!container) return;
-    
+    container.querySelectorAll('[data-toast]').forEach(t => t.remove());
+    const error = type === 'error';
     const toast = document.createElement('div');
-    toast.className = `flex items-center gap-3 px-4 py-3 rounded-lg shadow-xl text-white text-sm font-medium transition-all transform duration-300 translate-y-4 opacity-0 ${
-      type === 'success' ? 'bg-[#17472C] border border-[#CF1427]' : 'bg-red-800'
-    }`;
-    toast.innerHTML = `
-      <i data-lucide="${type === 'success' ? 'check-circle' : 'alert-circle'}" class="w-5 h-5 text-[#7BD192]"></i>
-      <span>${message}</span>
-    `;
+    toast.setAttribute('data-toast', '');
+    toast.className = `flex items-center gap-2.5 px-4 py-2.5 rounded-xl shadow-xl text-white text-[13.5px] font-semibold leading-snug transition duration-200 opacity-0 translate-y-1 ${error ? 'bg-[#8E1B1B]' : 'bg-[#17472C] border border-[#CF1427]/60'}`;
+    toast.innerHTML = `<svg aria-hidden="true" class="flex-none" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#7BD192" stroke-width="2.4"><circle cx="12" cy="12" r="10"></circle>${error ? '<path d="M12 7v6M12 16.5v.5"></path>' : '<path d="m8 12.5 2.7 2.7L16 9.5"></path>'}</svg><span class="min-w-0">${message}</span>`;
     container.appendChild(toast);
-    if (window.lucide) window.lucide.createIcons();
-
+    requestAnimationFrame(() => toast.classList.remove('opacity-0', 'translate-y-1'));
     setTimeout(() => {
-      toast.classList.remove('translate-y-4', 'opacity-0');
-      toast.classList.add('translate-y-0', 'opacity-100');
-    }, 10);
-
-    setTimeout(() => {
-      toast.classList.add('opacity-0', 'translate-y-2');
-      setTimeout(() => toast.remove(), 300);
-    }, 3500);
+      toast.classList.add('opacity-0');
+      setTimeout(() => toast.remove(), 250);
+    }, error ? 5000 : 2400);
   }
 
   // =========================================================================
@@ -144,7 +143,7 @@
 
     saveState();
     updateCartUI();
-    showToast(`Agregado a cotización: ${quantity}x ${product.name}`);
+    showToast(`Agregado a tu lista: ${quantity} × ${product.name}`);
   }
 
   function updateCartItemQty(productId, delta) {
@@ -178,27 +177,67 @@
 
   function updateCartUI() {
     const count = state.cart.reduce((sum, item) => sum + item.quantity, 0);
-    const badges = document.querySelectorAll('.cart-count-badge');
-    badges.forEach(b => {
+    document.querySelectorAll('.cart-count-badge').forEach(b => {
       b.textContent = count;
-      b.style.display = count > 0 ? 'flex' : 'none';
+      b.hidden = count === 0;
     });
+    const btnLista = document.getElementById('headerListButton');
+    if (btnLista) btnLista.setAttribute('aria-label', state.cart.length ? `Ver mi lista de cotización (${state.cart.length} ${state.cart.length === 1 ? 'producto' : 'productos'})` : 'Ver mi lista de cotización');
 
     renderCartDrawer();
-    if (state.currentView === 'checkout') {
-      renderCheckoutView();
+    actualizarBarraCotizacion();
+    if (state.currentView === 'catalog') {
+      pintarBotonesAgregar();
+      actualizarBarraCatalogo();
+    } else if (state.currentView === 'checkout') {
+      actualizarCheckout();
     }
+  }
+
+  // Barra inferior (celular): «Revisar cotización» en portada y catálogo; «Continuar con mis datos» en el paso 1
+  function actualizarBarraCotizacion() {
+    const bar = document.getElementById('quoteBar');
+    if (!bar) return;
+    const n = state.cart.length;
+    const unidades = state.cart.reduce((s, i) => s + i.quantity, 0);
+    const v = state.currentView;
+    let visible = false, texto = 'Revisar cotización', sub = 'en tu lista de cotización', accion = () => setView('checkout');
+    if (n > 0 && (v === 'landing' || v === 'catalog')) visible = true;
+    if (n > 0 && v === 'checkout' && (state.checkoutStep || 1) === 1) {
+      visible = true; texto = 'Continuar con mis datos'; accion = () => goCheckoutStep(2);
+      sub = `${unidades} ${unidades === 1 ? 'unidad' : 'unidades'} · bajo cotización`;
+    }
+    const count = document.getElementById('quoteBarCount');
+    const subEl = document.getElementById('quoteBarSub');
+    const btn = document.getElementById('quoteBarButton');
+    if (count) count.textContent = `${n} ${n === 1 ? 'producto' : 'productos'}`;
+    if (subEl) subEl.textContent = sub;
+    if (btn) { btn.textContent = texto; btn.onclick = accion; btn.tabIndex = visible ? 0 : -1; }
+    bar.dataset.visible = String(visible);
+    bar.setAttribute('aria-hidden', String(!visible));
+    document.body.classList.toggle('con-barra', visible);
   }
 
   // =========================================================================
   // CONTROLADOR DE BANNERS AUTOMÁTICOS (HERO CAROUSEL)
   // =========================================================================
+  // Avanza solo cada 6 s, salvo que la persona lo pause o tenga activado «reducir movimiento» (WCAG 2.2.2)
   function initHeroSlider() {
     stopHeroSlider();
-    state.currentSlide = 0;
+    if (REDUCE || state.heroPausado) return;
     state.slideInterval = setInterval(() => {
       nextHeroSlide();
     }, 6000);
+  }
+
+  function toggleHeroPausa() {
+    state.heroPausado = !state.heroPausado;
+    if (state.heroPausado) stopHeroSlider(); else initHeroSlider();
+    const b = document.getElementById('heroPausa');
+    if (b) {
+      b.setAttribute('aria-label', state.heroPausado ? 'Reanudar el carrusel' : 'Pausar el carrusel');
+      b.innerHTML = state.heroPausado ? ICON_PLAY : ICON_PAUSE;
+    }
   }
 
   function stopHeroSlider() {
@@ -243,9 +282,16 @@
   // ENRUTAMIENTO Y VISTAS
   // =========================================================================
   function setView(viewName, params = {}) {
-    if (viewName === 'checkout' && state.currentView !== 'checkout') state.checkoutStep = 1;
+    const anterior = state.currentView;
+    const mainEl = document.getElementById('appContent');
+    const primeraVez = mainEl && mainEl.classList.contains('app-loading');
+    // Al salir del catálogo se guarda la posición para volver al mismo producto
+    if (anterior === 'catalog' && viewName !== 'catalog' && !primeraVez) state.catalogY = window.scrollY;
+    if (viewName === 'checkout' && anterior !== 'checkout') state.checkoutStep = 1;
+    if (state.filtrosAbiertos) cerrarFiltros(false);
+    document.body.classList.remove('teclado');   // el campo enfocado desaparece con la vista anterior
     state.currentView = viewName;
-    window.scrollTo({ top: 0, behavior: 'smooth' });
+    let destinoY = 0;
 
     // Actualizar nav active states
     document.querySelectorAll('.nav-link').forEach(link => {
@@ -262,6 +308,7 @@
     if (!mainContainer) return;
 
     if (viewName === 'landing') {
+      state.currentSlide = 0;
       renderLandingView(mainContainer);
       initHeroSlider();
     } else {
@@ -280,6 +327,9 @@
         if (params.collection) state.filter.collectionId = params.collection;
         if (params.search !== undefined) state.filter.search = params.search;
         renderCatalogView(mainContainer);
+        // Volver desde la solicitud o la lista: misma posición. Cambiar de línea o buscar: arriba.
+        if (anterior !== 'catalog' && !params.category && params.search === undefined) destinoY = state.catalogY || 0;
+        state.catalogY = 0;
       } else if (viewName === 'checkout') {
         renderCheckoutView(mainContainer);
       } else if (viewName === 'confirmation') {
@@ -287,27 +337,38 @@
       }
     }
 
-    if (window.lucide) window.lucide.createIcons();
+    mainContainer.classList.remove('app-loading');
+    iconos();
+    actualizarBarraCotizacion();
+    // Sin animación: el contenido nuevo aparece ya en su lugar (antes se animaba el scroll sobre la vista nueva)
+    window.scrollTo(0, destinoY);
+    if (!primeraVez && anterior !== viewName) mainContainer.focus({ preventScroll: true });
   }
 
-  function scrollToContact() {
-    if (state.currentView !== 'landing') {
-      setView('landing');
-      setTimeout(() => {
-        const el = document.getElementById('contacto-section');
-        if (el) el.scrollIntoView({ behavior: 'smooth' });
-      }, 150);
-    } else {
-      const el = document.getElementById('contacto-section');
-      if (el) el.scrollIntoView({ behavior: 'smooth' });
-    }
+  // Lleva a una sección de la portada. Desde otra vista el salto es inmediato; en la misma portada, suave
+  // (salvo «reducir movimiento»).
+  function irASeccion(id, block = 'start') {
+    const mismaVista = state.currentView === 'landing';
+    if (!mismaVista) setView('landing');
+    const el = document.getElementById(id);
+    if (el) el.scrollIntoView({ behavior: mismaVista && !REDUCE ? 'smooth' : 'auto', block });
   }
+
+  function scrollToContact() { irASeccion('contacto-section'); }
 
   // =========================================================================
   // VISTA 1: PORTADA v2 (propuesta UX aprobada en Claude Design)
   // =========================================================================
   const ICON_ARROW = '<svg class="cat-arrow" aria-hidden="true" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M5 12h14M12 5l7 7-7 7"></path></svg>';
   const ICON_PIN = '<svg aria-hidden="true" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#7BD192" stroke-width="2"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0z"></path><circle cx="12" cy="10" r="3"></circle></svg>';
+  const ICON_PAUSE = '<svg aria-hidden="true" width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><rect x="6" y="5" width="4" height="14" rx="1"></rect><rect x="14" y="5" width="4" height="14" rx="1"></rect></svg>';
+  const ICON_PLAY = '<svg aria-hidden="true" width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M7 5v14l12-7z"></path></svg>';
+  // Líneas que la portada ya presenta como «Nueva línea»: se destacan también en el acceso rápido
+  const LINEAS_NUEVAS = ['proteinas', 'servilletas'];
+  // Foto de categoría en WebP (480/800 px y más para las tarjetas anchas) con JPG de respaldo
+  function fotoCategoria(id, pos, sizes, extra = '') {
+    return `<picture><source type="image/webp" srcset="images/cat-${id}-480.webp 480w, images/cat-${id}-800.webp 800w${extra}" sizes="${sizes}"><img src="images/cat-${id}.jpg" alt="" class="absolute inset-0 w-full h-full object-cover" style="object-position: ${pos}" loading="lazy" decoding="async" /></picture>`;
+  }
   const ICON_DOC = '<svg aria-hidden="true" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M14 3H6a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V9z"></path><path d="M14 3v6h6M8 13h8M8 17h5"></path></svg>';
   // Logística Olivo SpA 2026: días de despacho por sector (L, M, Mi, J, V, S). Misma lista que valida api/cotizar.php.
   const DIAS_RUTA = [['L', 'Lunes'], ['M', 'Martes'], ['Mi', 'Miércoles'], ['J', 'Jueves'], ['V', 'Viernes'], ['S', 'Sábado']];
@@ -381,10 +442,10 @@
   function renderBizRecs() {
     const biz = BIZ.find(b => b.id === state.biz) || BIZ[0];
     return biz.recs.map(r => `
-      <button type="button" onclick="window.OlivoApp.setFilterCategory('${r.cat}')" class="lift text-left flex flex-col gap-2.5 p-6 bg-white border border-[#E4E9E7] rounded-2xl shadow-sm">
+      <button type="button" onclick="window.OlivoApp.setFilterCategory('${r.cat}')" class="lift text-left flex flex-col gap-2.5 p-6 bg-white border border-[#E4E9E7] rounded-2xl shadow-sm max-md:flex-none max-md:w-[78%] max-md:max-w-[320px] max-md:snap-start max-md:p-4 max-md:gap-2">
         <span class="self-start text-[10px] font-extrabold tracking-[0.12em] uppercase px-2.5 py-1 rounded-full bg-[#FBEEF0] text-[#B0121F]" style="font-family: var(--font-heading)">${r.tag}</span>
-        <strong class="text-lg text-[#17472C] leading-snug" style="font-family: var(--font-heading)">${r.name}</strong>
-        <span class="text-[15px] text-[#56616A] flex-grow">${r.items}</span>
+        <strong class="text-lg text-[#17472C] leading-snug max-sm:text-base" style="font-family: var(--font-heading)">${r.name}</strong>
+        <span class="text-[15px] text-[#56616A] flex-grow max-sm:text-sm">${r.items}</span>
         <span class="inline-flex items-center gap-1.5 text-sm font-bold text-[#17472C]" style="font-family: var(--font-heading)">Ver productos <span class="text-[#CF1427]">${ICON_ARROW}</span></span>
       </button>`).join('');
   }
@@ -411,15 +472,17 @@
 
   function renderLandingView(container) {
     if (!state.biz) state.biz = 'restaurante';
+    // La foto del primer banner ya viene pintada en index.html: se reutiliza el mismo elemento (no se descarga ni pinta otra vez)
+    const fotoPrevia = container.querySelector('#heroPrevio picture');
     const catCard = (c) => `
-      <button type="button" onclick="window.OlivoApp.setFilterCategory('${c.id}')" class="category-card reveal text-left block h-[340px]">
-        <img src="${c.img}" alt="" class="absolute inset-0 w-full h-full object-cover" style="object-position: center 20%" />
+      <button type="button" onclick="window.OlivoApp.setFilterCategory('${c.id}')" class="category-card reveal text-left block h-[340px] max-sm:h-[172px]">
+        ${fotoCategoria(c.id, 'center 20%', '(max-width: 1023px) 50vw, 25vw')}
         <div class="absolute inset-0" style="background: linear-gradient(0deg, rgba(15, 31, 22,0.92) 0%, rgba(15, 31, 22,0.4) 45%, rgba(15, 31, 22,0) 70%)"></div>
-        <div class="absolute inset-x-0 bottom-0 p-[22px] flex flex-col gap-1.5">
-          <span class="self-start text-[10px] font-extrabold tracking-[0.12em] uppercase px-2.5 py-1 rounded-md bg-white/90 text-[#17472C]" style="font-family: var(--font-heading)">${c.tag}</span>
-          <span class="font-serif font-bold text-[22px] leading-tight text-white">${c.name}</span>
-          <span class="text-sm text-[#E2E8E5]">${c.desc}</span>
-          <span class="inline-flex items-center gap-1.5 text-sm font-bold text-[#7BD192]" style="font-family: var(--font-heading)">Ver productos ${ICON_ARROW}</span>
+        <div class="absolute inset-x-0 bottom-0 p-[22px] flex flex-col gap-1.5 max-sm:p-3 max-sm:gap-1">
+          <span class="self-start text-[10px] font-extrabold tracking-[0.12em] uppercase px-2.5 py-1 rounded-md bg-white/90 text-[#17472C] max-sm:hidden" style="font-family: var(--font-heading)">${c.tag}</span>
+          <span class="font-serif font-bold text-[22px] leading-tight text-white max-sm:text-[15px]">${c.name}</span>
+          <span class="text-sm text-[#E2E8E5] max-sm:hidden">${c.desc}</span>
+          <span class="inline-flex items-center gap-1.5 text-sm font-bold text-[#7BD192] max-sm:text-[12.5px]" style="font-family: var(--font-heading)">Ver productos ${ICON_ARROW}</span>
         </div>
       </button>`;
 
@@ -427,16 +490,20 @@
       <!-- HERO: 2 banners con cruce suave -->
       <section class="hero-slider-container text-white relative select-none" aria-roledescription="carrusel" aria-label="Destacados" onmouseenter="window.OlivoApp.stopHeroSlider()" onmouseleave="window.OlivoApp.initHeroSlider()">
         <div class="hero-slide active">
-          <img src="images/hero-cocina.jpg" alt="Cocina profesional preparando insumos" class="hero-slide-bg" />
+          <picture>
+            <source media="(max-width: 639.98px)" type="image/webp" srcset="images/hero-cocina-m.webp">
+            <source type="image/webp" srcset="images/hero-cocina-1280.webp 1280w, images/hero-cocina-1920.webp 1920w" sizes="100vw">
+            <img src="images/hero-cocina.jpg" alt="Cocina profesional preparando insumos" class="hero-slide-bg" width="1920" height="800" fetchpriority="high" />
+          </picture>
           <div class="hero-overlay"></div>
           <div class="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full z-20">
-            <div class="hero-copy max-w-[640px] flex flex-col gap-[22px]">
+            <div class="hero-copy max-w-[640px] flex flex-col gap-4 sm:gap-[22px]">
               <span class="self-start inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white/10 border border-white/25 text-white text-[11px] font-extrabold uppercase tracking-[0.14em]" style="font-family: var(--font-heading)">${ICON_PIN} Proveedor HORECA · V Región</span>
-              <h1 class="font-serif font-bold text-white text-[38px] sm:text-5xl lg:text-[60px] leading-[1.08] tracking-tight">Todo lo que tu negocio necesita, <em class="not-italic font-extrabold text-[#7BD192]">en un solo proveedor.</em></h1>
+              <h1 class="font-serif font-bold text-white text-[29px] min-[400px]:text-[33px] sm:text-5xl lg:text-[60px] leading-[1.08] tracking-tight">Todo lo que tu negocio necesita, <em class="not-italic font-extrabold text-[#7BD192]">en un solo proveedor.</em></h1>
               <p class="text-base sm:text-lg text-[#EEF3F0] leading-relaxed max-w-[540px]">Abastecimiento integral para restaurantes, cafeterías y hoteles.</p>
-              <div class="flex flex-wrap gap-3">
-                <button type="button" onclick="window.OlivoApp.setView('checkout')" class="btn-gold h-[52px] px-6 text-[15px] font-extrabold" style="font-family: var(--font-heading)">${ICON_DOC} Solicitar cotización</button>
-                <button type="button" onclick="window.OlivoApp.scrollToCategories()" class="btn-glass h-[52px] px-[22px] text-[15px]" style="font-family: var(--font-heading)">Explorar catálogo <svg aria-hidden="true" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M12 5v14M19 12l-7 7-7-7"></path></svg></button>
+              <div class="flex flex-wrap gap-3 max-sm:gap-2.5">
+                <button type="button" onclick="window.OlivoApp.setView('checkout')" class="btn-gold h-[52px] px-6 text-[15px] font-extrabold max-sm:h-12 max-sm:px-3 max-sm:flex-1 max-sm:text-[14px] max-sm:whitespace-nowrap max-sm:[&>svg]:hidden" style="font-family: var(--font-heading)">${ICON_DOC} Solicitar cotización</button>
+                <button type="button" onclick="window.OlivoApp.scrollToCategories()" class="btn-glass h-[52px] px-[22px] text-[15px] max-sm:h-12 max-sm:px-3 max-sm:flex-1 max-sm:justify-center max-sm:text-[14px] max-sm:whitespace-nowrap max-sm:[&>svg]:hidden" style="font-family: var(--font-heading)">Explorar catálogo <svg aria-hidden="true" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M12 5v14M19 12l-7 7-7-7"></path></svg></button>
               </div>
             </div>
           </div>
@@ -444,11 +511,14 @@
 
         <!-- Banner 2: Servilletas Joker (reemplaza al de sushi, pedido de Olivo 16 nov). Fondo claro: data-tono="claro". -->
         <div class="hero-slide hero-slide-claro" data-tono="claro">
-          <img src="images/hero-servilletas.jpg" alt="Servilletas Joker en azul, blanco, amarillo, negro, rojo, rosa, verde y burdeo" class="hero-servilletas-img hidden md:block" />
+          <picture>
+            <source type="image/webp" srcset="images/hero-servilletas.webp">
+            <img src="images/hero-servilletas.jpg" alt="Servilletas Joker en azul, blanco, amarillo, negro, rojo, rosa, verde y burdeo" class="hero-servilletas-img hidden md:block" width="940" height="870" loading="lazy" decoding="async" />
+          </picture>
           <div class="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full z-20">
-            <div class="hero-copy max-w-[560px] md:max-w-[45%] xl:max-w-[560px] flex flex-col gap-3.5 sm:gap-5 pb-16 sm:pb-0">
+            <div class="hero-copy max-w-[560px] md:max-w-[45%] xl:max-w-[560px] flex flex-col gap-3.5 sm:gap-5 pb-10 sm:pb-0">
               <span class="self-start inline-flex items-center gap-3 text-[#17472C] text-[12px] font-extrabold uppercase tracking-[0.22em]" style="font-family: var(--font-heading)">Servilletas Joker <span class="hidden sm:inline-block w-14 h-[2px] bg-[#17472C]"></span></span>
-              <h2 class="font-serif font-bold text-[#17472C] text-[32px] sm:text-5xl xl:text-[56px] leading-[1.08] tracking-tight">Las servilletas que tu restaurante <em class="not-italic font-extrabold text-[#CF1427]">necesita.</em></h2>
+              <h2 class="font-serif font-bold text-[#17472C] text-[28px] min-[400px]:text-[32px] sm:text-5xl xl:text-[56px] leading-[1.08] tracking-tight">Las servilletas que tu restaurante <em class="not-italic font-extrabold text-[#CF1427]">necesita.</em></h2>
               <p class="text-base sm:text-lg text-[#3E4A44] leading-relaxed max-w-[460px]">Resistencia, presentación y versatilidad en cada detalle.</p>
               <ul class="m-0 p-0 list-none hidden sm:flex flex-wrap gap-x-6 gap-y-3 text-[14px] text-[#17472C] font-semibold" style="font-family: var(--font-heading)">
                 <li class="inline-flex items-center gap-2"><i data-lucide="layers" class="w-5 h-5"></i>Variedad de colores</li>
@@ -459,80 +529,92 @@
                 ${['#1446B8', '#FFFFFF', '#F5D21A', '#161616', '#D9101E', '#E8238C', '#17663A', '#7A1430'].map(c => `<span class="w-7 h-10 rounded-md shadow-sm border border-black/10" style="background:${c}"></span>`).join('')}
               </div>
               <div class="flex flex-wrap gap-3">
-                <button type="button" onclick="window.OlivoApp.setFilterCategory('servilletas')" class="btn-gold h-[52px] px-6 text-[15px] font-extrabold" style="font-family: var(--font-heading)">Cotiza con nosotros ${ICON_ARROW}</button>
+                <button type="button" onclick="window.OlivoApp.setFilterCategory('servilletas')" class="btn-gold h-[52px] px-6 text-[15px] font-extrabold max-sm:h-12" style="font-family: var(--font-heading)">Cotiza con nosotros ${ICON_ARROW}</button>
               </div>
             </div>
           </div>
         </div>
 
-        <div class="absolute left-0 right-0 bottom-24 z-30 px-4 sm:px-6 lg:px-8">
-          <div class="max-w-7xl mx-auto flex items-center gap-2.5">
-            <button type="button" onclick="window.OlivoApp.setHeroSlide(0)" class="hero-dot slider-dot active" aria-label="Ver destacado 1"></button>
-            <button type="button" onclick="window.OlivoApp.setHeroSlide(1)" class="hero-dot slider-dot" aria-label="Ver destacado 2"></button>
+        <div class="absolute left-0 right-0 bottom-[78px] max-sm:bottom-6 z-30 px-4 sm:px-6 lg:px-8">
+          <div class="max-w-7xl mx-auto flex items-center -ml-3">
+            <button type="button" onclick="window.OlivoApp.setHeroSlide(0)" class="hero-dot-btn" aria-label="Ver destacado 1"><span class="hero-dot slider-dot active"></span></button>
+            <button type="button" onclick="window.OlivoApp.setHeroSlide(1)" class="hero-dot-btn" aria-label="Ver destacado 2"><span class="hero-dot slider-dot"></span></button>
+            <button type="button" id="heroPausa" onclick="window.OlivoApp.toggleHeroPausa()" class="hero-dot-btn hero-pausa" aria-label="${state.heroPausado ? 'Reanudar el carrusel' : 'Pausar el carrusel'}"${REDUCE ? ' hidden' : ''}>${state.heroPausado ? ICON_PLAY : ICON_PAUSE}</button>
           </div>
         </div>
       </section>
 
       <!-- CÓMO COTIZAR: 3 pasos pegados al hero -->
-      <section id="como-cotizar" aria-labelledby="comoTitulo" class="relative z-30 px-4 sm:px-6 lg:px-8 -mt-16">
-        <div class="max-w-7xl mx-auto bg-white border border-[#E4E9E7] rounded-2xl px-6 sm:px-8 py-7 flex flex-wrap items-center gap-x-8 gap-y-5" style="box-shadow: var(--shadow-xl)">
+      <section id="como-cotizar" aria-labelledby="comoTitulo" class="relative z-30 px-4 sm:px-6 lg:px-8 -mt-16 max-sm:-mt-5">
+        <div class="max-w-7xl mx-auto bg-white border border-[#E4E9E7] rounded-2xl px-6 sm:px-8 py-7 flex flex-wrap items-center gap-x-8 gap-y-5 max-sm:px-4 max-sm:py-4 max-sm:gap-y-3" style="box-shadow: var(--shadow-xl)">
           <div class="flex-[1_1_200px]">
             <span class="eyebrow">Cómo cotizar</span>
-            <h2 id="comoTitulo" class="font-serif font-bold text-2xl leading-tight text-[#131A16] mt-1 mb-0">Tres pasos, sin crear cuenta</h2>
+            <h2 id="comoTitulo" class="font-serif font-bold text-2xl leading-tight text-[#131A16] mt-1 mb-0 max-sm:text-lg">Tres pasos, sin crear cuenta</h2>
           </div>
-          <ol class="flex-[999_1_640px] m-0 p-0 list-none grid grid-cols-1 md:grid-cols-3 gap-4">
+          <ol class="flex-[999_1_640px] m-0 p-0 list-none grid grid-cols-1 md:grid-cols-3 gap-4 max-sm:gap-2.5">
             ${[['Arma tu lista', 'Elige productos y cantidades del catálogo.'], ['Envía tu solicitud', 'Datos de tu local y comuna de despacho.'], ['Recibe tu cotización', 'Tu asesor comercial te responde por correo con precios y condiciones.']].map((s, i) => `
-              <li class="flex gap-3.5 items-start">
-                <span class="flex-none w-10 h-10 rounded-xl bg-[#17472C] text-[#7BD192] flex items-center justify-center font-serif font-bold text-lg">${i + 1}</span>
-                <span><strong class="block text-[15px] text-[#17472C]" style="font-family: var(--font-heading)">${s[0]}</strong><span class="text-sm text-[#56616A]">${s[1]}</span></span>
+              <li class="flex gap-3.5 items-start max-sm:gap-3">
+                <span class="flex-none w-10 h-10 rounded-xl bg-[#17472C] text-[#7BD192] flex items-center justify-center font-serif font-bold text-lg max-sm:w-8 max-sm:h-8 max-sm:text-base max-sm:rounded-lg">${i + 1}</span>
+                <span class="leading-snug"><strong class="block text-[15px] text-[#17472C] max-sm:text-[14px]" style="font-family: var(--font-heading)">${s[0]}</strong><span class="text-sm text-[#56616A] max-sm:text-[13px]">${s[1]}</span></span>
               </li>`).join('')}
           </ol>
         </div>
       </section>
 
+      <!-- ACCESO RÁPIDO AL CATÁLOGO (solo celular): todas las líneas a un toque, con las nuevas destacadas -->
+      <nav aria-label="Acceso rápido al catálogo" class="md:hidden px-4 sm:px-6 pt-7">
+        <div class="flex items-center justify-between gap-3 mb-2">
+          <span class="eyebrow">Ir directo a una línea</span>
+          <button type="button" onclick="window.OlivoApp.scrollToCategories()" class="text-[13px] font-bold text-[#17472C] underline underline-offset-2 py-3 -my-3" style="font-family: var(--font-heading)">Ver todas</button>
+        </div>
+        <div class="scroll-x flex gap-2 -mx-4 px-4 sm:-mx-6 sm:px-6">
+          ${state.categories.map(c => `<button type="button" class="chip" onclick="window.OlivoApp.setFilterCategory('${c.id}')">${escapeHtml(c.shortName || c.name)}${LINEAS_NUEVAS.includes(c.id) ? '<span class="chip-new">Nueva</span>' : ''}</button>`).join('')}
+        </div>
+      </nav>
+
       <!-- ATAJO POR TIPO DE NEGOCIO -->
-      <section aria-labelledby="negocioTitulo" class="px-4 sm:px-6 lg:px-8 pt-16 sm:pt-24 pb-16 sm:pb-[88px]">
-        <div class="reveal max-w-7xl mx-auto flex flex-col gap-7">
+      <section aria-labelledby="negocioTitulo" class="px-4 sm:px-6 lg:px-8 pt-10 sm:pt-24 pb-10 sm:pb-[88px]">
+        <div class="reveal max-w-7xl mx-auto flex flex-col gap-5 sm:gap-7">
           <div class="flex flex-col gap-2 max-w-[720px]">
             <span class="eyebrow">Atajo por tipo de negocio</span>
-            <h2 id="negocioTitulo" class="font-serif text-[30px] sm:text-[38px] leading-tight text-[#131A16] m-0">¿Qué tipo de local tienes?</h2>
-            <p class="m-0 text-[#56616A] text-[17px]">Te mostramos primero las líneas que más usa un negocio como el tuyo.</p>
+            <h2 id="negocioTitulo" class="font-serif text-[24px] sm:text-[38px] leading-tight text-[#131A16] m-0">¿Qué tipo de local tienes?</h2>
+            <p class="m-0 text-[#56616A] text-[15px] sm:text-[17px]">Te mostramos primero las líneas que más usa un negocio como el tuyo.</p>
           </div>
-          <div role="group" aria-label="Tipo de negocio" class="flex flex-wrap gap-2.5">
+          <div role="group" aria-label="Tipo de negocio" class="scroll-x flex flex-nowrap sm:flex-wrap gap-2.5 -mx-4 px-4 sm:mx-0 sm:px-0">
             ${BIZ.map(b => `<button type="button" class="biz-chip" data-biz="${b.id}" aria-pressed="${b.id === state.biz}" onclick="window.OlivoApp.setBiz('${b.id}')">${b.label}</button>`).join('')}
           </div>
-          <div id="bizRecs" aria-live="polite" class="grid grid-cols-1 md:grid-cols-3 gap-5" style="transition: opacity 0.15s">${renderBizRecs()}</div>
+          <div id="bizRecs" aria-live="polite" class="scroll-x flex snap-x snap-mandatory gap-3 -mx-4 px-4 scroll-pl-4 sm:-mx-6 sm:px-6 md:grid md:grid-cols-3 md:gap-5 md:mx-0 md:px-0" style="transition: opacity 0.15s">${renderBizRecs()}</div>
         </div>
       </section>
 
       <!-- CATÁLOGO: 7 LÍNEAS EN GRILLA DE 4 COLUMNAS -->
-      <section id="explora-section" aria-labelledby="exploraTitulo" class="px-4 sm:px-6 lg:px-8 py-16 sm:py-24 bg-[#F2F5F3]">
-        <div class="max-w-7xl mx-auto flex flex-col gap-8">
+      <section id="explora-section" aria-labelledby="exploraTitulo" class="px-4 sm:px-6 lg:px-8 py-10 sm:py-24 bg-[#F2F5F3]">
+        <div class="max-w-7xl mx-auto flex flex-col gap-5 sm:gap-8">
           <div class="reveal flex flex-col gap-2 max-w-[680px]">
             <span class="eyebrow">Catálogo mayorista</span>
-            <h2 id="exploraTitulo" class="font-serif text-[30px] sm:text-[38px] leading-tight text-[#131A16] m-0">Explora todo para tu negocio</h2>
-            <p class="m-0 text-[#56616A] text-[17px]">${lineasTexto(true)} de abastecimiento con formatos gastronómicos y precios bajo cotización.</p>
+            <h2 id="exploraTitulo" class="font-serif text-[24px] sm:text-[38px] leading-tight text-[#131A16] m-0">Explora todo para tu negocio</h2>
+            <p class="m-0 text-[#56616A] text-[15px] sm:text-[17px]">${lineasTexto(true)} de abastecimiento con formatos gastronómicos y precios bajo cotización.</p>
           </div>
-          <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
-            <button type="button" onclick="window.OlivoApp.setFilterCategory('proteinas')" class="category-card reveal text-left block h-[340px] sm:col-span-2">
-              <img src="images/cat-proteinas.jpg" alt="" class="absolute inset-0 w-full h-full object-cover" style="object-position: center 45%" />
+          <div class="grid grid-cols-2 lg:grid-cols-4 gap-5 max-sm:gap-2.5">
+            <button type="button" onclick="window.OlivoApp.setFilterCategory('proteinas')" class="category-card reveal text-left block h-[340px] col-span-2 max-sm:h-[180px]">
+              ${fotoCategoria('proteinas', 'center 45%', '(max-width: 1023px) 100vw, 50vw', ', images/cat-proteinas-1200.webp 1200w')}
               <div class="absolute inset-0" style="background: linear-gradient(0deg, rgba(15, 31, 22,0.92) 0%, rgba(15, 31, 22,0.45) 45%, rgba(15, 31, 22,0) 75%)"></div>
-              <div class="absolute inset-x-0 bottom-0 p-7 flex flex-col gap-2">
+              <div class="absolute inset-x-0 bottom-0 p-7 flex flex-col gap-2 max-sm:p-4 max-sm:gap-1">
                 <span class="self-start text-[10px] font-extrabold tracking-[0.12em] uppercase px-2.5 py-1 rounded-md bg-[#CF1427] text-white" style="font-family: var(--font-heading)">Nueva línea · Cortes seleccionados</span>
-                <span class="font-serif font-bold text-[30px] leading-tight text-white">Proteínas</span>
-                <span class="text-[15px] text-[#E2E8E5]">Vacuno al vacío, cerdo, pollo y aves, elaborados.</span>
+                <span class="font-serif font-bold text-[30px] leading-tight text-white max-sm:text-[21px]">Proteínas</span>
+                <span class="text-[15px] text-[#E2E8E5] max-sm:text-[13px]">Vacuno al vacío, cerdo, pollo y aves, elaborados.</span>
                 <span class="inline-flex items-center gap-1.5 text-sm font-bold text-[#7BD192]" style="font-family: var(--font-heading)">Ver productos ${ICON_ARROW}</span>
               </div>
             </button>
             ${CAT_CARDS.map(catCard).join('')}
             <!-- Servilletas: tarjeta a todo el ancho (pedido de Olivo, 16 nov) -->
-            <button type="button" onclick="window.OlivoApp.setFilterCategory('servilletas')" class="category-card reveal text-left block h-[340px] sm:col-span-2 lg:col-span-4">
-              <img src="images/cat-servilletas.jpg" alt="" class="absolute inset-0 w-full h-full object-cover" style="object-position: center 35%" />
+            <button type="button" onclick="window.OlivoApp.setFilterCategory('servilletas')" class="category-card reveal text-left block h-[340px] col-span-2 lg:col-span-4 max-sm:h-[180px]">
+              ${fotoCategoria('servilletas', 'center 35%', '100vw', ', images/cat-servilletas-1400.webp 1400w')}
               <div class="absolute inset-0" style="background: linear-gradient(0deg, rgba(15, 31, 22,0.92) 0%, rgba(15, 31, 22,0.45) 40%, rgba(15, 31, 22,0) 70%)"></div>
-              <div class="absolute inset-x-0 bottom-0 p-7 flex flex-col gap-2">
+              <div class="absolute inset-x-0 bottom-0 p-7 flex flex-col gap-2 max-sm:p-4 max-sm:gap-1">
                 <span class="self-start text-[10px] font-extrabold tracking-[0.12em] uppercase px-2.5 py-1 rounded-md bg-[#CF1427] text-white" style="font-family: var(--font-heading)">Nueva línea · Joker</span>
-                <span class="font-serif font-bold text-[30px] leading-tight text-white">Servilletas</span>
-                <span class="text-[15px] text-[#E2E8E5]">37,5 x 33 cm y 40 x 40 cm, en blanco, natural y colores.</span>
+                <span class="font-serif font-bold text-[30px] leading-tight text-white max-sm:text-[21px]">Servilletas</span>
+                <span class="text-[15px] text-[#E2E8E5] max-sm:text-[13px]">37,5 x 33 cm y 40 x 40 cm, en blanco, natural y colores.</span>
                 <span class="inline-flex items-center gap-1.5 text-sm font-bold text-[#7BD192]" style="font-family: var(--font-heading)">Ver productos ${ICON_ARROW}</span>
               </div>
             </button>
@@ -541,17 +623,17 @@
       </section>
 
       <!-- COBERTURA DE DESPACHO -->
-      <section id="despacho-section" aria-labelledby="despachoTitulo" class="px-4 sm:px-6 lg:px-8 py-16 sm:py-[88px] bg-[#17472C] text-white">
-        <div class="reveal max-w-7xl mx-auto flex flex-wrap items-start gap-10">
+      <section id="despacho-section" aria-labelledby="despachoTitulo" class="px-4 sm:px-6 lg:px-8 py-10 sm:py-[88px] bg-[#17472C] text-white">
+        <div class="reveal max-w-7xl mx-auto flex flex-wrap items-start gap-6 sm:gap-10">
           <div class="flex-[999_1_480px] flex flex-col gap-3.5">
             <span class="eyebrow" style="color: #7BD192">Cobertura de despacho</span>
-            <h2 id="despachoTitulo" class="font-serif text-[30px] sm:text-[38px] leading-tight text-white m-0">Llegamos a tu local en toda la V Región</h2>
-            <p class="m-0 text-[#D6E6DB] text-[17px] max-w-[600px]">Despacho directo en ${COMUNAS.length} sectores. Revisa qué días pasa nuestra ruta por tu sector antes de armar tu lista.</p>
-            <ul class="mt-2 p-0 list-none flex flex-wrap gap-2.5">
+            <h2 id="despachoTitulo" class="font-serif text-[24px] sm:text-[38px] leading-tight text-white m-0">Llegamos a tu local en toda la V Región</h2>
+            <p class="m-0 text-[#D6E6DB] text-[15px] sm:text-[17px] max-w-[600px]">Despacho directo en ${COMUNAS.length} sectores. Revisa qué días pasa nuestra ruta por tu sector antes de armar tu lista.</p>
+            <ul class="mt-2 p-0 list-none flex flex-wrap gap-2.5 max-sm:hidden">
               ${COMUNAS.map(c => `<li class="inline-flex items-center gap-2 px-3.5 py-2 rounded-full bg-white/[0.08] border border-[#7BD192]/45 font-semibold text-sm" style="font-family: var(--font-heading)">${ICON_PIN}${c}</li>`).join('')}
             </ul>
           </div>
-          <div class="flex-[1_1_360px] bg-[#0F1F16] border border-[#7BD192]/35 rounded-2xl p-6 sm:p-7 flex flex-col gap-4">
+          <div class="flex-[1_1_300px] bg-[#0F1F16] border border-[#7BD192]/35 rounded-2xl p-4 sm:p-7 flex flex-col gap-4">
             <div class="flex flex-col gap-1">
               <strong class="text-[17px]" style="font-family: var(--font-heading)">Horarios de ruta</strong>
               <span class="text-[14px] text-[#D6E6DB]">${RUTA_HORARIO}</span>
@@ -581,16 +663,16 @@
       <!-- (Sección «Guías para tu cocina» quitada a pedido de Olivo, 16 nov) -->
 
       <!-- LLAMADO FINAL / CONTACTO -->
-      <section id="contacto-section" aria-labelledby="ctaTitulo" class="px-4 sm:px-6 lg:px-8 py-16 sm:py-20 bg-[#F2F5F3]">
-        <div class="reveal max-w-7xl mx-auto rounded-3xl bg-white border border-[#E4E9E7] p-8 sm:p-11 flex flex-wrap items-center justify-between gap-7" style="box-shadow: var(--shadow-lg)">
-          <div class="flex-[1_1_420px] flex flex-col gap-2">
+      <section id="contacto-section" aria-labelledby="ctaTitulo" class="px-4 sm:px-6 lg:px-8 py-10 sm:py-20 bg-[#F2F5F3]">
+        <div class="reveal max-w-7xl mx-auto rounded-3xl bg-white border border-[#E4E9E7] p-5 sm:p-11 flex flex-wrap items-center justify-between gap-5 sm:gap-7 max-sm:rounded-2xl" style="box-shadow: var(--shadow-lg)">
+          <div class="flex-[1_1_280px] flex flex-col gap-2">
             <span class="eyebrow">Atención 1 a 1</span>
-            <h2 id="ctaTitulo" class="font-serif text-[30px] sm:text-[34px] leading-tight text-[#131A16] m-0">¿Ya tienes tu lista de compras?</h2>
-            <p class="m-0 text-[#56616A] text-[17px]">Envíala tal cual y tu asesor comercial arma la cotización por ti.</p>
+            <h2 id="ctaTitulo" class="font-serif text-[24px] sm:text-[34px] leading-tight text-[#131A16] m-0">¿Ya tienes tu lista de compras?</h2>
+            <p class="m-0 text-[#56616A] text-[15px] sm:text-[17px]">Envíala tal cual y tu asesor comercial arma la cotización por ti.</p>
           </div>
-          <div class="flex flex-wrap gap-3">
-            <button type="button" onclick="window.OlivoApp.setView('checkout')" class="btn-gold h-[52px] px-6 text-[15px] font-extrabold" style="font-family: var(--font-heading)">Solicitar cotización</button>
-            <a href="${waUrl(WA_SALUDO)}" target="_blank" rel="noopener" data-evento="whatsapp" class="inline-flex items-center gap-2.5 h-[52px] px-[22px] rounded-[10px] bg-white border border-[#17472C] text-[#17472C] font-bold text-[15px] no-underline transition hover:-translate-y-px" style="font-family: var(--font-heading)">
+          <div class="flex flex-wrap gap-3 max-sm:w-full">
+            <button type="button" onclick="window.OlivoApp.setView('checkout')" class="btn-gold h-[52px] px-6 text-[15px] font-extrabold max-sm:flex-1" style="font-family: var(--font-heading)">Solicitar cotización</button>
+            <a href="${waUrl(WA_SALUDO)}" target="_blank" rel="noopener" data-evento="whatsapp" class="inline-flex items-center gap-2.5 h-[52px] px-[22px] rounded-[10px] bg-white border border-[#17472C] text-[#17472C] font-bold text-[15px] no-underline transition [@media(hover:hover)]:hover:-translate-y-px max-sm:flex-1 max-sm:justify-center" style="font-family: var(--font-heading)">
               <svg aria-hidden="true" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 11.5a8.4 8.4 0 0 1-12.3 7.4L3 21l2.1-5.6A8.4 8.4 0 1 1 21 11.5z"></path></svg>
               WhatsApp +56 9 7723 6128
             </a>
@@ -598,30 +680,28 @@
         </div>
       </section>
     `;
+    if (fotoPrevia) {
+      const nueva = container.querySelector('.hero-slide picture');
+      if (nueva) nueva.replaceWith(fotoPrevia);
+    }
     initReveal();
   }
 
   // Lleva a la tabla de días de despacho por sector (portada)
-  function scrollToRuta() {
-    const go = () => { const el = document.getElementById('despacho-section'); if (el) el.scrollIntoView({ behavior: 'smooth' }); };
-    if (state.currentView !== 'landing') { setView('landing'); setTimeout(go, 150); } else { go(); }
-  }
+  function scrollToRuta() { irASeccion('despacho-section'); }
 
-  function scrollToSteps() {
-    const go = () => { const el = document.getElementById('como-cotizar'); if (el) el.scrollIntoView({ behavior: 'smooth', block: 'center' }); };
-    if (state.currentView !== 'landing') { setView('landing'); setTimeout(go, 150); } else { go(); }
-  }
+  function scrollToSteps() { irASeccion('como-cotizar', 'center'); }
 
   function scrollToCategories() {
-    const el = document.getElementById('explora-section');
-    if (el) el.scrollIntoView({ behavior: 'smooth' });
+    if (document.getElementById('explora-section')) irASeccion('explora-section');
     else setView('catalog');
   }
 
   // =========================================================================
   // VISTA 2: CATÁLOGO B2B Y SUBDIVISIONES (SIN PRECIOS)
   // =========================================================================
-  function renderCatalogView(container) {
+  // Datos de la vista (línea, subcategorías, búsqueda y orden). Se usan para dibujar todo o solo los resultados.
+  function datosCatalogo() {
     if (!state.filter.categoryId || state.filter.categoryId === 'all') {
       state.filter.categoryId = state.categories[0]?.id || 'alimentos';
       state.filter.subcategoryId = 'all';
@@ -662,11 +742,99 @@
     const bajada = global
       ? `${filtered.length} ${filtered.length === 1 ? 'producto' : 'productos'} para «${escapeHtml(state.filter.search.trim())}» en las ${lineasTexto(false)}.`
       : cat.description;
+    return { cat, enCategoria, subs, activeSub: subs.find(s => s.id === state.filter.subcategoryId), global, filtered, titulo, bajada };
+  }
 
-    const enLista = (id) => state.cart.find(i => i.productId === id);
-    const totalLista = state.cart.length;
+  const nProductos = (n) => `${n} ${n === 1 ? 'producto' : 'productos'}`;
+  const ICON_FILTROS = '<svg aria-hidden="true" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M4 6h10M18 6h2M4 12h4M12 12h8M4 18h12M20 18h0"></path><circle cx="16" cy="6" r="2"></circle><circle cx="10" cy="12" r="2"></circle><circle cx="18" cy="18" r="2"></circle></svg>';
+  const ICON_X = '<svg aria-hidden="true" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M18 6 6 18M6 6l12 12"></path></svg>';
+  const ICON_CHECK = '<svg aria-hidden="true" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#CF1427" stroke-width="2.6"><path d="M20 6 9 17l-5-5"></path></svg>';
+
+  // Botón «Agregar»: mismo alto y ancho en todos sus estados para que la tarjeta no se mueva
+  function clasesAgregar(enLista) {
+    return 'add-btn flex-auto h-11 rounded-[10px] px-3 text-[13.5px] font-bold transition [@media(hover:hover)]:hover:-translate-y-px max-sm:w-full max-sm:flex-none max-sm:px-2 max-sm:text-[13px] '
+      + (enLista ? 'bg-[#F2F8F3] text-[#17472C] border border-[#CBD9D0]' : 'bg-[#17472C] text-white border border-[#17472C] shadow-md hover:bg-[#1F6A3E]');
+  }
+  function htmlAgregar(item) {
+    return item ? `En tu lista · ${item.quantity}` : '<span class="sm:hidden">Agregar</span><span class="max-sm:hidden">Agregar a cotización</span>';
+  }
+  // Repinta solo los botones de las tarjetas (sin redibujar el catálogo)
+  function pintarBotonesAgregar(soloId) {
+    document.querySelectorAll(soloId ? `[data-add="${soloId}"]` : '[data-add]').forEach(btn => {
+      if (btn.dataset.estado === 'agregado') return;
+      const item = state.cart.find(i => i.productId === btn.dataset.add);
+      btn.className = clasesAgregar(!!item);
+      btn.innerHTML = htmlAgregar(item);
+    });
+  }
+
+  function htmlTarjeta(p, global) {
+    const item = state.cart.find(i => i.productId === p.id);
+    return `
+      <article class="card-premium pcard flex flex-col group" data-pid="${p.id}">
+        <button type="button" class="pcard-img relative block w-full aspect-square bg-white overflow-hidden cursor-pointer p-0 border-0" onclick="window.OlivoApp.openProductModal('${p.id}')" aria-label="Ver ficha de ${escapeHtml(p.name)}">
+          ${fotoProducto(p, 'w-full h-full group-hover:scale-105 transition duration-500')}
+          ${p.brand ? `<span class="absolute top-3 left-3 max-w-[calc(100%-24px)] truncate text-[11px] font-bold px-2 py-1 rounded-md bg-white/95 text-[#17472C] shadow-sm max-sm:top-1.5 max-sm:left-1.5 max-sm:max-w-[calc(100%-12px)] max-sm:text-[10px] max-sm:px-1.5 max-sm:py-0.5" style="font-family: var(--font-heading)">${p.brand}</span>` : ''}
+          <span class="absolute top-3 right-3 text-[11px] font-mono px-2 py-1 rounded-md bg-white/95 text-[#56616A] shadow-sm max-sm:hidden">${p.sku}</span>
+        </button>
+        <div class="p-[18px] flex flex-col gap-2.5 flex-grow min-w-0 max-sm:p-2.5 max-sm:gap-1.5">
+          <span class="text-[11px] font-extrabold tracking-[0.08em] uppercase text-[#B0121F] max-sm:text-[10px] max-sm:tracking-[0.04em] max-sm:truncate" style="font-family: var(--font-heading)">${global ? p.categoryName + ' · ' : ''}${p.subcategoryName}</span>
+          <h3 class="m-0 text-[15px] font-bold leading-snug text-[#17472C] min-h-[40px] max-sm:text-[13.5px] max-sm:min-h-0" style="font-family: var(--font-heading)"><button type="button" onclick="window.OlivoApp.openProductModal('${p.id}')" class="text-left bg-transparent border-0 p-0 cursor-pointer hover:text-[#1F6A3E] max-sm:line-clamp-3" style="font: inherit; color: inherit">${p.name}</button></h3>
+          <div class="bg-[#F8FAF9] border border-[#EEF2EF] rounded-[10px] px-3 py-2 text-[13px] leading-snug max-sm:p-0 max-sm:bg-transparent max-sm:border-0 max-sm:text-[12px] max-sm:line-clamp-2"><span class="text-[#626D76] max-sm:hidden">Presentación: </span><span class="text-[#1A1F1C] max-sm:text-[#56616A]">${formatoTexto(p)}</span></div>
+          <div class="flex justify-between items-center gap-2 max-sm:mt-auto">
+            <span class="text-[11px] font-extrabold tracking-[0.06em] uppercase px-2.5 py-1 rounded-full bg-[#FBEEF0] text-[#B0121F] max-sm:text-[9.5px] max-sm:px-2 max-sm:py-0.5" style="font-family: var(--font-heading)">Bajo cotización</span>
+            <button type="button" onclick="window.OlivoApp.openProductModal('${p.id}')" class="text-[13px] font-medium text-[#17472C] underline py-3 -my-3 max-sm:hidden">Ver ficha técnica</button>
+          </div>
+          <div class="flex gap-2 mt-auto pt-1 max-sm:flex-col max-sm:gap-1.5 max-sm:mt-0">
+            <div role="group" aria-label="Cantidad" class="flex items-center border border-[#E4E9E7] rounded-[10px] overflow-hidden flex-none max-sm:w-full">
+              <button type="button" onclick="window.OlivoApp.stepProductCardQty('${p.id}', -1)" aria-label="Restar una unidad" class="w-10 h-11 bg-white text-[#17472C] text-lg font-bold hover:bg-[#F2F8F3] transition max-sm:flex-1 max-sm:w-auto">−</button>
+              <input id="qty-input-${p.id}" type="number" inputmode="numeric" min="1" value="1" aria-label="Cantidad" class="w-9 text-center bg-transparent text-base font-extrabold text-[#1A1F1C] outline-none tabular-nums max-sm:flex-1 max-sm:w-0 max-sm:min-w-0" style="font-family: var(--font-heading)" />
+              <button type="button" onclick="window.OlivoApp.stepProductCardQty('${p.id}', 1)" aria-label="Sumar una unidad" class="w-10 h-11 bg-white text-[#17472C] text-lg font-bold hover:bg-[#F2F8F3] transition max-sm:flex-1 max-sm:w-auto">+</button>
+            </div>
+            <button type="button" data-add="${p.id}" onclick="window.OlivoApp.addProductToQuoteFromCard('${p.id}')" class="${clasesAgregar(!!item)}" style="font-family: var(--font-heading)">${htmlAgregar(item)}</button>
+          </div>
+        </div>
+      </article>`;
+  }
+
+  const NO_ENCUENTRAS = (extra = '') => `
+    <div class="bg-[#17472C] rounded-2xl p-[22px] text-white flex flex-col gap-1.5 ${extra}">
+      <strong class="text-base" style="font-family: var(--font-heading)">¿No encuentras un insumo?</strong>
+      <span class="text-sm text-[#D6E6DB]">Pídelo a tu asesor comercial y lo sumamos a tu cotización.</span>
+      <a href="tel:+56977236128" class="mt-1.5 self-start font-extrabold text-base text-[#7BD192] no-underline py-2.5 -my-2.5" style="font-family: var(--font-heading)">+56 9 7723 6128</a>
+    </div>`;
+
+  function htmlResultados(d) {
+    if (d.filtered.length === 0) return `
+      <div class="bg-white border border-dashed border-[#CBD9D0] rounded-2xl p-10 max-sm:p-6 text-center flex flex-col gap-2 items-center">
+        <strong class="text-[17px] text-[#17472C]" style="font-family: var(--font-heading)">${d.global ? `No encontramos «${escapeHtml(state.filter.search.trim())}» en el catálogo` : 'No encontramos ese insumo en esta categoría'}</strong>
+        <span class="text-[15px] text-[#56616A]">Escríbele a tu asesor comercial: lo buscamos y lo sumamos a tu cotización.</span>
+        <div class="flex flex-wrap gap-3 justify-center mt-2">
+          <button type="button" onclick="window.OlivoApp.resetFilters()" class="h-11 px-4 rounded-[10px] border border-[#CBD9D0] bg-white text-sm font-bold text-[#17472C] hover:bg-[#F2F8F3] transition" style="font-family: var(--font-heading)">Ver todos los productos de ${d.cat.shortName || d.cat.name}</button>
+          <a href="${waUrl('Hola Olivo, vengo del portal mayorista y busco este insumo para cotizar: ' + (state.filter.search || '').trim())}" target="_blank" rel="noopener" class="h-11 px-4 rounded-[10px] bg-[#17472C] text-white text-sm font-bold inline-flex items-center gap-2 no-underline hover:bg-[#1F6A3E] transition" style="font-family: var(--font-heading)"><i data-lucide="message-circle" class="w-4 h-4"></i>Pedirlo por WhatsApp</a>
+        </div>
+      </div>`;
+    // En celular y tablet el recuadro «¿No encuentras un insumo?» va al final de los resultados, no antes
+    return `
+      <div class="pgrid grid grid-cols-2 xl:grid-cols-3 gap-5 max-sm:gap-2.5">
+        ${d.filtered.map(p => htmlTarjeta(p, d.global)).join('')}
+      </div>
+      ${NO_ENCUENTRAS('lg:hidden mt-1')}`;
+  }
+
+  function htmlMigas(d) {
+    const link = 'py-3 -my-3 hover:text-[#17472C] transition';
+    return `<button type="button" onclick="window.OlivoApp.setView('landing')" class="${link}">Inicio</button><span aria-hidden="true">/</span>
+      ${d.global
+        ? `<span class="text-[#1A1F1C] font-medium">Búsqueda</span>`
+        : `<button type="button" onclick="window.OlivoApp.setFilterSubcategory('all')" class="${link} text-[#1A1F1C] font-medium">${d.cat.name}</button>
+      ${d.activeSub ? `<span aria-hidden="true">/</span><span class="text-[#1A1F1C] font-medium">${d.activeSub.name}</span>` : ''}`}`;
+  }
+
+  // Subcategorías en la columna lateral (computador)
+  function htmlSubLista(d) {
     const subBtn = (id, name, count) => {
-      const on = !global && state.filter.subcategoryId === id;
+      const on = !d.global && state.filter.subcategoryId === id;
       return `
         <button type="button" onclick="window.OlivoApp.setFilterSubcategory('${id}')" aria-pressed="${on}"
           class="w-full flex justify-between items-center gap-2.5 min-h-[44px] px-3 py-2 rounded-[10px] text-left text-sm leading-snug transition ${on ? 'bg-white text-[#17472C] font-bold' : 'text-[#1A1F1C] font-medium hover:bg-[#F2F8F3]'}"
@@ -675,64 +843,102 @@
           <span class="text-[13px] font-bold tabular-nums ${on ? 'text-[#B0121F]' : 'text-[#626D76]'}">${count}</span>
         </button>`;
     };
+    return subBtn('all', 'Todas', d.enCategoria.length) + d.subs.map(s => subBtn(s.id, s.name, s.count)).join('');
+  }
+
+  // Subcategorías como chips horizontales (celular y tablet)
+  function htmlChips(d) {
+    const chip = (id, name, count) => `<button type="button" class="chip" data-sub="${id}" aria-pressed="${state.filter.subcategoryId === id}" onclick="window.OlivoApp.setFilterSubcategory('${id}')">${name}<span class="chip-count">${count}</span></button>`;
+    return chip('all', 'Todas', d.enCategoria.length) + d.subs.map(s => chip(s.id, s.name, s.count)).join('');
+  }
+
+  function filtrosActivos() {
+    return (state.filter.subcategoryId !== 'all' ? 1 : 0) + (state.filter.sortBy !== 'featured' ? 1 : 0);
+  }
+
+  // Lleva el chip activo a la vista dentro de su fila (solo desplazamiento horizontal, nunca de la página)
+  function centrarChipActivo() {
+    const fila = document.getElementById('catChips');
+    const on = fila && fila.querySelector('[aria-pressed="true"]');
+    if (!on) return;
+    const izq = on.offsetLeft, der = izq + on.offsetWidth;
+    if (izq < fila.scrollLeft + 8 || der > fila.scrollLeft + fila.clientWidth - 8) fila.scrollLeft = Math.max(0, izq - 16);
+  }
+
+  function htmlBarraCatalogo() {
+    const n = state.cart.length;
+    if (!n) return '';
+    return `
+      <div class="flex flex-wrap gap-3 items-center justify-between bg-[#0F1F16] text-white rounded-2xl pl-5 pr-4 py-3.5" style="box-shadow: 0 24px 56px -8px rgba(16, 28, 22,0.35); animation: olivoFadeUp .45s cubic-bezier(.16,1,.3,1) both">
+        <span class="flex gap-2.5 items-center text-[15px]"><i data-lucide="file-text" class="w-5 h-5 text-[#CF1427]"></i><strong data-lb-count>${n} ${n === 1 ? 'producto en tu lista' : 'productos en tu lista'}</strong></span>
+        <button type="button" onclick="window.OlivoApp.setView('checkout')" class="btn-gold h-11 px-[18px] text-sm font-extrabold" style="font-family: var(--font-heading)">Revisar y enviar <i data-lucide="arrow-right" class="w-4 h-4"></i></button>
+      </div>`;
+  }
+  // Barra «N productos en tu lista» del catálogo (tablet y computador). Solo cambia el número si ya está visible.
+  function actualizarBarraCatalogo() {
+    const box = document.getElementById('catListBar');
+    if (!box) return;
+    const n = state.cart.length;
+    const cuenta = box.querySelector('[data-lb-count]');
+    if (n && cuenta) { cuenta.textContent = `${n} ${n === 1 ? 'producto en tu lista' : 'productos en tu lista'}`; return; }
+    box.innerHTML = htmlBarraCatalogo();
+    iconos();
+  }
+
+  function renderCatalogView(container) {
+    const d = datosCatalogo();
+    container.dataset.global = String(d.global);
 
     container.innerHTML = `
-      <div class="px-4 sm:px-6 lg:px-8 pt-8 pb-24">
-        <div class="max-w-7xl mx-auto flex flex-col gap-7">
+      <div class="px-4 sm:px-6 lg:px-8 pt-8 pb-24 max-sm:pt-4 max-sm:pb-10">
+        <div class="max-w-7xl mx-auto flex flex-col gap-7 max-lg:gap-4">
 
-          <div class="reveal is-visible flex flex-col gap-3">
-            <nav aria-label="Ruta de navegación" class="flex flex-wrap gap-2 text-[13px] text-[#626D76]">
-              <button type="button" onclick="window.OlivoApp.setView('landing')" class="hover:text-[#17472C] transition">Inicio</button><span aria-hidden="true">/</span>
-              ${global
-                ? `<span class="text-[#1A1F1C] font-medium">Búsqueda</span>`
-                : `<button type="button" onclick="window.OlivoApp.setFilterSubcategory('all')" class="text-[#1A1F1C] font-medium hover:text-[#17472C] transition">${cat.name}</button>
-              ${activeSub ? `<span aria-hidden="true">/</span><span class="text-[#1A1F1C] font-medium">${activeSub.name}</span>` : ''}`}
-            </nav>
-            <div class="flex flex-wrap gap-4 items-end justify-between">
-              <div class="flex flex-col gap-2 max-w-3xl">
-                <span class="self-start text-[10px] font-extrabold tracking-[0.12em] uppercase px-2.5 py-1 rounded-full bg-[#FBEEF0] text-[#B0121F]" style="font-family: var(--font-heading)">${global ? 'Todo el catálogo' : cat.badge}</span>
-                <h1 class="font-serif font-bold text-[32px] sm:text-[44px] leading-[1.1] text-[#131A16] m-0">${titulo}</h1>
-                <p class="m-0 text-[#56616A] text-[17px]">${bajada}</p>
-                ${global ? `<button type="button" onclick="window.OlivoApp.resetFilters()" class="self-start mt-1 inline-flex items-center gap-1.5 text-sm font-bold text-[#17472C] underline underline-offset-4"><i data-lucide="x" class="w-4 h-4"></i>Borrar búsqueda y volver a ${cat.name}</button>` : ''}
+          <div class="reveal is-visible flex flex-col gap-3 max-sm:gap-2">
+            <nav id="catMigas" aria-label="Ruta de navegación" class="flex flex-wrap gap-2 text-[13px] text-[#626D76]">${htmlMigas(d)}</nav>
+            <div class="flex flex-wrap gap-4 items-end justify-between max-sm:gap-3">
+              <div class="flex flex-col gap-2 max-w-3xl max-sm:gap-1.5">
+                <span class="self-start text-[10px] font-extrabold tracking-[0.12em] uppercase px-2.5 py-1 rounded-full bg-[#FBEEF0] text-[#B0121F]" style="font-family: var(--font-heading)">${d.global ? 'Todo el catálogo' : d.cat.badge}</span>
+                <h1 class="font-serif font-bold text-[32px] sm:text-[44px] leading-[1.1] text-[#131A16] m-0 max-sm:text-[24px]">${d.titulo}</h1>
+                <p class="m-0 text-[#56616A] text-[17px] max-sm:text-[14.5px] max-sm:leading-snug max-sm:line-clamp-2">${d.bajada}</p>
+                ${d.global ? `<button type="button" onclick="window.OlivoApp.resetFilters()" class="self-start mt-1 inline-flex items-center gap-1.5 min-h-[44px] text-sm font-bold text-[#17472C] underline underline-offset-4"><i data-lucide="x" class="w-4 h-4"></i>Borrar búsqueda y volver a ${d.cat.name}</button>` : ''}
               </div>
-              <label class="flex flex-col gap-1.5 text-[11px] font-extrabold tracking-[0.12em] uppercase text-[#56616A]" style="font-family: var(--font-heading)">
+              <label class="flex flex-col gap-1.5 text-[11px] font-extrabold tracking-[0.12em] uppercase text-[#56616A] max-sm:w-full" style="font-family: var(--font-heading)">
                 Categorías
-                <select onchange="window.OlivoApp.setFilterCategory(this.value)" class="h-11 min-w-[260px] px-3 rounded-[10px] border border-[#CBD9D0] bg-white text-[15px] font-medium normal-case tracking-normal text-[#17472C]" style="font-family: var(--font-body)">
-                  ${state.categories.map(c => `<option value="${c.id}" ${c.id === cat.id ? 'selected' : ''}>${c.name}</option>`).join('')}
+                <select onchange="window.OlivoApp.setFilterCategory(this.value)" class="h-11 min-w-[260px] px-3 rounded-[10px] border border-[#CBD9D0] bg-white text-[15px] font-medium normal-case tracking-normal text-[#17472C] max-sm:min-w-0 max-sm:w-full max-sm:text-base" style="font-family: var(--font-body)">
+                  ${state.categories.map(c => `<option value="${c.id}" ${c.id === d.cat.id ? 'selected' : ''}>${c.name}</option>`).join('')}
                 </select>
               </label>
             </div>
           </div>
 
+          <!-- Celular y tablet: subcategorías en una fila deslizable, fija bajo el encabezado, y botón de filtros -->
+          <div id="catToolbar" class="cat-toolbar lg:hidden -mx-4 sm:-mx-6 px-4 sm:px-6 py-2 flex items-center gap-2 border-y border-[#E4E9E7] ${d.global ? 'hidden' : ''}">
+            <nav id="catChips" aria-label="Subcategorías" class="scroll-x relative flex gap-2 flex-1 min-w-0">${htmlChips(d)}</nav>
+            <button type="button" id="btnFiltros" onclick="window.OlivoApp.abrirFiltros()" aria-haspopup="dialog" class="flex-none h-11 px-3 rounded-[10px] border border-[#CBD9D0] bg-white inline-flex items-center gap-1.5 text-sm font-bold text-[#17472C]" style="font-family: var(--font-heading)">${ICON_FILTROS}<span class="max-[359px]:sr-only">Filtros</span><span id="catFiltrosN" class="filter-dot" ${filtrosActivos() ? '' : 'hidden'}>${filtrosActivos()}</span></button>
+          </div>
+
           <div class="flex flex-wrap gap-7 items-start">
 
-            <aside aria-label="Subcategorías" class="flex-[1_1_240px] flex flex-col gap-4">
+            <aside aria-label="Subcategorías" class="flex-[1_1_240px] flex flex-col gap-4 max-lg:hidden">
               <div class="bg-white border border-[#E4E9E7] rounded-2xl pt-[18px] px-3 pb-3 shadow-sm">
                 <h2 class="mx-2.5 mb-2.5 text-xs font-extrabold tracking-[0.14em] uppercase text-[#56616A]" style="font-family: var(--font-heading)">Subcategorías</h2>
-                <div class="flex flex-col gap-0.5">
-                  ${subBtn('all', 'Todas', enCategoria.length)}
-                  ${subs.map(s => subBtn(s.id, s.name, s.count)).join('')}
-                </div>
+                <div id="catSubLista" class="flex flex-col gap-0.5">${htmlSubLista(d)}</div>
               </div>
-              <div class="bg-[#17472C] rounded-2xl p-[22px] text-white flex flex-col gap-1.5">
-                <strong class="text-base" style="font-family: var(--font-heading)">¿No encuentras un insumo?</strong>
-                <span class="text-sm text-[#D6E6DB]">Pídelo a tu asesor comercial y lo sumamos a tu cotización.</span>
-                <a href="tel:+56977236128" class="mt-1.5 font-extrabold text-base text-[#7BD192] no-underline" style="font-family: var(--font-heading)">+56 9 7723 6128</a>
-              </div>
+              ${NO_ENCUENTRAS()}
             </aside>
 
-            <section aria-label="Productos" class="flex-[999_1_560px] min-w-0 flex flex-col gap-[18px]">
-              <div class="flex flex-wrap gap-3 items-center justify-between bg-white border border-[#E4E9E7] rounded-2xl px-3.5 py-3">
+            <section aria-label="Productos" class="flex-[999_1_560px] min-w-0 flex flex-col gap-[18px] max-sm:gap-3">
+              <div class="flex flex-wrap gap-3 items-center justify-between bg-white border border-[#E4E9E7] rounded-2xl px-3.5 py-3 max-sm:px-3 max-sm:py-2.5 max-sm:gap-2">
                 <label class="relative flex items-center flex-[1_1_260px]">
                   <span class="sr-only">Filtrar en esta categoría por nombre, marca o SKU</span>
                   <i data-lucide="search" class="w-4 h-4 text-[#626D76] absolute left-3.5 pointer-events-none"></i>
-                  <input id="catalogSearch" type="search" value="${global ? '' : escapeHtml(state.filter.search || '')}" oninput="window.OlivoApp.handleSearchInput(this.value, 'cat')" placeholder="Filtrar en ${cat.shortName || cat.name} por nombre, marca o SKU" class="w-full h-11 pl-10 pr-3.5 rounded-[10px] border border-[#E4E9E7] bg-[#F8FAF9] text-sm outline-none focus:border-[#1F6A3E]" />
+                  <input id="catalogSearch" type="search" enterkeyhint="search" autocomplete="off" value="${d.global ? '' : escapeHtml(state.filter.search || '')}" oninput="window.OlivoApp.handleSearchInput(this.value, 'cat')" placeholder="Filtrar en ${d.cat.shortName || d.cat.name} por nombre, marca o SKU" class="w-full h-11 pl-10 pr-3.5 rounded-[10px] border border-[#E4E9E7] bg-[#F8FAF9] text-base outline-none focus:border-[#1F6A3E] text-ellipsis" />
                 </label>
                 <div class="flex gap-3 items-center flex-wrap">
-                  <span aria-live="polite" class="text-sm text-[#56616A]">${filtered.length} ${filtered.length === 1 ? 'producto' : 'productos'}</span>
-                  <label class="flex gap-2 items-center text-[13px] text-[#626D76]">
+                  <span id="catCount" aria-live="polite" class="text-sm text-[#56616A]">${nProductos(d.filtered.length)}</span>
+                  <label class="flex gap-2 items-center text-[13px] text-[#626D76] ${d.global ? '' : 'max-lg:hidden'}">
                     Ordenar
-                    <select onchange="window.OlivoApp.setSortBy(this.value)" class="h-11 px-3 rounded-[10px] border border-[#E4E9E7] bg-white text-sm text-[#1A1F1C]">
+                    <select id="catSort" onchange="window.OlivoApp.setSortBy(this.value)" class="h-11 px-3 rounded-[10px] border border-[#E4E9E7] bg-white text-base sm:text-sm text-[#1A1F1C]">
                       <option value="featured" ${state.filter.sortBy === 'featured' ? 'selected' : ''}>Por tipo de producto</option>
                       <option value="name" ${state.filter.sortBy === 'name' ? 'selected' : ''}>Nombre (A-Z)</option>
                       <option value="brand" ${state.filter.sortBy === 'brand' ? 'selected' : ''}>Marca</option>
@@ -741,72 +947,187 @@
                 </div>
               </div>
 
-              ${filtered.length === 0 ? `
-                <div class="bg-white border border-dashed border-[#CBD9D0] rounded-2xl p-10 text-center flex flex-col gap-2 items-center">
-                  <strong class="text-[17px] text-[#17472C]" style="font-family: var(--font-heading)">${global ? `No encontramos «${escapeHtml(state.filter.search.trim())}» en el catálogo` : 'No encontramos ese insumo en esta categoría'}</strong>
-                  <span class="text-[15px] text-[#56616A]">Escríbele a tu asesor comercial: lo buscamos y lo sumamos a tu cotización.</span>
-                  <div class="flex flex-wrap gap-3 justify-center mt-2">
-                    <button type="button" onclick="window.OlivoApp.resetFilters()" class="h-11 px-4 rounded-[10px] border border-[#CBD9D0] bg-white text-sm font-bold text-[#17472C] hover:bg-[#F2F8F3] transition" style="font-family: var(--font-heading)">Ver todos los productos de ${cat.shortName || cat.name}</button>
-                    <a href="${waUrl('Hola Olivo, vengo del portal mayorista y busco este insumo para cotizar: ' + (state.filter.search || '').trim())}" target="_blank" rel="noopener" class="h-11 px-4 rounded-[10px] bg-[#17472C] text-white text-sm font-bold inline-flex items-center gap-2 no-underline hover:bg-[#1F6A3E] transition" style="font-family: var(--font-heading)"><i data-lucide="message-circle" class="w-4 h-4"></i>Pedirlo por WhatsApp</a>
-                  </div>
-                </div>
-              ` : `
-                <div class="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-5">
-                  ${filtered.map(p => {
-                    const item = enLista(p.id);
-                    return `
-                    <article class="card-premium flex flex-col group">
-                      <button type="button" class="relative block w-full aspect-square bg-white overflow-hidden cursor-pointer p-0 border-0" onclick="window.OlivoApp.openProductModal('${p.id}')" aria-label="Ver ficha de ${escapeHtml(p.name)}">
-                        ${fotoProducto(p, 'w-full h-full group-hover:scale-105 transition duration-500')}
-                        ${p.brand ? `<span class="absolute top-3 left-3 text-[11px] font-bold px-2 py-1 rounded-md bg-white/95 text-[#17472C] shadow-sm" style="font-family: var(--font-heading)">${p.brand}</span>` : ''}
-                        <span class="absolute top-3 right-3 text-[11px] font-mono px-2 py-1 rounded-md bg-white/95 text-[#56616A] shadow-sm">${p.sku}</span>
-                      </button>
-                      <div class="p-[18px] flex flex-col gap-2.5 flex-grow">
-                        <span class="text-[11px] font-extrabold tracking-[0.08em] uppercase text-[#B0121F]" style="font-family: var(--font-heading)">${global ? p.categoryName + ' · ' : ''}${p.subcategoryName}</span>
-                        <h3 class="m-0 text-[15px] font-bold leading-snug text-[#17472C] min-h-[40px]" style="font-family: var(--font-heading)"><button type="button" onclick="window.OlivoApp.openProductModal('${p.id}')" class="text-left bg-transparent border-0 p-0 cursor-pointer hover:text-[#1F6A3E]" style="font: inherit; color: inherit">${p.name}</button></h3>
-                        <div class="bg-[#F8FAF9] border border-[#EEF2EF] rounded-[10px] px-3 py-2 text-[13px] leading-snug"><span class="text-[#626D76]">Presentación: </span><span class="text-[#1A1F1C]">${formatoTexto(p)}</span></div>
-                        <div class="flex justify-between items-center gap-2">
-                          <span class="text-[11px] font-extrabold tracking-[0.06em] uppercase px-2.5 py-1 rounded-full bg-[#FBEEF0] text-[#B0121F]" style="font-family: var(--font-heading)">Bajo cotización</span>
-                          <button type="button" onclick="window.OlivoApp.openProductModal('${p.id}')" class="text-[13px] font-medium text-[#17472C] underline">Ver ficha técnica</button>
-                        </div>
-                        <div class="flex gap-2 mt-auto pt-1">
-                          <div role="group" aria-label="Cantidad" class="flex items-center border border-[#E4E9E7] rounded-[10px] overflow-hidden flex-none">
-                            <button type="button" onclick="window.OlivoApp.stepProductCardQty('${p.id}', -1)" aria-label="Restar una unidad" class="w-10 h-11 bg-white text-[#17472C] text-lg font-bold hover:bg-[#F2F8F3] transition">−</button>
-                            <input id="qty-input-${p.id}" type="number" min="1" value="1" aria-label="Cantidad" class="w-9 text-center bg-transparent text-[15px] font-extrabold text-[#1A1F1C] outline-none tabular-nums" style="font-family: var(--font-heading)" />
-                            <button type="button" onclick="window.OlivoApp.stepProductCardQty('${p.id}', 1)" aria-label="Sumar una unidad" class="w-10 h-11 bg-white text-[#17472C] text-lg font-bold hover:bg-[#F2F8F3] transition">+</button>
-                          </div>
-                          <button type="button" onclick="window.OlivoApp.addProductToQuoteFromCard('${p.id}')"
-                            class="flex-auto h-11 rounded-[10px] px-3 text-[13.5px] font-bold transition hover:-translate-y-px ${item ? 'bg-[#F2F8F3] text-[#17472C] border border-[#CBD9D0]' : 'bg-[#17472C] text-white border border-[#17472C] shadow-md hover:bg-[#1F6A3E]'}"
-                            style="font-family: var(--font-heading)">${item ? 'En tu lista · ' + item.quantity : 'Agregar a cotización'}</button>
-                        </div>
-                      </div>
-                    </article>`;
-                  }).join('')}
-                </div>
-              `}
+              <div id="catResultados" class="flex flex-col gap-[18px] max-sm:gap-3">${htmlResultados(d)}</div>
 
-              ${totalLista > 0 ? `
-                <div class="sticky bottom-4 z-10 flex flex-wrap gap-3 items-center justify-between bg-[#0F1F16] text-white rounded-2xl pl-5 pr-4 py-3.5" style="box-shadow: 0 24px 56px -8px rgba(16, 28, 22,0.35); animation: olivoFadeUp .45s cubic-bezier(.16,1,.3,1) both">
-                  <span class="flex gap-2.5 items-center text-[15px]"><i data-lucide="file-text" class="w-5 h-5 text-[#CF1427]"></i><strong>${totalLista} ${totalLista === 1 ? 'producto en tu lista' : 'productos en tu lista'}</strong></span>
-                  <button type="button" onclick="window.OlivoApp.setView('checkout')" class="btn-gold h-11 px-[18px] text-sm font-extrabold" style="font-family: var(--font-heading)">Revisar y enviar <i data-lucide="arrow-right" class="w-4 h-4"></i></button>
-                </div>
-              ` : ''}
+              <!-- Tablet y computador: barra de la lista dentro del catálogo. En celular la reemplaza la barra inferior. -->
+              <div id="catListBar" class="sticky bottom-4 z-10 max-md:hidden">${htmlBarraCatalogo()}</div>
             </section>
           </div>
         </div>
       </div>
     `;
+    requestAnimationFrame(centrarChipActivo);
+  }
+
+  // Actualiza solo resultados, contador, migas y subcategorías: el buscador conserva el foco (y el teclado
+  // del celular no se cierra) y la fila de chips no vuelve al inicio.
+  function refrescarCatalogo(op = {}) {
+    const main = document.getElementById('appContent');
+    const res = document.getElementById('catResultados');
+    const d = datosCatalogo();
+    if (!main || !res || d.global || main.dataset.global === 'true') {
+      rerenderCatalog();
+    } else {
+      res.innerHTML = htmlResultados(d);
+      const set = (id, html) => { const el = document.getElementById(id); if (el) el.innerHTML = html; };
+      set('catMigas', htmlMigas(d));
+      set('catSubLista', htmlSubLista(d));
+      const fila = document.getElementById('catChips');
+      if (fila) { const x = fila.scrollLeft; fila.innerHTML = htmlChips(d); fila.scrollLeft = x; }
+      const cuenta = document.getElementById('catCount');
+      if (cuenta) cuenta.textContent = nProductos(d.filtered.length);
+      const nf = document.getElementById('catFiltrosN');
+      if (nf) { nf.textContent = filtrosActivos(); nf.hidden = !filtrosActivos(); }
+      const orden = document.getElementById('catSort');
+      if (orden) orden.value = state.filter.sortBy;
+      if (res.querySelector('[data-lucide]')) iconos();
+    }
+    if (state.filtrosAbiertos) pintarFiltros(d);
+    // Si la persona estaba más abajo, el inicio de los resultados queda justo bajo la barra fija (sin animación)
+    if (op.alInicio) {
+      const r = document.getElementById('catResultados');
+      const barra = document.getElementById('catToolbar');
+      if (r) {
+        const alto = (document.getElementById('siteHeader')?.offsetHeight || 0) + (barra && barra.offsetParent ? barra.offsetHeight : 0) + 12;
+        const top = r.getBoundingClientRect().top + window.scrollY - alto;
+        if (window.scrollY > top) window.scrollTo(0, Math.max(0, top));
+      }
+    }
+    centrarChipActivo();
+  }
+
+  // ---------- Panel inferior de filtros (celular y tablet) ----------
+  function htmlFiltros(d, abierto) {
+    const ordenes = [['featured', 'Por tipo de producto'], ['name', 'Nombre (A-Z)'], ['brand', 'Marca']];
+    const opcSub = (id, name, count) => `<button type="button" class="sheet-option" aria-pressed="${state.filter.subcategoryId === id}" onclick="window.OlivoApp.setFilterSubcategory('${id}')"><span>${name}</span><span class="text-[13px] font-bold tabular-nums text-[#626D76]">${count}</span></button>`;
+    return `
+      <div class="sheet-root" data-open="${abierto}">
+        <div class="sheet-backdrop" onclick="window.OlivoApp.cerrarFiltros()"></div>
+        <div class="sheet-panel" role="dialog" aria-modal="true" aria-labelledby="sheetTitulo">
+          <span aria-hidden="true" class="mx-auto mt-2 w-10 h-1 rounded-full bg-[#CBD9D0]"></span>
+          <div class="flex items-center justify-between gap-3 pl-4 pr-2 pt-1 pb-1">
+            <h2 id="sheetTitulo" tabindex="-1" class="m-0 text-[17px] font-extrabold text-[#17472C] outline-none" style="font-family: var(--font-heading)">Filtrar y ordenar</h2>
+            <button type="button" onclick="window.OlivoApp.cerrarFiltros()" aria-label="Cerrar filtros" class="w-11 h-11 rounded-full flex items-center justify-center text-[#56616A] hover:bg-[#F2F8F3]">${ICON_X}</button>
+          </div>
+          <div class="sheet-body" id="sheetBody">
+            ${d.global ? '' : `
+            <h3 class="eyebrow m-0 mt-1 mb-1.5">Subcategoría · ${escapeHtml(d.cat.shortName || d.cat.name)}</h3>
+            <div role="group" aria-label="Subcategoría" class="flex flex-col gap-0.5">
+              ${opcSub('all', 'Todas', d.enCategoria.length)}${d.subs.map(s => opcSub(s.id, s.name, s.count)).join('')}
+            </div>`}
+            <h3 class="eyebrow m-0 mt-4 mb-1.5">Ordenar por</h3>
+            <div role="radiogroup" aria-label="Ordenar por" class="flex flex-col gap-0.5">
+              ${ordenes.map(o => `<button type="button" role="radio" aria-checked="${state.filter.sortBy === o[0]}" class="sheet-option" onclick="window.OlivoApp.setSortBy('${o[0]}')"><span>${o[1]}</span>${state.filter.sortBy === o[0] ? ICON_CHECK : ''}</button>`).join('')}
+            </div>
+          </div>
+          <div class="sheet-foot">
+            <button type="button" onclick="window.OlivoApp.limpiarFiltros()" class="h-12 px-4 rounded-[10px] border border-[#CBD9D0] bg-white text-sm font-bold text-[#17472C]" style="font-family: var(--font-heading)">Limpiar</button>
+            <button type="button" onclick="window.OlivoApp.cerrarFiltros()" class="btn-olive flex-1 h-12 text-[15px] font-extrabold" style="font-family: var(--font-heading)">Ver ${nProductos(d.filtered.length)}</button>
+          </div>
+        </div>
+      </div>`;
+  }
+  function pintarFiltros(d) {
+    const cont = document.getElementById('filterSheet');
+    if (!cont) return;
+    const body = document.getElementById('sheetBody');
+    const y = body ? body.scrollTop : 0;
+    cont.innerHTML = htmlFiltros(d || datosCatalogo(), true);
+    const nuevo = document.getElementById('sheetBody');
+    if (nuevo) nuevo.scrollTop = y;
+  }
+  function abrirFiltros() {
+    const cont = document.getElementById('filterSheet');
+    if (!cont) return;
+    state.focoAntesFiltros = document.activeElement;
+    state.filtrosAbiertos = true;
+    cont.innerHTML = htmlFiltros(datosCatalogo(), false);
+    document.documentElement.classList.add('sin-scroll');
+    requestAnimationFrame(() => requestAnimationFrame(() => {
+      const root = cont.querySelector('.sheet-root');
+      if (root) root.dataset.open = 'true';
+      const t = document.getElementById('sheetTitulo');
+      if (t) t.focus({ preventScroll: true });
+    }));
+  }
+  function cerrarFiltros(devolverFoco = true) {
+    const cont = document.getElementById('filterSheet');
+    state.filtrosAbiertos = false;
+    document.documentElement.classList.remove('sin-scroll');
+    const root = cont && cont.querySelector('.sheet-root');
+    if (root) root.dataset.open = 'false';
+    setTimeout(() => { if (!state.filtrosAbiertos && cont) cont.innerHTML = ''; }, 300);
+    if (devolverFoco && state.focoAntesFiltros && document.contains(state.focoAntesFiltros)) state.focoAntesFiltros.focus({ preventScroll: true });
+  }
+  function limpiarFiltros() {
+    state.filter.subcategoryId = 'all';
+    state.filter.sortBy = 'featured';
+    refrescarCatalogo({ alInicio: true });
   }
 
   // =========================================================================
   // VISTA 3: SOLICITUD DE COTIZACIÓN EN 2 PASOS (lista → datos del local)
   // =========================================================================
   const CAMPOS = [
-    { name: 'clientName', label: 'Nombre de contacto', type: 'text', auto: 'name', req: true, err: 'Escribe tu nombre.', grupo: 'contacto' },
-    { name: 'phone', label: 'Teléfono móvil', type: 'tel', auto: 'tel', req: true, err: 'Necesitamos un teléfono para coordinar.', ph: '+56 9 …', grupo: 'contacto' },
-    { name: 'email', label: 'Correo electrónico', type: 'email', auto: 'email', req: true, err: 'Revisa el correo: ahí llega tu cotización.', full: true, grupo: 'contacto' },
-    { name: 'companyName', label: 'Nombre del local', type: 'text', auto: 'organization', req: true, err: 'Indica el nombre de tu local.', grupo: 'negocio' }
+    { name: 'clientName', label: 'Nombre de contacto', type: 'text', auto: 'name', im: 'text', cap: 'words', req: true, err: 'Escribe tu nombre.', grupo: 'contacto' },
+    { name: 'phone', label: 'Teléfono móvil', type: 'tel', auto: 'tel', im: 'tel', req: true, err: 'Escribe un teléfono válido, por ejemplo +56 9 1234 5678.', ph: '+56 9 …', grupo: 'contacto' },
+    { name: 'email', label: 'Correo electrónico', type: 'email', auto: 'email', im: 'email', cap: 'off', req: true, err: 'Revisa el correo: ahí llega tu cotización.', full: true, grupo: 'contacto' },
+    { name: 'companyName', label: 'Nombre del local', type: 'text', auto: 'organization', im: 'text', cap: 'words', req: true, err: 'Indica el nombre de tu local.', grupo: 'negocio' }
   ];
+  // Mismas reglas que el servidor (api/cotizar.php). RUT no se pide: lo quitó el cliente el 24 nov.
+  const VALIDAR = {
+    clientName: v => !!v,
+    phone: v => /^[0-9+\s().-]{8,30}$/.test(v),
+    email: v => /^\S+@\S+\.\S+$/.test(v),
+    companyName: v => !!v,
+    comuna: v => !!v
+  };
+  const MENSAJE_ERROR = Object.assign({ comuna: 'Elige una comuna de la V Región.' }, Object.fromEntries(CAMPOS.map(c => [c.name, c.err])));
+
+  // Marca o limpia el error de un campo en el lugar, sin redibujar el formulario (no hay saltos ni se pierde el foco)
+  function marcarCampo(el, invalido) {
+    if (!el || !el.name) return;
+    const id = 'err-' + el.name;
+    let msg = document.getElementById(id);
+    if (invalido) {
+      el.setAttribute('aria-invalid', 'true');
+      el.setAttribute('aria-describedby', id);
+      el.classList.add('!border-[#A33A2E]');
+      if (!msg) {
+        msg = document.createElement('span');
+        msg.id = id;
+        msg.className = 'text-[13px] text-[#A33A2E]';
+        msg.textContent = MENSAJE_ERROR[el.name] || 'Revisa este campo.';
+        el.insertAdjacentElement('afterend', msg);
+      }
+    } else {
+      el.removeAttribute('aria-invalid');
+      el.removeAttribute('aria-describedby');
+      el.classList.remove('!border-[#A33A2E]');
+      if (msg) msg.remove();
+    }
+  }
+  function marcarErrores(form, errores) {
+    let primero = null;
+    Object.keys(VALIDAR).forEach(k => {
+      const el = form.elements[k];
+      marcarCampo(el, !!errores[k]);
+      if (errores[k] && el && !primero) primero = el;
+    });
+    // Lleva al primer campo con error una sola vez, sin animación y centrado (no queda bajo el encabezado)
+    if (primero) {
+      primero.focus({ preventScroll: true });
+      const r = primero.getBoundingClientRect();
+      if (r.top < (document.getElementById('siteHeader')?.offsetHeight || 0) + 8 || r.bottom > window.innerHeight - 8) primero.scrollIntoView({ block: 'center' });
+    }
+  }
+  // Al salir de un campo con algo escrito se valida de inmediato (no se marca un campo vacío solo por pasar por él)
+  function validarCampo(el) {
+    const regla = VALIDAR[el.name];
+    if (!regla) return;
+    const v = (el.value || '').trim();
+    if (v || el.getAttribute('aria-invalid')) marcarCampo(el, !regla(v));
+  }
   const TIPOS_NEGOCIO = ['Restaurante', 'Cafetería', 'Hotel', 'Local de sushi', 'Pizzería', 'Minimarket', 'Casino o catering', 'Otro'];
 
   function productoActual(item) {
@@ -816,32 +1137,65 @@
   function saveCheckoutField(el) {
     state.checkoutForm = state.checkoutForm || {};
     state.checkoutForm[el.name] = el.value;
-    if (state.checkoutErrors && state.checkoutErrors[el.name]) {
-      delete state.checkoutErrors[el.name];
-      el.removeAttribute('aria-invalid');
-      el.classList.remove('!border-[#A33A2E]');
-      const msg = document.getElementById('err-' + el.name);
-      if (msg) msg.remove();
+    // Si tenía error y ya es válido, el aviso se quita mientras escribe
+    if (el.getAttribute('aria-invalid') && VALIDAR[el.name] && VALIDAR[el.name]((el.value || '').trim())) {
+      if (state.checkoutErrors) delete state.checkoutErrors[el.name];
+      marcarCampo(el, false);
     }
   }
 
   function goCheckoutStep(n) {
     state.checkoutStep = n;
-    window.scrollTo({ top: 0, behavior: 'smooth' });
     renderCheckoutView();
+    iconos();
+    actualizarBarraCotizacion();
+    window.scrollTo(0, 0);   // primero se dibuja el paso, luego se va arriba sin animación
+  }
+
+  // Cambios de cantidad en la solicitud: se actualizan los números en su lugar (sin redibujar ni mover la página)
+  function actualizarCheckout() {
+    const paso = state.cart.length === 0 ? 1 : (state.checkoutStep || 1);
+    const lista = document.getElementById('checkoutLista');
+    const unidades = state.cart.reduce((s, i) => s + i.quantity, 0);
+    if (paso === 1 && lista && state.cart.length && lista.children.length === state.cart.length) {
+      state.cart.forEach(it => {
+        const inp = lista.querySelector(`[data-qty="${it.productId}"]`);
+        if (inp && document.activeElement !== inp) inp.value = it.quantity;
+      });
+      const set = (k, v) => document.querySelectorAll(`[data-res="${k}"]`).forEach(e => { e.textContent = v; });
+      set('productos', state.cart.length);
+      set('unidades', unidades);
+      set('nprod', nProductos(state.cart.length));
+      return;
+    }
+    const resumen = document.getElementById('resumenPaso2');
+    if (paso === 2 && resumen && state.cart.length) {
+      resumen.innerHTML = htmlResumenPaso2();
+      const t = document.getElementById('tituloResumen2');
+      if (t) t.textContent = `Tu lista · ${nProductos(state.cart.length)}`;
+      return;
+    }
+    // Se quitó un producto o la lista quedó vacía: se redibuja manteniendo la posición
+    const y = window.scrollY;
+    renderCheckoutView();
+    iconos();
+    window.scrollTo(0, Math.min(y, document.documentElement.scrollHeight - window.innerHeight));
+  }
+  function htmlResumenPaso2() {
+    return state.cart.map(i => `<li class="flex justify-between gap-3"><span>${i.name}</span><strong class="text-[#7BD192] tabular-nums">×${i.quantity}</strong></li>`).join('');
   }
 
   function stepper(paso) {
     const labels = ['Tu lista', 'Datos del local', 'Confirmación'];
     return `
-      <ol aria-label="Progreso de la solicitud" class="m-0 p-0 list-none flex flex-wrap items-center gap-2.5">
+      <ol aria-label="Progreso de la solicitud" class="m-0 p-0 list-none flex flex-wrap items-center gap-2.5 max-sm:flex-nowrap max-sm:gap-1.5">
         ${labels.map((l, i) => {
           const n = i + 1, hecho = n < paso, actual = n === paso;
           return `
-          <li class="flex items-center gap-2.5" ${actual ? 'aria-current="step"' : ''}>
-            <span class="w-8 h-8 rounded-full flex items-center justify-center text-sm font-extrabold transition ${actual ? 'bg-[#17472C] text-white' : hecho ? 'bg-[#CF1427] text-white' : 'bg-white text-[#626D76] border border-[#CBD9D0]'}" style="font-family: var(--font-heading)">${hecho ? '✓' : n}</span>
-            <span class="text-sm ${actual ? 'font-extrabold text-[#17472C]' : hecho ? 'font-semibold text-[#17472C]' : 'font-semibold text-[#626D76]'}" style="font-family: var(--font-heading)">${l}</span>
-            ${n < 3 ? `<span aria-hidden="true" class="w-12 h-0.5 rounded mx-1.5 ${hecho ? 'bg-[#CF1427]' : 'bg-[#CBD9D0]'}"></span>` : ''}
+          <li class="flex items-center gap-2.5 max-sm:gap-1.5 ${actual ? 'max-sm:flex-1 max-sm:min-w-0' : ''}" ${actual ? 'aria-current="step"' : ''}>
+            <span class="w-8 h-8 rounded-full flex flex-none items-center justify-center text-sm font-extrabold transition max-sm:w-7 max-sm:h-7 max-sm:text-[13px] ${actual ? 'bg-[#17472C] text-white' : hecho ? 'bg-[#CF1427] text-white' : 'bg-white text-[#626D76] border border-[#CBD9D0]'}" style="font-family: var(--font-heading)">${hecho ? '✓' : n}</span>
+            <span class="text-sm ${actual ? 'font-extrabold text-[#17472C] max-sm:truncate' : hecho ? 'font-semibold text-[#17472C] max-sm:sr-only' : 'font-semibold text-[#626D76] max-sm:sr-only'}" style="font-family: var(--font-heading)">${l}</span>
+            ${n < 3 ? `<span aria-hidden="true" class="w-12 h-0.5 rounded mx-1.5 flex-none max-sm:w-4 max-sm:mx-0.5 ${hecho ? 'bg-[#CF1427]' : 'bg-[#CBD9D0]'}"></span>` : ''}
           </li>`;
         }).join('')}
       </ol>`;
@@ -858,70 +1212,71 @@
     const campo = (c) => `
       <label class="flex flex-col gap-1.5 ${c.full ? 'sm:col-span-2' : ''}">
         <span class="text-xs font-extrabold tracking-[0.08em] uppercase text-[#56616A]" style="font-family: var(--font-heading)">${c.label}</span>
-        <input name="${c.name}" type="${c.type}" ${c.auto ? `autocomplete="${c.auto}"` : ''} ${c.ph ? `placeholder="${c.ph}"` : ''} value="${(f[c.name] || '').replace(/"/g, '&quot;')}" oninput="window.OlivoApp.saveCheckoutField(this)" ${e[c.name] ? 'aria-invalid="true"' : ''}
-          class="h-12 px-3.5 rounded-[10px] border ${e[c.name] ? '!border-[#A33A2E]' : 'border-[#E4E9E7]'} bg-[#F8FAF9] text-[15px] outline-none focus:border-[#1F6A3E] focus:ring-[3px] focus:ring-[#1F6A3E]/20 transition" />
+        <input name="${c.name}" type="${c.type}" ${c.auto ? `autocomplete="${c.auto}"` : ''} ${c.im ? `inputmode="${c.im}"` : ''} ${c.cap ? `autocapitalize="${c.cap}"` : ''} ${c.type === 'email' ? 'spellcheck="false"' : ''} enterkeyhint="next" ${c.ph ? `placeholder="${c.ph}"` : ''} value="${(f[c.name] || '').replace(/"/g, '&quot;')}" oninput="window.OlivoApp.saveCheckoutField(this)" onblur="window.OlivoApp.validarCampo(this)" ${e[c.name] ? `aria-invalid="true" aria-describedby="err-${c.name}"` : ''} required
+          class="h-12 px-3.5 rounded-[10px] border ${e[c.name] ? '!border-[#A33A2E]' : 'border-[#E4E9E7]'} bg-[#F8FAF9] text-base outline-none focus:border-[#1F6A3E] focus:ring-[3px] focus:ring-[#1F6A3E]/20 transition" />
         ${e[c.name] ? `<span id="err-${c.name}" class="text-[13px] text-[#A33A2E]">${c.err}</span>` : ''}
       </label>`;
 
     let cuerpo;
     if (state.cart.length === 0) {
       cuerpo = `
-        <div class="bg-white border border-[#E4E9E7] rounded-2xl p-10 text-center flex flex-col gap-3 items-center max-w-2xl">
+        <div class="bg-white border border-[#E4E9E7] rounded-2xl p-10 max-sm:p-6 text-center flex flex-col gap-3 items-center max-w-2xl">
           <strong class="text-xl text-[#17472C]" style="font-family: var(--font-heading)">Tu lista está vacía</strong>
           <p class="m-0 text-[#56616A]">Explora el catálogo, elige productos y cantidades, y vuelve aquí para enviar tu solicitud.</p>
-          <button type="button" onclick="window.OlivoApp.setView('landing'); setTimeout(window.OlivoApp.scrollToCategories, 200)" class="btn-olive h-11 px-5 text-sm">Explorar catálogo</button>
+          <button type="button" onclick="window.OlivoApp.irASeccion('explora-section')" class="btn-olive h-11 px-5 text-sm">Explorar catálogo</button>
         </div>`;
     } else if (paso === 1) {
       cuerpo = `
-        <div class="flex flex-wrap gap-7 items-start" style="animation: olivoFadeUp .55s cubic-bezier(.16,1,.3,1) both">
+        <div class="flex flex-wrap gap-7 items-start" style="animation: olivoFade .3s ease both">
           <section aria-labelledby="t1" class="flex-[999_1_560px] min-w-0 bg-white border border-[#E4E9E7] rounded-2xl overflow-hidden">
-            <div class="px-6 pt-6 pb-4 flex flex-wrap justify-between gap-2 items-end">
+            <div class="px-6 pt-6 pb-4 flex flex-wrap justify-between gap-2 items-end max-sm:px-4 max-sm:pt-4 max-sm:pb-3">
               <div>
-                <span class="eyebrow">Paso 1 de 2</span>
-                <h1 id="t1" class="font-serif text-[30px] sm:text-[34px] leading-tight text-[#131A16] mt-0.5 mb-0">Revisa tu lista</h1>
+                <span class="eyebrow">Paso 1 de 3</span>
+                <h1 id="t1" class="font-serif text-[24px] sm:text-[34px] leading-tight text-[#131A16] mt-0.5 mb-0">Revisa tu lista</h1>
               </div>
-              <span class="text-sm text-[#56616A]">${nProd}</span>
+              <span class="text-sm text-[#56616A]" data-res="nprod">${nProd}</span>
             </div>
-            <ul class="m-0 p-0 list-none">
+            <ul id="checkoutLista" class="m-0 p-0 list-none">
               ${state.cart.map(item => {
                 const p = productoActual(item);
                 return `
-                <li class="flex flex-wrap gap-3.5 items-center px-6 py-4 border-t border-[#EEF2EF] hover:bg-[#F8FAF9] transition">
-                  ${fotoProducto(p, 'w-16 h-16 rounded-[10px] flex-none border border-[#E4E9E7] overflow-hidden', true)}
-                  <span class="flex-[1_1_260px] flex flex-col gap-0.5 min-w-0">
+                <li data-pid="${item.productId}" class="flex flex-wrap gap-3.5 items-center px-6 py-4 border-t border-[#EEF2EF] hover:bg-[#F8FAF9] transition max-sm:grid max-sm:grid-cols-[56px_minmax(0,1fr)_44px] max-sm:gap-x-3 max-sm:gap-y-2 max-sm:px-4 max-sm:py-3 max-sm:items-start">
+                  ${fotoProducto(p, 'w-16 h-16 rounded-[10px] flex-none border border-[#E4E9E7] overflow-hidden max-sm:w-14 max-sm:h-14 max-sm:row-span-2', true)}
+                  <span class="flex-[1_1_260px] flex flex-col gap-0.5 min-w-0 max-sm:col-start-2 max-sm:row-start-1">
                     <strong class="text-[15px] text-[#17472C] leading-snug" style="font-family: var(--font-heading)">${item.name}</strong>
                     <span class="text-[13px] text-[#56616A]">${formatoTexto(p)} · <span class="font-mono text-[#626D76]">${item.sku}</span></span>
                   </span>
-                  <span role="group" aria-label="Cantidad" class="flex items-center border border-[#E4E9E7] rounded-[10px] overflow-hidden">
-                    <button type="button" onclick="window.OlivoApp.updateCartItemQty('${item.productId}', -1)" aria-label="Restar una unidad" class="w-10 h-11 bg-white text-[#17472C] text-lg font-bold hover:bg-[#F2F8F3] transition">−</button>
-                    <input type="number" min="1" value="${item.quantity}" aria-label="Cantidad" onchange="window.OlivoApp.setCartItemQty('${item.productId}', this.value)" class="w-11 text-center bg-transparent font-extrabold tabular-nums outline-none" style="font-family: var(--font-heading)" />
-                    <button type="button" onclick="window.OlivoApp.updateCartItemQty('${item.productId}', 1)" aria-label="Sumar una unidad" class="w-10 h-11 bg-white text-[#17472C] text-lg font-bold hover:bg-[#F2F8F3] transition">+</button>
+                  <span role="group" aria-label="Cantidad" class="flex items-center border border-[#E4E9E7] rounded-[10px] overflow-hidden max-sm:col-start-2 max-sm:row-start-2 max-sm:justify-self-start">
+                    <button type="button" onclick="window.OlivoApp.updateCartItemQty('${item.productId}', -1)" aria-label="Restar una unidad" class="w-11 h-11 bg-white text-[#17472C] text-lg font-bold hover:bg-[#F2F8F3] transition">−</button>
+                    <input type="number" inputmode="numeric" min="1" value="${item.quantity}" data-qty="${item.productId}" aria-label="Cantidad de ${escapeHtml(item.name)}" onchange="window.OlivoApp.setCartItemQty('${item.productId}', this.value)" class="w-12 text-center bg-transparent text-base font-extrabold tabular-nums outline-none" style="font-family: var(--font-heading)" />
+                    <button type="button" onclick="window.OlivoApp.updateCartItemQty('${item.productId}', 1)" aria-label="Sumar una unidad" class="w-11 h-11 bg-white text-[#17472C] text-lg font-bold hover:bg-[#F2F8F3] transition">+</button>
                   </span>
-                  <button type="button" onclick="window.OlivoApp.removeCartItem('${item.productId}')" aria-label="Quitar de la lista" class="w-11 h-11 rounded-[10px] text-[#A33A2E] hover:bg-[#FBEDEB] flex items-center justify-center transition"><i data-lucide="trash-2" class="w-[18px] h-[18px]"></i></button>
+                  <button type="button" onclick="window.OlivoApp.removeCartItem('${item.productId}')" aria-label="Quitar ${escapeHtml(item.name)} de la lista" class="w-11 h-11 rounded-[10px] text-[#A33A2E] hover:bg-[#FBEDEB] flex items-center justify-center transition max-sm:col-start-3 max-sm:row-start-1 max-sm:-mt-1.5"><i data-lucide="trash-2" class="w-[18px] h-[18px]"></i></button>
                 </li>`;
               }).join('')}
             </ul>
-            <div class="px-6 py-4 border-t border-[#EEF2EF] flex justify-between items-center">
+            <div class="px-6 py-4 border-t border-[#EEF2EF] flex justify-between items-center max-sm:px-4 max-sm:py-2">
               <button type="button" onclick="window.OlivoApp.setView('catalog')" class="text-sm font-bold text-[#17472C] inline-flex items-center gap-1.5 min-h-[44px]" style="font-family: var(--font-heading)"><i data-lucide="arrow-left" class="w-4 h-4"></i>Agregar más productos</button>
               <button type="button" onclick="window.OlivoApp.clearCart()" class="text-sm text-[#A33A2E] hover:underline min-h-[44px]">Vaciar lista</button>
             </div>
           </section>
-          <aside class="flex-[1_1_320px] bg-white border border-[#E4E9E7] rounded-2xl p-6 flex flex-col gap-3.5" style="box-shadow: var(--shadow-md)">
+          <aside class="flex-[1_1_320px] bg-white border border-[#E4E9E7] rounded-2xl p-6 flex flex-col gap-3.5 max-sm:p-4 max-sm:gap-2.5" style="box-shadow: var(--shadow-md)">
             <strong class="text-[17px] text-[#17472C]" style="font-family: var(--font-heading)">Resumen</strong>
-            <div class="flex justify-between text-[15px]"><span class="text-[#56616A]">Productos distintos</span><strong class="tabular-nums">${state.cart.length}</strong></div>
-            <div class="flex justify-between text-[15px]"><span class="text-[#56616A]">Unidades totales</span><strong class="tabular-nums">${unidades}</strong></div>
+            <div class="flex justify-between text-[15px]"><span class="text-[#56616A]">Productos distintos</span><strong class="tabular-nums" data-res="productos">${state.cart.length}</strong></div>
+            <div class="flex justify-between text-[15px]"><span class="text-[#56616A]">Unidades totales</span><strong class="tabular-nums" data-res="unidades">${unidades}</strong></div>
             <div class="flex justify-between items-center text-[15px] pt-3 border-t border-[#EEF2EF]"><span class="text-[#56616A]">Precio</span><span class="text-[11px] font-extrabold tracking-[0.06em] uppercase px-2.5 py-1 rounded-full bg-[#FBEEF0] text-[#B0121F]" style="font-family: var(--font-heading)">Bajo cotización</span></div>
-            <button type="button" onclick="window.OlivoApp.goCheckoutStep(2)" class="btn-gold h-[52px] text-[15px] font-extrabold w-full" style="font-family: var(--font-heading)">Continuar con mis datos</button>
+            <!-- En celular este botón vive en la barra inferior fija (siempre a mano, sin duplicarse) -->
+            <button type="button" onclick="window.OlivoApp.goCheckoutStep(2)" class="btn-gold h-[52px] text-[15px] font-extrabold w-full max-md:hidden" style="font-family: var(--font-heading)">Continuar con mis datos</button>
             <span class="text-[13px] text-[#626D76] text-center">Sin registro. Toma menos de 2 minutos.</span>
           </aside>
         </div>`;
     } else {
       cuerpo = `
-        <div class="flex flex-wrap gap-7 items-start" style="animation: olivoFadeUp .55s cubic-bezier(.16,1,.3,1) both">
-          <form novalidate onsubmit="event.preventDefault(); window.OlivoApp.submitQuotation(this);" aria-labelledby="t2" class="flex-[999_1_560px] min-w-0 bg-white border border-[#E4E9E7] rounded-2xl p-7 flex flex-col gap-5">
+        <div class="flex flex-wrap gap-7 items-start" style="animation: olivoFade .3s ease both">
+          <form novalidate onsubmit="event.preventDefault(); window.OlivoApp.submitQuotation(this);" aria-labelledby="t2" class="flex-[999_1_560px] min-w-0 bg-white border border-[#E4E9E7] rounded-2xl p-7 flex flex-col gap-5 max-sm:p-4 max-sm:gap-4">
             <div>
-              <span class="eyebrow">Paso 2 de 2</span>
-              <h1 id="t2" class="font-serif text-[30px] sm:text-[34px] leading-tight text-[#131A16] mt-0.5 mb-1">Datos de tu local</h1>
+              <span class="eyebrow">Paso 2 de 3</span>
+              <h1 id="t2" class="font-serif text-[24px] sm:text-[34px] leading-tight text-[#131A16] mt-0.5 mb-1">Datos de tu local</h1>
               <p class="m-0 text-[#56616A] text-[15px]">Los usamos solo para enviarte la cotización y coordinar el despacho.</p>
             </div>
             <fieldset class="border-0 p-0 m-0 grid grid-cols-1 sm:grid-cols-2 gap-x-[18px] gap-y-4">
@@ -933,7 +1288,7 @@
               ${CAMPOS.filter(c => c.grupo === 'negocio').map(campo).join('')}
               <label class="flex flex-col gap-1.5">
                 <span class="text-xs font-extrabold tracking-[0.08em] uppercase text-[#56616A]" style="font-family: var(--font-heading)">Comuna de entrega</span>
-                <select name="comuna" onchange="window.OlivoApp.saveCheckoutField(this)" ${e.comuna ? 'aria-invalid="true"' : ''} class="h-12 px-3.5 rounded-[10px] border ${e.comuna ? '!border-[#A33A2E]' : 'border-[#E4E9E7]'} bg-[#F8FAF9] text-[15px] outline-none focus:border-[#1F6A3E]">
+                <select name="comuna" autocomplete="address-level2" required onchange="window.OlivoApp.saveCheckoutField(this); window.OlivoApp.validarCampo(this)" ${e.comuna ? 'aria-invalid="true" aria-describedby="err-comuna"' : ''} class="h-12 px-3.5 rounded-[10px] border ${e.comuna ? '!border-[#A33A2E]' : 'border-[#E4E9E7]'} bg-[#F8FAF9] text-base outline-none focus:border-[#1F6A3E]">
                   <option value="">Elige tu comuna</option>
                   ${COMUNAS.map(c => `<option ${f.comuna === c ? 'selected' : ''}>${c}</option>`).join('')}
                 </select>
@@ -941,38 +1296,34 @@
               </label>
               <label class="flex flex-col gap-1.5 sm:col-span-2">
                 <span class="text-xs font-extrabold tracking-[0.08em] uppercase text-[#56616A]" style="font-family: var(--font-heading)">Comentarios de despacho <span class="normal-case tracking-normal font-semibold text-[#626D76]">(opcional)</span></span>
-                <textarea name="notes" rows="3" oninput="window.OlivoApp.saveCheckoutField(this)" placeholder="Horario de recepción, acceso para camión, productos que no encontraste…" class="px-3.5 py-3 rounded-[10px] border border-[#E4E9E7] bg-[#F8FAF9] text-[15px] outline-none focus:border-[#1F6A3E] resize-y">${f.notes || ''}</textarea>
+                <textarea name="notes" rows="3" oninput="window.OlivoApp.saveCheckoutField(this)" placeholder="Horario de recepción, acceso para camión, productos que no encontraste…" class="px-3.5 py-3 rounded-[10px] border border-[#E4E9E7] bg-[#F8FAF9] text-base outline-none focus:border-[#1F6A3E] resize-y">${f.notes || ''}</textarea>
               </label>
             </fieldset>
             <!-- Trampa anti-spam: oculto para personas; si se completa, el servidor descarta el envío -->
             <div aria-hidden="true" style="position:absolute; left:-9999px; width:1px; height:1px; overflow:hidden">
               <label>No completar este campo <input type="text" name="website" tabindex="-1" autocomplete="off" /></label>
             </div>
-            <div class="flex flex-wrap gap-3 justify-between items-center pt-1">
+            <div class="flex flex-wrap gap-3 justify-between items-center pt-1 max-sm:flex-col-reverse max-sm:items-stretch">
               <button type="button" onclick="window.OlivoApp.goCheckoutStep(1)" class="min-h-[44px] text-sm font-bold text-[#17472C]" style="font-family: var(--font-heading)">← Volver a mi lista</button>
-              <button type="submit" class="btn-gold h-[52px] px-6 text-[15px] font-extrabold" style="font-family: var(--font-heading)"><i data-lucide="send" class="w-[18px] h-[18px]"></i>Enviar solicitud de cotización formal</button>
+              <button type="submit" class="btn-gold h-[52px] px-6 text-[15px] font-extrabold max-sm:px-4 max-sm:text-[14.5px]" style="font-family: var(--font-heading)"><i data-lucide="send" class="w-[18px] h-[18px]"></i>Enviar solicitud de cotización formal</button>
             </div>
           </form>
-          <aside class="flex-[1_1_320px] bg-[#17472C] text-white rounded-2xl p-6 flex flex-col gap-3">
-            <strong class="text-[17px]" style="font-family: var(--font-heading)">Tu lista · ${nProd}</strong>
-            <ul class="m-0 p-0 list-none flex flex-col gap-2 text-sm text-[#D6E6DB]">
-              ${state.cart.map(i => `<li class="flex justify-between gap-3"><span>${i.name}</span><strong class="text-[#7BD192] tabular-nums">×${i.quantity}</strong></li>`).join('')}
-            </ul>
+          <aside class="flex-[1_1_320px] bg-[#17472C] text-white rounded-2xl p-6 flex flex-col gap-3 max-sm:p-4">
+            <strong id="tituloResumen2" class="text-[17px]" style="font-family: var(--font-heading)">Tu lista · ${nProd}</strong>
+            <ul id="resumenPaso2" class="m-0 p-0 list-none flex flex-col gap-2 text-sm text-[#D6E6DB]">${htmlResumenPaso2()}</ul>
             <span class="text-[14px] text-[#D6E6DB] pt-3 border-t border-[#D6E6DB]/15">Un asesor comercial se pondrá en contacto contigo a la brevedad para enviarte la cotización y responder a tus requerimientos.</span>
           </aside>
         </div>`;
     }
 
     container.innerHTML = `
-      <div class="px-4 sm:px-6 lg:px-8 pt-10 pb-24">
-        <div class="max-w-[1180px] mx-auto flex flex-col gap-7">
+      <div class="px-4 sm:px-6 lg:px-8 pt-10 pb-24 max-sm:pt-5 max-sm:pb-10">
+        <div class="max-w-[1180px] mx-auto flex flex-col gap-7 max-sm:gap-4">
           ${stepper(state.cart.length === 0 ? 1 : paso)}
           ${cuerpo}
         </div>
       </div>`;
-    if (window.lucide) window.lucide.createIcons();
-    const primerError = container.querySelector('[aria-invalid="true"]');
-    if (primerError) primerError.focus();
+    // (Antes se enfocaba aquí el primer error en cada redibujo, con un salto de scroll. Ahora solo al enviar.)
   }
 
   // Mensaje de WhatsApp para Olivo con todo lo que el cliente escribió en la solicitud
@@ -1014,15 +1365,15 @@
     if (!quote) { setView('catalog'); return; }
 
     container.innerHTML = `
-      <div class="px-4 sm:px-6 lg:px-8 pt-10 pb-24">
-        <div class="max-w-[1180px] mx-auto flex flex-col gap-7">
+      <div class="px-4 sm:px-6 lg:px-8 pt-10 pb-24 max-sm:pt-5 max-sm:pb-10">
+        <div class="max-w-[1180px] mx-auto flex flex-col gap-7 max-sm:gap-4">
           ${stepper(3)}
-          <section aria-live="polite" class="max-w-[760px] w-full mx-auto bg-white border border-[#E4E9E7] rounded-3xl px-6 sm:px-10 py-12 text-center flex flex-col gap-4 items-center" style="box-shadow: var(--shadow-lg); animation: olivoFadeUp .55s cubic-bezier(.16,1,.3,1) both">
+          <section aria-live="polite" class="max-w-[760px] w-full mx-auto bg-white border border-[#E4E9E7] rounded-3xl px-6 sm:px-10 py-12 max-sm:px-4 max-sm:py-8 max-sm:rounded-2xl text-center flex flex-col gap-4 items-center" style="box-shadow: var(--shadow-lg); animation: olivoFadeUp .55s cubic-bezier(.16,1,.3,1) both">
             <span class="confirm-pop w-[72px] h-[72px] rounded-full bg-[#17472C] text-[#7BD192] flex items-center justify-center">
               <svg aria-hidden="true" width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path class="confirm-draw" d="M20 6 9 17l-5-5"></path></svg>
             </span>
             <span class="font-mono text-sm px-3 py-1 rounded-full bg-[#FBEEF0] text-[#B0121F]">${quote.id}</span>
-            <h1 class="font-serif text-[30px] sm:text-[34px] leading-tight text-[#131A16] m-0">¡Tu solicitud fue recibida!</h1>
+            <h1 class="font-serif text-[26px] sm:text-[34px] leading-tight text-[#131A16] m-0">¡Tu solicitud fue recibida!</h1>
             <p class="m-0 text-[#56616A] text-[17px] max-w-[560px]">Un asesor comercial se pondrá en contacto contigo a la brevedad para enviarte la cotización y responder a tus requerimientos.</p>
             <!-- Pedido del dueño: que la solicitud llegue al WhatsApp de Olivo. Va primero, justo bajo el título. -->
             <div class="w-full max-w-[540px] mt-2 rounded-2xl border border-[#CBD9D0] bg-[#F2F8F3] px-5 py-5 flex flex-col gap-3 items-center">
@@ -1061,15 +1412,15 @@
     if (!modal) return;
 
     modal.innerHTML = `
-      <div class="modal-backdrop fixed inset-0 z-50 flex items-center justify-center p-4 sm:p-6 overflow-y-auto" onclick="if(event.target === this) window.OlivoApp.closeModal('productDetailModal')">
-        <div role="dialog" aria-modal="true" aria-labelledby="fichaTitulo" class="bg-white rounded-3xl max-w-3xl w-full border border-[#E4E9E7] shadow-2xl overflow-hidden relative animate-in fade-in zoom-in-95 duration-200">
+      <div class="modal-backdrop fixed inset-0 z-50 flex items-center justify-center p-4 sm:p-6 overflow-y-auto max-sm:items-end max-sm:p-0" onclick="if(event.target === this) window.OlivoApp.closeModal('productDetailModal')">
+        <div role="dialog" aria-modal="true" aria-labelledby="fichaTitulo" class="bg-white rounded-3xl max-w-3xl w-full border border-[#E4E9E7] shadow-2xl overflow-hidden relative animate-in fade-in zoom-in-95 duration-200 max-sm:rounded-b-none max-sm:max-h-[92vh] max-sm:max-h-[92dvh] max-sm:overflow-y-auto max-sm:overscroll-contain">
           
-          <button type="button" onclick="window.OlivoApp.closeModal('productDetailModal')" aria-label="Cerrar ficha" class="absolute top-4 right-4 z-10 w-11 h-11 rounded-full bg-white/95 text-[#17472C] flex items-center justify-center shadow-md hover:bg-white transition">
+          <button type="button" id="fichaCerrar" onclick="window.OlivoApp.closeModal('productDetailModal')" aria-label="Cerrar ficha" class="absolute top-4 right-4 max-sm:top-2 max-sm:right-2 z-10 w-11 h-11 rounded-full bg-white/95 text-[#17472C] flex items-center justify-center shadow-md hover:bg-white transition">
             <i data-lucide="x" class="w-5 h-5"></i>
           </button>
 
           <div class="grid grid-cols-1 md:grid-cols-2">
-            <div class="relative bg-white min-h-[300px] aspect-square md:aspect-auto flex">
+            <div class="relative bg-white min-h-[300px] aspect-square md:aspect-auto flex max-sm:min-h-0 max-sm:aspect-[4/3]">
               ${fotoProducto(p, 'w-full h-full')}
               <div class="absolute bottom-4 left-4 right-4 p-3 rounded-xl bg-white/90 backdrop-blur-md border border-[#E4E9E7] text-xs">
                 <span class="text-[#626D76] block text-[10px] uppercase font-bold">Código SKU Distribuidora</span>
@@ -1077,7 +1428,7 @@
               </div>
             </div>
 
-            <div class="p-6 sm:p-8 flex flex-col justify-between gap-4">
+            <div class="p-6 sm:p-8 flex flex-col justify-between gap-4 max-sm:p-4 max-sm:pb-[calc(16px+env(safe-area-inset-bottom))]">
               <div>
                 <div class="flex flex-wrap items-center gap-2 mb-2">
                   <span class="badge-gold text-[10px]">${p.brand ? escapeHtml(p.brand) : 'Marca por confirmar'}</span>
@@ -1103,7 +1454,7 @@
                 <div class="flex items-center gap-3">
                   <div role="group" aria-label="Cantidad" class="flex items-center border border-[#E4E9E7] rounded-[10px] overflow-hidden flex-none">
                     <button type="button" onclick="window.OlivoApp.stepModalQty(-1)" aria-label="Restar una unidad" class="w-10 h-11 bg-white text-[#17472C] text-lg font-bold hover:bg-[#F2F8F3] transition">−</button>
-                    <input id="modalQtyInput" type="number" min="1" value="1" aria-label="Cantidad" class="w-11 text-center bg-transparent text-[15px] font-extrabold text-[#1A1F1C] outline-none tabular-nums" />
+                    <input id="modalQtyInput" type="number" inputmode="numeric" min="1" value="1" aria-label="Cantidad" class="w-11 text-center bg-transparent text-base font-extrabold text-[#1A1F1C] outline-none tabular-nums" />
                     <button type="button" onclick="window.OlivoApp.stepModalQty(1)" aria-label="Sumar una unidad" class="w-10 h-11 bg-white text-[#17472C] text-lg font-bold hover:bg-[#F2F8F3] transition">+</button>
                   </div>
 
@@ -1120,8 +1471,11 @@
         </div>
       </div>
     `;
+    state.focoAntesModal = document.activeElement;
     modal.classList.remove('hidden');
-    if (window.lucide) window.lucide.createIcons();
+    iconos();
+    const cerrar = document.getElementById('fichaCerrar');
+    if (cerrar) cerrar.focus({ preventScroll: true });
   }
 
   // 2. MODAL SIMULADOR DE CORREO AUTOMÁTICO ENVIADO AL CLIENTE
@@ -1232,7 +1586,7 @@
     const count = state.cart.reduce((s, i) => s + i.quantity, 0);
 
     drawer.innerHTML = `
-      <div class="drawer-root fixed inset-0 z-50 flex justify-end" data-open="${state.isCartDrawerOpen}">
+      <div class="drawer-root fixed inset-0 z-50 flex justify-end" data-open="${state.isCartDrawerOpen}" ${state.isCartDrawerOpen ? 'role="dialog" aria-modal="true" aria-label="Tu lista de cotización"' : 'aria-hidden="true"'}>
         <div onclick="window.OlivoApp.toggleCartDrawer(false)" class="absolute inset-0 bg-black/50 backdrop-blur-sm"></div>
 
         <div class="relative w-full max-w-md bg-white h-full shadow-2xl flex flex-col justify-between z-10 transform transition-transform duration-300 ${state.isCartDrawerOpen ? 'translate-x-0' : 'translate-x-full'}">
@@ -1258,7 +1612,7 @@
                 </div>
                 <h4 class="font-bold text-[#17472C] text-sm">No hay productos en tu cotización</h4>
                 <p class="text-xs text-[#56616A] max-w-xs mx-auto">Explora el catálogo y agrega los insumos que requiera tu negocio.</p>
-                <button type="button" onclick="window.OlivoApp.toggleCartDrawer(false); window.OlivoApp.setView('catalog')" class="btn-gold text-xs py-2 px-4 mt-2">
+                <button type="button" onclick="window.OlivoApp.toggleCartDrawer(false); window.OlivoApp.setView('catalog')" class="btn-gold text-sm min-h-[44px] py-2 px-4 mt-2">
                   Explorar Catálogo
                 </button>
               </div>
@@ -1272,15 +1626,15 @@
 
                   <div class="flex items-center gap-2 mt-2">
                     <div role="group" aria-label="Cantidad" class="flex items-center border border-[#E4E9E7] rounded-[10px] overflow-hidden text-sm">
-                      <button type="button" onclick="window.OlivoApp.updateCartItemQty('${item.productId}', -1)" aria-label="Restar una unidad" class="w-9 h-9 bg-white text-[#17472C] font-bold hover:bg-[#F2F8F3]">−</button>
-                      <span class="w-8 text-center font-extrabold text-[#1A1F1C] tabular-nums">${item.quantity}</span>
-                      <button type="button" onclick="window.OlivoApp.updateCartItemQty('${item.productId}', 1)" aria-label="Sumar una unidad" class="w-9 h-9 bg-white text-[#17472C] font-bold hover:bg-[#F2F8F3]">+</button>
+                      <button type="button" onclick="window.OlivoApp.updateCartItemQty('${item.productId}', -1)" aria-label="Restar una unidad" class="w-11 h-11 bg-white text-[#17472C] font-bold hover:bg-[#F2F8F3]">−</button>
+                      <span class="w-8 text-center font-extrabold text-[#1A1F1C] tabular-nums" aria-live="polite">${item.quantity}</span>
+                      <button type="button" onclick="window.OlivoApp.updateCartItemQty('${item.productId}', 1)" aria-label="Sumar una unidad" class="w-11 h-11 bg-white text-[#17472C] font-bold hover:bg-[#F2F8F3]">+</button>
                     </div>
                     <span class="text-[10px] font-extrabold uppercase tracking-[0.06em] px-2 py-0.5 rounded-full bg-[#FBEEF0] text-[#B0121F]">Bajo cotización</span>
                   </div>
                 </div>
 
-                <button type="button" onclick="window.OlivoApp.removeCartItem('${item.productId}')" aria-label="Quitar ${escapeHtml(item.name)} de la lista" class="w-9 h-9 rounded-[10px] text-[#A33A2E] hover:bg-[#FBEDEB] flex items-center justify-center transition flex-none">
+                <button type="button" onclick="window.OlivoApp.removeCartItem('${item.productId}')" aria-label="Quitar ${escapeHtml(item.name)} de la lista" class="w-11 h-11 rounded-[10px] text-[#A33A2E] hover:bg-[#FBEDEB] flex items-center justify-center transition flex-none">
                   <i data-lucide="trash-2" class="w-4 h-4"></i>
                 </button>
               </div>
@@ -1288,11 +1642,11 @@
           </div>
 
           ${state.cart.length > 0 ? `
-            <div class="p-5 border-t border-[#E4E9E7] bg-[#F8FAF9] space-y-3">
+            <div class="p-5 pb-[calc(20px+env(safe-area-inset-bottom))] border-t border-[#E4E9E7] bg-[#F8FAF9] space-y-3">
               <div class="p-2.5 rounded-lg bg-white border border-[#CF1427]/30 text-[11px] text-[#56616A]">
                 <strong>Despacho V Región:</strong> Precios valorizados según volumen y comuna.
               </div>
-              <button type="button" onclick="window.OlivoApp.toggleCartDrawer(false); window.OlivoApp.setView('checkout')" class="w-full btn-gold py-3 text-xs font-bold justify-center shadow-lg">
+              <button type="button" onclick="window.OlivoApp.toggleCartDrawer(false); window.OlivoApp.setView('checkout')" class="w-full btn-gold min-h-[48px] py-3 text-sm font-bold justify-center shadow-lg">
                 <span>Continuar a Solicitud de Cotización</span>
                 <i data-lucide="arrow-right" class="w-4 h-4"></i>
               </button>
@@ -1306,8 +1660,16 @@
   }
 
   function toggleCartDrawer(open) {
+    const antes = state.isCartDrawerOpen;
     state.isCartDrawerOpen = open !== undefined ? open : !state.isCartDrawerOpen;
+    if (state.isCartDrawerOpen && !antes) state.focoAntesLista = document.activeElement;
     renderCartDrawer();
+    if (state.isCartDrawerOpen && !antes) {
+      const b = document.querySelector('#cartDrawer [aria-label="Cerrar la lista"]');
+      if (b) b.focus({ preventScroll: true });
+    } else if (!state.isCartDrawerOpen && antes && state.focoAntesLista && document.contains(state.focoAntesLista)) {
+      state.focoAntesLista.focus({ preventScroll: true });
+    }
   }
 
   // =========================================================================
@@ -1361,7 +1723,7 @@
     state.checkoutForm = Object.fromEntries(formData.entries());
     if (Object.keys(errores).length) {
       state.checkoutErrors = errores;
-      renderCheckoutView();
+      marcarErrores(form, errores);
       return;
     }
     state.checkoutErrors = {};
@@ -1377,8 +1739,10 @@
     const boton = form.querySelector('button[type="submit"]');
     const textoBoton = boton ? boton.innerHTML : '';
     state.enviandoCotizacion = true;
+    // Evita envíos duplicados: botón desactivado y formulario marcado como ocupado mientras responde el servidor
     if (boton) { boton.disabled = true; boton.innerHTML = 'Enviando solicitud…'; }
-    const restaurar = () => { state.enviandoCotizacion = false; if (boton) { boton.disabled = false; boton.innerHTML = textoBoton; } };
+    form.setAttribute('aria-busy', 'true');
+    const restaurar = () => { state.enviandoCotizacion = false; form.removeAttribute('aria-busy'); if (boton) { boton.disabled = false; boton.innerHTML = textoBoton; } };
 
     let codigo = null;
     try {
@@ -1394,7 +1758,7 @@
         state.checkoutErrors = data.errores;
         restaurar();
         if (data.errores.items) showToast('Tu lista está vacía o tiene productos no válidos', 'error');
-        renderCheckoutView();
+        marcarErrores(form, data.errores);
         return;
       } else if (res.status === 429) {
         restaurar();
@@ -1443,6 +1807,9 @@
   function closeModal(modalId) {
     const el = document.getElementById(modalId);
     if (el) el.classList.add('hidden');
+    const f = state.focoAntesModal;
+    if (f && document.contains(f)) f.focus({ preventScroll: true });
+    state.focoAntesModal = null;
   }
 
   function stepProductCardQty(productId, delta) {
@@ -1453,12 +1820,19 @@
     }
   }
 
+  // Agregar desde la tarjeta: solo cambia ese botón («✓ Agregado» y luego «En tu lista · N»),
+  // el contador y la barra inferior. Antes se redibujaba todo el catálogo en cada toque.
   function addProductToQuoteFromCard(productId) {
     const input = document.getElementById(`qty-input-${productId}`);
     const qty = input ? Math.max(1, parseInt(input.value) || 1) : 1;
     addToCart(productId, qty);
-    if (state.currentView === 'catalog') rerenderCatalog();
-    else if (input) input.value = 1;
+    if (input) input.value = 1;
+    document.querySelectorAll(`[data-add="${productId}"]`).forEach(btn => {
+      btn.dataset.estado = 'agregado';
+      btn.innerHTML = '✓ Agregado';
+      clearTimeout(btn._t);
+      btn._t = setTimeout(() => { delete btn.dataset.estado; pintarBotonesAgregar(productId); }, 1400);
+    });
   }
 
   // Vuelve a dibujar la categoría sin perder el foco del buscador ni la posición de la página.
@@ -1469,8 +1843,8 @@
     const prev = document.getElementById('catalogSearch');
     const cursor = prev && document.activeElement === prev ? prev.selectionStart : null;
     renderCatalogView(main);
-    if (window.lucide) window.lucide.createIcons();
-    window.scrollTo(0, y);
+    iconos();
+    window.scrollTo(0, y);   // sin scroll-behavior global, la posición se restaura sin animación
     if (mantenerFocoBusqueda || cursor !== null) {
       const s = document.getElementById('catalogSearch');
       if (s) { s.focus(); const pos = cursor ?? s.value.length; s.setSelectionRange(pos, pos); }
@@ -1497,16 +1871,22 @@
     state.filter.subcategoryId = 'all';
     state.filter.search = '';
     state.filter.scope = 'cat';
+    state.catalogY = 0;
     setView('catalog');
   }
 
   function setFilterSubcategory(subId) {
     state.filter.subcategoryId = subId;
-    if (state.filter.scope === 'global') { state.filter.search = ''; state.filter.scope = 'cat'; }
+    if (state.filter.scope === 'global') {
+      state.filter.search = ''; state.filter.scope = 'cat';
+      const g = document.getElementById('globalSearchInput');
+      if (g) g.value = '';
+    }
     const mainContainer = document.getElementById('appContent');
     if (mainContainer && state.currentView === 'catalog') {
-      rerenderCatalog();
+      refrescarCatalogo({ alInicio: true });
     } else {
+      state.catalogY = 0;
       setView('catalog');
     }
   }
@@ -1517,15 +1897,18 @@
     state.filter.scope = scope;
     if (scope === 'global') state.filter.subcategoryId = 'all';
     if (state.currentView !== 'catalog') {
+      state.catalogY = 0;
       setView('catalog');
+    } else if (scope === 'cat') {
+      refrescarCatalogo();          // no se reemplaza el buscador: el teclado del celular no se cierra
     } else {
-      rerenderCatalog(scope === 'cat');
+      refrescarCatalogo({ alInicio: true });
     }
   }
 
   function setSortBy(sortBy) {
     state.filter.sortBy = sortBy;
-    rerenderCatalog();
+    refrescarCatalogo({ alInicio: true });
   }
 
   // Limpia búsqueda y subcategoría, pero se queda en la misma línea.
@@ -1535,7 +1918,7 @@
     state.filter.subcategoryId = 'all';
     const g = document.getElementById('globalSearchInput');
     if (g) g.value = '';
-    rerenderCatalog();
+    refrescarCatalogo();
   }
 
   // =========================================================================
@@ -1543,8 +1926,22 @@
   // =========================================================================
   function init() {
     capturarCampania();
-    updateCartUI();
+
+    // Alto real del encabezado fijo → variable CSS (barra de chips, márgenes al enfocar campos)
+    const hdr = document.getElementById('siteHeader');
+    if (hdr) {
+      const fijarAlto = () => document.documentElement.style.setProperty('--header-h', hdr.offsetHeight + 'px');
+      fijarAlto();
+      if ('ResizeObserver' in window) new ResizeObserver(fijarAlto).observe(hdr);
+    }
+
     setView('landing');
+    updateCartUI();
+
+    // Con el teclado abierto en el celular se oculta la barra inferior (no tapa el campo)
+    const esCampoTexto = (el) => el && (el.tagName === 'TEXTAREA' || (el.tagName === 'INPUT' && /^(text|search|email|tel|number|url|password)$/.test(el.type)));
+    document.addEventListener('focusin', (e) => { if (esCampoTexto(e.target)) document.body.classList.add('teclado'); });
+    document.addEventListener('focusout', (e) => { if (esCampoTexto(e.target)) document.body.classList.remove('teclado'); });
 
     // Buscador del encabezado: Enter o la lupa llevan a los resultados; dentro del catálogo filtra mientras escribes
     const globalSearchInput = document.getElementById('globalSearchInput');
@@ -1574,7 +1971,11 @@
         if (m && !m.classList.contains('hidden')) closeModal(id);
       });
       if (state.isCartDrawerOpen) toggleCartDrawer(false);
+      if (state.filtrosAbiertos) cerrarFiltros();
     });
+
+    // Placeholder corto en celular (el buscador es más angosto)
+    if (globalSearchInput && window.matchMedia && window.matchMedia('(max-width: 639.98px)').matches) globalSearchInput.placeholder = 'Buscar insumos o marcas…';
   }
 
   // Exponer API global para eventos DOM
@@ -1611,7 +2012,13 @@
     setHeroSlide,
     nextHeroSlide,
     initHeroSlider,
-    stopHeroSlider
+    stopHeroSlider,
+    toggleHeroPausa,
+    irASeccion,
+    validarCampo,
+    abrirFiltros,
+    cerrarFiltros,
+    limpiarFiltros
   };
 
   document.addEventListener('DOMContentLoaded', init);
