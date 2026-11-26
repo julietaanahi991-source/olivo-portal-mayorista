@@ -87,6 +87,13 @@ $campania = [];
 foreach (['gclid', 'utm_source', 'utm_medium', 'utm_campaign', 'utm_term', 'utm_content'] as $k) {
     $campania[$k] = olivo_texto($d['tracking'][$k] ?? '', 200) ?: null;
 }
+// Identificadores del Meta Pixel para la API de conversiones (no se guardan en la base de datos).
+$metaFbp = olivo_texto($d['tracking']['fbp'] ?? '', 200);
+$metaFbc = olivo_texto($d['tracking']['fbc'] ?? '', 500);
+if (!preg_match('/^fb\.\d\.\d+\.[A-Za-z0-9_-]+$/', $metaFbp)) $metaFbp = '';
+if (!preg_match('/^fb\.\d\.\d+\.[A-Za-z0-9_.-]+$/', $metaFbc)) $metaFbc = '';
+$metaUrl = olivo_texto($d['tracking']['url'] ?? '', 300);
+if (!preg_match('#^https?://#', $metaUrl)) $metaUrl = '';
 
 // ---------- Guardado ----------
 try {
@@ -190,6 +197,60 @@ if (!empty($c['crm']['url']) && function_exists('curl_init')) {
     $http = (int)curl_getinfo($ch, CURLINFO_HTTP_CODE);
     curl_close($ch);
     $estadoCrm = ($http >= 200 && $http < 300) ? 'enviado' : 'error_' . $http;
+}
+
+// ---------- Meta: API de conversiones (evento «Lead» desde el servidor) ----------
+// Se activa solo si config.php trae 'meta' => ['pixel_id' => ..., 'token_capi' => ...].
+// event_id = código de la cotización, el mismo que usa el Pixel en el navegador: Meta une ambos y cuenta una sola conversión.
+// Los datos personales se envían cifrados con SHA-256, como exige Meta.
+$meta = $c['meta'] ?? [];
+if (!empty($meta['pixel_id']) && !empty($meta['token_capi']) && function_exists('curl_init')) {
+    $h = fn(string $v): string => hash('sha256', $v);
+    $soloDigitos = preg_replace('/\D+/', '', $telefono) ?? '';
+    if (strlen($soloDigitos) === 9 && $soloDigitos[0] === '9') $soloDigitos = '56' . $soloDigitos; // celular chileno sin +56
+    $partes = preg_split('/\s+/u', mb_strtolower(trim($nombre), 'UTF-8')) ?: [];
+    $ciudad = preg_replace('/[^a-z]/', '', strtolower(iconv('UTF-8', 'ASCII//TRANSLIT//IGNORE', $comuna) ?: '')) ?? '';
+    $userData = array_filter([
+        'em' => [$h(mb_strtolower(trim($email), 'UTF-8'))],
+        'ph' => $soloDigitos !== '' ? [$h($soloDigitos)] : null,
+        'fn' => !empty($partes[0]) ? [$h($partes[0])] : null,
+        'ct' => $ciudad !== '' ? [$h($ciudad)] : null,
+        'country' => [$h('cl')],
+        'client_ip_address' => $_SERVER['REMOTE_ADDR'] ?? null,
+        'client_user_agent' => $_SERVER['HTTP_USER_AGENT'] ?? null,
+        'fbp' => $metaFbp ?: null,
+        'fbc' => $metaFbc ?: null,
+    ]);
+    $evento = [
+        'event_name' => 'Lead',
+        'event_time' => time(),
+        'event_id' => $codigo,
+        'action_source' => 'website',
+        'event_source_url' => $metaUrl ?: ('https://' . ($_SERVER['HTTP_HOST'] ?? 'mayorista.distribuidoraolivo.cl') . '/'),
+        'user_data' => $userData,
+        'custom_data' => [
+            'content_name' => 'Solicitud de cotización',
+            'content_category' => 'Portal mayorista',
+            'num_items' => count($items),
+            'contents' => array_map(fn($it) => ['id' => $it['sku'], 'quantity' => $it['cantidad']], $items),
+        ],
+    ];
+    $cuerpoMeta = ['data' => [$evento]];
+    if (!empty($meta['test_event_code'])) $cuerpoMeta['test_event_code'] = $meta['test_event_code'];
+    $version = $meta['version_api'] ?? 'v21.0';
+    $ch = curl_init('https://graph.facebook.com/' . rawurlencode($version) . '/' . rawurlencode((string)$meta['pixel_id']) . '/events?access_token=' . rawurlencode((string)$meta['token_capi']));
+    curl_setopt_array($ch, [
+        CURLOPT_POST => true,
+        CURLOPT_POSTFIELDS => json_encode($cuerpoMeta, JSON_UNESCAPED_UNICODE),
+        CURLOPT_HTTPHEADER => ['Content-Type: application/json'],
+        CURLOPT_RETURNTRANSFER => true,
+        CURLOPT_TIMEOUT => 5,
+    ]);
+    $respMeta = curl_exec($ch);
+    $httpMeta = (int)curl_getinfo($ch, CURLINFO_HTTP_CODE);
+    curl_close($ch);
+    // Si Meta responde con error, queda en el registro de errores de PHP (no afecta la cotización)
+    if ($httpMeta < 200 || $httpMeta >= 300) error_log('[olivo/cotizar] Meta CAPI ' . $httpMeta . ': ' . substr((string)$respMeta, 0, 300));
 }
 
 try {
