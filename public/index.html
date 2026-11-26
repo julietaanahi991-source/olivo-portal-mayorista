@@ -62,8 +62,21 @@
        Va después de styles.css, igual que el <style> que insertaba la CDN, para que las utilidades manden.
        Para regenerarlo: npm run build:css (ver tailwind.config.js) -->
   <link rel="stylesheet" href="css/tailwind.css?v=2026-11-26-1">
+
+  <!-- Meta Pixel (Facebook / Instagram Ads). Conversión: evento «Lead» al enviar la solicitud de cotización.
+       El mismo evento se envía también desde el servidor (API de conversiones, api/cotizar.php) con el mismo ID para no contarlo doble. -->
+  <script>
+    !function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+    n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;
+    n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;
+    t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window,
+    document,'script','https://connect.facebook.net/en_US/fbevents.js');
+    fbq('init', '1439459734748867');
+    fbq('track', 'PageView');
+  </script>
 </head>
 <body class="bg-[#F8FAF9] text-[#1A1F1C] min-h-screen flex flex-col font-body antialiased">
+  <noscript><img height="1" width="1" style="display:none" alt="" src="https://www.facebook.com/tr?id=1439459734748867&ev=PageView&noscript=1"></noscript>
 
   <a href="#appContent" class="sr-only focus:not-sr-only focus:fixed focus:top-3 focus:left-3 focus:z-50 focus:bg-white focus:px-4 focus:py-2 focus:rounded-lg focus:shadow-lg">Saltar al contenido</a>
 
