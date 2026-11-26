@@ -1,8 +1,8 @@
 <!DOCTYPE html>
-<html lang="es" class="scroll-smooth">
+<html lang="es">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
   <title>OLIVO Signature | Distribuidora de Alimentos — Región de Valparaíso</title>
   <meta name="theme-color" content="#CF1427">
 
@@ -41,44 +41,38 @@
   }
   </script>
 
-  <!-- Tailwind CSS CDN -->
-  <script src="https://cdn.tailwindcss.com"></script>
-  <script>
-    tailwind.config = {
-      theme: {
-        extend: {
-          colors: {
-            olive: { DEFAULT: '#17472C', deep: '#17472C', dark: '#0F1F16', light: '#1F6A3E', surface: '#F2F8F3' },
-            gold: { DEFAULT: '#CF1427', hover: '#AD1020', light: '#FBEEF0' },
-            ivory: { DEFAULT: '#F2F5F3', light: '#F8FAF9', dark: '#E2E8E5' }
-          },
-          fontFamily: {
-            serif: ['Montserrat', 'system-ui', 'sans-serif'],
-            heading: ['Montserrat', 'system-ui', 'sans-serif'],
-            body: ['Nunito', 'system-ui', 'sans-serif']
-          }
-        }
-      }
-    }
-  </script>
+  <!-- Fuentes de la marca: conexión anticipada y hoja de fuentes en paralelo (antes iba con @import dentro de styles.css) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500;600;700;800;900&family=Nunito:wght@400;500;600;700;800&display=swap">
+
+  <!-- Imagen principal del primer banner: se pide de inmediato (mejora LCP). Celular: recorte vertical liviano. -->
+  <link rel="preload" as="image" type="image/webp" href="images/hero-cocina-m.webp" media="(max-width: 639.98px)" fetchpriority="high">
+  <link rel="preload" as="image" type="image/webp" imagesrcset="images/hero-cocina-1280.webp 1280w, images/hero-cocina-1920.webp 1920w" imagesizes="100vw" media="(min-width: 640px)" fetchpriority="high">
+
 
   <!-- Iconos Lucide (versión fija) -->
-  <script src="https://unpkg.com/lucide@0.460.0/dist/umd/lucide.min.js"></script>
+  <!-- async: los íconos no detienen el dibujo de la página (su espacio ya está reservado en styles.css) -->
+  <script async src="https://unpkg.com/lucide@0.460.0/dist/umd/lucide.min.js" onload="window.lucide && window.lucide.createIcons()"></script>
 
   <!-- Estilos de la marca OLIVO -->
   <!-- ?v= = versión: cambiarla en cada entrega para que los navegadores no usen copias viejas -->
-  <link rel="stylesheet" href="css/styles.css?v=2026-11-25-1">
+  <link rel="stylesheet" href="css/styles.css?v=2026-11-26-1">
+  <!-- Tailwind compilado (antes cdn.tailwindcss.com generaba los estilos en el navegador en cada visita).
+       Va después de styles.css, igual que el <style> que insertaba la CDN, para que las utilidades manden.
+       Para regenerarlo: npm run build:css (ver tailwind.config.js) -->
+  <link rel="stylesheet" href="css/tailwind.css?v=2026-11-26-1">
 </head>
 <body class="bg-[#F8FAF9] text-[#1A1F1C] min-h-screen flex flex-col font-body antialiased">
 
   <a href="#appContent" class="sr-only focus:not-sr-only focus:fixed focus:top-3 focus:left-3 focus:z-50 focus:bg-white focus:px-4 focus:py-2 focus:rounded-lg focus:shadow-lg">Saltar al contenido</a>
 
   <!-- FRANJA: DESPACHOS EXCLUSIVOS EN LA V REGIÓN -->
-  <div class="announcement-bar bg-[#0F1F16] text-[#D6E6DB] text-[12.5px] py-2.5 px-4 sm:px-8 border-b-[3px] border-[#CF1427] no-print">
+  <div class="announcement-bar bg-[#0F1F16] text-[#D6E6DB] text-[12.5px] py-2.5 px-4 sm:px-8 border-b-[3px] border-[#CF1427] no-print max-sm:py-1.5 max-sm:text-[12px] max-sm:border-b-2">
     <div class="max-w-7xl mx-auto flex flex-wrap items-center justify-between gap-x-4 gap-y-1.5">
-      <div class="flex items-center gap-2.5">
+      <div class="flex items-center gap-2.5 max-sm:min-w-0 max-sm:overflow-hidden">
         <span class="dot-pulse w-2 h-2 rounded-full bg-[#CF1427] flex-none"></span>
-        <span><strong class="text-white">Despachos en la V Región:</strong> 13 sectores, de lunes a sábado. <button type="button" onclick="window.OlivoApp.scrollToRuta()" class="bg-transparent border-0 p-0 cursor-pointer text-[#7BD192] font-bold underline underline-offset-2 hover:text-white">Ver días por sector</button></span>
+        <span class="max-sm:whitespace-nowrap"><strong class="text-white">Despachos en la V Región:</strong> <span class="max-[359px]:hidden">13 sectores<span class="max-sm:hidden">, de lunes a sábado</span>.</span> <button type="button" onclick="window.OlivoApp.scrollToRuta()" class="bg-transparent border-0 p-0 cursor-pointer text-[#7BD192] font-bold underline underline-offset-2 hover:text-white">Ver días<span class="max-sm:hidden"> por sector</span></button></span>
       </div>
       <div class="hidden md:flex items-center gap-[18px]">
         <span>Ventas B2B: <a href="tel:+56977236128" class="text-white font-bold no-underline hover:text-[#7BD192]">+56 9 7723 6128</a></span>
@@ -88,14 +82,14 @@
   </div>
 
   <!-- ENCABEZADO: INICIO, CONTACTO, BÚSQUEDA Y SOLICITAR COTIZACIÓN -->
-  <header class="header-glass relative sm:sticky top-0 z-40 no-print">
+  <header id="siteHeader" class="header-glass sticky top-0 z-40 no-print">
     <div class="max-w-7xl mx-auto px-4 sm:px-8">
-      <div class="flex flex-wrap items-center gap-x-7 gap-y-3 min-h-[80px] py-3">
+      <div class="flex flex-wrap items-center gap-x-7 gap-y-3 min-h-[80px] py-3 max-sm:flex-nowrap max-sm:gap-x-2.5 max-sm:min-h-[60px] max-sm:py-2">
 
         <!-- LOGOTIPO OLIVO -->
         <!-- Solo la palabra OLIVO, como en distribuidoraolivo.cl -->
-        <button type="button" onclick="window.OlivoApp.setView('landing')" class="select-none bg-transparent border-0 p-0 cursor-pointer leading-none" aria-label="Distribuidora Olivo, inicio">
-          <span class="block text-[34px] font-black text-[#CF1427]" style="font-family: var(--font-heading); letter-spacing: -0.01em">OLIVO</span>
+        <button type="button" onclick="window.OlivoApp.setView('landing')" class="select-none bg-transparent border-0 p-0 cursor-pointer leading-none max-sm:py-[9px] max-sm:flex-none" aria-label="Distribuidora Olivo, inicio">
+          <span class="block text-[34px] max-sm:text-[26px] font-black text-[#CF1427]" style="font-family: var(--font-heading); letter-spacing: -0.01em">OLIVO</span>
         </button>
 
         <!-- MENÚ: SOLO INICIO Y CONTACTO -->
@@ -105,23 +99,25 @@
         </nav>
 
         <!-- BÚSQUEDA, SOLICITAR COTIZACIÓN Y LISTA -->
-        <div class="flex items-center gap-3 flex-wrap ml-auto md:ml-0 w-full sm:w-auto">
-          <form role="search" class="relative flex items-center w-full sm:w-[280px]" onsubmit="return false">
+        <div class="flex items-center gap-3 flex-wrap ml-auto md:ml-0 w-full sm:w-auto max-sm:flex-nowrap max-sm:w-auto max-sm:flex-1 max-sm:min-w-0 max-sm:gap-2">
+          <form role="search" class="relative flex items-center w-full sm:w-[280px] max-sm:flex-1 max-sm:min-w-0" onsubmit="return false">
             <label for="globalSearchInput" class="sr-only">Buscar insumos por nombre, marca o SKU</label>
-            <button type="button" id="globalSearchButton" aria-label="Buscar" class="absolute left-1 w-9 h-9 flex items-center justify-center rounded-full bg-transparent border-0 cursor-pointer text-[#56616A] hover:text-[#17472C]">
+            <button type="button" id="globalSearchButton" aria-label="Buscar" class="absolute left-1 w-9 h-9 max-sm:left-0 max-sm:w-11 max-sm:h-11 flex items-center justify-center rounded-full bg-transparent border-0 cursor-pointer text-[#56616A] hover:text-[#17472C]">
               <i data-lucide="search" class="w-4 h-4"></i>
             </button>
-            <input id="globalSearchInput" type="search" enterkeyhint="search" autocomplete="off" placeholder="Buscar: arroz sushi, mozzarella…" class="w-full h-11 pl-10 pr-3.5 rounded-full border border-[#E4E9E7] bg-[#F8FAF9] text-sm text-[#1A1F1C] outline-none focus:border-[#1F6A3E] transition" />
+            <input id="globalSearchInput" type="search" enterkeyhint="search" autocomplete="off" placeholder="Buscar: arroz sushi, mozzarella…" class="w-full h-11 pl-10 max-sm:pl-11 pr-3.5 rounded-full border border-[#E4E9E7] bg-[#F8FAF9] text-base text-[#1A1F1C] text-ellipsis outline-none focus:border-[#1F6A3E] transition" />
           </form>
 
-          <button type="button" onclick="window.OlivoApp.setView('checkout')" class="relative btn-olive h-11 px-[18px] text-sm flex flex-1 sm:flex-none justify-center items-center gap-2" style="font-family: var(--font-heading); font-weight: 700">
+          <button type="button" onclick="window.OlivoApp.setView('checkout')" class="relative btn-olive h-11 px-[18px] text-sm flex flex-1 sm:flex-none justify-center items-center gap-2 max-sm:hidden" style="font-family: var(--font-heading); font-weight: 700">
             <svg aria-hidden="true" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#CF1427" stroke-width="2.2"><path d="M14 3H6a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V9z"></path><path d="M14 3v6h6M8 13h8M8 17h5"></path></svg>
             <span>Solicitar cotización</span>
-            <span class="cart-count-badge cart-badge" style="display: none;">0</span>
+            <span class="cart-count-badge cart-badge" hidden>0</span>
           </button>
 
-          <button type="button" onclick="window.OlivoApp.toggleCartDrawer()" class="w-11 h-11 flex items-center justify-center rounded-[10px] bg-white hover:bg-[#F2F8F3] border border-[#E4E9E7] text-[#17472C] transition cursor-pointer" aria-label="Ver mi lista de cotización" title="Ver mi lista de cotización">
+          <!-- En celular este botón es el acceso a la lista (con contador); en computador el contador va en «Solicitar cotización» -->
+          <button type="button" id="headerListButton" onclick="window.OlivoApp.toggleCartDrawer()" class="relative flex-none w-11 h-11 flex items-center justify-center rounded-[10px] bg-white hover:bg-[#F2F8F3] border border-[#E4E9E7] text-[#17472C] transition cursor-pointer" aria-label="Ver mi lista de cotización" title="Ver mi lista de cotización">
             <i data-lucide="shopping-bag" class="w-5 h-5"></i>
+            <span class="cart-count-badge cart-badge sm:hidden" hidden>0</span>
           </button>
         </div>
 
@@ -130,8 +126,20 @@
   </header>
 
   <!-- CONTENEDOR PRINCIPAL -->
-  <main id="appContent" class="flex-grow" tabindex="-1">
-    <!-- Renderizado dinámico de vistas por app.js -->
+  <main id="appContent" class="flex-grow app-loading" tabindex="-1">
+    <!-- Renderizado dinámico de vistas por app.js.
+         Mientras carga, se muestra la foto del primer banner (misma imagen y tamaño que la portada):
+         así el celular pinta la imagen principal sin esperar a los scripts. app.js la reemplaza. -->
+    <section class="hero-slider-container" id="heroPrevio">
+      <div class="hero-slide active">
+        <picture>
+          <source media="(max-width: 639.98px)" type="image/webp" srcset="images/hero-cocina-m.webp">
+          <source type="image/webp" srcset="images/hero-cocina-1280.webp 1280w, images/hero-cocina-1920.webp 1920w" sizes="100vw">
+          <img src="images/hero-cocina.jpg" alt="Cocina profesional preparando insumos" class="hero-slide-bg" width="1920" height="800" fetchpriority="high">
+        </picture>
+        <div class="hero-overlay"></div>
+      </div>
+    </section>
   </main>
 
   <!-- PIE DE PÁGINA -->
@@ -188,13 +196,27 @@
   <div id="productDetailModal" class="hidden no-print"></div>
   <div id="emailViewerModal" class="hidden no-print"></div>
 
-  <!-- AVISOS -->
-  <div id="toastContainer" class="fixed z-50 flex flex-col gap-2 pointer-events-none no-print left-4 right-4 bottom-4 sm:left-auto sm:bottom-auto sm:top-6 sm:right-6 sm:max-w-sm" aria-live="polite"></div>
+  <!-- PANEL INFERIOR DE FILTROS (celular y tablet) -->
+  <div id="filterSheet" class="no-print"></div>
+
+  <!-- BARRA INFERIOR DE LA COTIZACIÓN (solo celular, aparece cuando hay productos en la lista) -->
+  <div id="quoteBar" class="quote-bar no-print md:hidden" data-visible="false" aria-hidden="true">
+    <div class="quote-bar-inner">
+      <span class="flex flex-col leading-tight min-w-0">
+        <strong id="quoteBarCount" class="text-[15px] text-white truncate" style="font-family: var(--font-heading)">0 productos</strong>
+        <span id="quoteBarSub" class="text-[12.5px] text-[#B9CEC1] truncate">en tu lista de cotización</span>
+      </span>
+      <button type="button" id="quoteBarButton" class="btn-gold h-12 px-4 text-[14.5px] font-extrabold flex-none" style="font-family: var(--font-heading)" tabindex="-1">Revisar cotización</button>
+    </div>
+  </div>
+
+  <!-- AVISOS: en celular arriba, bajo el encabezado, para no tapar botones -->
+  <div id="toastContainer" class="toast-zone fixed z-50 flex flex-col gap-2 pointer-events-none no-print sm:left-auto sm:bottom-auto sm:top-6 sm:right-6 sm:max-w-sm" aria-live="polite"></div>
 
   <!-- DATOS Y LÓGICA -->
-  <script src="js/data.js?v=2026-11-25-1"></script>
-  <script src="js/data-servilletas.js?v=2026-11-25-1"></script>
-  <script src="js/app.js?v=2026-11-25-1"></script>
+  <script defer src="js/data.js?v=2026-11-26-1"></script>
+  <script defer src="js/data-servilletas.js?v=2026-11-26-1"></script>
+  <script defer src="js/app.js?v=2026-11-26-1"></script>
 
 </body>
 </html>
