@@ -291,6 +291,9 @@
     if (state.filtrosAbiertos) cerrarFiltros(false);
     document.body.classList.remove('teclado');   // el campo enfocado desaparece con la vista anterior
     state.currentView = viewName;
+    if (anterior === 'confirmation' && viewName !== 'confirmation' && window.location.hash === '#gracias') {
+      try { history.replaceState(null, '', window.location.pathname + window.location.search); } catch (e) {}
+    }
     let destinoY = 0;
 
     // Actualizar nav active states
@@ -1363,6 +1366,8 @@
     if (!container) return;
     const quote = state.lastSubmittedQuote;
     if (!quote) { setView('catalog'); return; }
+    // «Página de agradecimiento»: la dirección pasa a terminar en #gracias mientras se muestra la confirmación
+    try { history.replaceState(null, '', window.location.pathname + window.location.search + '#gracias'); } catch (e) {}
 
     container.innerHTML = `
       <div class="px-4 sm:px-6 lg:px-8 pt-10 pb-24 max-sm:pt-5 max-sm:pb-10">
@@ -1691,14 +1696,34 @@
   function capturarCampania() {
     try {
       const p = new URLSearchParams(window.location.search);
-      const claves = ['gclid', 'utm_source', 'utm_medium', 'utm_campaign', 'utm_term', 'utm_content'];
+      const claves = ['gclid', 'fbclid', 'utm_source', 'utm_medium', 'utm_campaign', 'utm_term', 'utm_content'];
       const nuevo = {};
       claves.forEach(k => { if (p.get(k)) nuevo[k] = p.get(k).slice(0, 200); });
       if (Object.keys(nuevo).length) sessionStorage.setItem('olivo_tracking', JSON.stringify(nuevo));
     } catch (e) {}
   }
   function leerCampania() {
-    try { return JSON.parse(sessionStorage.getItem('olivo_tracking') || '{}'); } catch (e) { return {}; }
+    let t = {};
+    try { t = JSON.parse(sessionStorage.getItem('olivo_tracking') || '{}'); } catch (e) {}
+    // Identificadores del Meta Pixel (cookies _fbp y _fbc): el servidor los manda a la API de conversiones
+    const cookie = (n) => { const m = document.cookie.match(new RegExp('(?:^|; )' + n + '=([^;]*)')); return m ? decodeURIComponent(m[1]) : ''; };
+    const fbp = cookie('_fbp');
+    let fbc = cookie('_fbc');
+    if (!fbc && t.fbclid) fbc = 'fb.1.' + Date.now() + '.' + t.fbclid;
+    if (fbp) t.fbp = fbp;
+    if (fbc) t.fbc = fbc;
+    t.url = window.location.origin + window.location.pathname;
+    return t;
+  }
+
+  // ---------- Meta Pixel ----------
+  // fbq lo define el código del Pixel en index.html; si un bloqueador lo impide, no pasa nada.
+  function pixel(evento, datos, idEvento) {
+    try {
+      if (typeof window.fbq !== 'function') return;
+      if (idEvento) window.fbq('track', evento, datos || {}, { eventID: idEvento });
+      else window.fbq('track', evento, datos || {});
+    } catch (e) {}
   }
 
   // URL del microservicio (cPanel). Se puede cambiar con <meta name="olivo-api" content="..."> en index.html.
@@ -1796,6 +1821,8 @@
     saveState();
     updateCartUI();
     showToast(`¡Solicitud ${codigo} enviada con éxito!`);
+    // Conversión: «Lead» con el código de la cotización como ID (el servidor envía el mismo ID → Meta no lo cuenta doble)
+    pixel('Lead', { content_name: 'Solicitud de cotización', content_category: 'Portal mayorista', num_items: payload.items.length }, codigo);
     setView('confirmation');
   }
 
@@ -1972,6 +1999,12 @@
       });
       if (state.isCartDrawerOpen) toggleCartDrawer(false);
       if (state.filtrosAbiertos) cerrarFiltros();
+    });
+
+    // Clics en WhatsApp → evento «Contact» del Meta Pixel (botones con data-evento="whatsapp…")
+    document.addEventListener('click', (e) => {
+      const a = e.target.closest && e.target.closest('[data-evento^="whatsapp"]');
+      if (a) pixel('Contact', { content_name: a.dataset.evento });
     });
 
     // Placeholder corto en celular (el buscador es más angosto)
